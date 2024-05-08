@@ -1,4 +1,7 @@
 /**ALL ELEMENTS WILL LOAD FIRST, AND THEN THIS FUNCTION WILL BE CALLED */
+import { Player } from './src/player/player.js';
+import { InputHandler } from './src/input/input.js';
+
 window.addEventListener('load', function() {
 
 
@@ -14,16 +17,28 @@ window.addEventListener('load', function() {
     /**CLASS GAME WILL CENTRALIZE EVERY GAME ELEMENTS INSIDE OF IT */
     class Game {
         constructor(width, height) {
-            this.width = window.innerWidth;
+            this.width = width;
             this.height = height;
+            this.dudeImage = document.getElementById('dude');
+
+            /**SETTING INPUT AS A PROPERTY OF GAME CLASS */
+            this.input = new InputHandler();
+
+            /**SETTING PLAYER AS A PROPERTY OF GAME CLASS */
+            this.player = new Player(this, 10, 595 , 50, 50, 'blue', 10, 0, this.dudeImage);
         }
 
         update() {
-            console.log('update');
+            console.log(this.input.keys)
+            /**UPDATING PLAYER */
+            this.player.update(this.input);
         }
 
         draw() {
-            console.log('draw');
+
+
+            /**DRAWING PLAYER */
+            this.player.draw(ctx);
         }
     }
 
@@ -34,6 +49,7 @@ window.addEventListener('load', function() {
 
     /**GAME LOOP */
     const animate = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         game.update(ctx);
         game.draw(ctx);
         requestAnimationFrame(animate);
