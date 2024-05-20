@@ -5,7 +5,7 @@ import { InputHandler } from './src/input/input.js';
 window.addEventListener('load', function() {
 
 
-    /**GETTIN CANVAS FROM HTML AND SETTING WIDTH AND HEIGHT PROPORTIONAL 16:9 */
+    /**GETTING CANVAS FROM HTML AND SETTING WIDTH AND HEIGHT PROPORTIONAL 16:9 */
     const canvas = document.getElementById('canvas1');
     const ctx = canvas.getContext('2d');
     const viewportHeight = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
@@ -29,9 +29,10 @@ window.addEventListener('load', function() {
         }
 
         update() {
-            console.log(this.input.keys)
+
             /**UPDATING PLAYER */
             this.player.update(this.input);
+            
         }
 
         draw() {

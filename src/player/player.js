@@ -36,9 +36,10 @@ export class Player {
     }
 
     move(){
+
         /**HORIZONTAL MOVEMENT (WALK) */
-        if(this.game.input.keys.includes('ArrowRight') || this.game.input.keys.includes('d')) this.x += this.speed;
-        if(this.game.input.keys.includes('ArrowLeft') || this.game.input.keys.includes('a')) this.x -= this.speed;
+        if(this.game.input.keys.includes('ArrowRight') || this.game.input.keys.includes('d') || this.game.input.keys.includes('D')) this.x += this.speed;
+        if(this.game.input.keys.includes('ArrowLeft') || this.game.input.keys.includes('a') || this.game.input.keys.includes('A')) this.x -= this.speed;
 
         /**VERTICAL MOVEMENT (JUMP) */
         if(this.game.input.keys.includes(' ') && this.isOnGround()) this.velocityY -= 20;
