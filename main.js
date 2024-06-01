@@ -2,6 +2,7 @@
 import { Player } from './src/player/player.js';
 import { InputHandler } from './src/input/input.js';
 import { Background } from './src/background/background.js';
+import { Hud } from './src/hud/hud.js';
 
 window.addEventListener('load', function() {
 
@@ -22,12 +23,18 @@ window.addEventListener('load', function() {
             this.height = height;
 
             /**PLAYER SPRITESHEET */
-            this.dudeImage = document.getElementById('dude');
+            //this.dudeImage = document.getElementById('dude');
 
-            /**BACKGROUND IMAGE*/
+            /**GAME ASSETS*/
             this.backgroundScene1 = document.getElementById('backgroundScene1');
             this.backgroundScene2 = document.getElementById('backgroundScene2');
             this.backgroundScene3 = document.getElementById('backgroundScene3');
+            this.logo = document.getElementById('logo');
+            this.akemiImages = document.getElementsByClassName('akemi');
+
+
+            /**HUD*/
+            this.hud = new Hud(this, 0, 0, this.width, this.height, [this.logo]);
 
 
 
@@ -35,7 +42,7 @@ window.addEventListener('load', function() {
             this.input = new InputHandler();
 
             /**SETTING PROPERTIES FOR GAME CLASS */
-            this.player = new Player(this, 10, 595 , 50, 50, 'blue', 10, 0, this.dudeImage);
+            //this.player = new Player(this, 10, 595 , 50, 50, 'blue', 10, 0, this.dudeImage);
             this.background = new Background(this, 0, 0, this.width, this.height, 'blue', 10, 0, 0, [this.backgroundScene1]);
 
         }
@@ -43,7 +50,7 @@ window.addEventListener('load', function() {
         update() {
 
             /**UPDATING PLAYER */
-            this.player.update(this.input);
+            //this.player.update(this.input);
             
         }
 
@@ -52,9 +59,12 @@ window.addEventListener('load', function() {
             /**DRAWING BACKGROUND*/
             this.background.draw(ctx, 0);
 
+            /**DRAWING HUD */
+            this.hud.draw(ctx, 0);
+
 
             /**DRAWING PLAYER */
-            this.player.draw(ctx);
+            //this.player.draw(ctx);
         }
     }
 
