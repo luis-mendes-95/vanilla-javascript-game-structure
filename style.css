@@ -14,6 +14,6 @@
     height: 100vh;
 }
 
-#dude {
+.character, .background {
     display: none;
 }

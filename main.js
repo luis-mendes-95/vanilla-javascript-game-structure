@@ -1,6 +1,7 @@
 /**ALL ELEMENTS WILL LOAD FIRST, AND THEN THIS FUNCTION WILL BE CALLED */
 import { Player } from './src/player/player.js';
 import { InputHandler } from './src/input/input.js';
+import { Background } from './src/background/background.js';
 
 window.addEventListener('load', function() {
 
@@ -19,13 +20,24 @@ window.addEventListener('load', function() {
         constructor(width, height) {
             this.width = width;
             this.height = height;
+
+            /**PLAYER SPRITESHEET */
             this.dudeImage = document.getElementById('dude');
+
+            /**BACKGROUND IMAGE*/
+            this.backgroundScene1 = document.getElementById('backgroundScene1');
+            this.backgroundScene2 = document.getElementById('backgroundScene2');
+            this.backgroundScene3 = document.getElementById('backgroundScene3');
+
+
 
             /**SETTING INPUT AS A PROPERTY OF GAME CLASS */
             this.input = new InputHandler();
 
-            /**SETTING PLAYER AS A PROPERTY OF GAME CLASS */
+            /**SETTING PROPERTIES FOR GAME CLASS */
             this.player = new Player(this, 10, 595 , 50, 50, 'blue', 10, 0, this.dudeImage);
+            this.background = new Background(this, 0, 0, this.width, this.height, 'blue', 10, 0, 0, [this.backgroundScene1]);
+
         }
 
         update() {
@@ -36,6 +48,9 @@ window.addEventListener('load', function() {
         }
 
         draw() {
+
+            /**DRAWING BACKGROUND*/
+            this.background.draw(ctx, 0);
 
 
             /**DRAWING PLAYER */

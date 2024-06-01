@@ -16,8 +16,6 @@ export class Player {
 
     update() {
         this.move();
-        console.log(this.isOnGround());
-
     }
 
     draw(ctx) {
