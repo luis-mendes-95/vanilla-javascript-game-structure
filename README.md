@@ -11,3 +11,6 @@ object oriented structure for games development with vanilla javascript
 2 - Background
     Creates a dynamic background that can be changed anytime during the game, fitting the perfect size of
     the canvas and align it starting from the bottom
+
+3 - HUD
+    Central element where will be placed the texts and images with behavior and transition effects.

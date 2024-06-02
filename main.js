@@ -32,9 +32,8 @@ window.addEventListener('load', function() {
             this.logo = document.getElementById('logo');
             this.akemiImages = document.getElementsByClassName('akemi');
 
-
             /**HUD*/
-            this.hud = new Hud(this, 0, 0, this.width, this.height, [this.logo]);
+            this.hud = new Hud(this, 0, 0, this.width, this.height, [this.logo, this.akemiImages[0]]);
 
 
 
@@ -49,8 +48,9 @@ window.addEventListener('load', function() {
 
         update() {
 
-            /**UPDATING PLAYER */
+            /**UPDATING COMPONENTS */
             //this.player.update(this.input);
+            this.hud.update();
             
         }
 
