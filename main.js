@@ -34,6 +34,15 @@ window.addEventListener('load', function() {
             this.gameTitleImage = document.getElementById('gameTitle');
             this.buttonStart = document.getElementById('buttonStart');
 
+            /**LOADING FONTS*/
+            let font = new FontFace('PatrickHand', 'url(./src/assets/fonts/PatrickHand-Regular.ttf)');
+            font.load().then((loadedFont)=>{
+                document.fonts.add(loadedFont);
+            }).catch((error)=>{
+                console.log(error);
+            });
+
+
             /**HUD*/
             this.hud = new Hud(this, 0, 0, this.width, this.height, [this.logo, this.akemiImages[0], this.gameTitleImage, this.buttonStart]);
 
