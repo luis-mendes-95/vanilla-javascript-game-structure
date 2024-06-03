@@ -1,5 +1,5 @@
 export class StaticImage {
-    constructor(game, x, y, width, height, image, opacity) {
+    constructor(game, x, y, width, height, image, opacity, text) {
 
         this.game = game;
         this.x = x;
@@ -8,6 +8,7 @@ export class StaticImage {
         this.height = height;
         this.image = image;
         this.opacity = opacity;
+        this.text = text;
 
     }
 

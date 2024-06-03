@@ -31,9 +31,11 @@ window.addEventListener('load', function() {
             this.backgroundScene3 = document.getElementById('backgroundScene3');
             this.logo = document.getElementById('logo');
             this.akemiImages = document.getElementsByClassName('akemi');
+            this.gameTitleImage = document.getElementById('gameTitle');
+            this.buttonStart = document.getElementById('buttonStart');
 
             /**HUD*/
-            this.hud = new Hud(this, 0, 0, this.width, this.height, [this.logo, this.akemiImages[0]]);
+            this.hud = new Hud(this, 0, 0, this.width, this.height, [this.logo, this.akemiImages[0], this.gameTitleImage, this.buttonStart]);
 
 
 
