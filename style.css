@@ -15,6 +15,6 @@
     height: 100vh;
 }
 
-.character, .background, .logo, .akemi, .title, .buttons, .butterflies {
+.character, .background, .logo, .akemi, .title, .buttons, .butterflies, .clouds {
     display: none;
 }
