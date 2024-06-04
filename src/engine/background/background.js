@@ -1,5 +1,6 @@
 export class Background {
     constructor(game, x, y, width, height, color, speed, velocityY, velocityX, images) {
+
         this.game = game;
         this.x = x;
         this.y = y;
@@ -29,7 +30,7 @@ export class Background {
             const newHeight = this.width / aspectRatio;
             const newY = this.height - newHeight; 
     
-            ctx.imageSmoothingEnabled = true; 
+            ctx.imageSmoothingEnabled = true 
     
             ctx.drawImage(this.scenes[scene], this.x, newY, this.width, newHeight);
         } else {
