@@ -3,8 +3,8 @@ import { Player } from './src/engine/player/player.js';
 import { InputHandler } from './src/engine/input/input.js';
 import { Background } from './src/engine/background/background.js';
 import { Hud } from './src/engine/hud/hud.js';
-import { Scene1 } from './src/customClasses/scenes/scene1.js';
-import { Scene2 } from './src/customClasses/scenes/scene2.js';
+import { Scene1 } from './src/customClasses/scenes/scene1/scene1.js';
+import { Scene2 } from './src/customClasses/scenes/scene2/scene2.js';
 
 window.addEventListener('load', function() {
 

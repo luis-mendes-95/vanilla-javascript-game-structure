@@ -17,3 +17,7 @@ object oriented structure for games development with vanilla javascript
 
 4 - Sprite
     Sequential image that will be rendered and play an animation
+
+5 - Scene Manager
+    The scene manager is called inside the main class Game, each scene will have its own class with all updates and draws being called inside
+    each running scene.

@@ -5,7 +5,7 @@
  */
 
 export class Image {
-    constructor(game, x, y, width, height, image, opacity, text, font, fontWeight, fontSize, textX, textY, textColor, mouseHover) {
+    constructor(game, x, y, width, height, rotation, image, opacity, text, font, fontWeight, fontSize, textX, textY, textColor, mouseHover) {
 
         /**GAME*/
         this.game = game;
@@ -14,6 +14,7 @@ export class Image {
         this.x = x;
         this.y = y;
         this.scale = 1;
+        this.rotation = rotation;
 
         /**MOUSE HOVER*/
         this.mouseHover = mouseHover;
@@ -48,10 +49,12 @@ export class Image {
         ctx.globalAlpha = this.opacity;
         ctx.save(); // Save the current state of the context
         ctx.translate(this.x + this.width / 2, this.y + this.height / 2); // Move the context to the center of the image
+        ctx.rotate(this.rotation * Math.PI / 180); // Add rotation
         ctx.scale(this.scale, this.scale); // Scale the context
         ctx.translate(-(this.x + this.width / 2), -(this.y + this.height / 2)); // Move the context back
+    
         ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
-
+    
         if(this.text){
             ctx.fillStyle = this.textColor;
             if(this.fontWeight){
@@ -133,6 +136,15 @@ export class Image {
             return this.game.input.mouse.clicked;
         }
     }
+
+    rotate(degrees, speed){
+        if(this.rotation < degrees){
+            this.rotation += speed;
+        }
+        if(this.rotation > degrees){
+            this.rotation -= speed;
+        }
+      }
 
 
 

@@ -5,8 +5,6 @@
  * -> CALL IT INSIDE EACH SCENE MANAGER
  */
 
-import { Image } from "./Image/Image.js";
-
 export class Hud {
     constructor(game, x, y, width, height, images) {
 
