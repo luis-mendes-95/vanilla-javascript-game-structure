@@ -31,7 +31,9 @@ export class Image {
     }
 
     update() {
+
         this.mouseHovering();   
+
     }
 
     draw(ctx, scene) {

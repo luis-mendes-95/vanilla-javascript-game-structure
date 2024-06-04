@@ -3,6 +3,7 @@ import { Player } from './src/engine/player/player.js';
 import { InputHandler } from './src/engine/input/input.js';
 import { Background } from './src/engine/background/background.js';
 import { Hud } from './src/engine/hud/hud.js';
+import { Scene1 } from './src/customClasses/scenes/scene1.js';
 
 window.addEventListener('load', function() {
 
@@ -18,20 +19,16 @@ window.addEventListener('load', function() {
     class Game {
         constructor(width, height) {
 
+            /**CANVAS*/
             this.canvas = canvas;
+            this.ctx = ctx;
 
+            /**INPUT*/
+            this.input = new InputHandler(this);
+
+            /**WIDTH AND HEIGHT*/
             this.width = width;
             this.height = height;
-
-            /**GAME ASSETS*/
-            this.backgroundScene1 = document.getElementById('backgroundScene1');
-            this.backgroundScene2 = document.getElementById('backgroundScene2');
-            this.backgroundScene3 = document.getElementById('backgroundScene3');
-            this.logo = document.getElementById('logo');
-            this.akemiImages = document.getElementsByClassName('akemi');
-            this.gameTitleImage = document.getElementById('gameTitle');
-            this.buttonStart = document.getElementById('buttonStart');
-            this.butterfly = document.getElementById('butterflies');
 
             /**LOADING FONTS*/
             let font = new FontFace('PatrickHand', 'url(./src/assets/fonts/PatrickHand-Regular.ttf)');
@@ -41,35 +38,20 @@ window.addEventListener('load', function() {
                 console.log(error);
             });
 
-            /**HUD*/
-            this.hud = new Hud(this, 0, 0, this.width, this.height, [ this.logo, this.akemiImages[3], this.gameTitleImage, this.buttonStart, this.butterfly ]);
-
-            /**INPUT*/
-            this.input = new InputHandler(this);
-
-            /**BACKGROUND*/
-            this.background = new Background(this, 0, 0, this.width, this.height, 'blue', 10, 0, 0, [this.backgroundScene1]);
-
+            /**SCENES MANAGEMENT*/
+            this.currentScene = 0;
+            this.scenes = [
+                new Scene1(this),
+            ];
         }
 
         update(deltaTime) {
-
-            /**UPDATING COMPONENTS */
-            //this.player.update(this.input);
-            this.hud.update(deltaTime);
-            
+            this.scenes[this.currentScene].update(deltaTime);
         }
 
         draw() {
-
-            /**DRAWING BACKGROUND*/
-            this.background.draw(ctx, 0);
-
-            /**DRAWING HUD */
-            this.hud.draw(ctx, 0);
-
-            /**DRAWING PLAYER */
-            //this.player.draw(ctx);
+            /**DRAWING SCENE */
+            this.scenes[this.currentScene].draw(ctx, 0);
         }
     }
 
