@@ -18,7 +18,7 @@ export class Scene2 {
         this.cloud1 = document.getElementById('cloud1');
 
         /**BACKGROUND*/
-        this.background = new Background(this, 0, 0, (this.game.width), this.game.height, 'blue', 10, 0, 0, [this.backgroundScene2]);
+        this.background = new Background(this, 0, 0, (this.game.width * 2), this.game.height, 'blue', 10, 0, 0, [this.backgroundScene2]);
            
         /**HUD*/
         this.hud = new AkemiHUD(this.game, 0, 0, this.width, this.height, [ this.logo, this.akemiImages[3], this.gameTitleImage, this.buttonStart, this.butterfly, this.cloud1 ]);
@@ -84,7 +84,7 @@ export class Scene2 {
         /**MANAGE THE MOVING ELEMENTS IN HUD, ENTERING AND GETTING OUT */
         if(this.game.scenes[1].calledNextScene && !this.game.scenes[1].enterNextScene){
 
-            this.hud.imageAkemi.moveTo((this.width * 0.13), (this.height * 2), 0.5);
+            this.hud.imageAkemi.moveTo((this.width * 0.08), (this.height * 2), 0.5);
             this.hud.imageAkemi.fadeOut(0.05);
             this.hud.buttonStart.moveTo((this.width * 0.6), (this.height * 2.5), 8);
 
@@ -95,7 +95,7 @@ export class Scene2 {
 
         } else {
 
-            this.hud.imageAkemi.moveTo((this.width * 0.13), (this.height * 0.2), 0.5);
+            this.hud.imageAkemi.moveTo((this.width * 0.08), (this.height * 0.2), 0.5);
             this.hud.imageAkemi.fadeIn(0.05);
             this.hud.buttonStart.moveTo((this.width * 0.6), (this.height * 0.71), 8);
         }
@@ -105,13 +105,26 @@ export class Scene2 {
 
     draw(ctx, scene) {
 
-        this.background.draw(this.game.ctx, 0);
+        /**PAINT CANVAS BLUE */
+         // Create gradient
+        let grd = ctx.createLinearGradient(0, 0, 0, this.game.height);
+        grd.addColorStop(0, 'lightblue');   // Blue at the top
+        grd.addColorStop(1, 'white');  // White at the bottom
+
+        // Fill with gradient
+        ctx.fillStyle = grd;
+        ctx.fillRect(0, 0, this.game.width, this.game.height);
+        
+
+
+
 
         this.hud.cloud1.draw(ctx, 0);
         this.hud.cloud2.draw(ctx, 0);
         this.hud.cloud3.draw(ctx, 0);
         this.hud.cloud4.draw(ctx, 0);
         this.hud.cloud5.draw(ctx, 0);
+        this.background.draw(this.game.ctx, 0);
         this.hud.imageLogo.draw(ctx, 0);
         this.hud.imageAkemi.draw(ctx, 0);
         this.hud.imageTitle.draw(ctx, 0);

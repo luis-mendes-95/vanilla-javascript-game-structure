@@ -84,7 +84,7 @@ export class Scene1 {
         if(this.game.scenes[0].calledNextScene && !this.game.scenes[0].enterNextScene){
             this.hud.imageTitle.moveTo((this.width * 0.5), (-this.game.height * 0.5), 5);
             this.hud.imageLogo.moveTo((this.width * 0.02), (-this.game.height * 0.2), 2);
-            this.hud.imageAkemi.moveTo((this.width * 0.13), (this.height * 2), 0.5);
+            this.hud.imageAkemi.moveTo((this.width * 0.08), (this.height * 2), 0.5);
             this.hud.imageAkemi.fadeOut(0.05);
             this.hud.buttonStart.moveTo((this.width * 0.6), (this.height * 2.5), 8);
 
@@ -96,7 +96,7 @@ export class Scene1 {
         } else {
             this.hud.imageTitle.moveTo((this.width * 0.5), (this.height * 0.05), 5);
             this.hud.imageLogo.moveTo((this.width * 0.02), (this.height * 0.02), 2);
-            this.hud.imageAkemi.moveTo((this.width * 0.13), (this.height * 0.2), 0.5);
+            this.hud.imageAkemi.moveTo((this.width * 0.08), (this.height * 0.2), 0.5);
             this.hud.imageAkemi.fadeIn(0.05);
             this.hud.buttonStart.moveTo((this.width * 0.6), (this.height * 0.71), 8);
         }
@@ -105,6 +105,16 @@ export class Scene1 {
     }
 
     draw(ctx, scene) {
+
+         /**PAINT CANVAS BLUE */
+         // Create gradient
+         let grd = ctx.createLinearGradient(0, 0, 0, this.game.height);
+         grd.addColorStop(0, 'lightblue');   // Blue at the top
+         grd.addColorStop(1, 'white');  // White at the bottom
+ 
+         // Fill with gradient
+         ctx.fillStyle = grd;
+         ctx.fillRect(0, 0, this.game.width, this.game.height);
 
         this.background.draw(this.game.ctx, 0);
 
