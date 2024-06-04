@@ -95,10 +95,13 @@ export class Scene2 {
         this.hud.dialogueArrow.fadeIn(0.05);
         this.hud.dialogueArrow.moveTo((this.width * 0.327), (this.height * 0.283), 6.1);
         this.hud.dialogueBox.moveTo((this.width * 0.35), (this.height * 0.15), 5);
+        
 
         this.hud.namePanel.update();
         this.hud.namePanel.moveTo((this.width * 0.55), (this.height * 0.4), 6);
         this.hud.namePanel.rotate(0, 0.7);
+
+
 
 
     }
@@ -128,6 +131,8 @@ export class Scene2 {
         this.hud.imageAkemi.draw(ctx, 0);
         this.hud.dialogueBox.draw(ctx, 0);
         this.hud.dialogueArrow.draw(ctx, 0);
+
+        //this.hud.inputText.draw(ctx, 0);
 
 
 

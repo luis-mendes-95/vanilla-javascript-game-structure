@@ -40,7 +40,7 @@ window.addEventListener('load', function() {
             });
 
             /**SCENES MANAGEMENT*/
-            this.currentScene = 0;
+            this.currentScene = 1;
             this.scenes = [
                 new Scene1(this),
                 new Scene2(this),

@@ -2,6 +2,7 @@ import { Hud } from "../../../engine/hud/hud.js";
 import { Image } from "../../../engine/hud/Image/Image.js";
 import { Sprite } from "../../../engine/hud/sprite/sprite.js"
 import { DialogueBox } from "../../../engine/hud/dialogueBox/dialogueBox.js";
+import { inputBox } from "../../../engine/hud/inputBox/inputBox.js";
 
 export class AkemiHUD extends Hud {
     constructor(game, x, y, width, height, images) {
@@ -33,6 +34,8 @@ export class AkemiHUD extends Hud {
         this.dialogueBox = new DialogueBox(this.game, (this.width * 0.35), (this.height * -0.5), (this.width * 0.42), (this.game.height * 0.20), 0, this.images[6], 0, this.dialogueText, "PatrickHand", "bold", 7, 1.09, 1.56, "black", true);
         this.dialogueArrow = new Image(this.game, (this.width * 0.327), (this.height * -0.5), (this.width * 0.05), (this.game.height * 0.10), 0, this.images[7], 0);
    
+        this.inputText = new inputBox(this.game, (this.width * 0.35), (this.height * 0.5), (this.width * 0.42), (this.game.height * 0.20), 0, this.images[6], 1, null, "PatrickHand", "bold", 7, 1.09, 1.56, "black", true);
+
         this.namePanel = new Image(this.game, (this.width * 1.4), (this.height * 1.9), (this.width * 0.42), (this.game.height * 0.60), 110, this.images[8], 1, "", "PatrickHand", "bold", 7, 1.09, 1.56, "black", false);
    
     }
