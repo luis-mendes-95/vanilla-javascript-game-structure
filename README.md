@@ -14,3 +14,6 @@ object oriented structure for games development with vanilla javascript
 
 3 - HUD
     Central element where will be placed the texts and images with behavior and transition effects.
+
+4 - Sprite
+    Sequential image that will be rendered and play an animation
