@@ -5,6 +5,7 @@ import { Background } from './src/engine/background/background.js';
 import { Hud } from './src/engine/hud/hud.js';
 import { Scene1 } from './src/customClasses/scenes/scene1/scene1.js';
 import { Scene2 } from './src/customClasses/scenes/scene2/scene2.js';
+import { Scene3 } from './src/customClasses/scenes/scene3/scene3.js';
 
 window.addEventListener('load', function() {
 
@@ -33,6 +34,7 @@ window.addEventListener('load', function() {
             /**PLAYER NAME*/
             this.playerName = "";
             this.playerPoints = 0;
+            this.difficulty = "";
 
             /**WIDTH AND HEIGHT*/
             this.width = width;
@@ -51,6 +53,7 @@ window.addEventListener('load', function() {
             this.scenes = [
                 new Scene1(this),
                 new Scene2(this),
+                new Scene3(this)
             ];
         }
 

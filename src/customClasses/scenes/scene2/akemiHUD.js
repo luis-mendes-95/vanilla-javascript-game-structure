@@ -36,7 +36,25 @@ export class AkemiHUD extends Hud {
         this.cloud5 = new Image(this.game, (this.width * 0.5), (this.height * 0.05), (this.width * 0.06), (this.game.height * 0.06), 0, this.images[5], 0.4);
    
         this.dialogueText = ["OLÁ, MEU NOME É AKEMI!", "QUAL É O SEU NOME?"]
-        this.dialogueBox = new DialogueBox(this.game, (this.width * 0.35), (this.height * -0.5), (this.width * 0.42), (this.game.height * 0.20), 0, this.images[6], 0, this.dialogueText, 50, "PatrickHand", "bold", 7, 1.09, 1.56, "black", true);
+        this.dialogueBox = new DialogueBox(
+            this.game,
+            (this.width * 0.35),
+            (this.height * -0.5),
+            (this.width * 0.42),
+            (this.game.height * 0.20),
+            0,
+            this.images[6],
+            0,
+            this.dialogueText,
+            50,
+            "PatrickHand",
+            "bold",
+            7,
+            (this.width * 0.38),
+            (this.height * -0.42),
+            "black",
+            true
+        );
         this.dialogueArrow = new Image(this.game, (this.width * 0.327), (this.height * -0.5), (this.width * 0.05), (this.game.height * 0.10), 0, this.images[7], 0);
    
         this.dialogueText2 = [`${this.game.playerName}! PRECISO DA SUA AJUDA!`, "PRECISO COLHER FRUTAS, FLORES E LEGUMES PARA", "SEREM VENDIDOS NA FEIRA DA CIDADE! PARA ME ", "AJUDAR, VOCÊ DEVE COLHER O NÚMERO EXATO ", "DESSES PRODUTOS QUE EU LHE PEDIR!", "VAMOS COMEÇAR?"]
@@ -47,11 +65,47 @@ export class AkemiHUD extends Hud {
         this.dialogueBox3 = new DialogueBox(this.game, (this.width * 0.35), (this.height * 0.18), (this.width * 0.42), (this.game.height * 0.09), 0, this.images[6], 0, this.dialogueText3, 30, "PatrickHand", "bold", 5.3, 1.07, 1.35, "black", true);
         this.dialogueArrow3 = new Image(this.game, (this.width * 0.33), (this.height * 0.21), (this.width * 0.045), (this.game.height * 0.10), 0, this.images[7], 0);
 
-        this.inputText = new InputBox(this.game, (this.width * 1.9), (this.height * 0.525), (this.width * 0.32), (this.game.height * 0.10), 110, this.images[6], 0, null, 50, "PatrickHand", "bold", 7, 1.05, 1.15, "black", true);
+        this.inputText = new InputBox(
+            this.game,
+            (this.width * 0.5),
+            (this.height * 0.525),
+            (this.width * 0.32),
+            (this.game.height * 0.10),
+            0,
+            this.images[6],
+            0,
+            null,
+            50,
+            "PatrickHand",
+            "bold",
+            7,
+            (this.width * 0.51),
+            (this.height * 0.6),
+            "black",
+            true
+        );
 
         this.namePanel = new Image(this.game, (this.width * 1.4), (this.height * 1.9), (this.width * 0.42), (this.game.height * 0.60), 110, this.images[8], 1, "", 50, "PatrickHand", "bold", 7, 1.09, 1.56, "black", false);
    
-        this.buttonContinue = new Image(this.game, (this.width * 1.2), (this.height * 1.43), (this.width * 0.15), (this.game.height * 0.20), -30, this.images[3], 1, "CONTINUAR", 50, "PatrickHand", "bold", 4, 1.03, 1.085, "black", true);
+        this.buttonContinue = new Image(
+            this.game,
+            (this.width * 1.2),
+            (this.height * 1.43),
+            (this.width * 0.15),
+            (this.game.height * 0.20),
+            -30,
+            this.images[3],
+            1,
+            "CONTINUAR",
+            50,
+            "PatrickHand",
+            "bold",
+            4,
+            (this.width * 1.23),
+            (this.height * 1.5),
+            "black",
+            true
+        );
         this.buttonContinue2 = new Image(this.game, (this.width * 0.6), (this.height * 1.2), (this.width * 0.20), (this.game.height * 0.25), 0, this.images[3], 1, "CONTINUAR", 50, "PatrickHand", "bold", 5, 1.07, 1.1, "black", true);
     
         this.difficultyPanel = new Image(this.game, (this.width * 0.6), (this.height * -0.9), (this.width * 0.22), (this.game.height * 0.60), 0, this.images[9], 1, "", 50, "PatrickHand", "bold", 7, 1.09, 1.56, "black", false);

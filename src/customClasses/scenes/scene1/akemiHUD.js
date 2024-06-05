@@ -11,7 +11,23 @@ export class AkemiHUD extends Hud {
         this.imageAkemi = new Image(this.game, (this.width * 0.08), (this.height * 0.25), this.game.width * 0.34, this.game.height * 0.8, 0, this.images[1], 0);
         this.imageTitle = new Image(this.game, (this.width * 0.5), (this.height * -0.5), (this.width * 0.35), this.game.height * 0.20, 0, this.images[2], 1);
         
-        this.buttonStart = new Image(this.game, (this.width * 0.6), (this.height * 2.5), (this.width * 0.2), (this.game.height * 0.30), 0, this.images[3], 1, "INICIAR", 50, "PatrickHand", "bold", 7, 1.08, 1.16, "black", true);
+        this.buttonStart = new Image(
+             this.game,
+             (this.width * 0.6),
+             (this.height * 1.5),
+             (this.width * 0.2),
+             (this.game.height * 0.30),
+             0, this.images[3],
+             1, "INICIAR",
+             50, "PatrickHand",
+             "bold",
+             7,
+             (this.width * 0.65),
+             (this.height * 1.62),
+             "black",
+             true
+            );
+
         this.butterfly = new Sprite(
             images[4],
             this.game,

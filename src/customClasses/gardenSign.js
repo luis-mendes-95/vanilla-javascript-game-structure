@@ -1,12 +1,10 @@
-import { Image } from "../Image/Image.js";
+import { DialogueBox } from "../engine/hud/dialogueBox/dialogueBox.js";
 
-export class DialogueBox extends Image {
-    constructor(game, x, y, width, height, rotation, image, opacity, text, textSpacing, font, fontWeight, fontSize, textX, textY, textColor, mouseHover) {
+export class GardenSign extends DialogueBox {
+    constructor(game, x, y, width, height, rotation, image, opacity, text, textSpacing, font, fontWeight, fontSize, textX, textY, textColor, mouseHover, title) {
         super(game, x, y, width, height, rotation, image, opacity, text, textSpacing, font, fontWeight, fontSize, textX, textY, textColor, mouseHover);
         
-        this.dialogueText = text; /**ARRAY OF TEXTS */
-        this.textSpacing = textSpacing;
-        
+        this.title = title; // Title of the dialogue box
     }
 
     draw(ctx) {
@@ -28,5 +26,23 @@ export class DialogueBox extends Image {
         ctx.globalAlpha = 1.0; // Reset to default
     }
 
+    moveTo(x, y, speed){
+        if(this.x < x){
+            this.x += speed;
+            this.textX += speed;
+        }
+        if(this.x > x){
+            this.x -= speed;
+            this.textX -= speed;
+        }
+        if(this.y < y){
+            this.y += speed;
+            this.textY += speed;
 
+        }
+        if(this.y > y){
+            this.y -= speed;
+            this.textY -= speed;
+        }
+    }
 }

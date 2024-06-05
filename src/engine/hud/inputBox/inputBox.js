@@ -39,11 +39,11 @@ export class InputBox extends Image {
         // Draw the current input text
         ctx.fillStyle = this.textColor;
         ctx.font = `${this.fontSize * this.scale}vh ${this.font}`;
-        ctx.fillText(this.currentInputText, this.x * this.textX, this.y * this.textY);
+        ctx.fillText(this.currentInputText, this.textX , this.textY);
 
         // Draw the cursor
         if (this.cursorVisible) {
-            ctx.fillRect((this.x * this.textX) + (ctx.measureText(this.currentInputText).width), this.y * this.textY, 10, this.fontSize * this.scale);
+            ctx.fillRect((this.textX) + (ctx.measureText(this.currentInputText).width), this.textY, 10, this.fontSize * this.scale);
         }
 
         ctx.restore(); // Restore the context to its previous state

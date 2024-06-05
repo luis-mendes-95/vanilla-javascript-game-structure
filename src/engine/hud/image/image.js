@@ -64,7 +64,7 @@ export class Image {
             } else {
                 ctx.font = `${this.fontSize * this.scale}vh ${this.font}`;
             }
-            ctx.fillText(this.text, (this.x * this.textX), (this.y * this.textY));
+            ctx.fillText(this.text, (this.textX), (this.textY));
         }
         ctx.restore(); // Restore the context to its previous state
         ctx.globalAlpha = 1.0; // Reset to default
@@ -74,15 +74,20 @@ export class Image {
     moveTo(x, y, speed){
         if(this.x < x){
             this.x += speed;
+            this.textX += speed;
         }
         if(this.x > x){
             this.x -= speed;
+            this.textX -= speed;
         }
         if(this.y < y){
             this.y += speed;
+            this.textY += speed;
+
         }
         if(this.y > y){
             this.y -= speed;
+            this.textY -= speed;
         }
     }
     
@@ -120,8 +125,8 @@ export class Image {
                     this.game.mouseOverCount = (this.game.mouseOverCount || 0) + 1;
                 }
     
-                if(this.scale < 1.05){
-                    this.scale += 0.01;
+                if(this.scale < 1.02){
+                    this.scale += 0.005;
                 }
             } else {
                 if(this.mouseOver) {
