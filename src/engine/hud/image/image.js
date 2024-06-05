@@ -5,7 +5,7 @@
  */
 
 export class Image {
-    constructor(game, x, y, width, height, rotation, image, opacity, text, font, fontWeight, fontSize, textX, textY, textColor, mouseHover) {
+    constructor(game, x, y, width, height, rotation, image, opacity, text, textSpacing, font, fontWeight, fontSize, textX, textY, textColor, mouseHover) {
 
         /**GAME*/
         this.game = game;
@@ -18,6 +18,7 @@ export class Image {
 
         /**MOUSE HOVER*/
         this.mouseHover = mouseHover;
+        this.mouseOver = false;
 
         /**DIMENSIONS*/
         this.width = width;
@@ -35,6 +36,7 @@ export class Image {
         this.textX = textX;
         this.textY = textY;
         this.textColor = textColor;
+        this.textSpacing = textSpacing;
         
     }
 
@@ -110,24 +112,29 @@ export class Image {
     } 
     
     /**MOUSE HOVER IS DEFINED WHEN THIS CLASS IS INSTANCIATED */
-    mouseHovering(){
-        if(this.mouseHover){
-            if(this.isMouseOver(this.game.input.mouse)){
-
-                if(this.scale < 1.1){
+    mouseHovering() {
+        if(this.mouseHover) {
+            if(this.isMouseOver(this.game.input.mouse)) {
+                if(!this.mouseOver) {
+                    this.mouseOver = true;
+                    this.game.mouseOverCount = (this.game.mouseOverCount || 0) + 1;
+                }
+    
+                if(this.scale < 1.05){
                     this.scale += 0.01;
                 }
-
-                this.game.canvas.style.cursor = 'pointer'; // Change cursor to pointer
-                
             } else {
-
+                if(this.mouseOver) {
+                    this.mouseOver = false;
+                    this.game.mouseOverCount--;
+                }
+    
                 if(this.scale > 1){
                     this.scale -= 0.01;
                 }
-
-                this.game.canvas.style.cursor = 'default'; // Change cursor to pointer
             }
+    
+            this.game.canvas.style.cursor = this.game.mouseOverCount > 0 ? 'pointer' : 'default';
         }
     }
 

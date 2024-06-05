@@ -1,13 +1,12 @@
 import { Image } from "../Image/Image.js";
 
 export class DialogueBox extends Image {
-    constructor(game, x, y, width, height, rotation, image, opacity, text, font, fontWeight, fontSize, textX, textY, textColor, mouseHover) {
-        super(game, x, y, width, height, rotation, image, opacity, text, font, fontWeight, fontSize, textX, textY, textColor, mouseHover);
+    constructor(game, x, y, width, height, rotation, image, opacity, text, textSpacing, font, fontWeight, fontSize, textX, textY, textColor, mouseHover) {
+        super(game, x, y, width, height, rotation, image, opacity, text, textSpacing, font, fontWeight, fontSize, textX, textY, textColor, mouseHover);
         
         this.dialogueText = text; /**ARRAY OF TEXTS */
-
-        console.log(this.rotation)
-
+        this.textSpacing = textSpacing;
+        
     }
 
     draw(ctx) {
@@ -22,7 +21,7 @@ export class DialogueBox extends Image {
         this.dialogueText.forEach((text, index) => {
             ctx.fillStyle = this.textColor;
             ctx.font = `${this.fontSize * this.scale}vh ${this.font}`;
-            ctx.fillText(text, (this.x * this.textX), (this.y * this.textY) + (index * 50));
+            ctx.fillText(text, (this.x * this.textX), (this.y * this.textY) + (index * this.textSpacing));
         });
     
         ctx.restore(); // Restore the context to its previous state

@@ -27,6 +27,13 @@ window.addEventListener('load', function() {
             /**INPUT*/
             this.input = new InputHandler(this);
 
+            /**MOUSE EFFECTS CONTROL*/
+            this.mouseOverCount = 0;
+
+            /**PLAYER NAME*/
+            this.playerName = "";
+            this.playerPoints = 0;
+
             /**WIDTH AND HEIGHT*/
             this.width = width;
             this.height = height;
@@ -48,7 +55,6 @@ window.addEventListener('load', function() {
         }
 
         update(deltaTime) {
-            console.log(this.currentScene)
             this.scenes[this.currentScene].update(deltaTime);
         }
 
