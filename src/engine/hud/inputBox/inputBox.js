@@ -1,4 +1,4 @@
-import { Image } from "../Image/Image.js";
+import { Image } from "../image/image.js";
 
 export class InputBox extends Image {
     constructor(game, x, y, width, height, rotation, image, opacity, text, textSpacing, font, fontWeight, fontSize, textX, textY, textColor, mouseHover) {

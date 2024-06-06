@@ -1,5 +1,5 @@
 import { Hud } from "../../../engine/hud/hud.js";
-import { Image } from "../../../engine/hud/Image/Image.js";
+import { Image } from "../../../engine/hud/image/image.js";
 import { Sprite } from "../../../engine/hud/sprite/sprite.js"
 import { DialogueBox } from "../../../engine/hud/dialogueBox/dialogueBox.js";
 

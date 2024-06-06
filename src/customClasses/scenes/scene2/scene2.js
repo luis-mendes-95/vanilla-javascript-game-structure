@@ -34,7 +34,16 @@ export class Scene2 {
 
 
         /**BACKGROUND*/
-        this.background = new Background(this, 0, 0, (this.game.width * 2), this.game.height, 'blue', 10, 0, 0, [this.backgroundScene2]);
+        this.background = new Background(
+            this,
+            0,
+            0,
+            (this.game.width * 2),
+            this.game.height,
+            'blue',
+            10,
+            [this.backgroundScene2]
+        );
            
         /**HUD*/
         this.hud = new AkemiHUD(this.game, 0, 0, this.width, this.height,

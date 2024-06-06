@@ -49,7 +49,7 @@ window.addEventListener('load', function() {
             });
 
             /**SCENES MANAGEMENT*/
-            this.currentScene = 1;
+            this.currentScene = 0;
             this.scenes = [
                 new Scene1(this),
                 new Scene2(this),
@@ -59,6 +59,7 @@ window.addEventListener('load', function() {
 
         update(deltaTime) {
             this.scenes[this.currentScene].update(deltaTime);
+            console.log(canvas.width, canvas.height)
         }
 
         draw() {
@@ -83,3 +84,7 @@ window.addEventListener('load', function() {
     animate(0);
 
 });
+
+window.addEventListener('resize', function() {
+    this.location.reload();
+})

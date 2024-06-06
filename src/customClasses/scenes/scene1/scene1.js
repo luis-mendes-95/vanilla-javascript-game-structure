@@ -18,17 +18,37 @@ export class Scene1 {
         this.cloud1 = document.getElementById('cloud1');
 
         /**BACKGROUND*/
-        this.background = new Background(this, 0, 0, this.game.width, this.game.height, 'blue', 10, 0, 0, [this.backgroundScene1]);
+        this.background = new Background(
+            this,   /**GAME */
+            0, /**X*/
+            0,  /**Y*/
+            this.game.width, /**WIDTH*/
+            this.game.height, /**HEIGHT*/
+            'blue', /**COLOR*/
+            10, /**SPEED*/
+            [this.backgroundScene1] /**IMAGES*/
+        );
            
         /**HUD*/
-        this.hud = new AkemiHUD(this.game, 0, 0, this.width, this.height, [ this.logo, this.akemiImages[3], this.gameTitleImage, this.buttonStart, this.butterfly, this.cloud1 ]);
+        this.hud = new AkemiHUD(
+            this.game, /**GAME */
+            0, /**X */
+            0, /**Y */
+            this.width, /**WIDTH */
+            this.height, /**HEIGHT */
+            [ this.logo, /**IMAGE[0] */
+              this.akemiImages[3], /**IMAGE[1] */
+              this.gameTitleImage, /**IMAGE[2] */
+              this.buttonStart, /**IMAGE[3] */
+              this.butterfly, /**IMAGE[4] */
+              this.cloud1 /**IMAGE[5] */
+            ]);
     
         this.calledNextScene = false;
         this.enterNextScene = false;
     }
 
     update(deltaTime) {
-        this.background.update(deltaTime);
 
         /**HANDLE MOUSE BUTTON CLICKING IN START BUTTON */
         if(this.hud.buttonStart.isMouseClicking()){
@@ -37,9 +57,18 @@ export class Scene1 {
 
 
         /**MANAGE BUTTERFLY MOVEMENT */
-        if(this.hud.buttonStart.isMouseOver(this.game.input.mouse) || this.game.scenes[0].calledNextScene){
-            this.hud.butterfly.moveTo((this.game.canvas.width * 1.25), (this.game.canvas.height * -0.35), 6);
-            this.hud.butterfly.rotate(0, 0.3)
+        if(this.hud.buttonStart.isMouseOver(this.game.input.mouse)
+        || this.game.scenes[0].calledNextScene){
+
+            /**BUTTERFLY FLIES AWAY ROTATING FROM SCREEN */
+            let newXposition = (this.game.canvas.width * 1.25);
+            let newYposition = (this.game.canvas.height * -0.35);
+            let movingSpeed = 6;
+            this.hud.butterfly.moveTo(newXposition, newYposition, movingSpeed);
+            let rotation = 0;
+            let rotationSpeed = 0.3;
+            this.hud.butterfly.rotate(rotation, rotationSpeed)
+
         } else {
             if(!this.game.scenes[0].calledNextScene){
                 this.hud.butterfly.moveTo((this.game.canvas.width * 0.7), (this.game.canvas.height * 0.64), 4);

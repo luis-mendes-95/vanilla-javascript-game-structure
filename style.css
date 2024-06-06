@@ -5,6 +5,10 @@
     overflow: hidden;
 }
 
+body{
+    background-color: #87CEEB;
+}
+
 #canvas1 {
     /*border: 5px solid green;*/
     position: absolute;
