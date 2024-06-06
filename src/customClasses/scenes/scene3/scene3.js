@@ -1,10 +1,13 @@
 import { Background } from "../../../engine/background/background.js";
-import { Hud } from "../../../engine/hud/hud.js";
 import { AkemiHUD } from "./akemiHUD.js";
 
 export class Scene3 {
     constructor(game) {
+
+        /**GAME*/
         this.game = game;
+
+        /**WIDTH AND HEIGHT*/
         this.width = this.game.width;
         this.height = this.game.height;
 
@@ -12,40 +15,57 @@ export class Scene3 {
         this.backgroundScene4 = document.getElementById('backgroundScene4');
         this.cloud1 = document.getElementById('cloud1');
         this.farmSign = document.getElementById('farmSign');
-
-        /**BUTTONS */
         this.buttonTree = document.getElementById('treeButton');
         this.buttonTreeHover = document.getElementById('treeButtonHover');
-
         this.buttonGarden = document.getElementById('gardenButton');
         this.buttonGardenHover = document.getElementById('gardenButtonHover');
-
         this.buttonFlowers = document.getElementById('flowersButton');
         this.buttonFlowersHover = document.getElementById('flowersButtonHover');
 
 
         /**BACKGROUND*/
         this.background = new Background(
-            this,
-            0,
-            0,
-            this.game.width,
-            this.game.height * 1.15,
-            'blue',
-            10,
-            [this.backgroundScene4]
+            this, /**GAME*/
+            0,  /**X */
+            0, /**Y */
+            this.game.width, /**WIDTH */
+            this.game.height * 1.15, /**HEIGHT */
+            'blue', /**COLOR */
+            10, /**SPEED */
+            [this.backgroundScene4] /**IMAGES */
         );
            
         /**HUD*/
-        this.hud = new AkemiHUD(this.game, 0, 0, this.width, this.height, [  this.cloud1, this.farmSign, this.buttonTree, this.buttonTreeHover, this.buttonGarden, this.buttonGardenHover, this.buttonFlowers, this.buttonFlowersHover]);
+        this.hud = new AkemiHUD(
+            this.game, /**GAME */
+            0, /**X */
+            0, /*Y*/
+            this.width, /*WIDTH*/
+            this.height, /*HEIGHT*/
+            [  
+                this.cloud1, /**IMAGES[0] */
+                this.farmSign, /**IMAGES[1] */
+                this.buttonTree, /**IMAGES[2] */
+                this.buttonTreeHover, /**IMAGES[3] */
+                this.buttonGarden, /**IMAGES[4] */
+                this.buttonGardenHover, /**IMAGES[5] */
+                this.buttonFlowers, /**IMAGES[6] */
+                this.buttonFlowersHover /**IMAGES[7] */
+            ]
+        );
     
+
         this.calledNextScene = false;
         this.enterNextScene = false;
     }
 
     update(deltaTime) {
 
+        /**ELEMENTS UPDATING */
         this.background.update(deltaTime);
+        this.hud.buttonTree.update(deltaTime);
+        this.hud.buttonGarden.update(deltaTime);
+        this.hud.buttonFlowers.update(deltaTime);
 
 
         /**MANAGE CLOUDS MOVEMENT*/
@@ -78,19 +98,17 @@ export class Scene3 {
 
 
 
-        /**MANAGE THE MOVING ELEMENTS IN HUD, ENTERING AND GETTING OUT */
+        /**IF BUTTON CONTINUE IS CLICKED*/
         if(this.game.scenes[2].calledNextScene && !this.game.scenes[2].enterNextScene){
 
 
 
 
-        } else {
+        } else { /**IF NONE BUTTON IS CLICKED YET */
             this.hud.dialogueBox.moveTo((this.width * 0.62), (this.height * -0.01), 5);
         }
 
-        this.hud.buttonTree.update(deltaTime);
-        this.hud.buttonGarden.update(deltaTime);
-        this.hud.buttonFlowers.update(deltaTime);
+
 
 
     }
@@ -107,18 +125,15 @@ export class Scene3 {
          ctx.fillStyle = grd;
          ctx.fillRect(0, 0, this.game.width, this.game.height);
 
+        /**ELEMENTS DRAWING */
         this.background.draw(this.game.ctx, 0);
-
         this.hud.cloud1.draw(ctx, 0);
         this.hud.cloud2.draw(ctx, 0);
         this.hud.cloud3.draw(ctx, 0);
         this.hud.cloud4.draw(ctx, 0);
         this.hud.cloud5.draw(ctx, 0);
-
         this.hud.dialogueBox.draw(ctx, 0);
-
         this.hud.buttonTree.draw(ctx, 0);
-
         this.hud.buttonFlowers.draw(ctx, 0);
         this.hud.buttonGarden.draw(ctx, 0);
 

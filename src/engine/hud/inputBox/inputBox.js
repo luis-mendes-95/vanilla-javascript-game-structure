@@ -34,21 +34,23 @@ export class InputBox extends Image {
         ctx.rotate(this.rotation * Math.PI / 180); // Add rotation
         ctx.scale(this.scale, this.scale); // Scale the context
         ctx.translate(-(this.x + this.width / 2), -(this.y + this.height / 2)); // Move the context back
-        ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
-
+        if (this.image) { // Check if image is not null
+            ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+        }
+    
         // Draw the current input text
         ctx.fillStyle = this.textColor;
         ctx.font = `${this.fontSize * this.scale}vh ${this.font}`;
         ctx.fillText(this.currentInputText, this.textX , this.textY);
-
+    
         // Draw the cursor
         if (this.cursorVisible) {
             ctx.fillRect((this.textX) + (ctx.measureText(this.currentInputText).width), this.textY, 10, this.fontSize * this.scale);
         }
-
+    
         ctx.restore(); // Restore the context to its previous state
         ctx.globalAlpha = 1.0; // Reset to default
-
+    
         // Toggle cursor visibility every 500ms
         if (Date.now() - this.lastCursorChange > 500) {
             this.cursorVisible = !this.cursorVisible;

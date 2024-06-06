@@ -9,13 +9,110 @@ export class AkemiHUD extends Hud {
     constructor(game, x, y, width, height, images) {
         super(game, x, y, width, height, images);
       
-        this.cloud1 = new Image(this.game, (this.width * 0.1), (this.height * 0.05), (this.width * 0.15), (this.game.height * 0.15), 0, this.images[0], 0.9);
-        this.cloud2 = new Image(this.game, (this.width * 0.7), (this.height * 0.05), (this.width * 0.12), (this.game.height * 0.12), 0, this.images[0], 0.7);
-        this.cloud3 = new Image(this.game, (this.width * 0.6), (this.height * 0.05), (this.width * 0.1), (this.game.height * 0.1), 0, this.images[0], 0.5);
-        this.cloud4 = new Image(this.game, (this.width * 0.9), (this.height * 0.05), (this.width * 0.08), (this.game.height * 0.08), 0, this.images[0], 0.3);
-        this.cloud5 = new Image(this.game, (this.width * 0.5), (this.height * 0.05), (this.width * 0.06), (this.game.height * 0.06), 0, this.images[0], 0.4);
+        this.cloud1 = new Image(
+            this.game, /**GAME */
+            (this.width * 0.1), /**X */
+            (this.height * 0.05), /**Y */
+            (this.width * 0.15), /**WIDTH */
+            (this.game.height * 0.15), /**HEIGHT */
+            0, /**ROTATION */ 
+            this.images[0], /**IMAGE */
+            0.9, /**OPACITY */
+            null, /**TEXT */
+            null, /**TEXT SPACING */
+            null, /**TEXT FONT */
+            null, /**FONT WEIGHT */
+            null, /**FONT SIZE */
+            null, /**TEXT X */
+            null, /**TEXT Y */
+            null, /**TEXT COLOR */
+            false /**MOUSE HOVER */
+        );
+
+        this.cloud2 = new Image(
+            this.game,  /**GAME */
+            (this.width * 0.7), /**X */
+            (this.height * 0.05), /**Y */    
+            (this.width * 0.12), /**WIDTH */
+            (this.game.height * 0.12), /**HEIGHT */
+            0, /**ROTATION */
+            this.images[0], /**IMAGE */
+            0.7, /**OPACITY */
+            null, /**TEXT */
+            null, /**TEXT SPACING */
+            null, /**TEXT FONT */
+            null, /**FONT WEIGHT */
+            null, /**FONT SIZE */
+            null, /**TEXT X */
+            null, /**TEXT Y */
+            null, /**TEXT COLOR */
+            false /**MOUSE HOVER */
+        );
+        this.cloud3 = new Image(
+            this.game,  /**GAME */
+            (this.width * 0.6), /**X */
+            (this.height * 0.05), /**Y */  
+            (this.width * 0.1), /**WIDTH */
+            (this.game.height * 0.1), /**HEIGHT */
+            0, /**ROTATION */ 
+            this.images[0], /**IMAGE */
+            0.5, /**OPACITY */
+            null, /**TEXT */
+            null, /**TEXT SPACING */
+            null, /**TEXT FONT */
+            null, /**FONT WEIGHT */
+            null, /**FONT SIZE */
+            null, /**TEXT X */
+            null, /**TEXT Y */
+            null, /**TEXT COLOR */
+            false /**MOUSE HOVER */
+        );
+
+        this.cloud4 = new Image(
+            this.game, /**GAME */
+            (this.width * 0.9), /**X */
+            (this.height * 0.05), /**Y */
+            (this.width * 0.08), /**WIDTH */
+            (this.game.height * 0.08), /**HEIGHT */
+            0, /**ROTATION */
+            this.images[0], /**IMAGE */
+            0.3, /**OPACITY */
+            null, /**TEXT */
+            null, /**TEXT SPACING */
+            null, /**TEXT FONT */
+            null, /**FONT WEIGHT */
+            null, /**FONT SIZE */
+            null, /**TEXT X */
+            null, /**TEXT Y */
+            null, /**TEXT COLOR */
+            false /**MOUSE HOVER */
+
+        );
+        this.cloud5 = new Image(
+            this.game, /**GAME */
+            (this.width * 0.5), /**X */
+            (this.height * 0.05), /**Y */
+            (this.width * 0.06), /**WIDTH */
+            (this.game.height * 0.06), /**HEIGHT */
+            0, /**ROTATION */
+            this.images[0], /**IMAGE */
+            0.4, /**OPACITY */
+            null, /**TEXT */
+            null, /**TEXT SPACING */
+            null, /**TEXT FONT */
+            null, /**FONT WEIGHT */
+            null, /**FONT SIZE */
+            null, /**TEXT X */
+            null, /**TEXT Y */
+            null, /**TEXT COLOR */
+            false /**MOUSE HOVER */
+        );
    
-        this.dialogueText = ["CLIQUE EM UMA DAS ÁREAS:", "POMAR, HORTA, JARDIM"]
+        this.dialogueText = [
+            "CLIQUE EM UMA DAS ÁREAS:", /*TEXTS[0]*/
+            "POMAR, HORTA, JARDIM" /*TEXTS[1]*/
+        ]
+
         this.dialogueBox = new GardenSign(
             this.game,  /**GAME*/
             (this.width * 0.62), /**X*/
@@ -26,12 +123,12 @@ export class AkemiHUD extends Hud {
             this.images[1], /**IMAGE*/
             1, /**OPACITY */
             this.dialogueText,/**TEXT*/
-            36, /**TEXT SPACING */
+            (this.height * 0.07), /**TEXT SPACING */
             "PatrickHand", /**FONT*/
             "bold", /**FONT WEIGHT*/
-            4.8, /**FONT SIZE*/
-            (this.width * 0.62), /**TEXT X*/
-            (this.height * 0.2), /**TEXT Y*/
+            4.7, /**FONT SIZE*/
+            (this.width * 0.64), /**TEXT X*/
+            (this.height * 0.31), /**TEXT Y*/
             "black", /**TEXT COLOR*/
             true /**MOUSE HOVER*/
         );

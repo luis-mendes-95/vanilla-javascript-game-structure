@@ -55,17 +55,18 @@ window.addEventListener('load', function() {
                 new Scene2(this),
                 new Scene3(this)
             ];
+
         }
 
         update(deltaTime) {
             this.scenes[this.currentScene].update(deltaTime);
-            console.log(canvas.width, canvas.height)
         }
 
         draw() {
             /**DRAWING SCENE */
             this.scenes[this.currentScene].draw(ctx, 0);
         }
+        
     }
 
     /**INSTANTIATING THE GAME CLASS */
