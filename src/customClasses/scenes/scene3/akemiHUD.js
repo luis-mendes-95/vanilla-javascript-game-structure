@@ -1,9 +1,7 @@
 import { Hud } from "../../../engine/hud/hud.js";
 import { Image } from "../../../engine/hud/image/image.js";
-import { ImageHover } from "../../../engine/hud/imageHover/imageHover.js";
-import { Sprite } from "../../../engine/hud/sprite/sprite.js"
-import { DialogueBox } from "../../../engine/hud/dialogueBox/dialogueBox.js";
 import { GardenSign } from "../../gardenSign.js";
+import { ButtonTree } from "../../buttonTree.js";
 
 export class AkemiHUD extends Hud {
     constructor(game, x, y, width, height, images) {
@@ -133,9 +131,68 @@ export class AkemiHUD extends Hud {
             true /**MOUSE HOVER*/
         );
 
-        this.buttonTree = new ImageHover(this.game, (this.width * - 0.01), (this.height * - 0.08), (this.width * 0.5), (this.game.height * 0.85), 0, this.images[2], this.images[3], 0.99, "", 25, "PatrickHand", "bold", 7, 1.09, 1.56, "black", true);
-        this.buttonGarden = new ImageHover(this.game, 0, (this.height * 0.55), (this.width), (this.game.height * 0.45), 0, this.images[4], this.images[5], 0.99, "", 25, "PatrickHand", "bold", 7, 1.09, 1.56, "black", true);
-        this.buttonFlowers = new ImageHover(this.game, (this.width * 0.44), (this.height * 0.2), (this.width * 0.6), (this.game.height * 0.55), 0, this.images[6], this.images[7], 0.99, "", 25, "PatrickHand", "bold", 7, 1.09, 1.56, "black", true);
+        this.buttonTree = new ButtonTree(
+            this.game, /**GAME */
+            (this.width * - 0.01), /**X */
+            (this.height * - 0.08), /**Y */
+            (this.width * 0.5), /**WIDTH */
+            (this.game.height * 0.85), /**HEIGHT */
+            0, /**ROTATION */
+            this.images[2], /**IMAGE */
+            this.images[3], /**HOVER IMAGE */
+            0.99, /**OPACITY */
+            "", /**TEXT */
+            25, /**TEXT SPACING */
+            "PatrickHand", /**FONT */
+            "bold", /**FONT WEIGHT */
+            7, /**FONT SIZE */
+            1.09, /**TEXT X */
+            1.56, /**TEXT Y */
+            "black", /**TEXT COLOR */
+            true /**MOUSE HOVER */
+        );
+
+        this.buttonGarden = new ButtonTree(
+            this.game, /**GAME */
+            0, /**X */
+            (this.height * 0.55), /**Y */
+            (this.width), /**WIDTH */
+            (this.game.height * 0.45), /**HEIGHT */
+            0, /**ROTATION */
+            this.images[4], /**IMAGE */
+            this.images[5], /**HOVER IMAGE */
+            0.99, /**OPACITY */
+            "", /**TEXT */
+            25, /**TEXT SPACING */
+            "PatrickHand", /**FONT */
+            "bold", /**FONT WEIGHT */
+            7, /**FONT SIZE */
+            1.09, /**TEXT X */
+            1.56, /**TEXT Y */
+            "black", /**TEXT COLOR */
+            true, /**MOUSE HOVER */
+        );
+        
+        this.buttonFlowers = new ButtonTree(
+            this.game, /**GAME */
+            (this.width * 0.44), /**X */
+            (this.height * 0.2), /**Y */
+            (this.width * 0.6), /**WIDTH */
+            (this.game.height * 0.55), /**HEIGHT */
+            0, /**ROTATION */
+            this.images[6], /**IMAGE */
+            this.images[7], /**HOVER IMAGE */
+            0.99, /**OPACITY */
+            "", /**TEXT */
+            25, /**TEXT SPACING */
+            "PatrickHand", /**FONT */
+            "bold", /**FONT WEIGHT */
+            7, /**FONT SIZE */
+            1.09, /**TEXT X */
+            1.56, /**TEXT Y */
+            "black", /**TEXT COLOR */
+            true /**MOUSE HOVER */
+        );
    
    
     }

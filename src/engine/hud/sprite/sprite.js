@@ -5,7 +5,7 @@
  */
 
 export class Sprite {
-  constructor(image, game, spriteWidth, SpriteHeight, sizeX, sizeY, dx, dy, maxFramX, maxFrameY, frameSpeed) {
+  constructor(image, game, spriteWidth, SpriteHeight, sizeX, sizeY, dx, dy, maxFrameX, maxFrameY, frameSpeed, rotation) {
 
     this.game = game;
     this.image = image;
@@ -16,7 +16,7 @@ export class Sprite {
     this.frameX = 0;
     this.frameY = 0;
 
-    this.maxFrameX = maxFramX;
+    this.maxFrameX = maxFrameX;
     this.maxFrameY = maxFrameY;
 
     this.spriteWidth = spriteWidth;
@@ -25,7 +25,7 @@ export class Sprite {
     this.sizeX = sizeX;
     this.sizeY = sizeY;
 
-    this.rotation = 0;
+    this.rotation = rotation;
 
     this.counter = 0;
     this.frameSpeed = frameSpeed;

@@ -84,7 +84,8 @@ export class AkemiHUD extends Hud {
              (this.height * 1.62), /**TEXT Y */
              "black", /**TEXT COLOR */
              true, /**MOUSE HOVER */
-            );
+             0
+        );
 
         console.log("dae", this.game.width, this.game.height)
 
@@ -99,7 +100,8 @@ export class AkemiHUD extends Hud {
             (this.game.canvas.height * -0.62), /**DESTINY Y */
             3, /**MAX FRAME X */
             1, /**MAX FRAME Y */
-            8 /**FRAME SPEED */
+            8, /**FRAME SPEED */
+            -200 /**ROTATION */
         );
 
         this.cloud1 = new Image(

@@ -97,6 +97,97 @@ export class Scene3 {
 
 
 
+        /**HOVERING LAYERS CONTROL -> BUTTON TREE*/
+        if(this.hud.buttonTree.isMouseOver(this.game.input.mouse)){
+
+            this.hud.buttonTree.mouseHovering();
+
+            this.hud.buttonFlowers.mouseOver = false;
+            this.hud.buttonFlowers.scale = 1;
+            this.hud.buttonFlowers.image = this.hud.buttonFlowers.originalImage;
+
+            this.hud.buttonGarden.mouseOver = false;
+            this.hud.buttonGarden.scale = 1;
+            this.hud.buttonGarden.image = this.hud.buttonGarden.originalImage;
+
+            if(this.hud.buttonFlowers.isMouseOver(this.game.input.mouse)){
+                this.hud.buttonTree.mouseHovering();
+
+                this.hud.buttonFlowers.mouseOver = false;
+                this.hud.buttonFlowers.scale = 1;
+                this.hud.buttonFlowers.image = this.hud.buttonFlowers.originalImage;
+            }
+            
+        } else {
+            this.hud.buttonTree.mouseOver = false;
+            this.hud.buttonTree.image = this.hud.buttonTree.originalImage;
+        }
+
+        /**HOVERING LAYERS CONTROL -> BUTTON FLOWERS*/
+        if(this.hud.buttonFlowers.isMouseOver(this.game.input.mouse)){
+
+            if(this.hud.buttonGarden.isMouseOver(this.game.input.mouse)){
+
+                this.hud.buttonFlowers.mouseHovering();
+
+                this.hud.buttonTree.mouseOver = false;
+                this.hud.buttonTree.scale = 1;
+                this.hud.buttonTree.image = this.hud.buttonTree.originalImage;
+    
+                this.hud.buttonGarden.mouseOver = false;
+                this.hud.buttonGarden.scale = 1;
+                this.hud.buttonGarden.image = this.hud.buttonGarden.originalImage;
+            } else {
+                this.hud.buttonFlowers.mouseHovering();
+            }
+
+            if(this.hud.buttonTree.isMouseOver(this.game.input.mouse)){
+                this.hud.buttonTree.mouseHovering();
+
+                this.hud.buttonFlowers.mouseOver = false;
+                this.hud.buttonFlowers.scale = 1;
+                this.hud.buttonFlowers.image = this.hud.buttonFlowers.originalImage;
+            }
+
+
+
+
+        } else {
+            this.hud.buttonFlowers.mouseOver = false;
+            this.hud.buttonFlowers.image = this.hud.buttonFlowers.originalImage;
+        }
+
+        /**HOVERING LAYERS CONTROL -> BUTTON GARDEN*/
+        if(this.hud.buttonGarden.isMouseOver(this.game.input.mouse)){
+
+
+            if(this.hud.buttonTree.isMouseOver(this.game.input.mouse)){
+
+            } else {
+                this.hud.buttonGarden.mouseHovering();
+
+                this.hud.buttonTree.mouseOver = false;
+                this.hud.buttonTree.image = this.hud.buttonTree.originalImage;
+    
+                this.hud.buttonFlowers.mouseOver = false;
+                this.hud.buttonFlowers.image = this.hud.buttonFlowers.originalImage;
+            }
+            
+
+
+
+        } else {
+            this.hud.buttonGarden.mouseOver = false;
+            this.hud.buttonGarden.image = this.hud.buttonGarden.originalImage;
+        }
+
+        if(!this.hud.buttonTree.isMouseOver(this.game.input.mouse) &&
+           !this.hud.buttonFlowers.isMouseOver(this.game.input.mouse) &&
+           !this.hud.buttonGarden.isMouseOver(this.game.input.mouse)){
+            this.game.canvas.style.cursor = 'default';
+        }
+
+
 
         /**IF BUTTON CONTINUE IS CLICKED*/
         if(this.game.scenes[2].calledNextScene && !this.game.scenes[2].enterNextScene){

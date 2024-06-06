@@ -128,7 +128,9 @@ export class Image {
                 if(this.scale < 1.02){
                     this.scale += 0.005;
                 }
+
             } else {
+                
                 if(this.mouseOver) {
                     this.mouseOver = false;
                     this.game.mouseOverCount--;

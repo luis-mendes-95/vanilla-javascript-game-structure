@@ -354,6 +354,7 @@ export class AkemiHUD extends Hud {
             "black", /**TEXT COLOR */
             true /**MOUSE HOVER */
         );
+        
 
         this.buttonContinue2 = new Image(
             this.game, /**GAME */
