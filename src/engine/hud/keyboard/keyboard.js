@@ -113,4 +113,24 @@ export class Keyboard {
         ctx.restore();
         ctx.globalAlpha = 1.0;
     }
+
+    moveTo(x, y, speed){
+        if(this.x < x){
+            this.x += speed;
+            this.textX += speed;
+        }
+        if(this.x > x){
+            this.x -= speed;
+            this.textX -= speed;
+        }
+        if(this.y < y){
+            this.y += speed;
+            this.textY += speed;
+
+        }
+        if(this.y > y){
+            this.y -= speed;
+            this.textY -= speed;
+        }
+    }
 }

@@ -146,7 +146,9 @@ export class Image {
     }
 
     isMouseClicking(){
+        
         if(this.isMouseOver(this.game.input.mouse)){
+            console.log("to entrando")
             return this.game.input.mouse.clicked;
         }
     }

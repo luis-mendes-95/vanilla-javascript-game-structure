@@ -23,6 +23,8 @@ export class Scene2 {
         this.dialogueBox = document.getElementById('dialogueBox');
         this.dialogueArrow = document.getElementById('dialogueArrow');
         this.namePanel = document.getElementById('namePanel');
+        this.farmSign = document.getElementById('farmSign');
+
 
         /**DIFFICULTY PANEL AND BUTTONS */
         this.difficultyPanel = document.getElementById('difficultyPanel');
@@ -73,6 +75,7 @@ export class Scene2 {
                 this.buttonMediumHover, /**13 */
                 this.buttonHard, /**14 */
                 this.buttonHardHover, /**15 */
+                this.farmSign /**16 */
             ]);
     
         /**SCENE STATES THAT RULES RENDERING CONDITIONS*/
@@ -117,6 +120,9 @@ export class Scene2 {
 
         /**WHEN BUTTON CONTINUE HAS BEEN CLICKED*/
         if(this.game.scenes[1].calledNextScene){
+
+            this.hud.keyboard.minimized = true;
+            this.hud.keyboard.moveTo((this.width * 0.01), (this.height * 1.6), 8);
 
             /**MOVE THESE ELEMENTS TO OUTSIDE SCREEN*/
             this.hud.inputText.moveTo((this.width * 1.6035), (this.height * 1.525), 9);
@@ -240,6 +246,8 @@ export class Scene2 {
             if(this.hud.buttonContinue2.isMouseClicking()){
                 this.chooseDifficulty = true;
             }
+
+            
                 
 
         } else { /**WHEN FIRST CONTINUE BUTTON IS NOT CLICKED YET*/
@@ -248,6 +256,21 @@ export class Scene2 {
             this.hud.imageAkemi.moveTo((this.width * 0.08), (this.height * 0.2), 0.5);
             this.hud.inputText.moveTo((this.width * 0.61), (this.height * 0.6), 10);
             
+
+            
+
+            if(!this.calledNextScene){
+                if(this.hud.keyboard.minimized){
+                    this.hud.keyboardSign.moveTo((this.width * 0.10), (this.height * 0.8), 8);
+                    this.hud.keyboard.moveTo((this.width * 0.01), (this.height * 1.6), 8);
+                    this.hud.keyboardSign2.moveTo((this.width * 0.02), (this.height * 1.1), 8);
+                } else {
+                    this.hud.keyboardSign.moveTo((this.width * 0.10), (this.height * 1.8), 8);
+                    this.hud.keyboard.moveTo((this.width * 0.01), (this.height * 0.6), 8);
+                    this.hud.keyboardSign2.moveTo((this.width * 0.02), (this.height * 0.05), 8);              
+                }
+            } 
+
             this.hud.namePanel.moveTo((this.width * 0.55), (this.height * 0.4), 7);
             this.hud.buttonContinue.moveTo((this.width * 0.87), (this.height * 0.84), 1.2);
             this.hud.dialogueArrow.moveTo((this.width * 0.327), (this.height * 0.283), 6.1);
@@ -279,6 +302,8 @@ export class Scene2 {
         this.hud.buttonEasy.update();
         this.hud.buttonMedium.update();
         this.hud.buttonHard.update();
+        this.hud.keyboardSign.update();
+        this.hud.keyboardSign2.update();
 
 
         /**HANDLE KEYBOARD TYPING*/
@@ -294,7 +319,9 @@ export class Scene2 {
                     }, 100);
                 } else {
                     this.hud.inputText.currentInputText += this.hud.keyboard.keys[this.hud.keyboard.selectedKey] ? this.hud.keyboard.keys[this.hud.keyboard.selectedKey] : "";
-                    this.game.input.mouse.clicked = false;
+                    setTimeout(() => {
+                        this.game.input.mouse.clicked = false;
+                    }, 10);
                     setTimeout(() => {
                         this.hud.keyboard.selectedKey = null;
                     }, 100);
@@ -317,10 +344,22 @@ export class Scene2 {
 
         }  
 
+        if(this.hud.keyboardSign.isMouseOver(this.game.input.mouse) && 
+            this.game.input.mouse.clicked ){
+            console.log("cliquei")
+            this.hud.keyboard.minimized = false;
+        }
+
+        if(this.hud.keyboardSign2.isMouseOver(this.game.input.mouse) &&
+            this.game.input.mouse.clicked ){
+            this.hud.keyboard.minimized = true;
+        }
+
 
 
         /**HANDLE MOUSE BUTTON CLICKING IN START BUTTON */
         if(this.hud.buttonContinue.isMouseClicking()){
+            
 
             /** IF USER DIDN'T TYPED A NAME, IT WON'T CALL NEXT SCENE, BUT ROTATE AS WARNING */
             if(this.hud.inputText.currentInputText === ""){
@@ -329,6 +368,10 @@ export class Scene2 {
                 this.hud.namePanel.rotate(10, 9);
 
             } else { /**IF USER TYPED A NAME, IT CALLS THE NEXT SCENE */
+
+                this.hud.keyboard.minimized = true;
+                this.hud.keyboardSign.moveTo((this.width * 0.01), (this.height * 1.6), 150);
+                this.hud.keyboardSign2.moveTo((this.width * 0.01), (this.height * 1.6), 150);
 
                 /**SET PLAYER NAME IN MAIN GAME CLASS */
                 this.game.playerName = this.hud.inputText.currentInputText;
@@ -377,6 +420,11 @@ export class Scene2 {
         this.hud.butterfly.draw(ctx);
         this.hud.buttonContinue.draw(ctx, 0);
         this.hud.keyboard.draw(ctx, 0);
+
+        if(this.game.canvas.height < 500){
+            this.hud.keyboardSign.draw(ctx, 0);
+            this.hud.keyboardSign2.draw(ctx, 0);
+        }
 
         /**CONDITIONAL DRAWNING -> IF CALL NEXT SCENE STATE IS TRUE*/
         if(this.calledNextScene){

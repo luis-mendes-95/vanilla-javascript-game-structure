@@ -5,6 +5,7 @@ import { DialogueBox } from "../../../engine/hud/dialogueBox/dialogueBox.js";
 import { InputBox } from "../../../engine/hud/inputBox/inputBox.js";
 import { ImageHover } from "../../../engine/hud/imageHover/imageHover.js";
 import { Keyboard } from "../../../engine/hud/keyboard/keyboard.js";
+import { KeyboardSign } from "../../keyboardSign.js";
 
 export class AkemiHUD extends Hud {
     constructor(game, x, y, width, height, images) {
@@ -241,6 +242,7 @@ export class AkemiHUD extends Hud {
             "black", /**TEXT COLOR */
             true /**MOUSE HOVER */
         );
+
         this.dialogueArrow2 = new Image(
             this.game,
             (this.width * 0.33),
@@ -319,7 +321,7 @@ export class AkemiHUD extends Hud {
         this.keyboard = new Keyboard(
             this.game, /**GAME */
             (this.width * 0.01), /**X */
-            (this.height * 0.6), /**Y */
+            (this.height * 1.6), /**Y */
             (this.width * 0.54), /**WIDTH */
             (this.game.height * 0.35), /**HEIGHT */
             0, /**ROTATION */
@@ -472,6 +474,46 @@ export class AkemiHUD extends Hud {
             1.56, /**TEXT Y */
             "black", /**TEXT COLOR */
             true /**MOUSE HOVER */
+        );
+
+        this.keyboardSign = new KeyboardSign(
+            this.game,  /**GAME*/
+            (this.width * 0.18), /**X*/
+            (this.height * 0.85), /**Y*/
+            (this.width * 0.32), /**WIDTH*/
+            (this.game.height * 0.25), /**HEIGHT*/
+            0, /**ROTATION*/
+            this.images[3], /**IMAGE*/
+            1, /**OPACITY */
+            ["MOSTRAR", "TECLADO"],/**TEXT*/
+            (this.height * 0.06), /**TEXT SPACING */
+            "PatrickHand", /**FONT*/
+            "bold", /**FONT WEIGHT*/
+            4.7, /**FONT SIZE*/
+            (this.width * 0.30), /**TEXT X*/
+            (this.height * 0.91), /**TEXT Y*/
+            "black", /**TEXT COLOR*/
+            true /**MOUSE HOVER*/
+        );
+
+        this.keyboardSign2 = new KeyboardSign(
+            this.game,  /**GAME*/
+            (this.width * 0.18), /**X*/
+            (this.height * 1.85), /**Y*/
+            (this.width * 0.32), /**WIDTH*/
+            (this.game.height * 0.25), /**HEIGHT*/
+            0, /**ROTATION*/
+            this.images[16], /**IMAGE*/
+            1, /**OPACITY */
+            ["ESCONDER", "TECLADO"],/**TEXT*/
+            (this.height * 0.06), /**TEXT SPACING */
+            "PatrickHand", /**FONT*/
+            "bold", /**FONT WEIGHT*/
+            4.7, /**FONT SIZE*/
+            (this.width * 0.30), /**TEXT X*/
+            (this.height * 1.96), /**TEXT Y*/
+            "black", /**TEXT COLOR*/
+            true /**MOUSE HOVER*/
         );
     
     }
