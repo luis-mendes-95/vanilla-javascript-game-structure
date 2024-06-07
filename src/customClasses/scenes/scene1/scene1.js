@@ -76,11 +76,20 @@ export class Scene1 {
 
             let newXposition = (this.game.canvas.width * 0.7);
             let newYposition = (this.game.canvas.height * 0.64);
-            this.hud.butterfly.moveTo(newXposition, newYposition, 6);
+            let speed = (this.game.canvas.height * 0.007)
+            this.hud.butterfly.moveTo(newXposition, newYposition, speed);
 
             let rotation = -45;
-            let rotationSpeed = 0.8;
-            this.hud.butterfly.rotate(rotation, rotationSpeed)
+            if(this.game.canvas.height < 500){
+              
+                let rotationSpeed = (this.game.canvas.width * 0.001);
+                this.hud.butterfly.rotate(rotation, rotationSpeed)
+            } else {
+              
+                let rotationSpeed = (this.game.canvas.width * 0.0005);
+                this.hud.butterfly.rotate(rotation, rotationSpeed)
+            }
+
         }
 
         /**UPDATING BUTTERFLY AND BUTTON TO ANIMATE THEM*/

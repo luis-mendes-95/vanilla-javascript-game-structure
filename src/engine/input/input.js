@@ -22,9 +22,11 @@ export class InputHandler{
         });
         game.canvas.addEventListener('mousedown', (e) => {
             this.mouse.clicked = true;
+
         });
         game.canvas.addEventListener('mouseup', (e) => {
             this.mouse.clicked = false;
+
         });
 
         // Adiciona suporte a eventos de toque

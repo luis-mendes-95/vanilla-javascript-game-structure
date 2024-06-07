@@ -272,13 +272,50 @@ export class Scene2 {
         /**UPDATING ELEMENTS IN SCENE */
         this.hud.namePanel.update();
         this.hud.inputText.update();
+        this.hud.keyboard.update();
         this.hud.buttonContinue.update();
         this.hud.buttonContinue2.update();
         this.hud.butterfly.update(deltaTime);
         this.hud.buttonEasy.update();
         this.hud.buttonMedium.update();
         this.hud.buttonHard.update();
-     
+
+
+        /**HANDLE KEYBOARD TYPING*/
+        if(this.game.input.mouse.clicked && !this.hud.buttonContinue.isMouseClicking()){
+
+            if(this.hud.inputText.currentInputText.length < 12){
+
+                if(this.hud.keyboard.keys[this.hud.keyboard.selectedKey] === '⌫'){
+                    this.hud.inputText.currentInputText = this.hud.inputText.currentInputText.slice(0, -1);
+                    this.game.input.mouse.clicked = false;
+                    setTimeout(() => {
+                        this.hud.keyboard.selectedKey = null;
+                    }, 100);
+                } else {
+                    this.hud.inputText.currentInputText += this.hud.keyboard.keys[this.hud.keyboard.selectedKey] ? this.hud.keyboard.keys[this.hud.keyboard.selectedKey] : "";
+                    this.game.input.mouse.clicked = false;
+                    setTimeout(() => {
+                        this.hud.keyboard.selectedKey = null;
+                    }, 100);
+                }
+
+            } else {
+
+                if(this.hud.keyboard.keys[this.hud.keyboard.selectedKey] === '⌫'){
+                    this.hud.inputText.currentInputText = this.hud.inputText.currentInputText.slice(0, -1);
+                    this.game.input.mouse.clicked = false;
+                    setTimeout(() => {
+                        this.hud.keyboard.selectedKey = null;
+                    }, 100);
+                } else {
+                    setTimeout(() => {
+                        this.hud.keyboard.selectedKey = null;
+                    }, 100);
+                }
+            }
+
+        }  
 
 
 
@@ -339,6 +376,7 @@ export class Scene2 {
         this.hud.inputText.draw(ctx, 0);
         this.hud.butterfly.draw(ctx);
         this.hud.buttonContinue.draw(ctx, 0);
+        this.hud.keyboard.draw(ctx, 0);
 
         /**CONDITIONAL DRAWNING -> IF CALL NEXT SCENE STATE IS TRUE*/
         if(this.calledNextScene){

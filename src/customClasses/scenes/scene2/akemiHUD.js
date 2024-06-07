@@ -4,6 +4,7 @@ import { Sprite } from "../../../engine/hud/sprite/sprite.js"
 import { DialogueBox } from "../../../engine/hud/dialogueBox/dialogueBox.js";
 import { InputBox } from "../../../engine/hud/inputBox/inputBox.js";
 import { ImageHover } from "../../../engine/hud/imageHover/imageHover.js";
+import { Keyboard } from "../../../engine/hud/keyboard/keyboard.js";
 
 export class AkemiHUD extends Hud {
     constructor(game, x, y, width, height, images) {
@@ -63,7 +64,7 @@ export class AkemiHUD extends Hud {
             (this.game.canvas.height * -0.62), /**DESTINY Y */
             3, /**MAX FRAME X */
             1, /**MAX FRAME Y */
-            8 /**FRAME SPEED */
+            150 /**FRAME SPEED */
         );
 
         this.cloud1 = new Image(
@@ -314,6 +315,20 @@ export class AkemiHUD extends Hud {
             "black", /**TEXT COLOR */
             true /**MOUSE HOVER */
         );
+
+        this.keyboard = new Keyboard(
+            this.game, /**GAME */
+            (this.width * 0.01), /**X */
+            (this.height * 0.6), /**Y */
+            (this.width * 0.54), /**WIDTH */
+            (this.game.height * 0.35), /**HEIGHT */
+            0, /**ROTATION */
+            null, /**IMAGE */
+            1, /**OPACITY */
+            "PatrickHand", /**FONT */
+            (this.height * 0.005), /**FONT SIZE */
+            "black" /**TEXT COLOR */
+        )
 
         this.namePanel = new Image(
             this.game, /**GAME */

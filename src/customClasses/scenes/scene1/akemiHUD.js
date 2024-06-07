@@ -100,7 +100,7 @@ export class AkemiHUD extends Hud {
             (this.game.canvas.height * -0.62), /**DESTINY Y */
             3, /**MAX FRAME X */
             1, /**MAX FRAME Y */
-            8, /**FRAME SPEED */
+            150, /**FRAME SPEED */
             -200 /**ROTATION */
         );
 

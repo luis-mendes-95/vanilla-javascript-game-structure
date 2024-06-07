@@ -32,23 +32,23 @@ export class Sprite {
 
   }
 
-  update(){
+  update(deltaTime){
 
-    this.counter += 1;
+    this.counter += deltaTime;
 
     if (this.counter >= this.frameSpeed) {
-      this.frameX += 1; 
+        this.frameX += 1;
 
-      if (this.frameX >= this.maxFrameX) {
-        this.frameX = 0;
-        this.frameY += 1;
+        if (this.frameX >= this.maxFrameX) {
+            this.frameX = 0;
+            this.frameY += 1;
 
-        if (this.frameY >= this.maxFrameY) {
-          this.frameY = 0;
+            if (this.frameY >= this.maxFrameY) {
+                this.frameY = 0;
+            }
         }
-      }
 
-      this.counter = 0;
+        this.counter = 0;
     }
 
   }

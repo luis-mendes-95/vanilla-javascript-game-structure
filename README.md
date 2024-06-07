@@ -30,3 +30,6 @@ object oriented structure for games development with vanilla javascript
 
 8 - Dialogue Box
     This element will receive an array of strings and render each of them by row, receiving a textSpacing as parameter
+
+9 - Keyboard
+    This element will appear in screen to deal with writing texts.
