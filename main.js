@@ -3,8 +3,10 @@ import { Player } from './src/engine/player/player.js';
 import { InputHandler } from './src/engine/input/input.js';
 import { Background } from './src/engine/background/background.js';
 import { Hud } from './src/engine/hud/hud.js';
-import { Scene1 } from './src/customClasses/scenes/scene1.js';
-import { Scene2 } from './src/customClasses/scenes/scene2.js';
+import { Scene1 } from './src/customClasses/scenes/scene1/scene1.js';
+import { Scene2 } from './src/customClasses/scenes/scene2/scene2.js';
+import { Scene3 } from './src/customClasses/scenes/scene3/scene3.js';
+import { Scene4 } from './src/customClasses/scenes/scene4/scene4.js';
 
 window.addEventListener('load', function() {
 
@@ -27,6 +29,16 @@ window.addEventListener('load', function() {
             /**INPUT*/
             this.input = new InputHandler(this);
 
+            /**MOUSE EFFECTS CONTROL*/
+            this.mouseOverCount = 0;
+
+            /**PLAYER STATS*/
+            this.playerName = "";
+            this.playerPoints = 0;
+            this.difficulty = "";
+            this.currentLevel = "";
+            this.levelsDone = [];
+
             /**WIDTH AND HEIGHT*/
             this.width = width;
             this.height = height;
@@ -44,11 +56,13 @@ window.addEventListener('load', function() {
             this.scenes = [
                 new Scene1(this),
                 new Scene2(this),
+                new Scene3(this),
+                new Scene4(this)
             ];
+
         }
 
         update(deltaTime) {
-            console.log(this.currentScene)
             this.scenes[this.currentScene].update(deltaTime);
         }
 
@@ -56,6 +70,7 @@ window.addEventListener('load', function() {
             /**DRAWING SCENE */
             this.scenes[this.currentScene].draw(ctx, 0);
         }
+        
     }
 
     /**INSTANTIATING THE GAME CLASS */
@@ -74,3 +89,7 @@ window.addEventListener('load', function() {
     animate(0);
 
 });
+
+window.addEventListener('resize', function() {
+    this.location.reload();
+})

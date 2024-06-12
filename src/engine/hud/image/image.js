@@ -5,7 +5,7 @@
  */
 
 export class Image {
-    constructor(game, x, y, width, height, image, opacity, text, font, fontWeight, fontSize, textX, textY, textColor, mouseHover) {
+    constructor(game, x, y, width, height, rotation, image, opacity, text, textSpacing, font, fontWeight, fontSize, textX, textY, textColor, mouseHover) {
 
         /**GAME*/
         this.game = game;
@@ -14,9 +14,11 @@ export class Image {
         this.x = x;
         this.y = y;
         this.scale = 1;
+        this.rotation = rotation;
 
         /**MOUSE HOVER*/
         this.mouseHover = mouseHover;
+        this.mouseOver = false;
 
         /**DIMENSIONS*/
         this.width = width;
@@ -34,6 +36,7 @@ export class Image {
         this.textX = textX;
         this.textY = textY;
         this.textColor = textColor;
+        this.textSpacing = textSpacing;
         
     }
 
@@ -48,10 +51,12 @@ export class Image {
         ctx.globalAlpha = this.opacity;
         ctx.save(); // Save the current state of the context
         ctx.translate(this.x + this.width / 2, this.y + this.height / 2); // Move the context to the center of the image
+        ctx.rotate(this.rotation * Math.PI / 180); // Add rotation
         ctx.scale(this.scale, this.scale); // Scale the context
         ctx.translate(-(this.x + this.width / 2), -(this.y + this.height / 2)); // Move the context back
+    
         ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
-
+    
         if(this.text){
             ctx.fillStyle = this.textColor;
             if(this.fontWeight){
@@ -59,7 +64,7 @@ export class Image {
             } else {
                 ctx.font = `${this.fontSize * this.scale}vh ${this.font}`;
             }
-            ctx.fillText(this.text, (this.x * this.textX), (this.y * this.textY));
+            ctx.fillText(this.text, (this.textX), (this.textY));
         }
         ctx.restore(); // Restore the context to its previous state
         ctx.globalAlpha = 1.0; // Reset to default
@@ -69,15 +74,20 @@ export class Image {
     moveTo(x, y, speed){
         if(this.x < x){
             this.x += speed;
+            this.textX += speed;
         }
         if(this.x > x){
             this.x -= speed;
+            this.textX -= speed;
         }
         if(this.y < y){
             this.y += speed;
+            this.textY += speed;
+
         }
         if(this.y > y){
             this.y -= speed;
+            this.textY -= speed;
         }
     }
     
@@ -107,32 +117,50 @@ export class Image {
     } 
     
     /**MOUSE HOVER IS DEFINED WHEN THIS CLASS IS INSTANCIATED */
-    mouseHovering(){
-        if(this.mouseHover){
-            if(this.isMouseOver(this.game.input.mouse)){
-
-                if(this.scale < 1.1){
-                    this.scale += 0.01;
+    mouseHovering() {
+        if(this.mouseHover) {
+            if(this.isMouseOver(this.game.input.mouse)) {
+                if(!this.mouseOver) {
+                    this.mouseOver = true;
+                    this.game.mouseOverCount = (this.game.mouseOverCount || 0) + 1;
+                }
+    
+                if(this.scale < 1.02){
+                    this.scale += 0.005;
                 }
 
-                this.game.canvas.style.cursor = 'pointer'; // Change cursor to pointer
-                
             } else {
-
+                
+                if(this.mouseOver) {
+                    this.mouseOver = false;
+                    this.game.mouseOverCount--;
+                }
+    
                 if(this.scale > 1){
                     this.scale -= 0.01;
                 }
-
-                this.game.canvas.style.cursor = 'default'; // Change cursor to pointer
             }
+    
+            this.game.canvas.style.cursor = this.game.mouseOverCount > 0 ? 'pointer' : 'default';
         }
     }
 
     isMouseClicking(){
+        
         if(this.isMouseOver(this.game.input.mouse)){
+            console.log("to entrando")
             return this.game.input.mouse.clicked;
         }
     }
+
+    rotate(degrees, speed){
+        if(this.rotation < degrees){
+            this.rotation += speed;
+        }
+        if(this.rotation > degrees){
+            this.rotation -= speed;
+        }
+      }
 
 
 

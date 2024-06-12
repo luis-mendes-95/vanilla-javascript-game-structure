@@ -17,3 +17,19 @@ object oriented structure for games development with vanilla javascript
 
 4 - Sprite
     Sequential image that will be rendered and play an animation
+
+5 - Scene Manager
+    The scene manager is called inside the main class Game, each scene will have its own class with all updates and draws being called inside
+    each running scene.
+
+6 - Image Hover
+    Derived class from image that behaviors changing image when mouse is over it
+
+7 - Input Box
+    Class that behaviors like an input to typed letters from keyboard
+
+8 - Dialogue Box
+    This element will receive an array of strings and render each of them by row, receiving a textSpacing as parameter
+
+9 - Keyboard
+    This element will appear in screen to deal with writing texts.
