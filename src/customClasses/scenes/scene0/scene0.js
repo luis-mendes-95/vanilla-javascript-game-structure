@@ -8,7 +8,6 @@ import { Image } from "../../../engine/hud/image/image.js";
 
 export class Scene0 {
     constructor(game) {
-
         this.started = false;
 
         this.game = game;
@@ -28,199 +27,209 @@ export class Scene0 {
         this.cloudImage = document.getElementById('cloud1');
         this.farmSign = document.getElementById('farmSign');
 
-
         /**BACKGROUND*/
         this.background = new Background(
-            this, /**GAME */
-            0,  /**X */
-            0, /**Y */
-            this.game.width * 1, /**WIDTH */
-            this.game.height * 1, /**HEIGHT */
-            'blue', /**COLOR */
-            10, /**SPEED */
-            0, /**VELOCITY Y */
-            0, /**VELOCITY X */
-            [
-                this.backgroundScene1 /**IMAGES[0] */
-            ],
-            true /**MOUSE HOVER */
+            this,
+            0,
+            0,
+            this.game.width,
+            this.game.height,
+            'blue',
+            10,
+            0,
+            0,
+            [this.backgroundScene1],
+            true
         );
 
         /**CLOUDS */
         this.cloud1 = new Image(
-            this.game, /**GAME */
-            (this.width * 0.1), /**X */
-            (this.height * 0.05), /**Y */
-            (this.width * 0.15), /**WIDTH */
-            (this.game.height * 0.15), /**HEIGHT */
-            0, /**ROTATION */ 
-            this.cloudImage, /**IMAGE */
-            0.9, /**OPACITY */
-            null, /**TEXT */
-            null, /**TEXT SPACING */
-            null, /**TEXT FONT */
-            null, /**FONT WEIGHT */
-            null, /**FONT SIZE */
-            null, /**TEXT X */
-            null, /**TEXT Y */
-            null, /**TEXT COLOR */
-            false /**MOUSE HOVER */
+            this.game,
+            this.width * 0.1,
+            this.height * 0.05,
+            this.width * 0.15,
+            this.game.height * 0.15,
+            0,
+            this.cloudImage,
+            0.9,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            false
         );
 
         this.cloud2 = new Image(
-            this.game,  /**GAME */
-            (this.width * 0.7), /**X */
-            (this.height * 0.05), /**Y */    
-            (this.width * 0.12), /**WIDTH */
-            (this.game.height * 0.12), /**HEIGHT */
-            0, /**ROTATION */
-            this.cloudImage, /**IMAGE */
-            0.7, /**OPACITY */
-            null, /**TEXT */
-            null, /**TEXT SPACING */
-            null, /**TEXT FONT */
-            null, /**FONT WEIGHT */
-            null, /**FONT SIZE */
-            null, /**TEXT X */
-            null, /**TEXT Y */
-            null, /**TEXT COLOR */
-            false /**MOUSE HOVER */
+            this.game,
+            this.width * 0.7,
+            this.height * 0.05,
+            this.width * 0.12,
+            this.game.height * 0.12,
+            0,
+            this.cloudImage,
+            0.7,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            false
         );
+
         this.cloud3 = new Image(
-            this.game,  /**GAME */
-            (this.width * 0.6), /**X */
-            (this.height * 0.05), /**Y */  
-            (this.width * 0.1), /**WIDTH */
-            (this.game.height * 0.1), /**HEIGHT */
-            0, /**ROTATION */ 
-            this.cloudImage, /**IMAGE */
-            0.5, /**OPACITY */
-            null, /**TEXT */
-            null, /**TEXT SPACING */
-            null, /**TEXT FONT */
-            null, /**FONT WEIGHT */
-            null, /**FONT SIZE */
-            null, /**TEXT X */
-            null, /**TEXT Y */
-            null, /**TEXT COLOR */
-            false /**MOUSE HOVER */
+            this.game,
+            this.width * 0.6,
+            this.height * 0.05,
+            this.width * 0.1,
+            this.game.height * 0.1,
+            0,
+            this.cloudImage,
+            0.5,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            false
         );
 
         this.cloud4 = new Image(
-            this.game, /**GAME */
-            (this.width * 0.9), /**X */
-            (this.height * 0.05), /**Y */
-            (this.width * 0.08), /**WIDTH */
-            (this.game.height * 0.08), /**HEIGHT */
-            0, /**ROTATION */
-            this.cloudImage, /**IMAGE */
-            0.3, /**OPACITY */
-            null, /**TEXT */
-            null, /**TEXT SPACING */
-            null, /**TEXT FONT */
-            null, /**FONT WEIGHT */
-            null, /**FONT SIZE */
-            null, /**TEXT X */
-            null, /**TEXT Y */
-            null, /**TEXT COLOR */
-            false /**MOUSE HOVER */
-
+            this.game,
+            this.width * 0.9,
+            this.height * 0.05,
+            this.width * 0.08,
+            this.game.height * 0.08,
+            0,
+            this.cloudImage,
+            0.3,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            false
         );
+
         this.cloud5 = new Image(
-            this.game, /**GAME */
-            (this.width * 0.5), /**X */
-            (this.height * 0.05), /**Y */
-            (this.width * 0.06), /**WIDTH */
-            (this.game.height * 0.06), /**HEIGHT */
-            0, /**ROTATION */
-            this.cloudImage, /**IMAGE */
-            0.4, /**OPACITY */
-            null, /**TEXT */
-            null, /**TEXT SPACING */
-            null, /**TEXT FONT */
-            null, /**FONT WEIGHT */
-            null, /**FONT SIZE */
-            null, /**TEXT X */
-            null, /**TEXT Y */
-            null, /**TEXT COLOR */
-            false /**MOUSE HOVER */
+            this.game,
+            this.width * 0.5,
+            this.height * 0.05,
+            this.width * 0.06,
+            this.game.height * 0.06,
+            0,
+            this.cloudImage,
+            0.4,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            false
         );
 
         /**CHARACTERS -> BUTTERFLY */
         this.butterfly = new Sprite(
             this.butterflySprite,
             this.game,
-            256, /**SPRITE WIDTH*/
-            160, /**SPRITE HEIGHT*/
-            this.game.height >= 700 ? 0.6 : 0.3, /**SIZE X*/
-            this.game.height >= 700 ? 0.6 : 0.3, /**SIZE Y*/
-            (this.game.canvas.width * 1.42), /**DESTINY X */
-            (this.game.canvas.height * -0.62), /**DESTINY Y */
-            3, /**MAX FRAME X */
-            1, /**MAX FRAME Y */
-            150, /**FRAME SPEED */
-            -200 /**ROTATION */
+            256,
+            160,
+            this.game.height >= 700 ? 0.6 : 0.3,
+            this.game.height >= 700 ? 0.6 : 0.3,
+            this.game.canvas.width * 1.42,
+            this.game.canvas.height * -0.62,
+            3,
+            1,
+            150,
+            -200
         );
-    
 
         /**HUD*/
-        this.hud = new thisGameHUD(this.game, 0, 0, this.width, this.height, [ 
-            this.logo, /**IMAGE[0] */
-            this.akemiImages[3], /**IMAGE[1] */
-            this.gameTitleImage, /**IMAGE[2] */
-            this.buttonStart, /**IMAGE[3] */
-            this.butterfly, /**IMAGE[4] */
-            this.cloud1, /**IMAGE[5] */
-            this.farmSign /**IMAGE[6] */
+        this.hud = new thisGameHUD(this.game, 0, 0, this.width, this.height, [
+            this.logo,
+            this.akemiImages[3],
+            this.gameTitleImage,
+            this.buttonStart,
+            this.butterfly,
+            this.cloud1,
+            this.farmSign
         ]);
 
         this.calledNextScene = false;
         this.enterNextScene = false;
+
+        // Full screen event listeners
+        this.handleFullScreenClick = this.handleFullScreenClick.bind(this);
+        this.handleFullScreenTouchEnd = this.handleFullScreenTouchEnd.bind(this);
+    }
+
+    handleFullScreenClick() {
+        this.game.toggleFullScreen();
+        window.removeEventListener('click', this.handleFullScreenClick);
+        this.game.input.mouse.clicked = false;
+    }
+
+    handleFullScreenTouchEnd() {
+        this.game.toggleFullScreen();
+        window.removeEventListener('touchend', this.handleFullScreenTouchEnd);
+        this.game.input.mouse.clicked = false;
     }
 
     update(deltaTime) {
-
         /**ELEMENTS APPEARING | ELEMENTS DISAPPEARING*/
         (() => {
-
-            if(!this.calledNextScene){
-                this.hud.imageLogo.moveTo((this.game.width * 0.02), (this.game.height * 0.02), (this.game.speed * 0.1));
-                this.hud.imageAkemi.moveTo((this.game.width * 0.09), (this.game.height * 0.25), (this.game.speed * 0.1));
+            if (!this.calledNextScene) {
+                this.hud.imageLogo.moveTo(this.game.width * 0.02, this.game.height * 0.02, this.game.speed * 0.1);
+                this.hud.imageAkemi.moveTo(this.game.width * 0.09, this.game.height * 0.25, this.game.speed * 0.1);
                 this.hud.imageAkemi.fadeIn(this.game.speed * 0.001);
-                this.hud.imageTitle.moveTo((this.game.width * 0.59), (this.game.height * 0.05), (this.game.speed * 0.2));
-                this.hud.buttonStartGame.moveTo((this.game.width * 0.6), this.game.height * 0.7, this.game.speed * 0.1);
+                this.hud.imageTitle.moveTo(this.game.width * 0.59, this.game.height * 0.05, this.game.speed * 0.2);
+                this.hud.buttonStartGame.moveTo(this.game.width * 0.6, this.game.height * 0.7, this.game.speed * 0.1);
             } else {
-                this.hud.imageLogo.moveTo((this.game.width * 0.02), (this.game.height * -0.12), (this.game.speed * 0.1));
-                this.hud.imageAkemi.moveTo((this.game.width * 0.09), (this.game.height * 0.35), (this.game.speed * 0.1));
+                this.hud.imageLogo.moveTo(this.game.width * 0.02, this.game.height * -0.12, this.game.speed * 0.1);
+                this.hud.imageAkemi.moveTo(this.game.width * 0.09, this.game.height * 0.35, this.game.speed * 0.1);
                 this.hud.imageAkemi.fadeOut(this.game.speed * 0.001);
-                this.hud.imageTitle.moveTo((this.game.width * 0.59), (this.game.height * -0.25), (this.game.speed * 0.2));
+                this.hud.imageTitle.moveTo(this.game.width * 0.59, this.game.height * -0.25, this.game.speed * 0.2);
             }
-
         })();
 
         /**MANAGE CLOUDS MOVEMENT*/
         (() => {
-            if(this.cloud1.x > this.game.canvas.width){
+            if (this.cloud1.x > this.game.canvas.width) {
                 this.cloud1.x = 0 - this.cloud1.width;
             } else {
                 this.cloud1.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, 0.9);
             }
-            if(this.cloud2.x > this.game.canvas.width){
+            if (this.cloud2.x > this.game.canvas.width) {
                 this.cloud2.x = 0 - this.cloud2.width;
             } else {
                 this.cloud2.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, 0.7);
             }
-            if(this.cloud3.x > this.game.canvas.width){
+            if (this.cloud3.x > this.game.canvas.width) {
                 this.cloud3.x = 0 - this.cloud3.width;
             } else {
                 this.cloud3.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, 1);
             }
-            if(this.cloud4.x > this.game.canvas.width){
+            if (this.cloud4.x > this.game.canvas.width) {
                 this.cloud4.x = 0 - this.cloud4.width;
             } else {
                 this.cloud4.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, 0.5);
             }
-            if(this.cloud5.x > this.game.canvas.width){
+            if (this.cloud5.x > this.game.canvas.width) {
                 this.cloud5.x = 0 - this.cloud5.width;
             } else {
                 this.cloud5.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, 0.2);
@@ -229,41 +238,27 @@ export class Scene0 {
 
         /**HANDLE CLICKS*/
         (() => {
-
-            //BUTTON FULL SCREEN CLICKED
-            if ((this.hud.buttonFullScreen.isTouchOver(this.game.input.touches) || this.hud.buttonFullScreen.isMouseClicking(this.game.input.mouse))) {
-
-                this.game.toggleFullScreen();
-                let currentState = this.game.isFullScreen;
-                if (this.game.isFullScreen !== currentState) {
-                    this.game.input.mouse.clicked = false;
-                }
+            if (this.hud.buttonFullScreen.isTouchOver(this.game.input.touches) || this.hud.buttonFullScreen.isMouseClicking(this.game.input.mouse)) {
+                window.addEventListener('click', this.handleFullScreenClick);
+                window.addEventListener('touchend', this.handleFullScreenTouchEnd);
             }
-
         })();
 
         /**UPDATING ELEMENTS*/
         this.hud.buttonStartGame.update(deltaTime);
         this.hud.buttonFullScreen.update(deltaTime);
-
-
     }
 
     draw(ctx, scene) {
-
         /**PAINT CANVAS BLUE */
-        // Create gradient
         let grd = ctx.createLinearGradient(0, 0, 0, this.game.height);
-        grd.addColorStop(0, '#87CEEB');   // Blue at the top
-        grd.addColorStop(1, 'lightgray');  // White at the bottom
-
-        // Fill with gradient
+        grd.addColorStop(0, '#87CEEB');
+        grd.addColorStop(1, 'lightgray');
         ctx.fillStyle = grd;
         ctx.fillRect(0, 0, this.game.width, this.game.height);
 
         /**BACKGROUND DRAW */
         this.background.draw(this.game.ctx, 0);
-
 
         /**CLOUDS DRAW*/
         this.cloud1.draw(ctx, 0);
@@ -289,10 +284,9 @@ export class Scene0 {
 
         /**BUTTERFLY DRAW */
         this.butterfly.draw(ctx);
-
     }
 
-    playSound(){
+    playSound() {
         this.musicMenu.play();
     }
 }
