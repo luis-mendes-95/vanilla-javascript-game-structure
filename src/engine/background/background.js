@@ -38,8 +38,6 @@ export class Background {
             const newHeight = this.width / aspectRatio;
             const newY = this.height - newHeight; 
     
-            ctx.imageSmoothingEnabled = false; 
-    
             ctx.drawImage(this.scenes[scene], this.x, newY, this.width, newHeight);
         } else {
             ctx.fillStyle = "orange";

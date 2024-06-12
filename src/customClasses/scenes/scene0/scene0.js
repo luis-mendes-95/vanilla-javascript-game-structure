@@ -177,8 +177,9 @@ export class Scene0 {
     }
 
     update(deltaTime) {
-        this.hud.buttonStartGame.moveTo(this.game.width * 0.5, this.game.height * 0.8);
-
+        this.hud.imageLogo.moveTo((this.game.width * 0.02), (this.game.height * 0.02), (this.game.speed * 0.1));
+        this.hud.imageAkemi.moveTo((this.game.width * 0.09), (this.game.height * 0.25), (this.game.speed * 0.1));
+        this.hud.imageAkemi.fadeIn(this.game.speed * 0.001);
     }
 
     draw(ctx, scene) {

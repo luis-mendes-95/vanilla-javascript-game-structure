@@ -20,6 +20,9 @@ window.addEventListener('load', function() {
     canvas.width = viewportWidth;
     canvas.height = viewportHeight;
 
+    /**CANVAS IMAGE SMOOTHING*/
+    ctx.imageSmoothingEnabled = true;
+
     /**CLASS GAME WILL CENTRALIZE EVERY GAME ELEMENTS INSIDE OF IT */
     class Game {
         constructor(width, height) {
@@ -45,7 +48,7 @@ window.addEventListener('load', function() {
             /**GLOBAL MEASURES -> WIDTH | HEIGHT | SPEED*/
             this.width = width;
             this.height = height;
-            this.speed = width / 1;
+            this.speed = width / 100;
             this.isFullScreen = false;
 
             /**LOADING FONTS*/

@@ -11,9 +11,9 @@ export class thisGameHUD extends Hud {
      
        this.buttonStartGame = new Image(
             this.game, /**GAME */
-            (this.width * 0.30), /**X */
+            (this.game.width * 0.30), /**X */
             (this.height * 1.35), /**Y */
-            (this.width * 0.40), /**WIDTH */
+            (this.game.width * 0.40), /**WIDTH */
             (this.game.height * 0.26), /**HEIGHT */
             0, /**ROTATION */
             this.images[3],  /**IMAGE */
@@ -23,7 +23,7 @@ export class thisGameHUD extends Hud {
             "font1942", /**TEXT FONT */
             "bold", /**FONT WEIGHT */
             fontSize, /**FONT SIZE */
-            (this.width * 0.365), /**TEXT X */
+            (this.game.width * 0.365), /**TEXT X */
             (this.height * 1.50), /**TEXT Y */
             "black", /**TEXT COLOR */
             true, /**MOUSE HOVER */
@@ -32,9 +32,9 @@ export class thisGameHUD extends Hud {
 
         this.imageLogo = new Image(
             this.game, /**GAME */
-            (this.width * 0), /**X */
-            (this.height * 0), /**Y */
-            (this.width * 0.30), /**WIDTH */
+            (this.game.width * 0.02), /**X */
+            (this.height * -0.12), /**Y */
+            (this.game.width * 0.30), /**WIDTH */
             (this.game.height * 0.10), /**HEIGHT */
             0, /**ROTATION */
             this.images[0],  /**IMAGE */
@@ -44,38 +44,39 @@ export class thisGameHUD extends Hud {
             "font1942", /**TEXT FONT */
             "bold", /**FONT WEIGHT */
             fontSize, /**FONT SIZE */
-            (this.width * 0.365), /**TEXT X */
+            (this.game.width * 0.365), /**TEXT X */
             (this.height * 1.50), /**TEXT Y */
             "black", /**TEXT COLOR */
             true, /**MOUSE HOVER */
-            "column"
+            null, /**TEXTS ALIGN -> ROW OR COLUMN */
         );
 
         this.imageAkemi = new Image(
-            this.game,  /**GAME */
-            (this.width * 0.08), /**X */
-            (this.height * 0.25), /**Y */
-            (this.game.width * 0.34), /**WIDTH */
-            (this.game.height * 0.8), /**HEIGHT */
+            this.game, /**GAME */
+            (this.game.width * 0.09), /**X */
+            (this.height * 0.35), /**Y */
+            (this.game.width * 0.30), /**WIDTH */
+            (this.game.height * 0.75), /**HEIGHT */
             0, /**ROTATION */
-            this.images[1], /**IMAGE */
+            this.images[1],  /**IMAGE */
             0, /**OPACITY */
             null, /**TEXT */
-            null, /**TEXT SPACING */
-            null, /**TEXT FONT */
-            null, /**FONT WEIGHT */
-            null, /**FONT SIZE */
-            null, /**TEXT X */
-            null, /**TEXT Y */
-            null, /**TEXT COLOR */
-            false /**MOUSE HOVER */
+            (this.height * 0.1), /**TEXT SPACING */
+            "font1942", /**TEXT FONT */
+            "bold", /**FONT WEIGHT */
+            fontSize, /**FONT SIZE */
+            (this.game.width * 0.365), /**TEXT X */
+            (this.height * 1.50), /**TEXT Y */
+            "black", /**TEXT COLOR */
+            true, /**MOUSE HOVER */
+            null, /**TEXTS ALIGN -> ROW OR COLUMN */
         );
 
         this.imageTitle = new Image(
             this.game, /**GAME */
-            (this.width * 0.5), /**X */
+            (this.game.width * 0.5), /**X */
             (this.height * -0.5), /**Y */
-            (this.width * 0.35), /**WIDTH */
+            (this.game.width * 0.35), /**WIDTH */
             (this.game.height * 0.20), /**HEIGHT */
             0, /**ROTATION */ 
             this.images[2], /**IMAGE */
@@ -93,9 +94,9 @@ export class thisGameHUD extends Hud {
 
         this.buttonLoadGame = new Image(
             this.game, /**GAME */
-            (this.width * 0.30), /**X */
+            (this.game.width * 0.30), /**X */
             (this.height * 0.65), /**Y */
-            (this.width * 0.40), /**WIDTH */
+            (this.game.width * 0.40), /**WIDTH */
             (this.game.height * 0.26), /**HEIGHT */
             0, /**ROTATION */
             this.images[0],  /**IMAGE */
@@ -105,7 +106,7 @@ export class thisGameHUD extends Hud {
             "font1942", /**TEXT FONT */
             "bold", /**FONT WEIGHT */
             fontSize, /**FONT SIZE */
-            (this.width * 0.365), /**TEXT X */
+            (this.game.width * 0.365), /**TEXT X */
             (this.height * 0.81), /**TEXT Y */
             "black", /**TEXT COLOR */
             true, /**MOUSE HOVER */
@@ -114,9 +115,9 @@ export class thisGameHUD extends Hud {
 
         this.buttonOptions = new Image(
             this.game, /**GAME */
-            (this.width * 0.30), /**X */
+            (this.game.width * 0.30), /**X */
             (this.height * 1.65), /**Y */
-            (this.width * 0.40), /**WIDTH */
+            (this.game.width * 0.40), /**WIDTH */
             (this.game.height * 0.26), /**HEIGHT */
             0, /**ROTATION */
             this.images[0],  /**IMAGE */
@@ -126,7 +127,7 @@ export class thisGameHUD extends Hud {
             "font1942", /**TEXT FONT */
             "bold", /**FONT WEIGHT */
             fontSize, /**FONT SIZE */
-            (this.width * 0.365), /**TEXT X */
+            (this.game.width * 0.365), /**TEXT X */
             (this.height * 1.81), /**TEXT Y */
             "black", /**TEXT COLOR */
             true, /**MOUSE HOVER */
@@ -135,7 +136,7 @@ export class thisGameHUD extends Hud {
 
         this.gameTitle = new Text(
             game, // game instance
-            this.width * 0.01, // x position
+            this.game.width * 0.01, // x position
             this.height * -0.10, // y position
             "Fresh Blood", // text
             10, // text spacing
