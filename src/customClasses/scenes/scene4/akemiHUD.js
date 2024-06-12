@@ -1,6 +1,6 @@
 import { Hud } from "../../../engine/hud/hud.js";
 import { Image } from "../../../engine/hud/image/image.js";
-import { Sprite } from "../../../engine/hud/sprite/sprite.js"
+import { Sprite } from "../../../engine/sprite/sprite.js"
 
 export class AkemiHUD extends Hud {
     constructor(game, x, y, width, height, images) {

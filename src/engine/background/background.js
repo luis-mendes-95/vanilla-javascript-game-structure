@@ -7,7 +7,7 @@
 
 
 export class Background {
-    constructor(game, x, y, width, height, color, speed, images) {
+    constructor(game, x, y, width, height, color, speed, velocityY, velocityX, images) {
 
         this.game = game;
         this.x = x;
@@ -19,6 +19,8 @@ export class Background {
         this.scenes = images;
 
         this.speed = speed;
+        this.velocityY = 0;
+        this.velocityX = 0;
         this.weigth = 1;
 
         this.originalImageWidth = images[0].naturalWidth;
@@ -26,7 +28,7 @@ export class Background {
 
     }
 
-    update() {
+    update(deltaTime) {
 
     }
 
@@ -36,7 +38,7 @@ export class Background {
             const newHeight = this.width / aspectRatio;
             const newY = this.height - newHeight; 
     
-            ctx.imageSmoothingEnabled = true 
+            ctx.imageSmoothingEnabled = false; 
     
             ctx.drawImage(this.scenes[scene], this.x, newY, this.width, newHeight);
         } else {
@@ -58,6 +60,15 @@ export class Background {
         if(this.y > y){
             this.y -= speed;
         }
+    }
+
+    isMouseOver(){
+        return this.game.input.mouse.x > this.x && this.game.input.mouse.x < this.x + this.width && this.game.input.mouse.y > this.y && this.game.input.mouse.y < this.y + this.height;
+    }
+
+    isMouseClicking(){
+        console.log("cliquei" + this.isMouseOver() && this.game.input.mouse.clicked)
+        return this.isMouseOver() && this.game.input.mouse.clicked;
     }
 
 
