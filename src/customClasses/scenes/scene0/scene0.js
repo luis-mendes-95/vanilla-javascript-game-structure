@@ -145,18 +145,21 @@ export class Scene0 {
 
         /**CHARACTERS -> BUTTERFLY */
         this.butterfly = new Sprite(
-            this.butterflySprite,
-            this.game,
-            256,
-            160,
-            this.game.height >= 700 ? 0.6 : 0.3,
-            this.game.height >= 700 ? 0.6 : 0.3,
-            this.game.canvas.width * 1.42,
-            this.game.canvas.height * -0.62,
-            3,
-            1,
-            150,
-            -200
+            [
+                this.butterflySprite, /**FLYING*/
+            ], /**IMAGE*/
+            this.game, /**GAME*/
+            256, /**SPRITE WIDTH*/
+            160, /**SPRITE HEIGHT*/
+            this.game.height * 0.0005, /**SIZE X*/
+            this.game.height * 0.0005, /**SIZE Y*/
+            (this.game.canvas.width * 1.00), /**DESTINY X */
+            (this.game.canvas.height * 0.14), /**DESTINY Y */
+            4, /**MAX FRAME X */
+            0, /**MAX FRAME Y */
+            75, /**FRAME SPEED */
+            -135, /**ROTATION */
+            false /**PLAYER CONTROL */
         );
 
         /**HUD*/
@@ -194,16 +197,31 @@ export class Scene0 {
         /**ELEMENTS APPEARING | ELEMENTS DISAPPEARING*/
         (() => {
             if (!this.calledNextScene) {
+                /**LOGO*/
                 this.hud.imageLogo.moveTo(this.game.width * 0.02, this.game.height * 0.02, this.game.speed * 0.1);
+                /**AKEMI GIRL*/
                 this.hud.imageAkemi.moveTo(this.game.width * 0.09, this.game.height * 0.25, this.game.speed * 0.1);
                 this.hud.imageAkemi.fadeIn(this.game.speed * 0.001);
+                /**GAME TITLE */
                 this.hud.imageTitle.moveTo(this.game.width * 0.59, this.game.height * 0.05, this.game.speed * 0.2);
-                this.hud.buttonStartGame.moveTo(this.game.width * 0.6, this.game.height * 0.7, this.game.speed * 0.1);
+                /**BUTTON START */
+                this.hud.buttonStartGame.moveTo(this.game.width * 0.6, this.game.height * 0.7, this.game.speed * 0.15);
+                /**BUTTERFLY */
+                this.butterfly.moveTo(this.game.width * 0.7, this.game.height * 0.68, this.game.speed * 0.2);
+                this.butterfly.rotate(-20, (this.game.speed * 0.048));
             } else {
+                /**LOGO*/
                 this.hud.imageLogo.moveTo(this.game.width * 0.02, this.game.height * -0.12, this.game.speed * 0.1);
+                /**AKEMI GIRL */
                 this.hud.imageAkemi.moveTo(this.game.width * 0.09, this.game.height * 0.35, this.game.speed * 0.1);
                 this.hud.imageAkemi.fadeOut(this.game.speed * 0.001);
+                /**GAME TITLE */
                 this.hud.imageTitle.moveTo(this.game.width * 0.59, this.game.height * -0.25, this.game.speed * 0.2);
+                /**BUTTON START */
+                this.hud.buttonStartGame.moveTo(this.game.width * 0.6, this.game.height * 1.2, this.game.speed * 0.15);
+                /**BUTTERFLY */
+                this.butterfly.moveTo(this.game.width * 1.00, this.game.height * 0.14, this.game.speed * 0.2);
+                this.butterfly.rotate(135, (this.game.speed * 0.038));
             }
         })();
 
@@ -238,15 +256,21 @@ export class Scene0 {
 
         /**HANDLE CLICKS*/
         (() => {
+            /**FULL SCREEN BUTTON*/
             if (this.hud.buttonFullScreen.isTouchOver(this.game.input.touches) || this.hud.buttonFullScreen.isMouseClicking(this.game.input.mouse)) {
                 window.addEventListener('click', this.handleFullScreenClick);
                 window.addEventListener('touchend', this.handleFullScreenTouchEnd);
+            }
+            /**START BUTTON*/
+            if(this.hud.buttonStartGame.isTouchOver(this.game.input.touches) || this.hud.buttonStartGame.isMouseClicking(this.game.input.mouse)){
+                this.calledNextScene = true;
             }
         })();
 
         /**UPDATING ELEMENTS*/
         this.hud.buttonStartGame.update(deltaTime);
         this.hud.buttonFullScreen.update(deltaTime);
+        this.butterfly.update(deltaTime);
     }
 
     draw(ctx, scene) {
