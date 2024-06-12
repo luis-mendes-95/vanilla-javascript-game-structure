@@ -16,7 +16,7 @@ export class thisGameHUD extends Hud {
             (this.width * 0.40), /**WIDTH */
             (this.game.height * 0.26), /**HEIGHT */
             0, /**ROTATION */
-            this.images[0],  /**IMAGE */
+            this.images[3],  /**IMAGE */
             1, /**OPACITY */
             "NEW GAME", /**TEXT */
             50, /**TEXT SPACING */
@@ -28,6 +28,67 @@ export class thisGameHUD extends Hud {
             "black", /**TEXT COLOR */
             true, /**MOUSE HOVER */
             "row"
+        );
+
+        this.imageLogo = new Image(
+            this.game, /**GAME */
+            (this.width * 0), /**X */
+            (this.height * 0), /**Y */
+            (this.width * 0.30), /**WIDTH */
+            (this.game.height * 0.10), /**HEIGHT */
+            0, /**ROTATION */
+            this.images[0],  /**IMAGE */
+            1, /**OPACITY */
+            null, /**TEXT */
+            (this.height * 0.1), /**TEXT SPACING */
+            "font1942", /**TEXT FONT */
+            "bold", /**FONT WEIGHT */
+            fontSize, /**FONT SIZE */
+            (this.width * 0.365), /**TEXT X */
+            (this.height * 1.50), /**TEXT Y */
+            "black", /**TEXT COLOR */
+            true, /**MOUSE HOVER */
+            "column"
+        );
+
+        this.imageAkemi = new Image(
+            this.game,  /**GAME */
+            (this.width * 0.08), /**X */
+            (this.height * 0.25), /**Y */
+            (this.game.width * 0.34), /**WIDTH */
+            (this.game.height * 0.8), /**HEIGHT */
+            0, /**ROTATION */
+            this.images[1], /**IMAGE */
+            0, /**OPACITY */
+            null, /**TEXT */
+            null, /**TEXT SPACING */
+            null, /**TEXT FONT */
+            null, /**FONT WEIGHT */
+            null, /**FONT SIZE */
+            null, /**TEXT X */
+            null, /**TEXT Y */
+            null, /**TEXT COLOR */
+            false /**MOUSE HOVER */
+        );
+
+        this.imageTitle = new Image(
+            this.game, /**GAME */
+            (this.width * 0.5), /**X */
+            (this.height * -0.5), /**Y */
+            (this.width * 0.35), /**WIDTH */
+            (this.game.height * 0.20), /**HEIGHT */
+            0, /**ROTATION */ 
+            this.images[2], /**IMAGE */
+            1, /**OPACITY */
+            null, /**TEXT */
+            null, /**TEXT SPACING */
+            null, /**TEXT FONT */
+            null, /**FONT WEIGHT */
+            null, /**FONT SIZE */
+            null, /**TEXT X */
+            null, /**TEXT Y */
+            null, /**TEXT COLOR */
+            false /**MOUSE HOVER */
         );
 
         this.buttonLoadGame = new Image(

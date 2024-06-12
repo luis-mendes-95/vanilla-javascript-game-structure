@@ -90,7 +90,6 @@ window.addEventListener('load', function() {
             }
             if(!game.isFullScreen){
                 game.isFullScreen = true;
-                this.musicMenu.play();
             } else {
                 game.isFullScreen = false;
             }

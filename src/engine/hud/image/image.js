@@ -32,64 +32,70 @@ export class Image {
         ctx.font = `${this.fontWeight} ${this.fontSize}px ${this.font}`;
     
         // Configurações comuns
-        const padding = this.height * 0.05;
         ctx.globalAlpha = this.opacity;
         ctx.fillStyle = this.textColor;
         ctx.save();
-    
-        let buttonWidth, buttonHeight;
-    
-        if (this.textLayout === "row") {
-            // Mede a largura e a altura do texto
-            const textWidth = ctx.measureText(this.text).width;
-            const textHeight = this.fontSize; // Aproximadamente a altura da fonte
-    
-            // Ajusta a largura e a altura do botão com base nas dimensões do texto + padding
-            buttonWidth = textWidth + padding * 2;
-            buttonHeight = textHeight + padding * 2;
-    
-            // Prepara o canvas para desenhar o botão
-            this.prepareCanvas(ctx, buttonWidth, buttonHeight);
-    
-            // Desenha o botão (imagem ou retângulo) antes do texto
-            ctx.drawImage(this.image, this.x, this.y, buttonWidth, buttonHeight);
-    
-            // Desenha o texto
-            if (this.text) {
-                const textX = this.x + (buttonWidth - textWidth) / 2; // Centraliza horizontalmente
-                const textY = this.y + buttonHeight / 2 + textHeight / 4; // Centraliza verticalmente
-                ctx.fillText(this.text, textX, textY);
+
+        if (this.text) {
+            const padding = this.height * 0.05;
+            let buttonWidth, buttonHeight;
+
+            if (this.textLayout === "row") {
+                // Mede a largura e a altura do texto
+                const textWidth = ctx.measureText(this.text).width;
+                const textHeight = this.fontSize; // Aproximadamente a altura da fonte
+        
+                // Ajusta a largura e a altura do botão com base nas dimensões do texto + padding
+                buttonWidth = textWidth + padding * 2;
+                buttonHeight = textHeight + padding * 2;
+        
+                // Prepara o canvas para desenhar o botão
+                this.prepareCanvas(ctx, buttonWidth, buttonHeight);
+        
+                // Desenha o botão (imagem ou retângulo) antes do texto
+                ctx.drawImage(this.image, this.x, this.y, buttonWidth, buttonHeight);
+        
+                // Desenha o texto
+                if (this.text) {
+                    const textX = this.x + (buttonWidth - textWidth) / 2; // Centraliza horizontalmente
+                    const textY = this.y + buttonHeight / 2 + textHeight / 4; // Centraliza verticalmente
+                    ctx.fillText(this.text, textX, textY);
+                }
+            } else if (this.textLayout === "column") {
+                const lines = Array.isArray(this.text) ? this.text : [this.text];
+                const lineHeight = this.fontSize + padding; // Altura da linha incluindo o espaçamento
+        
+                // Calcula a largura e altura necessárias para o botão
+                buttonWidth = lines.reduce((acc, line) => Math.max(acc, ctx.measureText(line).width), 0) + padding * 4;
+                buttonHeight = lines.length * lineHeight + padding * 4; // Ajusta a altura total
+        
+                // Prepara o canvas para desenhar o botão
+                this.prepareCanvas(ctx, buttonWidth, buttonHeight);
+        
+                // Desenha o botão
+                ctx.drawImage(this.image, this.x, this.y, buttonWidth, buttonHeight);
+        
+                // Desenha o texto
+                lines.forEach((line, index) => {
+                    const textWidth = ctx.measureText(line).width;
+                    const textX = this.x + (buttonWidth - textWidth) / 2; // Centraliza horizontalmente
+                    const textY = this.y + (index * lineHeight) + this.fontSize; // Posiciona cada linha de texto
+                    ctx.fillText(line, textX, textY);
+                });
             }
-        } else if (this.textLayout === "column") {
-            const lines = Array.isArray(this.text) ? this.text : [this.text];
-            const lineHeight = this.fontSize + padding; // Altura da linha incluindo o espaçamento
-    
-            // Calcula a largura e altura necessárias para o botão
-            buttonWidth = lines.reduce((acc, line) => Math.max(acc, ctx.measureText(line).width), 0) + padding * 4;
-            buttonHeight = lines.length * lineHeight + padding * 4; // Ajusta a altura total
-    
-            // Prepara o canvas para desenhar o botão
-            this.prepareCanvas(ctx, buttonWidth, buttonHeight);
-    
-            // Desenha o botão
-            ctx.drawImage(this.image, this.x, this.y, buttonWidth, buttonHeight);
-    
-            // Desenha o texto
-            lines.forEach((line, index) => {
-                const textWidth = ctx.measureText(line).width;
-                const textX = this.x + (buttonWidth - textWidth) / 2; // Centraliza horizontalmente
-                const textY = this.y + (index * lineHeight) + this.fontSize; // Posiciona cada linha de texto
-                ctx.fillText(line, textX, textY);
-            });
+        
+            // Atualiza a largura e altura do botão para a próxima chamada
+            this.width = buttonWidth;
+            this.height = buttonHeight;
+        } else {
+            // Quando não há texto, usamos as dimensões fornecidas
+            this.prepareCanvas(ctx, this.width, this.height);
+            ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
         }
     
         // Restaura as configurações do canvas
         ctx.restore();
         ctx.globalAlpha = 1.0;
-    
-        // Atualiza a largura e altura do botão para a próxima chamada
-        this.width = buttonWidth;
-        this.height = buttonHeight;
     }
     
     // Método auxiliar para preparar o canvas
