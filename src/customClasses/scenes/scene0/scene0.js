@@ -212,27 +212,27 @@ export class Scene0 {
             if (this.cloud1.x > this.game.canvas.width) {
                 this.cloud1.x = 0 - this.cloud1.width;
             } else {
-                this.cloud1.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, 0.9);
+                this.cloud1.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, (this.game.speed * 0.045));
             }
             if (this.cloud2.x > this.game.canvas.width) {
                 this.cloud2.x = 0 - this.cloud2.width;
             } else {
-                this.cloud2.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, 0.7);
+                this.cloud2.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, (this.game.speed * 0.035));
             }
             if (this.cloud3.x > this.game.canvas.width) {
                 this.cloud3.x = 0 - this.cloud3.width;
             } else {
-                this.cloud3.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, 1);
+                this.cloud3.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, (this.game.speed * 0.05));
             }
             if (this.cloud4.x > this.game.canvas.width) {
                 this.cloud4.x = 0 - this.cloud4.width;
             } else {
-                this.cloud4.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, 0.5);
+                this.cloud4.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, (this.game.speed * 0.025));
             }
             if (this.cloud5.x > this.game.canvas.width) {
                 this.cloud5.x = 0 - this.cloud5.width;
             } else {
-                this.cloud5.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, 0.2);
+                this.cloud5.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, (this.game.speed * 0.015));
             }
         })();
 
