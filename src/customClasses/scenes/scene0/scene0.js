@@ -26,6 +26,7 @@ export class Scene0 {
         this.buttonStart = document.getElementById('buttonStart');
         this.butterflySprite = document.getElementById('butterflies');
         this.cloudImage = document.getElementById('cloud1');
+        this.farmSign = document.getElementById('farmSign');
 
 
         /**BACKGROUND*/
@@ -169,7 +170,8 @@ export class Scene0 {
             this.gameTitleImage, /**IMAGE[2] */
             this.buttonStart, /**IMAGE[3] */
             this.butterfly, /**IMAGE[4] */
-            this.cloud1 /**IMAGE[5] */
+            this.cloud1, /**IMAGE[5] */
+            this.farmSign /**IMAGE[6] */
         ]);
 
         this.calledNextScene = false;
@@ -177,9 +179,74 @@ export class Scene0 {
     }
 
     update(deltaTime) {
-        this.hud.imageLogo.moveTo((this.game.width * 0.02), (this.game.height * 0.02), (this.game.speed * 0.1));
-        this.hud.imageAkemi.moveTo((this.game.width * 0.09), (this.game.height * 0.25), (this.game.speed * 0.1));
-        this.hud.imageAkemi.fadeIn(this.game.speed * 0.001);
+
+        /**ELEMENTS APPEARING | ELEMENTS DISAPPEARING*/
+        (() => {
+
+            if(!this.calledNextScene){
+                this.hud.imageLogo.moveTo((this.game.width * 0.02), (this.game.height * 0.02), (this.game.speed * 0.1));
+                this.hud.imageAkemi.moveTo((this.game.width * 0.09), (this.game.height * 0.25), (this.game.speed * 0.1));
+                this.hud.imageAkemi.fadeIn(this.game.speed * 0.001);
+                this.hud.imageTitle.moveTo((this.game.width * 0.59), (this.game.height * 0.05), (this.game.speed * 0.2));
+                this.hud.buttonStartGame.moveTo((this.game.width * 0.6), this.game.height * 0.7, this.game.speed * 0.1);
+            } else {
+                this.hud.imageLogo.moveTo((this.game.width * 0.02), (this.game.height * -0.12), (this.game.speed * 0.1));
+                this.hud.imageAkemi.moveTo((this.game.width * 0.09), (this.game.height * 0.35), (this.game.speed * 0.1));
+                this.hud.imageAkemi.fadeOut(this.game.speed * 0.001);
+                this.hud.imageTitle.moveTo((this.game.width * 0.59), (this.game.height * -0.25), (this.game.speed * 0.2));
+            }
+
+        })();
+
+        /**MANAGE CLOUDS MOVEMENT*/
+        (() => {
+            if(this.cloud1.x > this.game.canvas.width){
+                this.cloud1.x = 0 - this.cloud1.width;
+            } else {
+                this.cloud1.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, 0.9);
+            }
+            if(this.cloud2.x > this.game.canvas.width){
+                this.cloud2.x = 0 - this.cloud2.width;
+            } else {
+                this.cloud2.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, 0.7);
+            }
+            if(this.cloud3.x > this.game.canvas.width){
+                this.cloud3.x = 0 - this.cloud3.width;
+            } else {
+                this.cloud3.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, 1);
+            }
+            if(this.cloud4.x > this.game.canvas.width){
+                this.cloud4.x = 0 - this.cloud4.width;
+            } else {
+                this.cloud4.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, 0.5);
+            }
+            if(this.cloud5.x > this.game.canvas.width){
+                this.cloud5.x = 0 - this.cloud5.width;
+            } else {
+                this.cloud5.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, 0.2);
+            }
+        })();
+
+        /**HANDLE CLICKS*/
+        (() => {
+
+            //BUTTON FULL SCREEN CLICKED
+            if ((this.hud.buttonFullScreen.isTouchOver(this.game.input.touches) || this.hud.buttonFullScreen.isMouseClicking(this.game.input.mouse))) {
+
+                this.game.toggleFullScreen();
+                let currentState = this.game.isFullScreen;
+                if (this.game.isFullScreen !== currentState) {
+                    this.game.input.mouse.clicked = false;
+                }
+            }
+
+        })();
+
+        /**UPDATING ELEMENTS*/
+        this.hud.buttonStartGame.update(deltaTime);
+        this.hud.buttonFullScreen.update(deltaTime);
+
+
     }
 
     draw(ctx, scene) {
@@ -188,7 +255,7 @@ export class Scene0 {
         // Create gradient
         let grd = ctx.createLinearGradient(0, 0, 0, this.game.height);
         grd.addColorStop(0, '#87CEEB');   // Blue at the top
-        grd.addColorStop(1, 'white');  // White at the bottom
+        grd.addColorStop(1, 'lightgray');  // White at the bottom
 
         // Fill with gradient
         ctx.fillStyle = grd;
@@ -216,6 +283,9 @@ export class Scene0 {
 
         /**BUTTON START DRAW*/
         this.hud.buttonStartGame.draw(ctx, 0);
+
+        /**BUTTON FULL SCREEN DRAW */
+        this.hud.buttonFullScreen.draw(ctx, 0);
 
         /**BUTTERFLY DRAW */
         this.butterfly.draw(ctx);

@@ -9,25 +9,52 @@ export class thisGameHUD extends Hud {
         let minDimension = Math.min(this.game.width, this.game.height);
         let fontSize = minDimension * 0.090;
      
-       this.buttonStartGame = new Image(
+        this.buttonStartGame = new Image(
             this.game, /**GAME */
-            (this.game.width * 0.30), /**X */
-            (this.height * 1.35), /**Y */
-            (this.game.width * 0.40), /**WIDTH */
-            (this.game.height * 0.26), /**HEIGHT */
+            (this.game.width * 0.6), /**X */
+            (this.height * 1), /**Y */
+            (this.game.width * 0.2), /**WIDTH */
+            (this.game.height * 0.3), /**HEIGHT */
             0, /**ROTATION */
             this.images[3],  /**IMAGE */
             1, /**OPACITY */
-            "NEW GAME", /**TEXT */
-            50, /**TEXT SPACING */
-            "font1942", /**TEXT FONT */
+            null, /**TEXT */
+            (this.height * 0.1), /**TEXT SPACING */
+            "PatrickHand", /**TEXT FONT */
             "bold", /**FONT WEIGHT */
-            fontSize, /**FONT SIZE */
+            fontSize * 0.9, /**FONT SIZE */
             (this.game.width * 0.365), /**TEXT X */
             (this.height * 1.50), /**TEXT Y */
             "black", /**TEXT COLOR */
             true, /**MOUSE HOVER */
-            "row"
+            null, /**TEXTS ALIGN -> ROW OR COLUMN */
+            "INICIAR", /**UNIQUE TEXT */
+            (this.game.width * 0.64), /**UNIQUE TEXT X */
+            (this.height * 1.12), /**UNIQUE TEXT Y */
+        );
+
+        this.buttonFullScreen = new Image(
+            this.game, /**GAME */
+            (this.game.width * 0.01), /**X */
+            (this.height * 0.84), /**Y */
+            (this.game.width * 0.2), /**WIDTH */
+            (this.game.height * 0.15), /**HEIGHT */
+            0, /**ROTATION */
+            this.images[6],  /**IMAGE */
+            1, /**OPACITY */
+            null, /**TEXT */
+            (this.height * 0.1), /**TEXT SPACING */
+            "PatrickHand", /**TEXT FONT */
+            "bold", /**FONT WEIGHT */
+            fontSize * 0.5, /**FONT SIZE */
+            (this.game.width * 0.365), /**TEXT X */
+            (this.height * 1.50), /**TEXT Y */
+            "black", /**TEXT COLOR */
+            true, /**MOUSE HOVER */
+            null, /**TEXTS ALIGN -> ROW OR COLUMN */
+            "🖥 TELA CHEIA", /**UNIQUE TEXT */
+            (this.game.width * 0.032), /**UNIQUE TEXT X */
+            (this.height * 0.93), /**UNIQUE TEXT Y */
         );
 
         this.imageLogo = new Image(
@@ -74,22 +101,23 @@ export class thisGameHUD extends Hud {
 
         this.imageTitle = new Image(
             this.game, /**GAME */
-            (this.game.width * 0.5), /**X */
-            (this.height * -0.5), /**Y */
-            (this.game.width * 0.35), /**WIDTH */
-            (this.game.height * 0.20), /**HEIGHT */
-            0, /**ROTATION */ 
-            this.images[2], /**IMAGE */
+            (this.game.width * 0.59), /**X */
+            (this.height * -0.2), /**Y */
+            (this.game.width * 0.30), /**WIDTH */
+            (this.game.height * 0.2), /**HEIGHT */
+            0, /**ROTATION */
+            this.images[2],  /**IMAGE */
             1, /**OPACITY */
             null, /**TEXT */
-            null, /**TEXT SPACING */
-            null, /**TEXT FONT */
-            null, /**FONT WEIGHT */
-            null, /**FONT SIZE */
-            null, /**TEXT X */
-            null, /**TEXT Y */
-            null, /**TEXT COLOR */
-            false /**MOUSE HOVER */
+            (this.height * 0.1), /**TEXT SPACING */
+            "font1942", /**TEXT FONT */
+            "bold", /**FONT WEIGHT */
+            fontSize, /**FONT SIZE */
+            (this.game.width * 0.365), /**TEXT X */
+            (this.height * 1.50), /**TEXT Y */
+            "black", /**TEXT COLOR */
+            true, /**MOUSE HOVER */
+            null, /**TEXTS ALIGN -> ROW OR COLUMN */
         );
 
         this.buttonLoadGame = new Image(
