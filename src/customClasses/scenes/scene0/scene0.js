@@ -233,11 +233,22 @@ export class Scene0 {
             //BUTTON FULL SCREEN CLICKED
             if ((this.hud.buttonFullScreen.isTouchOver(this.game.input.touches) || this.hud.buttonFullScreen.isMouseClicking(this.game.input.mouse))) {
 
-                this.game.toggleFullScreen();
-                let currentState = this.game.isFullScreen;
-                if (this.game.isFullScreen !== currentState) {
-                    this.game.input.mouse.clicked = false;
-                }
+                window.addEventListener('click', () => {
+                    this.game.toggleFullScreen();
+                    let currentState = this.game.isFullScreen;
+                    if (this.game.isFullScreen !== currentState) {
+                        this.game.input.mouse.clicked = false;
+                    }
+                });
+
+                window.addEventListener('touchend', () => {
+                    this.game.toggleFullScreen();
+                    let currentState = this.game.isFullScreen;
+                    if (this.game.isFullScreen !== currentState) {
+                        this.game.input.mouse.clicked = false;
+                    }
+                });
+                
             }
 
         })();
