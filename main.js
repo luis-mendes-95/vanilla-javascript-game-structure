@@ -56,17 +56,16 @@ window.addEventListener('load', function() {
             .catch(error => console.log(error));
 
             /** SCENES MANAGEMENT */
-            this.scenes = [ new Scene0(this) ];
-            this.currentSceneIndex = 0;
+            this.currentScene = new Scene0(this);
         }
 
         changeScene(newScene) {
-            this.scenes[this.currentSceneIndex] = new newScene(this);
+            this.currentScene = new newScene(this);
         }
 
         update(deltaTime) {
             /** UPDATING SCENE */
-            this.scenes[this.currentSceneIndex].update(deltaTime);
+            this.currentScene.update(deltaTime);
 
             /** CONSTANTLY LOOK FOR ELEMENTS HOVERING AND THEN CHANGE MOUSE CURSOR */
             this.updateCursorStyle();
@@ -74,7 +73,7 @@ window.addEventListener('load', function() {
 
         draw() {
             /** DRAWING SCENE */
-            this.scenes[this.currentSceneIndex].draw(ctx, 0);
+            this.currentScene.draw(ctx, 0);
         }
 
         toggleFullScreen() {

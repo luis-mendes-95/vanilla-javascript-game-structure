@@ -9,22 +9,30 @@ import { Scene2 } from "../scene2/scene2.js";
 
 export class Scene1 {
     constructor(game) {
-        this.started = false;
+
         this.game = game;
         this.width = this.game.width;
         this.height = this.game.height;
         this.musicPlaying = false;
         this.savedGame = localStorage.getItem('AkemiFazendaSavedGame') || null;
-        this.buttonStart = document.getElementById('buttonStart');
+        this.namePanel = document.getElementById('namePanel');
 
         /** GAME ASSETS */
-        this.backgroundScene1 = document.getElementById('backgroundScene1');
-        this.logo = document.getElementById('logo');
+        this.backgroundScene1 = document.getElementById('backgroundScene2');
+
+        /**AKEMI GIRL */
         this.akemiImages = document.getElementsByClassName('akemi');
-        this.gameTitleImage = document.getElementById('gameTitle');
-        this.buttonStart = document.getElementById('buttonStart');
+
+        /**NAME PANEL */
+        this.namePanel = document.getElementById('namePanel');
+
+        /**BUTTERFLY */
         this.butterflySprite = document.getElementById('butterflies');
+
+        /**CLOUD IMAGE */
         this.cloudImage = document.getElementById('cloud1');
+
+
         this.farmSign = document.getElementById('farmSign');
 
         /** DEBUGGING */
@@ -35,7 +43,7 @@ export class Scene1 {
             this,
             0,
             0,
-            this.game.width,
+            this.game.width * 2,
             this.game.height,
             'blue',
             10,
@@ -156,7 +164,7 @@ export class Scene1 {
             160, /** SPRITE HEIGHT */
             this.game.height * 0.0005, /** SIZE X */
             this.game.height * 0.0005, /** SIZE Y */
-            (this.game.canvas.width * 1.00), /** DESTINY X */
+            (this.game.canvas.width * 1.02), /** DESTINY X */
             (this.game.canvas.height * 0.14), /** DESTINY Y */
             4, /** MAX FRAME X */
             0, /** MAX FRAME Y */
@@ -167,10 +175,8 @@ export class Scene1 {
 
         /** HUD */
         this.hud = new thisGameHUD(this.game, 0, 0, this.width, this.height, [
-            this.logo,
             this.akemiImages[3],
-            this.gameTitleImage,
-            this.buttonStart,
+            this.namePanel,
             this.butterfly,
             this.cloud1,
             this.farmSign
@@ -183,7 +189,7 @@ export class Scene1 {
         this.handleFullScreenClick = this.handleFullScreenClick.bind(this);
         this.handleFullScreenTouchEnd = this.handleFullScreenTouchEnd.bind(this);
 
-        this.buttonStart.addEventListener('click', () => {
+        this.namePanel.addEventListener('click', () => {
             this.game.changeScene(Scene1);
         });
     }
@@ -201,9 +207,23 @@ export class Scene1 {
     }
 
     update(deltaTime) {
+        
         /** ELEMENTS APPEARING | ELEMENTS DISAPPEARING */
         (() => {
             if (!this.calledNextScene) {
+
+                /**AKEMI GIRL*/
+                this.hud.imageAkemi.fadeIn(0.01);
+                this.hud.imageAkemi.moveTo(this.game.width * 0.09, this.game.height * 0.25, (this.game.speed * 0.05));
+
+                /**NAME PANEL*/
+                this.hud.namePanel.fadeIn(0.01);
+                this.hud.namePanel.moveTo(this.game.width * 0.55, this.game.height * 0.42, (this.game.speed * 0.35));
+                this.hud.namePanel.rotate(0, this.game.speed * 0.032);
+
+                /**BUTTERFLY */
+                this.butterfly.moveTo(this.game.canvas.width * 0.85, this.game.canvas.height * 0.44, (this.game.speed * 0.15));
+                this.butterfly.rotate(-15, this.game.speed * 0.053);
 
             } else {
 
@@ -247,13 +267,13 @@ export class Scene1 {
                 window.addEventListener('touchend', this.handleFullScreenTouchEnd);
             }
             /** START BUTTON */
-            if(this.hud.buttonStartGame.isTouchOver(this.game.input.touches) || this.hud.buttonStartGame.isMouseClicking(this.game.input.mouse)){
+            if(this.hud.namePanel.isTouchOver(this.game.input.touches) || this.hud.namePanel.isMouseClicking(this.game.input.mouse)){
                 this.calledNextScene = true;
             }
         })();
 
         /** UPDATING ELEMENTS */
-        this.hud.buttonStartGame.update(deltaTime);
+        this.hud.namePanel.update(deltaTime);
         this.hud.buttonFullScreen.update(deltaTime);
         this.butterfly.update(deltaTime);
 
@@ -282,17 +302,11 @@ export class Scene1 {
         this.cloud4.draw(ctx, 0);
         this.cloud5.draw(ctx, 0);
 
-        /** LOGO DRAW */
-        this.hud.imageLogo.draw(ctx, 0);
-
         /** AKEMI GIRL DRAW */
         this.hud.imageAkemi.draw(ctx, 0);
 
-        /** GAME NAME TITLE DRAW */
-        this.hud.imageTitle.draw(ctx, 0);
-
-        /** BUTTON START DRAW */
-        this.hud.buttonStartGame.draw(ctx, 0);
+        /** NAME PANEL DRAW */
+        this.hud.namePanel.draw(ctx, 0);
 
         /** BUTTON FULL SCREEN DRAW */
         this.hud.buttonFullScreen.draw(ctx, 0);

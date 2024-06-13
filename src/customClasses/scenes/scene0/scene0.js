@@ -9,7 +9,7 @@ import { Scene1 } from "../scene1/scene1.js";
 
 export class Scene0 {
     constructor(game) {
-        this.started = false;
+
         this.game = game;
         this.width = this.game.width;
         this.height = this.game.height;
@@ -281,7 +281,9 @@ export class Scene0 {
 
         /** CHANGING SCENE */
         if(this.calledNextScene){
-            this.changeScene();
+            if(this.butterfly.x >= this.game.width){
+                this.changeScene();
+            }
         }
        
     }
