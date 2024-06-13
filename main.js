@@ -102,6 +102,7 @@ window.addEventListener('load', function() {
             this.canvas.style.cursor = this.hoveredImages.size > 0 ? 'pointer' : 'default';
         }
         
+        
     }
 
     /**INSTANTIATING THE GAME CLASS */
@@ -120,4 +121,8 @@ window.addEventListener('load', function() {
     }
     animate(0);
 
+});
+
+window.addEventListener('resize', function() {
+    this.location.reload();
 });
