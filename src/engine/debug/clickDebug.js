@@ -21,7 +21,19 @@ export class ClickDebug {
             this.ctx.beginPath();
             this.ctx.arc(adjustedX, adjustedY, 10, 0, 2 * Math.PI);
             this.ctx.fill();
-            this.ctx.fillText(`(${adjustedX}, ${adjustedY})`, adjustedX + 15, adjustedY + 5);
+            if(adjustedX < window.innerWidth / 2) {
+                if(adjustedY < window.innerHeight / 2) {
+                    this.ctx.fillText(`|${parseInt(adjustedX)} x ${parseInt(adjustedY)}|`, adjustedX + 15, adjustedY + 15);
+                } else {
+                    this.ctx.fillText(`|${parseInt(adjustedX)} x ${parseInt(adjustedY)}|`, adjustedX + 15, adjustedY - 20);
+                }
+            } else {
+                if(adjustedY < window.innerHeight / 2) {
+                    this.ctx.fillText(`|${parseInt(adjustedX)} x ${parseInt(adjustedY)}|`, adjustedX - 120, adjustedY + 15);
+                } else {
+                    this.ctx.fillText(`|${parseInt(adjustedX)} x ${parseInt(adjustedY)}|`, adjustedX -120, adjustedY - 20);
+                }
+            }
         });
     }
 }

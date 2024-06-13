@@ -27,6 +27,9 @@ export class Scene0 {
         this.cloudImage = document.getElementById('cloud1');
         this.farmSign = document.getElementById('farmSign');
 
+        /**DEBUGGING*/
+        this.clickDebug = new ClickDebug(this.game.input, this.game.ctx);
+
         /**BACKGROUND*/
         this.background = new Background(
             this,
@@ -271,6 +274,16 @@ export class Scene0 {
         this.hud.buttonStartGame.update(deltaTime);
         this.hud.buttonFullScreen.update(deltaTime);
         this.butterfly.update(deltaTime);
+
+        /**DEBUGGING */
+        (() => {
+
+            this.clickDebug.draw();
+
+            
+        })();
+
+        
     }
 
     draw(ctx, scene) {
@@ -308,6 +321,9 @@ export class Scene0 {
 
         /**BUTTERFLY DRAW */
         this.butterfly.draw(ctx);
+
+        /**DEBUGGING */
+        this.clickDebug.draw();
     }
 
     playSound() {
