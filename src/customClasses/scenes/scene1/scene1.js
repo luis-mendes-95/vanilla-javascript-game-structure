@@ -32,8 +32,11 @@ export class Scene1 {
         /**CLOUD IMAGE */
         this.cloudImage = document.getElementById('cloud1');
 
-
+        /**BACKGROUND BUTTON PANEL */
         this.farmSign = document.getElementById('farmSign');
+        
+        /**KEYBOARD STATES*/
+        this.showKeyboard = false;
 
         /** DEBUGGING */
         // this.clickDebug = new ClickDebug(this.game.input, this.game.ctx);
@@ -218,12 +221,33 @@ export class Scene1 {
 
                 /**NAME PANEL*/
                 this.hud.namePanel.fadeIn(0.01);
-                this.hud.namePanel.moveTo(this.game.width * 0.55, this.game.height * 0.42, (this.game.speed * 0.35));
+                if(!this.showKeyboard){
+                    this.hud.namePanel.moveTo(this.game.width * 0.55, this.game.height * 0.42, (this.game.speed * 0.35));
+                }
                 this.hud.namePanel.rotate(0, this.game.speed * 0.032);
 
                 /**BUTTERFLY */
-                this.butterfly.moveTo(this.game.canvas.width * 0.85, this.game.canvas.height * 0.44, (this.game.speed * 0.15));
-                this.butterfly.rotate(-15, this.game.speed * 0.053);
+                if(!this.showKeyboard){
+                    this.butterfly.moveTo(this.game.canvas.width * 0.85, this.game.canvas.height * 0.44, (this.game.speed * 0.15));
+                    this.butterfly.rotate(-15, this.game.speed * 0.053);
+                }
+
+                /**FULL SCREEN BUTTON*/
+                this.hud.buttonFullScreen.moveTo(this.game.width * 0.01, this.game.height * 0.89, (this.game.speed * 0.5));
+
+                /**KEYBOARD*/
+                if(this.showKeyboard){
+                    this.hud.keyboard.moveTo(this.game.width * 0.01, this.game.height * 0.19, (this.game.speed * 1));
+                    this.hud.buttonHideKeyboard.moveTo(this.game.width * 0.2, this.game.height * 0.89, (this.game.speed * 0.5));
+                    this.hud.buttonShowKeyboard.moveTo(this.game.width * 0.2, this.game.height * 1.1, (this.game.speed * 0.5));
+                    this.hud.namePanel.moveTo(this.game.width * 0.6, this.game.height * 0.52, (this.game.speed * 0.35));
+                    this.butterfly.moveTo(this.game.canvas.width * 0.92, this.game.canvas.height * 0.56, (this.game.speed * 0.10));
+                    this.butterfly.rotate(15, this.game.speed * 0.033);
+                } else {
+                    this.hud.keyboard.moveTo(this.game.width * 0.01, this.game.height * 1.1, (this.game.speed * 1));
+                    this.hud.buttonShowKeyboard.moveTo(this.game.width * 0.2, this.game.height * 0.89, (this.game.speed * 0.5));
+                    this.hud.buttonHideKeyboard.moveTo(this.game.width * 0.2, this.game.height * 1.1, (this.game.speed * 0.5));
+                }
 
             } else {
 
@@ -266,9 +290,13 @@ export class Scene1 {
                 window.addEventListener('click', this.handleFullScreenClick);
                 window.addEventListener('touchend', this.handleFullScreenTouchEnd);
             }
-            /** START BUTTON */
-            if(this.hud.namePanel.isTouchOver(this.game.input.touches) || this.hud.namePanel.isMouseClicking(this.game.input.mouse)){
-                this.calledNextScene = true;
+
+            /**KEYBOARD BUTTONS */
+            if(this.hud.buttonShowKeyboard.isTouchOver(this.game.input.touches) || this.hud.buttonShowKeyboard.isMouseClicking(this.game.input.mouse)){
+                this.showKeyboard = true;
+            }
+            if(this.hud.buttonHideKeyboard.isTouchOver(this.game.input.touches) || this.hud.buttonHideKeyboard.isMouseClicking(this.game.input.mouse)){
+                this.showKeyboard = false;
             }
         })();
 
@@ -276,6 +304,9 @@ export class Scene1 {
         this.hud.namePanel.update(deltaTime);
         this.hud.buttonFullScreen.update(deltaTime);
         this.butterfly.update(deltaTime);
+        this.hud.keyboard.update(deltaTime);
+        this.hud.buttonShowKeyboard.update(deltaTime);
+        this.hud.buttonHideKeyboard.update(deltaTime);
 
         /** CHANGING SCENE */
         if(this.calledNextScene){
@@ -311,8 +342,16 @@ export class Scene1 {
         /** BUTTON FULL SCREEN DRAW */
         this.hud.buttonFullScreen.draw(ctx, 0);
 
+        /**BUTTONS KEYBOARD CONTROL */
+        this.hud.buttonShowKeyboard.draw(ctx, 0);
+        this.hud.buttonHideKeyboard.draw(ctx, 0);
+        
+
         /** BUTTERFLY DRAW */
         this.butterfly.draw(ctx);
+
+        /**KEYBOARD */
+        this.hud.keyboard.draw(ctx);
 
         /** DEBUGGING */
         // this.clickDebug.draw();

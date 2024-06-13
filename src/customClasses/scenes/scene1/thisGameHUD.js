@@ -1,5 +1,6 @@
 import { Hud } from "../../../engine/hud/hud.js";
 import { Image } from "../../../engine/hud/image/image.js";
+import { Keyboard } from "../../../engine/hud/keyboard/keyboard.js";
 import { Text } from "../../../engine/hud/text/text.js";
 
 export class thisGameHUD extends Hud {
@@ -8,6 +9,62 @@ export class thisGameHUD extends Hud {
 
         let minDimension = Math.min(this.game.width, this.game.height);
         let fontSize = minDimension * 0.090;
+
+        this.buttonShowKeyboard = new Image(
+            this.game, /**GAME */
+            (this.game.width * 0.2), /**X */
+            (this.height * 1), /**Y */
+            (this.game.width * 0.15), /**WIDTH */
+            (this.game.height * 0.1), /**HEIGHT */
+            0, /**ROTATION */
+            this.images[4],  /**IMAGE */
+            1, /**OPACITY */
+            null, /**TEXT */
+            (this.height * 0.1), /**TEXT SPACING */
+            "PatrickHand", /**TEXT FONT */
+            "bold", /**FONT WEIGHT */
+            (fontSize * 0.3), /**FONT SIZE */
+            (this.game.width * 0.365), /**TEXT X */
+            (this.height * 1.50), /**TEXT Y */
+            "black", /**TEXT COLOR */
+            true, /**MOUSE HOVER */
+            null, /**TEXTS ALIGN -> ROW OR COLUMN */
+            "⌨ TECLADO", /**UNIQUE TEXT */
+            (this.game.width * 0.235), /**UNIQUE TEXT X */
+            (this.height * 1.06), /**UNIQUE TEXT Y */
+        );
+
+
+        this.buttonHideKeyboard = new Image(
+            this.game, /**GAME */
+            (this.game.width * 0.2), /**X */
+            (this.height * 1), /**Y */
+            (this.game.width * 0.15), /**WIDTH */
+            (this.game.height * 0.1), /**HEIGHT */
+            0, /**ROTATION */
+            this.images[4],  /**IMAGE */
+            1, /**OPACITY */
+            null, /**TEXT */
+            (this.height * 0.1), /**TEXT SPACING */
+            "PatrickHand", /**TEXT FONT */
+            "bold", /**FONT WEIGHT */
+            (fontSize * 0.3), /**FONT SIZE */
+            (this.game.width * 0.365), /**TEXT X */
+            (this.height * 1.50), /**TEXT Y */
+            "black", /**TEXT COLOR */
+            true, /**MOUSE HOVER */
+            null, /**TEXTS ALIGN -> ROW OR COLUMN */
+            "⌨ ESCONDER", /**TEXT */
+            (this.game.width * 0.235), /**UNIQUE TEXT X */
+            (this.height * 1.06), /**UNIQUE TEXT Y */
+        );
+
+        this.keyboard = new Keyboard(
+            this.game,  /**GAME */
+            this.width * 0.01, /**X */
+            this.height * 0.99, /**Y */
+            "PatrickHand", /**FONT */
+        );
      
         this.namePanel = new Image(
             this.game, /**GAME */
@@ -26,7 +83,7 @@ export class thisGameHUD extends Hud {
             (this.game.width * 0.365), /**TEXT X */
             (this.height * 1.50), /**TEXT Y */
             "black", /**TEXT COLOR */
-            true, /**MOUSE HOVER */
+            false, /**MOUSE HOVER */
             null, /**TEXTS ALIGN -> ROW OR COLUMN */
             "NOME DO MELIANTE", /**UNIQUE TEXT */
             (this.game.width * 0.91), /**UNIQUE TEXT X */
@@ -36,7 +93,7 @@ export class thisGameHUD extends Hud {
         this.buttonFullScreen = new Image(
             this.game, /**GAME */
             (this.game.width * 0.01), /**X */
-            (this.height * 0.89), /**Y */
+            (this.height * 1), /**Y */
             (this.game.width * 0.15), /**WIDTH */
             (this.game.height * 0.1), /**HEIGHT */
             0, /**ROTATION */
@@ -46,7 +103,7 @@ export class thisGameHUD extends Hud {
             (this.height * 0.1), /**TEXT SPACING */
             "PatrickHand", /**TEXT FONT */
             "bold", /**FONT WEIGHT */
-            fontSize * 0.3, /**FONT SIZE */
+            (fontSize * 0.3), /**FONT SIZE */
             (this.game.width * 0.365), /**TEXT X */
             (this.height * 1.50), /**TEXT Y */
             "black", /**TEXT COLOR */
@@ -54,7 +111,7 @@ export class thisGameHUD extends Hud {
             null, /**TEXTS ALIGN -> ROW OR COLUMN */
             "🖥 TELA CHEIA", /**UNIQUE TEXT */
             (this.game.width * 0.032), /**UNIQUE TEXT X */
-            (this.height * 0.95), /**UNIQUE TEXT Y */
+            (this.height * 1.06), /**UNIQUE TEXT Y */
         );
 
         this.imageAkemi = new Image(

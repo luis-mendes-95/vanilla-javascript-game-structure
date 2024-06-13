@@ -1,136 +1,255 @@
-import { Image } from "../image/image.js";
-
 export class Keyboard {
-    constructor(game, x, y, width, height, rotation, image, opacity, font, fontSize, textColor) {
-        this.game = game;
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-        this.rotation = rotation;
-        this.image = image;
-        this.opacity = opacity;
+    constructor(game, x, y, font) {
         this.font = font;
-        this.fontSize = fontSize;
-        this.textColor = textColor;
-        this.minimized = true;
+        this.game = game;
+        this.ctx = game.ctx;
+        this.keys = [
+            ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
+            ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
+            ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Ç'],
+            ['Z', 'X', 'C', 'V', 'B', 'N', 'M', '←'],
+            [' ']
+        ];
+        this.currentInput = "";
+        const screenWidth = game.canvas.width;
+        this.keyWidth = screenWidth * 0.075;
+        this.keyHeight = this.keyWidth;
+        this.spaceBarWidth = this.keyWidth * 5;
+        this.backspaceWidth = this.keyWidth;
+        this.margin = screenWidth * 0.005;
+        this.startX = x;
+        this.startY = y;
+        this.opacity = 0.9;
+        this.initEventListeners();
 
-        // Define the keys
-        this.keys = 'QWERTYUIOPASDFGHJKLÇZXCVBNM ⌫'.split('');
-        this.hoveringKey = null;
+        this.cursor = "|"; // Step 1: Add cursor property
+        this.cursorVisible = true; // To control the visibility of the cursor
+        this.initCursorBlinking(); // Step 5: Initialize cursor blinking
 
-        // Calculate the size and spacing of the keys
-        this.keyWidth = this.width / 10;
-        this.keyHeight = this.height / 3;
-        this.keySpacing = this.keyWidth / 10;
-
-        // Initialize the selected key
-        this.selectedKey = null;
+        this.canType = false;
+        
     }
 
-    checkCollision() {
-        const mouseX = this.game.input.mouse.x;
-        const mouseY = this.game.input.mouse.y;
-        let isOverKey = false; // Adicionado para rastrear se o mouse está sobre uma tecla
-    
-        for (let i = 0; i < this.keys.length; i++) {
-            let keyX = this.x + (i % 10) * (this.keyWidth + this.keySpacing);
-            let keyY = this.y + Math.floor(i / 10) * (this.keyHeight + this.keySpacing);
-    
-            let currentKeyWidth = this.keyWidth;
-            if (this.keys[i] === ' ') {
-                currentKeyWidth *= 3;
-            } else if (this.keys[i] === '⌫') {
-                currentKeyWidth *= 5;
+    initCursorBlinking() {
+        setInterval(() => {
+            this.cursorVisible = !this.cursorVisible; // Toggle cursor visibility
+            this.draw(); // Redraw to update the cursor state
+        }, 500); // Blink every 500ms
+    }
+
+    handleKeydown(e) {
+        // Existing keydown handling code...
+        // Make sure to update `this.currentInput` without the cursor for processing
+        this.draw();
+    }
+
+    initEventListeners() {
+        document.addEventListener('keydown', this.handleKeydown.bind(this));
+        this.game.canvas.addEventListener('click', this.handleClick.bind(this));
+        this.game.canvas.addEventListener('touchstart', this.handleTouchStart.bind(this));
+    }
+
+    handleKeydown(e) {
+        if(this.canType){
+            if (e.key === 'Backspace') {
+                this.currentInput = this.currentInput.slice(0, -1);
+            } else if (e.key === ' ') {
+                this.currentInput += ' ';
+            } else if (e.key.length === 1) {
+                this.currentInput += e.key.toUpperCase();
             }
-    
-            if (mouseX >= keyX && mouseX <= keyX + currentKeyWidth && mouseY >= keyY && mouseY <= keyY + this.keyHeight) {
-                isOverKey = true; // O mouse está sobre uma tecla
-                this.hoveringKey = i;
-                this.game.canvas.style.cursor = 'pointer';
-                if (this.game.input.mouse.clicked) {
-                    this.selectedKey = i;
-                    console.log(this.keys[i]);
-                    break; // Sai do loop se uma tecla for clicada
+            this.draw();
+        }
+    }
+
+    handleClick(e) {
+        const rect = this.ctx.canvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        this.processInput(x, y);
+    }
+
+    handleTouchStart(e) {
+        const rect = this.ctx.canvas.getBoundingClientRect();
+        for (let i = 0; i < e.touches.length; i++) {
+            const touch = e.touches[i];
+            const x = (touch.clientX - rect.left) * (this.game.canvas.width / rect.width);
+            const y = (touch.clientY - rect.top) * (this.game.canvas.height / rect.height);
+            this.processInput(x, y);
+        }
+    }
+
+    processInput(x, y) {
+        let yOffset = 0;
+
+        this.keys.forEach((row, rowIndex) => {
+            let xOffset = 0;
+            row.forEach((key, keyIndex) => {
+                const width = key === ' ' ? this.spaceBarWidth : key === '←' ? this.backspaceWidth : this.keyWidth;
+                const keyX = this.startX + xOffset;
+                const keyY = this.startY + yOffset;
+                if (x > keyX && x < keyX + width && y > keyY && y < keyY + this.keyHeight) {
+                    if (key === '←') {
+                        this.currentInput = this.currentInput.slice(0, -1);
+                    } else if (key === ' ') {
+                        this.currentInput += ' ';
+                    } else {
+                        this.currentInput += key;
+                    }
+                    this.draw();
+                }
+                xOffset += width + this.margin;
+            });
+            yOffset += this.keyHeight + this.margin;
+        });
+    }
+
+    update() {
+        this.mouseHovering();
+        this.isMouseClicking();
+    }
+
+    draw() {
+        const canvasWidth = this.ctx.canvas.width;
+        const canvasHeight = this.ctx.canvas.height;
+
+        const totalHeight = this.keys.length * (this.keyHeight + this.margin) - this.margin;
+        const totalWidth = Math.max(...this.keys.map(row => row.reduce((acc, key) => acc + (key === ' ' ? this.spaceBarWidth : this.keyWidth) + this.margin, -this.margin)));
+
+        this.ctx.save();
+
+        this.ctx.font = `${this.keyHeight * 0.5}px ${this.font}`;
+        this.ctx.textAlign = 'center';
+        this.ctx.textBaseline = 'middle';
+
+        let x = this.startX;
+        let y = this.startY;
+
+        // Draw current input above the keyboard
+        //const inputHeight = this.keyHeight * 0.5;
+        //this.ctx.fillStyle = 'black';
+        //this.ctx.fillText(this.currentInput, canvasWidth / 2, this.startY - inputHeight - this.margin);
+
+        for (let row of this.keys) {
+            for (let key of row) {
+                let keyWidth = key === ' ' ? this.spaceBarWidth : this.keyWidth;
+                if (this.isMouseOver(this.game.input.mouse, row, key) || this.isTouchOver(this.game.input.touches, row, key)) {
+                    this.ctx.fillStyle = `rgba(211, 211, 211, 1)`;
+                } else {
+                    this.ctx.fillStyle = `rgba(211, 211, 211, ${this.opacity})`;
+                }
+                this.ctx.fillRect(x, y, keyWidth, this.keyHeight);
+                this.ctx.fillStyle = 'black';
+                this.ctx.fillText(key, x + (keyWidth / 2), y + (this.keyHeight / 2));
+                x += keyWidth + this.margin;
+            }
+            x = this.startX;
+            y += this.keyHeight + this.margin;
+        }
+
+        this.ctx.restore();
+
+        const displayInput = this.currentInput + (this.cursorVisible ? this.cursor : "");
+    }
+
+    moveTo(x, y, speed) {
+        if (this.startX < x) {
+            this.startX += speed;
+        }
+        if (this.startX > x) {
+            this.startX -= speed;
+        }
+        if (this.startY < y) {
+            this.startY += speed;
+        }
+        if (this.startY > y) {
+            this.startY -= speed;
+        }
+    }
+
+    fadeIn(speed) {
+        if (this.opacity < 1) {
+            this.opacity += speed;
+            if (this.opacity > 1) {
+                this.opacity = 1;
+            }
+        }
+    }
+
+    fadeOut(speed) {
+        if (this.opacity > 0) {
+            this.opacity -= speed;
+            if (this.opacity < 0) {
+                this.opacity = 0;
+            }
+        }
+    }
+
+    isMouseOver(mouse, row, key) {
+        let yOffset = 0;
+
+        for (let i = 0; i < this.keys.length; i++) {
+            let xOffset = 0;
+            for (let j = 0; j < this.keys[i].length; j++) {
+                const width = this.keys[i][j] === ' ' ? this.spaceBarWidth : this.keys[i][j] === '←' ? this.backspaceWidth : this.keyWidth;
+                const keyX = this.startX + xOffset;
+                const keyY = this.startY + yOffset;
+                if (mouse.x >= keyX && mouse.x <= keyX + width && mouse.y >= keyY && mouse.y <= keyY + this.keyHeight) {
+                    return this.keys[i][j] === key;
+                }
+                xOffset += width + this.margin;
+            }
+            yOffset += this.keyHeight + this.margin;
+        }
+        return false;
+    }
+
+    isTouchOver(touches, row, key) {
+        for (let i = 0; i < touches.length; i++) {
+            const touch = touches[i];
+            if (this.isMouseOver(touch, row, key)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    mouseHovering() {
+        let isOverAnyKey = false;
+        for (let rowIndex = 0; rowIndex < this.keys.length; rowIndex++) {
+            const row = this.keys[rowIndex];
+            for (let keyIndex = 0; keyIndex < row.length; keyIndex++) {
+                const key = row[keyIndex];
+                const keyId = `row-${rowIndex}-key-${keyIndex}`;
+                if (this.isMouseOver(this.game.input.mouse, row, key) || this.isTouchOver(this.game.input.touches, row, key)) {
+                    if (!this.game.hoveredImages.has(keyId)) {
+                        this.game.hoveredImages.add(keyId);
+                        isOverAnyKey = true;
+                    }
+                } else {
+                    if (this.game.hoveredImages.has(keyId)) {
+                        this.game.hoveredImages.delete(keyId);
+                    }
                 }
             }
         }
-    
-        // Atualiza o estilo do cursor baseado em isOverKey
-        
-        if(!isOverKey) this.hoveringKey = null;
+
+        this.game.updateCursorStyle();
+        this.mouseOver = isOverAnyKey;
     }
 
-    update(){
-        this.checkCollision();
+    isMouseClicking() {
+        if (this.isMouseOver(this.game.input.mouse) || this.isTouchOver(this.game.input.touches)) {
+            return this.game.input.mouse.clicked;
+        }
     }
 
-    draw(ctx) {
-
-        ctx.globalAlpha = this.opacity;
-        ctx.save();
-        ctx.translate(this.x + this.width / 2, this.y + this.height / 2);
-        ctx.rotate(this.rotation * Math.PI / 180);
-        ctx.translate(-(this.x + this.width / 2), -(this.y + this.height / 2));
-
-        // Draw each key
-        for (let i = 0; i < this.keys.length; i++) {
-
-            let keyX = this.x + (i % 10) * (this.keyWidth + this.keySpacing);
-            let keyY = this.y + Math.floor(i / 10) * (this.keyHeight + this.keySpacing);
-        
-            let currentKeyWidth = this.keyWidth;
-            let currentKeyHeight = this.keyHeight;
-        
-            // Adjust the size and position for the space and backspace keys
-            if (this.keys[i] === ' ') {
-                currentKeyWidth *= 3; // Make the space key 5 times wider
-                keyX = this.x + 7.7 * this.keyWidth; // Center the space key
-            } else if (this.keys[i] === '⌫') {
-                currentKeyWidth *= 2; // Make the backspace key 2 times wider
-                keyX = this.x + 10.8* this.keyWidth; // Place the backspace key at the end
-            }
-        
-            // Draw the key background
-            if (this.image && i !== this.selectedKey) {
-                ctx.drawImage(this.image, keyX, keyY, currentKeyWidth, currentKeyHeight);
-            } else {
-                //ctx.fillStyle = i === this.selectedKey ? 'yellow' : 'white';
-                ctx.fillStyle = i === this.hoveringKey ? 'yellow' : 'white';
-                ctx.fillRect(keyX, keyY, currentKeyWidth, currentKeyHeight);
-            }
-        
-            // Draw the key text
-            ctx.fillStyle = this.textColor;
-            if(this.game.canvas.height < 500){
-                ctx.font = `${this.fontSize * 2}vh ${this.font}`;
-            } else {
-                ctx.font = `${this.fontSize}vh ${this.font}`;
-            }
-            ctx.fillText(this.keys[i], keyX + currentKeyWidth / 2, keyY + currentKeyHeight / 2);
+    rotate(degrees, speed) {
+        if (this.rotation < degrees) {
+            this.rotation += speed;
         }
-
-        ctx.restore();
-        ctx.globalAlpha = 1.0;
-    }
-
-    moveTo(x, y, speed){
-        if(this.x < x){
-            this.x += speed;
-            this.textX += speed;
-        }
-        if(this.x > x){
-            this.x -= speed;
-            this.textX -= speed;
-        }
-        if(this.y < y){
-            this.y += speed;
-            this.textY += speed;
-
-        }
-        if(this.y > y){
-            this.y -= speed;
-            this.textY -= speed;
+        if (this.rotation > degrees) {
+            this.rotation -= speed;
         }
     }
 }
