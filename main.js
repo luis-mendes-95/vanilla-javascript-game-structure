@@ -123,6 +123,3 @@ window.addEventListener('load', function() {
 
 });
 
-window.addEventListener('resize', function() {
-    this.location.reload();
-});
