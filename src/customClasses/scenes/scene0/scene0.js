@@ -28,7 +28,7 @@ export class Scene0 {
         this.farmSign = document.getElementById('farmSign');
 
         /**DEBUGGING*/
-        this.clickDebug = new ClickDebug(this.game.input, this.game.ctx);
+        //this.clickDebug = new ClickDebug(this.game.input, this.game.ctx);
 
         /**BACKGROUND*/
         this.background = new Background(
@@ -275,15 +275,7 @@ export class Scene0 {
         this.hud.buttonFullScreen.update(deltaTime);
         this.butterfly.update(deltaTime);
 
-        /**DEBUGGING */
-        (() => {
-
-            this.clickDebug.draw();
-
-            
-        })();
-
-        
+       
     }
 
     draw(ctx, scene) {
@@ -323,7 +315,7 @@ export class Scene0 {
         this.butterfly.draw(ctx);
 
         /**DEBUGGING */
-        this.clickDebug.draw();
+        //this.clickDebug.draw();
     }
 
     playSound() {
