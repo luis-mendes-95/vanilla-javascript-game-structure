@@ -228,7 +228,7 @@ export class Scene0 {
                 this.hud.buttonStartGame.moveTo(this.game.width * 0.6, this.game.height * 1.2, this.game.speed * 0.15);
                 /** BUTTERFLY */
                 this.butterfly.moveTo(this.game.width * 1.00, this.game.height * 0.14, this.game.speed * 0.2);
-                this.butterfly.rotate(135, (this.game.speed * 0.038));
+                this.butterfly.rotate(135, (this.game.speed * 0.032));
             }
         })();
 
