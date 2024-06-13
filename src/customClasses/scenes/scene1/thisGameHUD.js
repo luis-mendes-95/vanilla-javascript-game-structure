@@ -133,7 +133,23 @@ export class thisGameHUD extends Hud {
             "black", /**TEXT COLOR */
             true, /**MOUSE HOVER */
             null, /**TEXTS ALIGN -> ROW OR COLUMN */
-        );      
+        );
+        
+        this.playerName = new Text(
+            game, /**GAME */
+            this.width * 0.47, /**X */
+            this.height * 0.20, /**Y */
+            "", /**TEXT */
+            (this.height * 0.01), /**TEXT SPACING */
+            "font1942", /**FONT */
+            "bold", /**FONT WEIGHT */
+            fontSize, /**FONT SIZE */
+            "black", /**TEXT COLOR */
+            true, /**MOUSE HOVER */
+            { enabled: true, color: 'rgba(255, 255, 255, 0.5)', padding: 10 }, /**BACKGROUND */
+            (this.width * 0.51), /**TEXT BACKGROUND WIDTH */
+            true /**CURSOR VISIBLE */
+        );
    
    
     }
