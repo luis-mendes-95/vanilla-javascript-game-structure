@@ -8,17 +8,14 @@ import { Scene3 } from './src/customClasses/scenes/scene3/scene3.js';
 import { Scene4 } from './src/customClasses/scenes/scene4/scene4.js';
 import { Scene0 } from './src/customClasses/scenes/scene0/scene0.js';
 
-
 /**AFTER EVERYTHING LOADS, IT WILL RUN */
 window.addEventListener('load', function() {
 
-    /**GETTING CANVAS FROM HTML AND SETTING WIDTH AND HEIGHT PROPORTIONAL 16:9 */
+    /**GETTING CANVAS FROM HTML AND SETTING FIXED WIDTH AND HEIGHT */
     const canvas = document.getElementById('canvas1');
     const ctx = canvas.getContext('2d');
-    const viewportHeight = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
-    const viewportWidth = viewportHeight * (16 / 9);
-    canvas.width = viewportWidth;
-    canvas.height = viewportHeight;
+    canvas.width = 1920;
+    canvas.height = 1080;
 
     /**CANVAS IMAGE SMOOTHING*/
     ctx.imageSmoothingEnabled = true;
@@ -101,25 +98,34 @@ window.addEventListener('load', function() {
         updateCursorStyle() {
             this.canvas.style.cursor = this.hoveredImages.size > 0 ? 'pointer' : 'default';
         }
-        
-        
     }
 
     /**INSTANTIATING THE GAME CLASS */
     const game = new Game(canvas.width, canvas.height);
-    
 
     /**GAME LOOP */
     let lastTime = 0;
     const animate = (timeStamp) => {
         const deltaTime = timeStamp - lastTime;
         lastTime = timeStamp;
-        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         game.update(deltaTime);
         game.draw(ctx);
         requestAnimationFrame(animate);
     }
     animate(0);
 
-});
+    /**HANDLE CANVAS SCALING */
+    const resizeCanvas = () => {
+        const viewportWidth = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+        const viewportHeight = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+        const scale = Math.min(viewportWidth / 1920, viewportHeight / 1080);
 
+        canvas.style.width = `${1920 * scale}px`;
+        canvas.style.height = `${1080 * scale}px`;
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+});
