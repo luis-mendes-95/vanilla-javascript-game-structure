@@ -5,11 +5,11 @@ import { Sprite } from "../../../engine/sprite/sprite.js";
 import { Sound } from "../../../engine/sound/sound.js";
 import { thisGameHUD } from "./thisGameHUD.js";
 import { Image } from "../../../engine/hud/image/image.js";
+import { Scene1 } from "../scene1/scene1.js";
 
 export class Scene0 {
     constructor(game) {
         this.started = false;
-
         this.game = game;
         this.width = this.game.width;
         this.height = this.game.height;
@@ -17,7 +17,7 @@ export class Scene0 {
         this.savedGame = localStorage.getItem('AkemiFazendaSavedGame') || null;
         this.buttonStart = document.getElementById('buttonStart');
 
-        /**GAME ASSETS*/
+        /** GAME ASSETS */
         this.backgroundScene1 = document.getElementById('backgroundScene1');
         this.logo = document.getElementById('logo');
         this.akemiImages = document.getElementsByClassName('akemi');
@@ -27,10 +27,10 @@ export class Scene0 {
         this.cloudImage = document.getElementById('cloud1');
         this.farmSign = document.getElementById('farmSign');
 
-        /**DEBUGGING*/
-        //this.clickDebug = new ClickDebug(this.game.input, this.game.ctx);
+        /** DEBUGGING */
+        // this.clickDebug = new ClickDebug(this.game.input, this.game.ctx);
 
-        /**BACKGROUND*/
+        /** BACKGROUND */
         this.background = new Background(
             this,
             0,
@@ -45,7 +45,7 @@ export class Scene0 {
             true
         );
 
-        /**CLOUDS */
+        /** CLOUDS */
         this.cloud1 = new Image(
             this.game,
             this.width * 0.1,
@@ -146,26 +146,26 @@ export class Scene0 {
             false
         );
 
-        /**CHARACTERS -> BUTTERFLY */
+        /** CHARACTERS -> BUTTERFLY */
         this.butterfly = new Sprite(
             [
-                this.butterflySprite, /**FLYING*/
-            ], /**IMAGE*/
-            this.game, /**GAME*/
-            256, /**SPRITE WIDTH*/
-            160, /**SPRITE HEIGHT*/
-            this.game.height * 0.0005, /**SIZE X*/
-            this.game.height * 0.0005, /**SIZE Y*/
-            (this.game.canvas.width * 1.00), /**DESTINY X */
-            (this.game.canvas.height * 0.14), /**DESTINY Y */
-            4, /**MAX FRAME X */
-            0, /**MAX FRAME Y */
-            75, /**FRAME SPEED */
-            -135, /**ROTATION */
-            false /**PLAYER CONTROL */
+                this.butterflySprite, /** FLYING */
+            ], /** IMAGE */
+            this.game, /** GAME */
+            256, /** SPRITE WIDTH */
+            160, /** SPRITE HEIGHT */
+            this.game.height * 0.0005, /** SIZE X */
+            this.game.height * 0.0005, /** SIZE Y */
+            (this.game.canvas.width * 1.00), /** DESTINY X */
+            (this.game.canvas.height * 0.14), /** DESTINY Y */
+            4, /** MAX FRAME X */
+            0, /** MAX FRAME Y */
+            75, /** FRAME SPEED */
+            -135, /** ROTATION */
+            false /** PLAYER CONTROL */
         );
 
-        /**HUD*/
+        /** HUD */
         this.hud = new thisGameHUD(this.game, 0, 0, this.width, this.height, [
             this.logo,
             this.akemiImages[3],
@@ -182,6 +182,10 @@ export class Scene0 {
         // Full screen event listeners
         this.handleFullScreenClick = this.handleFullScreenClick.bind(this);
         this.handleFullScreenTouchEnd = this.handleFullScreenTouchEnd.bind(this);
+
+        this.buttonStart.addEventListener('click', () => {
+            this.game.changeScene(Scene1);
+        });
     }
 
     handleFullScreenClick() {
@@ -197,38 +201,38 @@ export class Scene0 {
     }
 
     update(deltaTime) {
-        /**ELEMENTS APPEARING | ELEMENTS DISAPPEARING*/
+        /** ELEMENTS APPEARING | ELEMENTS DISAPPEARING */
         (() => {
             if (!this.calledNextScene) {
-                /**LOGO*/
+                /** LOGO */
                 this.hud.imageLogo.moveTo(this.game.width * 0.02, this.game.height * 0.02, this.game.speed * 0.1);
-                /**AKEMI GIRL*/
+                /** AKEMI GIRL */
                 this.hud.imageAkemi.moveTo(this.game.width * 0.09, this.game.height * 0.25, this.game.speed * 0.1);
                 this.hud.imageAkemi.fadeIn(this.game.speed * 0.001);
-                /**GAME TITLE */
+                /** GAME TITLE */
                 this.hud.imageTitle.moveTo(this.game.width * 0.59, this.game.height * 0.05, this.game.speed * 0.2);
-                /**BUTTON START */
+                /** BUTTON START */
                 this.hud.buttonStartGame.moveTo(this.game.width * 0.6, this.game.height * 0.7, this.game.speed * 0.15);
-                /**BUTTERFLY */
+                /** BUTTERFLY */
                 this.butterfly.moveTo(this.game.width * 0.7, this.game.height * 0.68, this.game.speed * 0.2);
                 this.butterfly.rotate(-20, (this.game.speed * 0.048));
             } else {
-                /**LOGO*/
+                /** LOGO */
                 this.hud.imageLogo.moveTo(this.game.width * 0.02, this.game.height * -0.12, this.game.speed * 0.1);
-                /**AKEMI GIRL */
+                /** AKEMI GIRL */
                 this.hud.imageAkemi.moveTo(this.game.width * 0.09, this.game.height * 0.35, this.game.speed * 0.1);
                 this.hud.imageAkemi.fadeOut(this.game.speed * 0.001);
-                /**GAME TITLE */
+                /** GAME TITLE */
                 this.hud.imageTitle.moveTo(this.game.width * 0.59, this.game.height * -0.25, this.game.speed * 0.2);
-                /**BUTTON START */
+                /** BUTTON START */
                 this.hud.buttonStartGame.moveTo(this.game.width * 0.6, this.game.height * 1.2, this.game.speed * 0.15);
-                /**BUTTERFLY */
+                /** BUTTERFLY */
                 this.butterfly.moveTo(this.game.width * 1.00, this.game.height * 0.14, this.game.speed * 0.2);
                 this.butterfly.rotate(135, (this.game.speed * 0.038));
             }
         })();
 
-        /**MANAGE CLOUDS MOVEMENT*/
+        /** MANAGE CLOUDS MOVEMENT */
         (() => {
             if (this.cloud1.x > this.game.canvas.width) {
                 this.cloud1.x = 0 - this.cloud1.width;
@@ -257,68 +261,76 @@ export class Scene0 {
             }
         })();
 
-        /**HANDLE CLICKS*/
+        /** HANDLE CLICKS */
         (() => {
-            /**FULL SCREEN BUTTON*/
+            /** FULL SCREEN BUTTON */
             if (this.hud.buttonFullScreen.isTouchOver(this.game.input.touches) || this.hud.buttonFullScreen.isMouseClicking(this.game.input.mouse)) {
                 window.addEventListener('click', this.handleFullScreenClick);
                 window.addEventListener('touchend', this.handleFullScreenTouchEnd);
             }
-            /**START BUTTON*/
+            /** START BUTTON */
             if(this.hud.buttonStartGame.isTouchOver(this.game.input.touches) || this.hud.buttonStartGame.isMouseClicking(this.game.input.mouse)){
                 this.calledNextScene = true;
             }
         })();
 
-        /**UPDATING ELEMENTS*/
+        /** UPDATING ELEMENTS */
         this.hud.buttonStartGame.update(deltaTime);
         this.hud.buttonFullScreen.update(deltaTime);
         this.butterfly.update(deltaTime);
 
+        /** CHANGING SCENE */
+        if(this.calledNextScene){
+            this.changeScene();
+        }
        
     }
 
     draw(ctx, scene) {
-        /**PAINT CANVAS BLUE */
+        /** PAINT CANVAS BLUE */
         let grd = ctx.createLinearGradient(0, 0, 0, this.game.height);
         grd.addColorStop(0, '#87CEEB');
         grd.addColorStop(1, 'lightgray');
         ctx.fillStyle = grd;
         ctx.fillRect(0, 0, this.game.width, this.game.height);
 
-        /**BACKGROUND DRAW */
+        /** BACKGROUND DRAW */
         this.background.draw(this.game.ctx, 0);
 
-        /**CLOUDS DRAW*/
+        /** CLOUDS DRAW */
         this.cloud1.draw(ctx, 0);
         this.cloud2.draw(ctx, 0);
         this.cloud3.draw(ctx, 0);
         this.cloud4.draw(ctx, 0);
         this.cloud5.draw(ctx, 0);
 
-        /**LOGO DRAW*/
+        /** LOGO DRAW */
         this.hud.imageLogo.draw(ctx, 0);
 
-        /**AKEMI GIRL DRAW*/
+        /** AKEMI GIRL DRAW */
         this.hud.imageAkemi.draw(ctx, 0);
 
-        /**GAME NAME TITLE DRAW*/
+        /** GAME NAME TITLE DRAW */
         this.hud.imageTitle.draw(ctx, 0);
 
-        /**BUTTON START DRAW*/
+        /** BUTTON START DRAW */
         this.hud.buttonStartGame.draw(ctx, 0);
 
-        /**BUTTON FULL SCREEN DRAW */
+        /** BUTTON FULL SCREEN DRAW */
         this.hud.buttonFullScreen.draw(ctx, 0);
 
-        /**BUTTERFLY DRAW */
+        /** BUTTERFLY DRAW */
         this.butterfly.draw(ctx);
 
-        /**DEBUGGING */
-        //this.clickDebug.draw();
+        /** DEBUGGING */
+        // this.clickDebug.draw();
     }
 
     playSound() {
         this.musicMenu.play();
+    }
+
+    changeScene() {
+        this.game.changeScene(Scene1);
     }
 }

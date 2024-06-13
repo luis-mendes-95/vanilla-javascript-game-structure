@@ -30,6 +30,9 @@ export class Sprite {
     this.maxFrameX = maxFrameX;
     this.maxFrameY = maxFrameY;
 
+    this.x = this.dw;
+    this.y = this.dh;
+
 
 
     this.sizeX = sizeX;

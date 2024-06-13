@@ -1,193 +1,314 @@
 import { Background } from "../../../engine/background/background.js";
-import { Hud } from "../../../engine/hud/hud.js";
-import { AkemiHUD } from "./akemiHUD.js";
+import { ClickDebug } from "../../../engine/debug/clickDebug.js";
+import { DebugMovement } from "../../../engine/debug/movementDebug.js";
+import { Sprite } from "../../../engine/sprite/sprite.js";
+import { Sound } from "../../../engine/sound/sound.js";
+import { thisGameHUD } from "./thisGameHUD.js";
+import { Image } from "../../../engine/hud/image/image.js";
+import { Scene2 } from "../scene2/scene2.js";
 
 export class Scene1 {
     constructor(game) {
+        this.started = false;
         this.game = game;
         this.width = this.game.width;
         this.height = this.game.height;
+        this.musicPlaying = false;
+        this.savedGame = localStorage.getItem('AkemiFazendaSavedGame') || null;
+        this.buttonStart = document.getElementById('buttonStart');
 
-        /**GAME ASSETS*/
+        /** GAME ASSETS */
         this.backgroundScene1 = document.getElementById('backgroundScene1');
         this.logo = document.getElementById('logo');
         this.akemiImages = document.getElementsByClassName('akemi');
         this.gameTitleImage = document.getElementById('gameTitle');
         this.buttonStart = document.getElementById('buttonStart');
-        this.butterfly = document.getElementById('butterflies');
-        this.cloud1 = document.getElementById('cloud1');
+        this.butterflySprite = document.getElementById('butterflies');
+        this.cloudImage = document.getElementById('cloud1');
+        this.farmSign = document.getElementById('farmSign');
 
-        /**BACKGROUND*/
+        /** DEBUGGING */
+        // this.clickDebug = new ClickDebug(this.game.input, this.game.ctx);
+
+        /** BACKGROUND */
         this.background = new Background(
-            this,   /**GAME */
-            0, /**X*/
-            0,  /**Y*/
-            this.game.width, /**WIDTH*/
-            this.game.height, /**HEIGHT*/
-            'blue', /**COLOR*/
-            10, /**SPEED*/
-            [this.backgroundScene1] /**IMAGES*/
+            this,
+            0,
+            0,
+            this.game.width,
+            this.game.height,
+            'blue',
+            10,
+            0,
+            0,
+            [this.backgroundScene1],
+            true
         );
-           
-        /**HUD*/
-        this.hud = new AkemiHUD(
-            this.game, /**GAME */
-            0, /**X */
-            0, /**Y */
-            this.width, /**WIDTH */
-            this.height, /**HEIGHT */
-            [ 
-                this.logo, /**IMAGE[0] */
-                this.akemiImages[3], /**IMAGE[1] */
-                this.gameTitleImage, /**IMAGE[2] */
-                this.buttonStart, /**IMAGE[3] */
-                this.butterfly, /**IMAGE[4] */
-                this.cloud1 /**IMAGE[5] */
-            ]);
-    
+
+        /** CLOUDS */
+        this.cloud1 = new Image(
+            this.game,
+            this.width * 0.1,
+            this.height * 0.05,
+            this.width * 0.15,
+            this.game.height * 0.15,
+            0,
+            this.cloudImage,
+            0.9,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            false
+        );
+
+        this.cloud2 = new Image(
+            this.game,
+            this.width * 0.7,
+            this.height * 0.05,
+            this.width * 0.12,
+            this.game.height * 0.12,
+            0,
+            this.cloudImage,
+            0.7,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            false
+        );
+
+        this.cloud3 = new Image(
+            this.game,
+            this.width * 0.6,
+            this.height * 0.05,
+            this.width * 0.1,
+            this.game.height * 0.1,
+            0,
+            this.cloudImage,
+            0.5,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            false
+        );
+
+        this.cloud4 = new Image(
+            this.game,
+            this.width * 0.9,
+            this.height * 0.05,
+            this.width * 0.08,
+            this.game.height * 0.08,
+            0,
+            this.cloudImage,
+            0.3,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            false
+        );
+
+        this.cloud5 = new Image(
+            this.game,
+            this.width * 0.5,
+            this.height * 0.05,
+            this.width * 0.06,
+            this.game.height * 0.06,
+            0,
+            this.cloudImage,
+            0.4,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            false
+        );
+
+        /** CHARACTERS -> BUTTERFLY */
+        this.butterfly = new Sprite(
+            [
+                this.butterflySprite, /** FLYING */
+            ], /** IMAGE */
+            this.game, /** GAME */
+            256, /** SPRITE WIDTH */
+            160, /** SPRITE HEIGHT */
+            this.game.height * 0.0005, /** SIZE X */
+            this.game.height * 0.0005, /** SIZE Y */
+            (this.game.canvas.width * 1.00), /** DESTINY X */
+            (this.game.canvas.height * 0.14), /** DESTINY Y */
+            4, /** MAX FRAME X */
+            0, /** MAX FRAME Y */
+            75, /** FRAME SPEED */
+            -135, /** ROTATION */
+            false /** PLAYER CONTROL */
+        );
+
+        /** HUD */
+        this.hud = new thisGameHUD(this.game, 0, 0, this.width, this.height, [
+            this.logo,
+            this.akemiImages[3],
+            this.gameTitleImage,
+            this.buttonStart,
+            this.butterfly,
+            this.cloud1,
+            this.farmSign
+        ]);
+
         this.calledNextScene = false;
         this.enterNextScene = false;
+
+        // Full screen event listeners
+        this.handleFullScreenClick = this.handleFullScreenClick.bind(this);
+        this.handleFullScreenTouchEnd = this.handleFullScreenTouchEnd.bind(this);
+
+        this.buttonStart.addEventListener('click', () => {
+            this.game.changeScene(Scene1);
+        });
+    }
+
+    handleFullScreenClick() {
+        this.game.toggleFullScreen();
+        window.removeEventListener('click', this.handleFullScreenClick);
+        this.game.input.mouse.clicked = false;
+    }
+
+    handleFullScreenTouchEnd() {
+        this.game.toggleFullScreen();
+        window.removeEventListener('touchend', this.handleFullScreenTouchEnd);
+        this.game.input.mouse.clicked = false;
     }
 
     update(deltaTime) {
+        /** ELEMENTS APPEARING | ELEMENTS DISAPPEARING */
+        (() => {
+            if (!this.calledNextScene) {
 
-        /**HANDLE MOUSE BUTTON CLICKING IN START BUTTON */
-        if(this.hud.buttonStart.isMouseClicking()){
-            this.calledNextScene = true;
-        }
-
-
-        /**WHEN MOUSE IS OVER BUTTON START OR BUTTON START IS CLICKED */
-        if(this.hud.buttonStart.isMouseOver(this.game.input.mouse)
-        || this.game.scenes[0].calledNextScene){
-
-            /**BUTTERFLY FLIES AWAY ROTATING FROM SCREEN */
-            let newXposition = (this.game.canvas.width * 1.25);
-            let newYposition = (this.game.canvas.height * -0.35);
-            let movingSpeed = 6;
-            this.hud.butterfly.moveTo(newXposition, newYposition, movingSpeed);
-
-            let rotation = 45;
-            let rotationSpeed = 1;
-            this.hud.butterfly.rotate(rotation, rotationSpeed)
-
-        
-        } else { /**WHEN MOUSE IS NOT OVER BUTTON START NEITHER CLICKED */
-
-            let newXposition = (this.game.canvas.width * 0.7);
-            let newYposition = (this.game.canvas.height * 0.64);
-            let speed = (this.game.canvas.height * 0.007)
-            this.hud.butterfly.moveTo(newXposition, newYposition, speed);
-
-            let rotation = -45;
-            if(this.game.canvas.height < 500){
-              
-                let rotationSpeed = (this.game.canvas.width * 0.001);
-                this.hud.butterfly.rotate(rotation, rotationSpeed)
             } else {
-              
-                let rotationSpeed = (this.game.canvas.width * 0.0005);
-                this.hud.butterfly.rotate(rotation, rotationSpeed)
+
             }
+        })();
 
+        /** MANAGE CLOUDS MOVEMENT */
+        (() => {
+            if (this.cloud1.x > this.game.canvas.width) {
+                this.cloud1.x = 0 - this.cloud1.width;
+            } else {
+                this.cloud1.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, (this.game.speed * 0.045));
+            }
+            if (this.cloud2.x > this.game.canvas.width) {
+                this.cloud2.x = 0 - this.cloud2.width;
+            } else {
+                this.cloud2.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, (this.game.speed * 0.035));
+            }
+            if (this.cloud3.x > this.game.canvas.width) {
+                this.cloud3.x = 0 - this.cloud3.width;
+            } else {
+                this.cloud3.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, (this.game.speed * 0.05));
+            }
+            if (this.cloud4.x > this.game.canvas.width) {
+                this.cloud4.x = 0 - this.cloud4.width;
+            } else {
+                this.cloud4.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, (this.game.speed * 0.025));
+            }
+            if (this.cloud5.x > this.game.canvas.width) {
+                this.cloud5.x = 0 - this.cloud5.width;
+            } else {
+                this.cloud5.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, (this.game.speed * 0.015));
+            }
+        })();
+
+        /** HANDLE CLICKS */
+        (() => {
+            /** FULL SCREEN BUTTON */
+            if (this.hud.buttonFullScreen.isTouchOver(this.game.input.touches) || this.hud.buttonFullScreen.isMouseClicking(this.game.input.mouse)) {
+                window.addEventListener('click', this.handleFullScreenClick);
+                window.addEventListener('touchend', this.handleFullScreenTouchEnd);
+            }
+            /** START BUTTON */
+            if(this.hud.buttonStartGame.isTouchOver(this.game.input.touches) || this.hud.buttonStartGame.isMouseClicking(this.game.input.mouse)){
+                this.calledNextScene = true;
+            }
+        })();
+
+        /** UPDATING ELEMENTS */
+        this.hud.buttonStartGame.update(deltaTime);
+        this.hud.buttonFullScreen.update(deltaTime);
+        this.butterfly.update(deltaTime);
+
+        /** CHANGING SCENE */
+        if(this.calledNextScene){
+            this.changeScene();
         }
-
-        /**UPDATING BUTTERFLY AND BUTTON TO ANIMATE THEM*/
-        this.hud.buttonStart.update(deltaTime);
-        this.hud.butterfly.update(deltaTime);
-
-
-        /**MANAGE CLOUDS MOVEMENT*/
-        if(this.hud.cloud1.x > this.game.canvas.width){
-            this.hud.cloud1.x = 0 - this.hud.cloud1.width;
-        } else {
-            this.hud.cloud1.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, 0.9);
-        }
-        if(this.hud.cloud2.x > this.game.canvas.width){
-            this.hud.cloud2.x = 0 - this.hud.cloud2.width;
-        } else {
-            this.hud.cloud2.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, 0.7);
-        }
-        if(this.hud.cloud3.x > this.game.canvas.width){
-            this.hud.cloud3.x = 0 - this.hud.cloud3.width;
-        } else {
-            this.hud.cloud3.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, 1);
-        }
-        if(this.hud.cloud4.x > this.game.canvas.width){
-            this.hud.cloud4.x = 0 - this.hud.cloud4.width;
-        } else {
-            this.hud.cloud4.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, 0.5);
-        }
-        if(this.hud.cloud5.x > this.game.canvas.width){
-            this.hud.cloud5.x = 0 - this.hud.cloud5.width;
-        } else {
-            this.hud.cloud5.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, 0.2);
-        }
-
-
-        /**CONDITIONAL THAT RUNS WHEN BUTTON START IS CLICKED*/
-        if(this.game.scenes[0].calledNextScene && !this.game.scenes[0].enterNextScene){
-            
-            this.hud.imageTitle.moveTo((this.width * 0.5), (-this.game.height * 0.5), 5);
-            this.hud.imageLogo.moveTo((this.width * 0.02), (-this.game.height * 0.2), 2);
-            this.hud.imageAkemi.moveTo((this.width * 0.08), (this.height * 2), 0.5);
-            this.hud.imageAkemi.fadeOut(0.05);
-            this.hud.buttonStart.moveTo((this.width * 0.6), (this.height * 2.5), 8);
-
-            /**CHANGING TO THE NEXT SCENE */
-            setTimeout(() => {
-                this.game.currentScene = 1;
-            }, 1000);
-
-        } else { /**BUTTON START IS NOT YET CLICKED */
-
-            this.hud.imageTitle.moveTo((this.width * 0.5), (this.height * 0.05), 5);
-            this.hud.imageLogo.moveTo((this.width * 0.02), (this.height * 0.02), 2);
-            this.hud.imageAkemi.moveTo((this.width * 0.08), (this.height * 0.2), 0.5);
-            this.hud.imageAkemi.fadeIn(0.05);
-            this.hud.buttonStart.moveTo((this.width * 0.6), (this.height * 0.71), 8);
-        }
-
-
+       
     }
 
     draw(ctx, scene) {
-
-        /**PAINT CANVAS BLUE */
-        // Create gradient
+        /** PAINT CANVAS BLUE */
         let grd = ctx.createLinearGradient(0, 0, 0, this.game.height);
-        grd.addColorStop(0, '#87CEEB');   // Blue at the top
-        grd.addColorStop(1, 'white');  // White at the bottom
-
-        // Fill with gradient
+        grd.addColorStop(0, '#87CEEB');
+        grd.addColorStop(1, 'lightgray');
         ctx.fillStyle = grd;
         ctx.fillRect(0, 0, this.game.width, this.game.height);
 
-        /**BACKGROUND DRAW */
+        /** BACKGROUND DRAW */
         this.background.draw(this.game.ctx, 0);
 
+        /** CLOUDS DRAW */
+        this.cloud1.draw(ctx, 0);
+        this.cloud2.draw(ctx, 0);
+        this.cloud3.draw(ctx, 0);
+        this.cloud4.draw(ctx, 0);
+        this.cloud5.draw(ctx, 0);
 
-        /**CLOUDS DRAW*/
-        this.hud.cloud1.draw(ctx, 0);
-        this.hud.cloud2.draw(ctx, 0);
-        this.hud.cloud3.draw(ctx, 0);
-        this.hud.cloud4.draw(ctx, 0);
-        this.hud.cloud5.draw(ctx, 0);
-
-        /**LOGO DRAW*/
+        /** LOGO DRAW */
         this.hud.imageLogo.draw(ctx, 0);
 
-        /**AKEMI GIRL DRAW*/
+        /** AKEMI GIRL DRAW */
         this.hud.imageAkemi.draw(ctx, 0);
 
-        /**GAME NAME TITLE DRAW*/
+        /** GAME NAME TITLE DRAW */
         this.hud.imageTitle.draw(ctx, 0);
 
-        /**BUTTON START DRAW*/
-        this.hud.buttonStart.draw(ctx, 0);
+        /** BUTTON START DRAW */
+        this.hud.buttonStartGame.draw(ctx, 0);
 
-        /**BUTTERFLY DRAW */
-        this.hud.butterfly.draw(ctx);
+        /** BUTTON FULL SCREEN DRAW */
+        this.hud.buttonFullScreen.draw(ctx, 0);
 
+        /** BUTTERFLY DRAW */
+        this.butterfly.draw(ctx);
+
+        /** DEBUGGING */
+        // this.clickDebug.draw();
+    }
+
+    playSound() {
+        this.musicMenu.play();
+    }
+
+    changeScene() {
+        this.game.changeScene(Scene1);
     }
 }
