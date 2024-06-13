@@ -6,6 +6,11 @@ export class ClickDebug {
         window.addEventListener('click', (event) => {
             this.recordClick(this.inputHandler.mouse.x, this.inputHandler.mouse.y, window.innerWidth, window.innerHeight);
         });
+        window.addEventListener('touchstart', (event) => {
+            this.inputHandler.touches.forEach(touch => {
+                this.recordClick(touch.x, touch.y, window.innerWidth, window.innerHeight);
+            });
+        });
     }
 
     recordClick(x, y, windowWidth, windowHeight) {
