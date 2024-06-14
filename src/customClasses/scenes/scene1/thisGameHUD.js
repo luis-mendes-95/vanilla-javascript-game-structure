@@ -86,7 +86,7 @@ export class thisGameHUD extends Hud {
             "black", /**TEXT COLOR */
             false, /**MOUSE HOVER */
             null, /**TEXTS ALIGN -> ROW OR COLUMN */
-            "NOME DO MELIANTE", /**UNIQUE TEXT */
+            "", /**UNIQUE TEXT */
             (this.game.width * 0.91), /**UNIQUE TEXT X */
             (this.height * 0.95), /**UNIQUE TEXT Y */
         );
@@ -187,6 +187,29 @@ export class thisGameHUD extends Hud {
             false, /**MOUSE HOVER */
             "column", /**TEXTS ALIGN -> ROW OR COLUMN */
         );
+
+        this.dialogueBox3 = new Image(
+            this.game, /**GAME */
+            (this.game.width * 0.3), /**X */
+            (this.height * 0.15), /**Y */
+            (this.game.width * 0.30), /**WIDTH */
+            (this.game.height * 0.35), /**HEIGHT */
+            0, /**ROTATION */
+            this.images[5],  /**IMAGE */
+            0.5, /**OPACITY */
+            [
+                "ESCOLHA O NÍVEL DE DIFICULDADE!",
+            ], /**TEXT */
+            (this.height * 0.01), /**TEXT SPACING */
+            "patrickHand", /**TEXT FONT */
+            "bold", /**FONT WEIGHT */
+            fontSize * 0.35, /**FONT SIZE */
+            (this.game.width * 0.365), /**TEXT X */
+            (this.height * 1.50), /**TEXT Y */
+            "black", /**TEXT COLOR */
+            false, /**MOUSE HOVER */
+            "column", /**TEXTS ALIGN -> ROW OR COLUMN */
+        );
         
         this.playerName = new Image(
             this.game, /**GAME */
@@ -259,6 +282,103 @@ export class thisGameHUD extends Hud {
             "CONTINUAR", /**UNIQUE TEXT */
             (this.game.width * 1.025), /**UNIQUE TEXT X */
             (this.game.height * 1.265), /**UNIQUE TEXT Y */
+        );
+
+             
+        this.difficultyPanel = new Image(
+            this.game, /**GAME */
+            (this.game.width * 0.55), /**X */
+            (this.height * -0.62), /**Y */
+            (this.game.width * 0.23), /**WIDTH */
+            (this.game.height * 0.59), /**HEIGHT */
+            0, /**ROTATION */
+            this.images[7],  /**IMAGE */
+            1, /**OPACITY */
+            null, /**TEXT */
+            (this.height * 0.1), /**TEXT SPACING */
+            "PatrickHand", /**TEXT FONT */
+            "bold", /**FONT WEIGHT */
+            fontSize * 0.75, /**FONT SIZE */
+            (this.game.width * 0.365), /**TEXT X */
+            (this.height * 1.50), /**TEXT Y */
+            "black", /**TEXT COLOR */
+            false, /**MOUSE HOVER */
+            null, /**TEXTS ALIGN -> ROW OR COLUMN */
+            "", /**UNIQUE TEXT */
+            (this.game.width * 0.91), /**UNIQUE TEXT X */
+            (this.height * 0.95), /**UNIQUE TEXT Y */
+        );
+
+        this.buttonEasy = new Image(
+            this.game, /**GAME */
+            (this.game.width * 1.19), /**X */
+            (this.height * 0.325), /**Y */
+            (this.game.width * 0.2), /**WIDTH */
+            (this.game.height * 0.11), /**HEIGHT */
+            0, /**ROTATION */
+            this.images[8],  /**IMAGE */
+            1, /**OPACITY */
+            null, /**TEXT */
+            (this.height * 0.1), /**TEXT SPACING */
+            "PatrickHand", /**TEXT FONT */
+            "bold", /**FONT WEIGHT */
+            fontSize * 0.75, /**FONT SIZE */
+            (this.game.width * 0.365), /**TEXT X */
+            (this.height * 1.50), /**TEXT Y */
+            "black", /**TEXT COLOR */
+            true, /**MOUSE HOVER */
+            null, /**TEXTS ALIGN -> ROW OR COLUMN */
+            "", /**UNIQUE TEXT */
+            (this.game.width * 0.91), /**UNIQUE TEXT X */
+            (this.height * 0.95), /**UNIQUE TEXT Y */
+        );
+
+        this.buttonMedium = new Image(
+            this.game, /**GAME */
+            (this.game.width * 1.4), /**X */
+            (this.height * 0.509), /**Y */
+            (this.game.width * 0.2), /**WIDTH */
+            (this.game.height * 0.11), /**HEIGHT */
+            0, /**ROTATION */
+            this.images[10],  /**IMAGE */
+            1, /**OPACITY */
+            null, /**TEXT */
+            (this.height * 0.1), /**TEXT SPACING */
+            "PatrickHand", /**TEXT FONT */
+            "bold", /**FONT WEIGHT */
+            fontSize * 0.75, /**FONT SIZE */
+            (this.game.width * 0.365), /**TEXT X */
+            (this.height * 1.50), /**TEXT Y */
+            "black", /**TEXT COLOR */
+            true, /**MOUSE HOVER */
+            null, /**TEXTS ALIGN -> ROW OR COLUMN */
+            "", /**UNIQUE TEXT */
+            (this.game.width * 0.91), /**UNIQUE TEXT X */
+            (this.height * 0.95), /**UNIQUE TEXT Y */
+        );
+
+        this.buttonHard = new Image(
+            this.game, /**GAME */
+            (this.game.width * 1.6), /**X */
+            (this.height * 0.689), /**Y */
+            (this.game.width * 0.2), /**WIDTH */
+            (this.game.height * 0.11), /**HEIGHT */
+            0, /**ROTATION */
+            this.images[12],  /**IMAGE */
+            1, /**OPACITY */
+            null, /**TEXT */
+            (this.height * 0.1), /**TEXT SPACING */
+            "PatrickHand", /**TEXT FONT */
+            "bold", /**FONT WEIGHT */
+            fontSize * 0.75, /**FONT SIZE */
+            (this.game.width * 0.365), /**TEXT X */
+            (this.height * 1.50), /**TEXT Y */
+            "black", /**TEXT COLOR */
+            true, /**MOUSE HOVER */
+            null, /**TEXTS ALIGN -> ROW OR COLUMN */
+            "", /**UNIQUE TEXT */
+            (this.game.width * 0.91), /**UNIQUE TEXT X */
+            (this.height * 0.95), /**UNIQUE TEXT Y */
         );
    
    

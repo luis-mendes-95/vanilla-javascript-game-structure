@@ -27,11 +27,19 @@ export class Scene1 {
 
 
 
-
+        /**ASSETS */
         this.savedGame = localStorage.getItem('AkemiFazendaSavedGame') || null;
         this.namePanel = document.getElementById('namePanel');
         this.dialogueBox = document.getElementById('dialogueBox');
         this.buttonContinue = document.getElementById('buttonStart');
+        this.difficultyPanel = document.getElementById('difficultyPanel');
+        this.buttonEasy = document.getElementById('buttonEasy');
+        this.buttonEasyHover = document.getElementById('buttonEasyHover');
+        this.buttonMedium = document.getElementById('buttonMedium');
+        this.buttonMediumHover = document.getElementById('buttonMediumHover');
+        this.buttonHard = document.getElementById('buttonHard');
+        this.buttonHardHover = document.getElementById('buttonHardHover');
+
 
         /** GAME ASSETS */
         this.backgroundScene1 = document.getElementById('backgroundScene2');
@@ -201,6 +209,13 @@ export class Scene1 {
             this.farmSign, /**IMAGES[4] */
             this.dialogueBox, /**IMAGES[5] */
             this.buttonContinue, /**IMAGES[6] */
+            this.difficultyPanel, /**IMAGES[7] */
+            this.buttonEasy, /**IMAGES[8] */
+            this.buttonEasyHover, /**IMAGES[9] */
+            this.buttonMedium, /**IMAGES[10] */
+            this.buttonMediumHover, /**IMAGES[11] */
+            this.buttonHard, /**IMAGES[12] */
+            this.buttonHardHover, /**IMAGES[13] */
         ]);
 
 
@@ -287,6 +302,9 @@ export class Scene1 {
                     /**DIALOGUE BOX*/
                     this.hud.dialogueBox.fadeOut(0.02);
 
+                    /**CONTINUE BUTTON*/
+                    this.hud.buttonContinue.moveTo(this.game.width * 0.80, this.game.height * 0.85, (this.game.speed * 0.15));
+
                 } else {
                     this.hud.keyboard.moveTo(this.game.width * 0.01, this.game.height * 1.1, (this.game.speed * 1));
                     this.hud.buttonShowKeyboard.moveTo(this.game.width * 0.2, this.game.height * 0.89, (this.game.speed * 0.5));
@@ -324,11 +342,15 @@ export class Scene1 {
                     /**CONTINUE BUTTON 2 */
                     this.hud.buttonContinue2.moveTo(this.game.width * 0.6, this.game.height * 0.8, (this.game.speed * 0.15));
 
+                    /**BUTTON HIDE KEYBOARD */
+                    this.hud.buttonHideKeyboard.moveTo(this.game.width * 0.2, this.game.height * 1.1, (this.game.speed * 0.5));
+
+                    
 
 
 
                 } else {
-                    console.log('entra aqui?');
+
                     this.butterfly.moveTo(this.game.canvas.width * -0.25, this.game.canvas.height * -0.22, (this.game.speed * 0.32));
                     this.butterfly.rotate(-80, this.game.speed * 0.033);
 
@@ -338,7 +360,11 @@ export class Scene1 {
                     /**CONTINUE BUTTON 2 */
                     this.hud.buttonContinue2.moveTo(this.game.width * 0.6, this.game.height * 1.1, (this.game.speed * 0.15));
                     
-                    
+                    /**DIFFICULTY PANEL AND BUTTONS*/
+                    this.hud.difficultyPanel.moveTo(this.game.width * 0.55, this.game.height * 0.25, (this.game.speed * 0.75));
+                    this.hud.buttonEasy.moveTo(this.game.width * 0.56, this.game.height * 0.325, (this.game.speed * 0.75));
+                    this.hud.buttonMedium.moveTo(this.game.width * 0.57, this.game.height * 0.509, (this.game.speed * 0.75));
+                    this.hud.buttonHard.moveTo(this.game.width * 0.57, this.game.height * 0.689, (this.game.speed * 0.75));
                 }
 
 
@@ -457,6 +483,9 @@ export class Scene1 {
         this.hud.buttonContinue2.update(deltaTime);
         this.hud.dialogueBox.update(deltaTime);
         this.hud.namePanel.update();
+        this.hud.buttonEasy.update(deltaTime);
+        this.hud.buttonMedium.update(deltaTime);
+        this.hud.buttonHard.update(deltaTime);
 
         /**NAME PANEL BLINKING CURSOR*/
         this.hud.namePanel.startBlinkingCursor();
@@ -468,6 +497,27 @@ export class Scene1 {
         if(this.calledNextScene){
             //this.changeScene();
         }
+        
+        /**HOVERING BUTTON CHANGING IMAGES */
+        /**BUTTON EASY*/
+        if(this.hud.buttonEasy.isTouchOver(this.game.input.touches) || this.hud.buttonEasy.isMouseOver(this.game.input.mouse)){
+            this.hud.buttonEasy.image = this.buttonEasyHover;
+        } else {
+            this.hud.buttonEasy.image = this.buttonEasy;
+        }
+        /**BUTTON MEDIUM */
+        if(this.hud.buttonMedium.isTouchOver(this.game.input.touches) || this.hud.buttonMedium.isMouseOver(this.game.input.mouse)){
+            this.hud.buttonMedium.image = this.buttonMediumHover;
+        } else {
+            this.hud.buttonMedium.image = this.buttonMedium;
+        }
+        /**BUTTON HARD */
+        if(this.hud.buttonHard.isTouchOver(this.game.input.touches) || this.hud.buttonHard.isMouseOver(this.game.input.mouse)){
+            this.hud.buttonHard.image = this.buttonHardHover;
+        } else {
+            this.hud.buttonHard.image = this.buttonHard;
+        }
+
        
     }
 
@@ -507,6 +557,15 @@ export class Scene1 {
         /**BUTTONS KEYBOARD CONTROL */
         this.hud.buttonShowKeyboard.draw(ctx, 0);
         this.hud.buttonHideKeyboard.draw(ctx, 0);
+
+        /**DIFFICULTY PANEL AND BUTTONS */
+        this.hud.buttonEasy.draw(ctx, 0);
+        this.hud.buttonMedium.draw(ctx, 0);
+        this.hud.buttonHard.draw(ctx, 0);
+        this.hud.difficultyPanel.draw(ctx, 0);
+
+
+
 
 
 
