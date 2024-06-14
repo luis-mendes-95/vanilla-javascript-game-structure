@@ -134,7 +134,7 @@ export class Keyboard {
             for (let key of row) {
                 let keyWidth = key === ' ' ? this.spaceBarWidth : this.keyWidth;
                 if (this.isMouseOver(this.game.input.mouse, row, key) || this.isTouchOver(this.game.input.touches, row, key)) {
-                    this.ctx.fillStyle = `rgba(211, 211, 211, 1)`;
+                    this.ctx.fillStyle = `rgba(200, 200, 0, 1)`;
                 } else {
                     this.ctx.fillStyle = `rgba(211, 211, 211, ${this.opacity})`;
                 }

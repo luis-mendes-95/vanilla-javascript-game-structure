@@ -134,21 +134,51 @@ export class thisGameHUD extends Hud {
             true, /**MOUSE HOVER */
             null, /**TEXTS ALIGN -> ROW OR COLUMN */
         );
-        
-        this.playerName = new Text(
-            game, /**GAME */
-            this.width * 0.47, /**X */
-            this.height * 0.20, /**Y */
-            "", /**TEXT */
-            (this.height * 0.01), /**TEXT SPACING */
-            "font1942", /**FONT */
+
+        this.dialogueBox = new Image(
+            this.game, /**GAME */
+            (this.game.width * 0.3), /**X */
+            (this.height * 0.35), /**Y */
+            (this.game.width * 0.30), /**WIDTH */
+            (this.game.height * 0.35), /**HEIGHT */
+            0, /**ROTATION */
+            this.images[5],  /**IMAGE */
+            0, /**OPACITY */
+            ["         Olá, meu nome é Akemi!  ", "         Qual o seu nome ?"], /**TEXT */
+            (this.height * 0.1), /**TEXT SPACING */
+            "patrickHand", /**TEXT FONT */
             "bold", /**FONT WEIGHT */
-            fontSize, /**FONT SIZE */
+            fontSize * 0.5, /**FONT SIZE */
+            (this.game.width * 0.365), /**TEXT X */
+            (this.height * 1.50), /**TEXT Y */
             "black", /**TEXT COLOR */
             true, /**MOUSE HOVER */
-            { enabled: true, color: 'rgba(255, 255, 255, 0.5)', padding: 10 }, /**BACKGROUND */
-            (this.width * 0.51), /**TEXT BACKGROUND WIDTH */
-            true /**CURSOR VISIBLE */
+            "column", /**TEXTS ALIGN -> ROW OR COLUMN */
+        );
+        
+        this.playerName = new Image(
+            this.game, /**GAME */
+            (this.game.width * 0.3), /**X */
+            (this.height * 0.35), /**Y */
+            (this.game.width * 0.30), /**WIDTH */
+            (this.game.height * 0.35), /**HEIGHT */
+            0, /**ROTATION */
+            null,  /**IMAGE */
+            0, /**OPACITY */
+            null, /**TEXT */
+            (this.height * 0.1), /**TEXT SPACING */
+            "patrickHand", /**TEXT FONT */
+            "bold", /**FONT WEIGHT */
+            fontSize * 0.5, /**FONT SIZE */
+            (this.game.width * 0.365), /**TEXT X */
+            (this.height * 1.50), /**TEXT Y */
+            "black", /**TEXT COLOR */
+            true, /**MOUSE HOVER */
+            "column", /**TEXTS ALIGN -> ROW OR COLUMN */
+            "TEXTO DIGITADO PELO USER", /**UNIQUE TEXT */
+            (this.game.width * 0.032), /**UNIQUE TEXT X */
+            (this.height * 1.06), /**UNIQUE TEXT Y */
+            true /** CURSOR VISIBLE */
         );
    
    

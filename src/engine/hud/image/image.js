@@ -1,5 +1,5 @@
 export class Image {
-    constructor(game, x, y, width, height, rotation, image, opacity, text, textSpacing, font, fontWeight, fontSize, textX, textY, textColor, mouseHover, textLayout, uniqueText = null, uniqueTextX = null, uniqueTextY = null) {
+    constructor(game, x, y, width, height, rotation, image, opacity, text, textSpacing, font, fontWeight, fontSize, textX, textY, textColor, mouseHover, textLayout, uniqueText = null, uniqueTextX = null, uniqueTextY = null, cursorVisible = false) {
         this.game = game;
         this.x = x;
         this.y = y;
@@ -23,11 +23,28 @@ export class Image {
         this.uniqueText = uniqueText;
         this.uniqueTextX = uniqueTextX;
         this.uniqueTextY = uniqueTextY;
+
+        // Cursor attributes
+        this.blinkingCursor = false;
+        this.cursorVisible = true;
+        this.cursorInterval = 500; // Intervalo de piscagem em milissegundos
+        this.lastCursorBlink = Date.now();
+        this.canBlinkCursor = cursorVisible;
     }
 
     update() {
         this.mouseHovering();
         this.isMouseClicking();
+
+        // Atualiza a visibilidade do cursor
+        if (this.blinkingCursor && Date.now() - this.lastCursorBlink >= this.cursorInterval) {
+            this.cursorVisible = !this.cursorVisible;
+            this.lastCursorBlink = Date.now();
+        }
+
+        if(this.canBlinkCursor) {
+            this.startBlinkingCursor();
+        }
     }
 
     draw(ctx) {
@@ -79,6 +96,16 @@ export class Image {
 
         if (this.uniqueText) {
             ctx.fillText(this.uniqueText, this.uniqueTextX, this.uniqueTextY);
+
+            // Calcula a posição do cursor com base na largura do uniqueText
+            const textMetrics = ctx.measureText(this.uniqueText);
+            const cursorX = this.uniqueTextX + textMetrics.width;
+            const cursorY = this.uniqueTextY;
+
+            // Desenha o cursor se estiver visível
+            if (this.blinkingCursor && this.cursorVisible) {
+                ctx.fillText('|', cursorX, cursorY);
+            }
         }
 
         ctx.restore();
@@ -188,4 +215,16 @@ export class Image {
             this.rotation -= speed;
         }
     }
+
+    startBlinkingCursor() {
+        this.blinkingCursor = true;
+    }
+
+    stopBlinkingCursor() {
+        this.blinkingCursor = false;
+        this.cursorVisible = true; // Reseta a visibilidade do cursor quando parar de piscar
+    }
 }
+
+// Para usar a funcionalidade de cursor piscando, basta chamar startBlinkingCursor() na instância de Image
+// e repassar o texto do teclado + texto do input no método update da cena onde os objetos são instanciados.

@@ -16,6 +16,7 @@ export class Scene1 {
         this.musicPlaying = false;
         this.savedGame = localStorage.getItem('AkemiFazendaSavedGame') || null;
         this.namePanel = document.getElementById('namePanel');
+        this.dialogueBox = document.getElementById('dialogueBox');
 
         /** GAME ASSETS */
         this.backgroundScene1 = document.getElementById('backgroundScene2');
@@ -178,11 +179,12 @@ export class Scene1 {
 
         /** HUD */
         this.hud = new thisGameHUD(this.game, 0, 0, this.width, this.height, [
-            this.akemiImages[3],
-            this.namePanel,
-            this.butterfly,
-            this.cloud1,
-            this.farmSign
+            this.akemiImages[3], /**IMAGES[0] */
+            this.namePanel, /**IMAGES[1] */
+            this.butterfly, /**IMAGES[2] */
+            this.cloud1, /**IMAGES[3] */
+            this.farmSign, /**IMAGES[4] */
+            this.dialogueBox, /**IMAGES[5] */
         ]);
 
         this.calledNextScene = false;
@@ -243,14 +245,23 @@ export class Scene1 {
                     this.hud.namePanel.moveTo(this.game.width * 0.6, this.game.height * 0.52, (this.game.speed * 0.35));
                     this.butterfly.moveTo(this.game.canvas.width * 0.92, this.game.canvas.height * 0.56, (this.game.speed * 0.10));
                     this.butterfly.rotate(15, this.game.speed * 0.033);
+
+                    /**DIALOGUE BOX*/
+                    this.hud.dialogueBox.fadeOut(0.02);
+
                 } else {
                     this.hud.keyboard.moveTo(this.game.width * 0.01, this.game.height * 1.1, (this.game.speed * 1));
                     this.hud.buttonShowKeyboard.moveTo(this.game.width * 0.2, this.game.height * 0.89, (this.game.speed * 0.5));
                     this.hud.buttonHideKeyboard.moveTo(this.game.width * 0.2, this.game.height * 1.1, (this.game.speed * 0.5));
+                
+                    /**DIALOGUE BOX*/
+                    this.hud.dialogueBox.fadeIn(0.01);
                 }
 
-            } else {
 
+
+            } else {
+                
             }
         })();
 
@@ -307,6 +318,9 @@ export class Scene1 {
         this.hud.keyboard.update(deltaTime);
         this.hud.buttonShowKeyboard.update(deltaTime);
         this.hud.buttonHideKeyboard.update(deltaTime);
+        this.hud.namePanel.startBlinkingCursor();
+
+        this.hud.namePanel.uniqueText = this.hud.keyboard.currentInput;
 
         /** CHANGING SCENE */
         if(this.calledNextScene){
@@ -336,6 +350,8 @@ export class Scene1 {
         /** AKEMI GIRL DRAW */
         this.hud.imageAkemi.draw(ctx, 0);
 
+
+
         /** NAME PANEL DRAW */
         this.hud.namePanel.draw(ctx, 0);
 
@@ -352,6 +368,9 @@ export class Scene1 {
 
         /**KEYBOARD */
         this.hud.keyboard.draw(ctx);
+
+        /**DIALOGUE BOX */
+        this.hud.dialogueBox.draw(ctx, 0);
 
         /** DEBUGGING */
         // this.clickDebug.draw();
