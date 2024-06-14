@@ -6,6 +6,7 @@ import { Sound } from "../../../engine/sound/sound.js";
 import { thisGameHUD } from "./thisGameHUD.js";
 import { Image } from "../../../engine/hud/image/image.js";
 import { Scene2 } from "../scene2/scene2.js";
+import { Scene0 } from "../scene0/scene0.js";
 
 export class Scene1 {
     constructor(game) {
@@ -216,6 +217,12 @@ export class Scene1 {
             this.buttonMediumHover, /**IMAGES[11] */
             this.buttonHard, /**IMAGES[12] */
             this.buttonHardHover, /**IMAGES[13] */
+            this.akemiImages[0], /**IMAGES[14] */
+            this.akemiImages[1], /**IMAGES[15] */
+            this.akemiImages[2], /**IMAGES[16] */
+            this.akemiImages[4], /**IMAGES[17] */
+            this.akemiImages[5], /**IMAGES[18] */
+            this.akemiImages[6], /**IMAGES[19] */
         ]);
 
 
@@ -335,8 +342,8 @@ export class Scene1 {
                     }
 
                     /**DIALOGUE BOX */
-                    this.hud.dialogueBox.fadeOut(0.01);
-                    this.hud.dialogueBox2.fadeIn(0.01);
+                    this.hud.dialogueBox.fadeOut(0.05);
+                    this.hud.dialogueBox2.fadeIn(0.02);
                   
 
                     /**CONTINUE BUTTON 2 */
@@ -351,20 +358,41 @@ export class Scene1 {
 
                 } else {
 
-                    this.butterfly.moveTo(this.game.canvas.width * -0.25, this.game.canvas.height * -0.22, (this.game.speed * 0.32));
-                    this.butterfly.rotate(-80, this.game.speed * 0.033);
+                    if(!this.enterNextScene){
+                        this.butterfly.moveTo(this.game.canvas.width * -0.25, this.game.canvas.height * -0.22, (this.game.speed * 0.32));
+                        this.butterfly.rotate(-80, this.game.speed * 0.033);
+    
+                        /**DIALOGUE TEXT 2 */
+                        this.hud.dialogueBox2.fadeOut(0.03);
+    
+                        /**CONTINUE BUTTON 2 */
+                        this.hud.buttonContinue2.moveTo(this.game.width * 0.6, this.game.height * 1.1, (this.game.speed * 0.15));
+                        
+                        /**DIFFICULTY PANEL AND BUTTONS*/
+                        this.hud.difficultyPanel.moveTo(this.game.width * 0.55, this.game.height * 0.28, (this.game.speed * 0.75));
+                        this.hud.buttonEasy.moveTo(this.game.width * 0.56, this.game.height * 0.355, (this.game.speed * 0.75));
+                        this.hud.buttonMedium.moveTo(this.game.width * 0.57, this.game.height * 0.539, (this.game.speed * 0.75));
+                        this.hud.buttonHard.moveTo(this.game.width * 0.57, this.game.height * 0.719, (this.game.speed * 0.75));
+                        
+                        this.hud.dialogueBox3.fadeIn(0.01);
+    
+                        this.hud.imageAkemi.fadeOut(0.01);
+                        this.hud.imageAkemiPointing.fadeIn(0.01);
+                    } else {
 
-                    /**DIALOGUE TEXT 2 */
-                    this.hud.dialogueBox2.fadeOut(0.01);
+                        this.hud.difficultyPanel.fadeOut(0.01);
+                        this.hud.buttonEasy.fadeOut(0.01);
+                        this.hud.buttonMedium.fadeOut(0.01);
+                        this.hud.buttonHard.fadeOut(0.01);
+                        this.hud.dialogueBox3.fadeOut(0.01);
+                        this.hud.imageAkemiPointing.fadeOut(0.01);
+                        
+                        setTimeout(() => {
+                            this.changeScene();
+                        }, 1000);
 
-                    /**CONTINUE BUTTON 2 */
-                    this.hud.buttonContinue2.moveTo(this.game.width * 0.6, this.game.height * 1.1, (this.game.speed * 0.15));
-                    
-                    /**DIFFICULTY PANEL AND BUTTONS*/
-                    this.hud.difficultyPanel.moveTo(this.game.width * 0.55, this.game.height * 0.25, (this.game.speed * 0.75));
-                    this.hud.buttonEasy.moveTo(this.game.width * 0.56, this.game.height * 0.325, (this.game.speed * 0.75));
-                    this.hud.buttonMedium.moveTo(this.game.width * 0.57, this.game.height * 0.509, (this.game.speed * 0.75));
-                    this.hud.buttonHard.moveTo(this.game.width * 0.57, this.game.height * 0.689, (this.game.speed * 0.75));
+                    }
+                
                 }
 
 
@@ -469,6 +497,23 @@ export class Scene1 {
             }
 
 
+            /**EASY BUTTON */
+            if(this.hud.buttonEasy.isTouchOver(this.game.input.touches) || this.hud.buttonEasy.isMouseClicking(this.game.input.mouse)){
+                this.game.difficulty = "easy";
+                this.enterNextScene = true;
+            }
+            /**MEDIUM BUTTON */
+            if(this.hud.buttonMedium.isTouchOver(this.game.input.touches) || this.hud.buttonMedium.isMouseClicking(this.game.input.mouse)){
+                this.game.difficulty = "medium";
+                this.enterNextScene = true;
+            }
+            /**HARD BUTTON */
+            if(this.hud.buttonHard.isTouchOver(this.game.input.touches) || this.hud.buttonHard.isMouseClicking(this.game.input.mouse)){
+                this.game.difficulty = "hard";
+                this.enterNextScene = true;
+            }
+
+
 
         })();
 
@@ -541,6 +586,7 @@ export class Scene1 {
 
         /** AKEMI GIRL DRAW */
         this.hud.imageAkemi.draw(ctx, 0);
+        this.hud.imageAkemiPointing.draw(ctx, 0);
 
 
 
@@ -565,16 +611,13 @@ export class Scene1 {
         this.hud.difficultyPanel.draw(ctx, 0);
 
 
-
-
-
-
         /**KEYBOARD */
         this.hud.keyboard.draw(ctx);
 
         /**DIALOGUE BOX */
         this.hud.dialogueBox.draw(ctx, 0);
         this.hud.dialogueBox2.draw(ctx, 0);
+        this.hud.dialogueBox3.draw(ctx, 0);
 
         /** BUTTERFLY DRAW */
         this.butterfly.draw(ctx);
@@ -588,7 +631,7 @@ export class Scene1 {
     }
 
     changeScene() {
-        this.game.changeScene(Scene1);
+        this.game.changeScene(Scene0);
     }
 
 

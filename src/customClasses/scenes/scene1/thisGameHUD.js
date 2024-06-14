@@ -136,6 +136,27 @@ export class thisGameHUD extends Hud {
             null, /**TEXTS ALIGN -> ROW OR COLUMN */
         );
 
+        this.imageAkemiPointing = new Image(
+            this.game, /**GAME */
+            (this.game.width * 0.09), /**X */
+            (this.height * 0.25), /**Y */
+            (this.game.width * 0.30), /**WIDTH */
+            (this.game.height * 0.75), /**HEIGHT */
+            0, /**ROTATION */
+            this.images[18],  /**IMAGE */
+            0, /**OPACITY */
+            null, /**TEXT */
+            (this.height * 0.1), /**TEXT SPACING */
+            "font1942", /**TEXT FONT */
+            "bold", /**FONT WEIGHT */
+            fontSize, /**FONT SIZE */
+            (this.game.width * 0.365), /**TEXT X */
+            (this.height * 1.50), /**TEXT Y */
+            "black", /**TEXT COLOR */
+            true, /**MOUSE HOVER */
+            null, /**TEXTS ALIGN -> ROW OR COLUMN */
+        );
+
         this.dialogueBox = new Image(
             this.game, /**GAME */
             (this.game.width * 0.3), /**X */
@@ -196,9 +217,11 @@ export class thisGameHUD extends Hud {
             (this.game.height * 0.35), /**HEIGHT */
             0, /**ROTATION */
             this.images[5],  /**IMAGE */
-            0.5, /**OPACITY */
+            0, /**OPACITY */
             [
-                "ESCOLHA O NÍVEL DE DIFICULDADE!",
+                " ",
+                "              ESCOLHA O NÍVEL DE DIFICULDADE!  ",
+                " ",
             ], /**TEXT */
             (this.height * 0.01), /**TEXT SPACING */
             "patrickHand", /**TEXT FONT */
@@ -262,7 +285,7 @@ export class thisGameHUD extends Hud {
 
         this.buttonContinue2 = new Image(
             this.game, /**GAME */
-            (this.game.width * 1), /**X */
+            (this.game.width * 0.6), /**X */
             (this.height * 1.155), /**Y */
             (this.game.width * 0.2), /**WIDTH */
             (this.game.height * 0.3), /**HEIGHT */
@@ -280,7 +303,7 @@ export class thisGameHUD extends Hud {
             true, /**MOUSE HOVER */
             null, /**TEXTS ALIGN -> ROW OR COLUMN */
             "CONTINUAR", /**UNIQUE TEXT */
-            (this.game.width * 1.025), /**UNIQUE TEXT X */
+            (this.game.width * 0.625), /**UNIQUE TEXT X */
             (this.game.height * 1.265), /**UNIQUE TEXT Y */
         );
 
