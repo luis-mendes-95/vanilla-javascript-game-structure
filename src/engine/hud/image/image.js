@@ -1,5 +1,5 @@
 export class Image {
-    constructor(game, x, y, width, height, rotation, image, opacity, text, textSpacing, font, fontWeight, fontSize, textX, textY, textColor, mouseHover, textLayout, uniqueText = null, uniqueTextX = null, uniqueTextY = null, cursorVisible = false, textOffsetX = 0, textOffsetY = 0) {
+    constructor(game, x, y, width, height, rotation, image, opacity, text, textSpacing, font, fontWeight, fontSize, textX, textY, textColor, mouseHover, textLayout, uniqueText = null, uniqueTextX = null, uniqueTextY = null, cursorVisible = false, textOffsetX = 0, textOffsetY = 0, hoverScale = false) {
         this.game = game;
         this.x = x;
         this.y = y;
@@ -32,6 +32,9 @@ export class Image {
         this.cursorInterval = 500; // Intervalo de piscagem em milissegundos
         this.lastCursorBlink = Date.now();
         this.canBlinkCursor = cursorVisible;
+
+        /**HOVER CONTROLS */
+        this.hoverScale = hoverScale;
     }
 
     update() {
@@ -189,11 +192,14 @@ export class Image {
                 if(!this.mouseOver) {
                     this.mouseOver = true;
                     this.game.hoveredImages.add(this.id);
+                    console.log("adicionou")
 
-                    if(this.scale < 1.1){
-                        this.scale += 0.01;
-                    } else {
-                        this.scale = 1.1;
+                    if(this.hoverScale){
+                        if(this.scale < 1.1){
+                            this.scale += 0.01;
+                        } else {
+                            this.scale = 1.1;
+                        }
                     }
                 }
             } else {
@@ -201,10 +207,12 @@ export class Image {
                     this.mouseOver = false;
                     this.game.hoveredImages.delete(this.id);
 
-                    if(this.scale > 1){
-                        this.scale -= 0.01;
-                    } else {
-                        this.scale = 1;
+                    if(this.hoverScale){
+                        if(this.scale > 1){
+                            this.scale -= 0.01;
+                        } else {
+                            this.scale = 1;
+                        }
                     }
                 }
             }

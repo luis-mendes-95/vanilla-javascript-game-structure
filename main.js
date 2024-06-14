@@ -69,6 +69,7 @@ window.addEventListener('load', function() {
 
             /** CONSTANTLY LOOK FOR ELEMENTS HOVERING AND THEN CHANGE MOUSE CURSOR */
             this.updateCursorStyle();
+            //console.log(this.hoveredImages.size)
         }
 
         draw() {
@@ -90,6 +91,7 @@ window.addEventListener('load', function() {
         updateCursorStyle() {
             this.canvas.style.cursor = this.hoveredImages.size > 0 ? 'pointer' : 'default';
         }
+        
     }
 
     /** INSTANTIATING THE GAME CLASS */

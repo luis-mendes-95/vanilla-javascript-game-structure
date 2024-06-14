@@ -24,8 +24,8 @@ export class Scene2 {
         this.treeButtonHover = document.getElementById('treeButtonHover');
         this.gardenButton = document.getElementById('gardenButton');
         this.gardenButtonHover = document.getElementById('gardenButtonHover');
-        this.flowerButton = document.getElementById('flowerButton');
-        this.flowerButtonHover = document.getElementById('flowerButtonHover');
+        this.flowerButton = document.getElementById('flowersButton');
+        this.flowerButtonHover = document.getElementById('flowersButtonHover');
 
         /** DEBUGGING */
         // this.clickDebug = new ClickDebug(this.game.input, this.game.ctx);
@@ -230,7 +230,10 @@ export class Scene2 {
         })();
 
         /** UPDATING ELEMENTS */
+        this.hud.buttonTree.update(deltaTime);
         this.hud.buttonTreeHover.update(deltaTime);
+        this.hud.buttonGarden.update(deltaTime);
+        this.hud.buttonGardenHover.update(deltaTime);
 
 
         /** CHANGING SCENE */
@@ -238,16 +241,46 @@ export class Scene2 {
 
         }
 
-        /**HOVER ELEMENTS WITH CHANGING IMAGES */
-        (() => {
-            if(this.hud.buttonTree.isMouseOver(this.game.input.mouse) || this.hud.buttonTree.isTouchOver(this.game.input.touches)){
-                this.hud.buttonTreeHover.fadeIn(0.10);
-                this.game.hoveredImages.add(this.id)
-            } else {
-                this.hud.buttonTreeHover.fadeOut(0.05);
-                this.game.hoveredImages.delete(this.id)
-            }
-        })();
+/**HOVER ELEMENTS WITH CHANGING IMAGES */
+(() => {
+
+    const treeHoveredOrTouched = this.hud.buttonTree.isMouseOver(this.game.input.mouse) || this.hud.buttonTree.isTouchOver(this.game.input.touches);
+    const gardenHoveredOrTouched = this.hud.buttonGarden.isMouseOver(this.game.input.mouse) || this.hud.buttonGarden.isTouchOver(this.game.input.touches);
+    const flowersHoveredOrTouched = this.hud.buttonFlowers.isMouseOver(this.game.input.mouse) || this.hud.buttonFlowers.isTouchOver(this.game.input.touches);
+
+    const treeAndFlowersHoveredOrTouched = treeHoveredOrTouched && flowersHoveredOrTouched;
+    const gardenAndFlowersHoveredOrTouched = gardenHoveredOrTouched && flowersHoveredOrTouched;
+
+    // TREE BUTTON HOVERING LOGIC
+    // Adjusted logic to not prioritize Tree when both Tree and Flowers are hovered
+    if (treeHoveredOrTouched && !flowersHoveredOrTouched && !gardenHoveredOrTouched) {
+        this.hud.buttonTreeHover.fadeIn(this.game.speed * 0.01);
+        this.game.hoveredImages.add(1);
+    } else {
+        this.hud.buttonTreeHover.fadeOut(this.game.speed * 0.01);
+        this.game.hoveredImages.delete(1);
+    }
+
+    // GARDEN BUTTON HOVERING LOGIC
+    // Ensure Garden is not prioritized when Garden and Flowers are hovered together
+    if (gardenHoveredOrTouched && !gardenAndFlowersHoveredOrTouched && !treeAndFlowersHoveredOrTouched) {
+        this.hud.buttonGardenHover.fadeIn(this.game.speed * 0.01);
+        this.game.hoveredImages.add(2);
+    } else {
+        this.hud.buttonGardenHover.fadeOut(this.game.speed * 0.01);
+        this.game.hoveredImages.delete(2);
+    }
+
+    // FLOWERS BUTTON HOVERING LOGIC
+    // Flowers has priority when hovered with Tree or Garden
+    if (flowersHoveredOrTouched) {
+        this.hud.buttonFlowersHover.fadeIn(this.game.speed * 0.01);
+        this.game.hoveredImages.add(3);
+    } else {
+        this.hud.buttonFlowersHover.fadeOut(this.game.speed * 0.01);
+        this.game.hoveredImages.delete(3);
+    }
+})();
        
     }
 
@@ -272,9 +305,15 @@ export class Scene2 {
         /**FARM SIGN */
         this.hud.farmSign.draw(ctx, 0);
 
-        /**TREES */
+        /**BUTTONS */
         this.hud.buttonTree.draw(ctx, 0);
         this.hud.buttonTreeHover.draw(ctx, 0);
+        this.hud.buttonFlowers.draw(ctx, 0);
+        this.hud.buttonFlowersHover.draw(ctx, 0);
+        this.hud.buttonGarden.draw(ctx, 0);
+        this.hud.buttonGardenHover.draw(ctx, 0);
+
+
 
 
 
