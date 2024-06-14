@@ -35,6 +35,8 @@ window.addEventListener('load', function() {
 
             /** PLAYER STATS */
             this.playerName = "";
+            this.currentStage = 0;
+            this.stagesDone = [];
             this.playerPoints = 0;
             this.difficulty = "";
 
@@ -69,7 +71,7 @@ window.addEventListener('load', function() {
 
             /** CONSTANTLY LOOK FOR ELEMENTS HOVERING AND THEN CHANGE MOUSE CURSOR */
             this.updateCursorStyle();
-            //console.log(this.hoveredImages.size)
+
         }
 
         draw() {
