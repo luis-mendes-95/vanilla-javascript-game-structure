@@ -253,25 +253,29 @@ export class Scene2 {
             /**TREE BUTTON CLICK OR TOUCH */
             if (this.hud.buttonTree.isMouseClicking() || this.hud.buttonTree.isTouchOver(this.game.input.touches)) {
                 this.game.currentStage = 0;
-                this.game.input.mouse.clicked = false;
-                this.game.input.touches = [];
-                this.calledNextScene = true;
+                
+                window.addEventListener('touchend', () => {
+                    this.calledNextScene = true;
+                })
+
             }
 
             /**GARDEN BUTTON CLICK OR TOUCH */
             if (this.hud.buttonGarden.isMouseClicking() || this.hud.buttonGarden.isTouchOver(this.game.input.touches)) {
                 this.game.currentStage = 1;
-                this.game.input.mouse.clicked = false;
-                this.game.input.touches = [];
-                this.calledNextScene = true;
+                
+                window.addEventListener('touchend', () => {
+                    this.calledNextScene = true;
+                })
             }
 
             /**FLOWERS BUTTON CLICK OR TOUCH */
             if (this.hud.buttonFlowers.isMouseClicking() || this.hud.buttonFlowers.isTouchOver(this.game.input.touches)) {
                 this.game.currentStage = 2;
-                this.game.input.mouse.clicked = false;
-                this.game.input.touches = [];
-                this.calledNextScene = true;
+                
+                window.addEventListener('touchend', () => {
+                    this.calledNextScene = true;
+                })
             }
 
         })();
@@ -286,42 +290,45 @@ export class Scene2 {
         /**HOVER ELEMENTS WITH CHANGING IMAGES */
         (() => {
 
-            const treeHoveredOrTouched = this.hud.buttonTree.isMouseOver(this.game.input.mouse) || this.hud.buttonTree.isTouchOver(this.game.input.touches);
-            const gardenHoveredOrTouched = this.hud.buttonGarden.isMouseOver(this.game.input.mouse) || this.hud.buttonGarden.isTouchOver(this.game.input.touches);
-            const flowersHoveredOrTouched = this.hud.buttonFlowers.isMouseOver(this.game.input.mouse) || this.hud.buttonFlowers.isTouchOver(this.game.input.touches);
-
-            const treeAndFlowersHoveredOrTouched = treeHoveredOrTouched && flowersHoveredOrTouched;
-            const gardenAndFlowersHoveredOrTouched = gardenHoveredOrTouched && flowersHoveredOrTouched;
-
-            // TREE BUTTON HOVERING LOGIC
-            // Adjusted logic to not prioritize Tree when both Tree and Flowers are hovered
-            if (treeHoveredOrTouched && !flowersHoveredOrTouched && !gardenHoveredOrTouched) {
-                this.hud.buttonTreeHover.fadeIn(this.game.speed * 0.01);
-                this.game.hoveredImages.add(1);
-            } else {
-                this.hud.buttonTreeHover.fadeOut(this.game.speed * 0.01);
-                this.game.hoveredImages.delete(1);
+            if(!this.calledNextScene){
+                const treeHoveredOrTouched = this.hud.buttonTree.isMouseOver(this.game.input.mouse) || this.hud.buttonTree.isTouchOver(this.game.input.touches);
+                const gardenHoveredOrTouched = this.hud.buttonGarden.isMouseOver(this.game.input.mouse) || this.hud.buttonGarden.isTouchOver(this.game.input.touches);
+                const flowersHoveredOrTouched = this.hud.buttonFlowers.isMouseOver(this.game.input.mouse) || this.hud.buttonFlowers.isTouchOver(this.game.input.touches);
+    
+                const treeAndFlowersHoveredOrTouched = treeHoveredOrTouched && flowersHoveredOrTouched;
+                const gardenAndFlowersHoveredOrTouched = gardenHoveredOrTouched && flowersHoveredOrTouched;
+    
+                // TREE BUTTON HOVERING LOGIC
+                // Adjusted logic to not prioritize Tree when both Tree and Flowers are hovered
+                if (treeHoveredOrTouched && !flowersHoveredOrTouched && !gardenHoveredOrTouched) {
+                    this.hud.buttonTreeHover.fadeIn(this.game.speed * 0.01);
+                    this.game.hoveredImages.add(1);
+                } else {
+                    this.hud.buttonTreeHover.fadeOut(this.game.speed * 0.01);
+                    this.game.hoveredImages.delete(1);
+                }
+    
+                // GARDEN BUTTON HOVERING LOGIC
+                // Ensure Garden is not prioritized when Garden and Flowers are hovered together
+                if (gardenHoveredOrTouched && !gardenAndFlowersHoveredOrTouched && !treeAndFlowersHoveredOrTouched) {
+                    this.hud.buttonGardenHover.fadeIn(this.game.speed * 0.01);
+                    this.game.hoveredImages.add(2);
+                } else {
+                    this.hud.buttonGardenHover.fadeOut(this.game.speed * 0.01);
+                    this.game.hoveredImages.delete(2);
+                }
+    
+                // FLOWERS BUTTON HOVERING LOGIC
+                // Flowers has priority when hovered with Tree or Garden
+                if (flowersHoveredOrTouched) {
+                    this.hud.buttonFlowersHover.fadeIn(this.game.speed * 0.01);
+                    this.game.hoveredImages.add(3);
+                } else {
+                    this.hud.buttonFlowersHover.fadeOut(this.game.speed * 0.01);
+                    this.game.hoveredImages.delete(3);
+                }
             }
 
-            // GARDEN BUTTON HOVERING LOGIC
-            // Ensure Garden is not prioritized when Garden and Flowers are hovered together
-            if (gardenHoveredOrTouched && !gardenAndFlowersHoveredOrTouched && !treeAndFlowersHoveredOrTouched) {
-                this.hud.buttonGardenHover.fadeIn(this.game.speed * 0.01);
-                this.game.hoveredImages.add(2);
-            } else {
-                this.hud.buttonGardenHover.fadeOut(this.game.speed * 0.01);
-                this.game.hoveredImages.delete(2);
-            }
-
-            // FLOWERS BUTTON HOVERING LOGIC
-            // Flowers has priority when hovered with Tree or Garden
-            if (flowersHoveredOrTouched) {
-                this.hud.buttonFlowersHover.fadeIn(this.game.speed * 0.01);
-                this.game.hoveredImages.add(3);
-            } else {
-                this.hud.buttonFlowersHover.fadeOut(this.game.speed * 0.01);
-                this.game.hoveredImages.delete(3);
-            }
         })();
        
     }
