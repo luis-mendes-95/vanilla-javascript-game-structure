@@ -14,9 +14,24 @@ export class Scene1 {
         this.width = this.game.width;
         this.height = this.game.height;
         this.musicPlaying = false;
+
+        /**CHANGING SCENES CONTROL */
+        this.calledNextScene = false;
+        this.enterNextScene = false;
+        this.showDifficultyPanel = false;
+
+        // Full screen event listeners
+        this.handleFullScreenClick = this.handleFullScreenClick.bind(this);
+        this.handleFullScreenTouchEnd = this.handleFullScreenTouchEnd.bind(this);
+
+
+
+
+
         this.savedGame = localStorage.getItem('AkemiFazendaSavedGame') || null;
         this.namePanel = document.getElementById('namePanel');
         this.dialogueBox = document.getElementById('dialogueBox');
+        this.buttonContinue = document.getElementById('buttonStart');
 
         /** GAME ASSETS */
         this.backgroundScene1 = document.getElementById('backgroundScene2');
@@ -185,17 +200,40 @@ export class Scene1 {
             this.cloud1, /**IMAGES[3] */
             this.farmSign, /**IMAGES[4] */
             this.dialogueBox, /**IMAGES[5] */
+            this.buttonContinue, /**IMAGES[6] */
         ]);
 
-        this.calledNextScene = false;
-        this.enterNextScene = false;
 
-        // Full screen event listeners
-        this.handleFullScreenClick = this.handleFullScreenClick.bind(this);
-        this.handleFullScreenTouchEnd = this.handleFullScreenTouchEnd.bind(this);
 
         this.namePanel.addEventListener('click', () => {
             this.game.changeScene(Scene1);
+        });
+
+        window.addEventListener('keydown', (e) => {
+            if(e.key == "Enter"){
+                if(this.hud.namePanel.uniqueText != ""
+                    && this.hud.namePanel.uniqueText != " "
+                    && this.hud.namePanel.uniqueText != "  "
+                    && this.hud.namePanel.uniqueText != "   "
+                    && this.hud.namePanel.uniqueText != "    "
+                    && this.hud.namePanel.uniqueText != "     "
+                    && this.hud.namePanel.uniqueText != "      "
+                    && this.hud.namePanel.uniqueText != "       " 
+                    && this.hud.namePanel.uniqueText != "        "
+                    && this.hud.namePanel.uniqueText != "         "
+                    && this.hud.namePanel.uniqueText != "          "
+                    && this.hud.namePanel.uniqueText != "           "
+                    && this.hud.namePanel.uniqueText != "            "
+                    && this.hud.namePanel.uniqueText != "             "
+                    && this.hud.namePanel.uniqueText != "              "
+                ){
+                    this.game.playerName = this.hud.namePanel.uniqueText;
+                    this.hud.dialogueBox2.text[1] = `                        ${this.game.playerName}, PRECISO DA SUA AJUDA! PRECISO COLHER FRUTAS, FLORES E  `;
+                    this.calledNextScene = true;
+                } else {
+                    this.hud.namePanel.rotate(10, this.game.speed * 0.05);
+                }
+            }
         });
     }
 
@@ -218,7 +256,7 @@ export class Scene1 {
             if (!this.calledNextScene) {
 
                 /**AKEMI GIRL*/
-                this.hud.imageAkemi.fadeIn(0.01);
+                this.hud.imageAkemi.fadeIn(0.04);
                 this.hud.imageAkemi.moveTo(this.game.width * 0.09, this.game.height * 0.25, (this.game.speed * 0.05));
 
                 /**NAME PANEL*/
@@ -256,12 +294,75 @@ export class Scene1 {
                 
                     /**DIALOGUE BOX*/
                     this.hud.dialogueBox.fadeIn(0.01);
+
+                    /**CONTINUE BUTTON*/
+                    this.hud.buttonContinue.moveTo(this.game.width * 0.8, this.game.height * 0.8, (this.game.speed * 0.15));
                 }
 
 
 
             } else {
+
+
+                if(!this.showDifficultyPanel){
+
+
+
+                    /**BUTTERFLY */
+                    this.butterfly.moveTo(this.game.canvas.width * 0.25, this.game.canvas.height * 0.32, (this.game.speed * 0.32));
+                    if(this.butterfly.x < this.game.width * 0.5){
+                        this.butterfly.rotate(30, this.game.speed * 0.073);
+                    } else {
+                        this.butterfly.rotate(-80, this.game.speed * 0.033);
+                    }
+
+                    /**DIALOGUE BOX */
+                    this.hud.dialogueBox.fadeOut(0.01);
+                    this.hud.dialogueBox2.fadeIn(0.01);
+                  
+
+                    /**CONTINUE BUTTON 2 */
+                    this.hud.buttonContinue2.moveTo(this.game.width * 0.6, this.game.height * 0.8, (this.game.speed * 0.15));
+
+
+
+
+                } else {
+                    console.log('entra aqui?');
+                    this.butterfly.moveTo(this.game.canvas.width * -0.25, this.game.canvas.height * -0.22, (this.game.speed * 0.32));
+                    this.butterfly.rotate(-80, this.game.speed * 0.033);
+
+                    /**DIALOGUE TEXT 2 */
+                    this.hud.dialogueBox2.fadeOut(0.01);
+
+                    /**CONTINUE BUTTON 2 */
+                    this.hud.buttonContinue2.moveTo(this.game.width * 0.6, this.game.height * 1.1, (this.game.speed * 0.15));
+                    
+                    
+                }
+
+
+                /**NAME PANEL */
+                this.hud.namePanel.fadeOut(0.01);
+                this.hud.namePanel.moveTo(this.game.width * 0.85, this.game.height * 0.75, (this.game.speed * 0.35));
+
+
+
+                /**KEYBOARD */
+                this.hud.keyboard.moveTo(this.game.width * 0.01, this.game.height * 1.1, (this.game.speed * 1));
+                this.hud.buttonShowKeyboard.moveTo(this.game.width * 0.2, this.game.height * 1.1, (this.game.speed * 0.5));
                 
+
+
+                /**CONTINUE BUTTON */
+                this.hud.buttonContinue.moveTo(this.game.width * 0.8, this.game.height * 1.1, (this.game.speed * 0.15));
+
+
+
+                /**BACKGROUND MOVE */
+                this.background.moveTo(this.background.width * -0.5, 0, (this.game.speed * 1));
+
+
             }
         })();
 
@@ -309,6 +410,40 @@ export class Scene1 {
             if(this.hud.buttonHideKeyboard.isTouchOver(this.game.input.touches) || this.hud.buttonHideKeyboard.isMouseClicking(this.game.input.mouse)){
                 this.showKeyboard = false;
             }
+
+            /**CONTINUE BUTTON */
+            if(this.hud.buttonContinue.isTouchOver(this.game.input.touches) || this.hud.buttonContinue.isMouseClicking(this.game.input.mouse)){
+                if(this.hud.namePanel.uniqueText != ""
+                    && this.hud.namePanel.uniqueText != " "
+                    && this.hud.namePanel.uniqueText != "  "
+                    && this.hud.namePanel.uniqueText != "   "
+                    && this.hud.namePanel.uniqueText != "    "
+                    && this.hud.namePanel.uniqueText != "     "
+                    && this.hud.namePanel.uniqueText != "      "
+                    && this.hud.namePanel.uniqueText != "       " 
+                    && this.hud.namePanel.uniqueText != "        "
+                    && this.hud.namePanel.uniqueText != "         "
+                    && this.hud.namePanel.uniqueText != "          "
+                    && this.hud.namePanel.uniqueText != "           "
+                    && this.hud.namePanel.uniqueText != "            "
+                    && this.hud.namePanel.uniqueText != "             "
+                    && this.hud.namePanel.uniqueText != "              "
+                ){
+                    this.game.playerName = this.hud.namePanel.uniqueText;
+                    this.hud.dialogueBox2.text[1] = `                        ${this.game.playerName}, PRECISO DA SUA AJUDA! PRECISO COLHER FRUTAS, FLORES E  `;
+                    this.calledNextScene = true;
+                } else {
+                    this.hud.namePanel.rotate(10, this.game.speed * 0.05);
+                }
+            }
+
+            /**CONTINUE BUTTON 2 */
+            if(this.hud.buttonContinue2.isTouchOver(this.game.input.touches) || this.hud.buttonContinue2.isMouseClicking(this.game.input.mouse)){
+                this.showDifficultyPanel = true;
+            }
+
+
+
         })();
 
         /** UPDATING ELEMENTS */
@@ -318,13 +453,20 @@ export class Scene1 {
         this.hud.keyboard.update(deltaTime);
         this.hud.buttonShowKeyboard.update(deltaTime);
         this.hud.buttonHideKeyboard.update(deltaTime);
+        this.hud.buttonContinue.update(deltaTime);
+        this.hud.buttonContinue2.update(deltaTime);
+        this.hud.dialogueBox.update(deltaTime);
+        this.hud.namePanel.update();
+
+        /**NAME PANEL BLINKING CURSOR*/
         this.hud.namePanel.startBlinkingCursor();
 
+        /**UPDATE PLAYER NAME IN NAME PANEL */
         this.hud.namePanel.uniqueText = this.hud.keyboard.currentInput;
 
         /** CHANGING SCENE */
         if(this.calledNextScene){
-            this.changeScene();
+            //this.changeScene();
         }
        
     }
@@ -358,19 +500,25 @@ export class Scene1 {
         /** BUTTON FULL SCREEN DRAW */
         this.hud.buttonFullScreen.draw(ctx, 0);
 
+        /**BUTTON CONTINUE */
+        this.hud.buttonContinue.draw(ctx, 0);
+        this.hud.buttonContinue2.draw(ctx, 0);
+
         /**BUTTONS KEYBOARD CONTROL */
         this.hud.buttonShowKeyboard.draw(ctx, 0);
         this.hud.buttonHideKeyboard.draw(ctx, 0);
-        
 
-        /** BUTTERFLY DRAW */
-        this.butterfly.draw(ctx);
+
 
         /**KEYBOARD */
         this.hud.keyboard.draw(ctx);
 
         /**DIALOGUE BOX */
         this.hud.dialogueBox.draw(ctx, 0);
+        this.hud.dialogueBox2.draw(ctx, 0);
+
+        /** BUTTERFLY DRAW */
+        this.butterfly.draw(ctx);
 
         /** DEBUGGING */
         //this.clickDebug.draw();
@@ -383,4 +531,6 @@ export class Scene1 {
     changeScene() {
         this.game.changeScene(Scene1);
     }
+
+
 }

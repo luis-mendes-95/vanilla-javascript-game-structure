@@ -15,7 +15,6 @@ export class Scene0 {
         this.height = this.game.height;
         this.musicPlaying = false;
         this.savedGame = localStorage.getItem('AkemiFazendaSavedGame') || null;
-        this.buttonStart = document.getElementById('buttonStart');
 
         /** GAME ASSETS */
         this.backgroundScene1 = document.getElementById('backgroundScene1');

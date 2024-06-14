@@ -139,13 +139,17 @@ export class thisGameHUD extends Hud {
         this.dialogueBox = new Image(
             this.game, /**GAME */
             (this.game.width * 0.3), /**X */
-            (this.height * 0.35), /**Y */
+            (this.height * 0.28), /**Y */
             (this.game.width * 0.30), /**WIDTH */
             (this.game.height * 0.35), /**HEIGHT */
             0, /**ROTATION */
             this.images[5],  /**IMAGE */
             0, /**OPACITY */
-            ["         Olá, meu nome é Akemi!  ", "         Qual o seu nome ?"], /**TEXT */
+            [
+                " ",
+                "         OLÁ, MEU NOME É AKEMI!  ",
+                "         QUAL O SEU NOME ?",
+            ], /**TEXT */
             (this.height * 0.1), /**TEXT SPACING */
             "patrickHand", /**TEXT FONT */
             "bold", /**FONT WEIGHT */
@@ -153,7 +157,34 @@ export class thisGameHUD extends Hud {
             (this.game.width * 0.365), /**TEXT X */
             (this.height * 1.50), /**TEXT Y */
             "black", /**TEXT COLOR */
-            true, /**MOUSE HOVER */
+            false, /**MOUSE HOVER */
+            "column", /**TEXTS ALIGN -> ROW OR COLUMN */
+        );
+
+        this.dialogueBox2 = new Image(
+            this.game, /**GAME */
+            (this.game.width * 0.3), /**X */
+            (this.height * 0.15), /**Y */
+            (this.game.width * 0.30), /**WIDTH */
+            (this.game.height * 0.35), /**HEIGHT */
+            0, /**ROTATION */
+            this.images[5],  /**IMAGE */
+            0, /**OPACITY */
+            [
+                " ",
+                "                     PRECISO COLHER FRUTAS, FLORES E",
+                "                     LEGUMES PARA SEREM VENDIDOS NA FEIRA DA CIDADE!   ",
+                "                    PARA ME AJUDAR, VOCÊ DEVE COLHER O NÚMERO EXATO  ",
+                "                    DESSES PRODUTOS QUE EU LHE PEDIR! VAMOS COMEÇAR ? ",
+            ], /**TEXT */
+            (this.height * 0.01), /**TEXT SPACING */
+            "patrickHand", /**TEXT FONT */
+            "bold", /**FONT WEIGHT */
+            fontSize * 0.35, /**FONT SIZE */
+            (this.game.width * 0.365), /**TEXT X */
+            (this.height * 1.50), /**TEXT Y */
+            "black", /**TEXT COLOR */
+            false, /**MOUSE HOVER */
             "column", /**TEXTS ALIGN -> ROW OR COLUMN */
         );
         
@@ -180,6 +211,54 @@ export class thisGameHUD extends Hud {
             (this.game.width * 0.032), /**UNIQUE TEXT X */
             (this.height * 1.06), /**UNIQUE TEXT Y */
             true /** CURSOR VISIBLE */
+        );
+
+        this.buttonContinue = new Image(
+            this.game, /**GAME */
+            (this.game.width * 1), /**X */
+            (this.height * 1.155), /**Y */
+            (this.game.width * 0.2), /**WIDTH */
+            (this.game.height * 0.3), /**HEIGHT */
+            -20, /**ROTATION */
+            this.images[6],  /**IMAGE */
+            1, /**OPACITY */
+            null, /**TEXT */
+            (this.height * 0.1), /**TEXT SPACING */
+            "PatrickHand", /**TEXT FONT */
+            "bold", /**FONT WEIGHT */
+            fontSize * 0.7, /**FONT SIZE */
+            (this.game.width * 0.365), /**TEXT X */
+            (this.height * 1.50), /**TEXT Y */
+            "black", /**TEXT COLOR */
+            true, /**MOUSE HOVER */
+            null, /**TEXTS ALIGN -> ROW OR COLUMN */
+            "CONTINUAR", /**UNIQUE TEXT */
+            (this.game.width * 1.025), /**UNIQUE TEXT X */
+            (this.game.height * 1.265), /**UNIQUE TEXT Y */
+        );
+
+        this.buttonContinue2 = new Image(
+            this.game, /**GAME */
+            (this.game.width * 1), /**X */
+            (this.height * 1.155), /**Y */
+            (this.game.width * 0.2), /**WIDTH */
+            (this.game.height * 0.3), /**HEIGHT */
+            0, /**ROTATION */
+            this.images[6],  /**IMAGE */
+            1, /**OPACITY */
+            null, /**TEXT */
+            (this.height * 0.1), /**TEXT SPACING */
+            "PatrickHand", /**TEXT FONT */
+            "bold", /**FONT WEIGHT */
+            fontSize * 0.7, /**FONT SIZE */
+            (this.game.width * 0.365), /**TEXT X */
+            (this.height * 1.50), /**TEXT Y */
+            "black", /**TEXT COLOR */
+            true, /**MOUSE HOVER */
+            null, /**TEXTS ALIGN -> ROW OR COLUMN */
+            "CONTINUAR", /**UNIQUE TEXT */
+            (this.game.width * 1.025), /**UNIQUE TEXT X */
+            (this.game.height * 1.265), /**UNIQUE TEXT Y */
         );
    
    
