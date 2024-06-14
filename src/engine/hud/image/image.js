@@ -1,5 +1,10 @@
 export class Image {
-    constructor(game, x, y, width, height, rotation, image, opacity, text, textSpacing, font, fontWeight, fontSize, textX, textY, textColor, mouseHover, textLayout, uniqueText = null, uniqueTextX = null, uniqueTextY = null, cursorVisible = false) {
+    constructor(
+        game, x, y, width, height, rotation, image, opacity, text, textSpacing, 
+        font, fontWeight, fontSize, textX, textY, textColor, mouseHover, 
+        textLayout, uniqueText = null, uniqueTextX = null, uniqueTextY = null, 
+        cursorVisible = false, textOffsetX = 0, textOffsetY = 0
+    ) {
         this.game = game;
         this.x = x;
         this.y = y;
@@ -24,10 +29,12 @@ export class Image {
         this.uniqueTextX = uniqueTextX;
         this.uniqueTextY = uniqueTextY;
 
-        // Cursor attributes
+        this.textOffsetX = textOffsetX;
+        this.textOffsetY = textOffsetY;
+
         this.blinkingCursor = false;
         this.cursorVisible = true;
-        this.cursorInterval = 500; // Intervalo de piscagem em milissegundos
+        this.cursorInterval = 500;
         this.lastCursorBlink = Date.now();
         this.canBlinkCursor = cursorVisible;
     }
@@ -36,22 +43,18 @@ export class Image {
         this.mouseHovering();
         this.isMouseClicking();
 
-        // Atualiza a visibilidade do cursor
         if (this.blinkingCursor && Date.now() - this.lastCursorBlink >= this.cursorInterval) {
             this.cursorVisible = !this.cursorVisible;
             this.lastCursorBlink = Date.now();
         }
 
-        if(this.canBlinkCursor) {
+        if (this.canBlinkCursor) {
             this.startBlinkingCursor();
         }
     }
 
     draw(ctx) {
-        // Define a fonte para medir o texto corretamente
         ctx.font = `${this.fontWeight} ${this.fontSize}px ${this.font}`;
-    
-        // Configurações comuns
         ctx.globalAlpha = this.opacity;
         ctx.fillStyle = this.textColor;
         ctx.save();
@@ -68,8 +71,8 @@ export class Image {
                 this.prepareCanvas(ctx, buttonWidth, buttonHeight);
                 ctx.drawImage(this.image, this.x, this.y, buttonWidth, buttonHeight);
                 if (this.text) {
-                    const textX = this.x + (buttonWidth - textWidth) / 2;
-                    const textY = this.y + buttonHeight / 2 + textHeight / 4;
+                    const textX = this.x + (buttonWidth - textWidth) / 2 + this.textOffsetX;
+                    const textY = this.y + buttonHeight / 2 + textHeight / 4 + this.textOffsetY;
                     ctx.fillText(this.text, textX, textY);
                 }
             } else if (this.textLayout === "column") {
@@ -81,8 +84,8 @@ export class Image {
                 ctx.drawImage(this.image, this.x, this.y, buttonWidth, buttonHeight);
                 lines.forEach((line, index) => {
                     const textWidth = ctx.measureText(line).width;
-                    const textX = this.x + (buttonWidth - textWidth) / 2;
-                    const textY = this.y + (index * lineHeight) + this.fontSize;
+                    const textX = this.x + (buttonWidth - textWidth) / 2 + this.textOffsetX;
+                    const textY = this.y + (index * lineHeight) + this.fontSize + this.textOffsetY;
                     ctx.fillText(line, textX, textY);
                 });
             }
@@ -95,14 +98,12 @@ export class Image {
         }
 
         if (this.uniqueText || this.blinkingCursor) {
-            ctx.fillText(this.uniqueText || '', this.uniqueTextX, this.uniqueTextY);
+            ctx.fillText(this.uniqueText || '', this.uniqueTextX + this.textOffsetX, this.uniqueTextY + this.textOffsetY);
 
-            // Calcula a posição do cursor com base na largura do uniqueText
             const textMetrics = ctx.measureText(this.uniqueText || '');
-            const cursorX = this.uniqueTextX + textMetrics.width;
-            const cursorY = this.uniqueTextY;
+            const cursorX = this.uniqueTextX + textMetrics.width + this.textOffsetX;
+            const cursorY = this.uniqueTextY + this.textOffsetY;
 
-            // Desenha o cursor se estiver visível
             if (this.blinkingCursor && this.cursorVisible) {
                 ctx.fillText('|', cursorX, cursorY);
             }
@@ -142,7 +143,7 @@ export class Image {
         }
         this.draw(this.game.ctx);
     }
-    
+
     fadeIn(speed){
         if(this.opacity < 1){
             this.opacity += speed;
@@ -162,13 +163,13 @@ export class Image {
     }
 
     isMouseOver(mouse){
-        return mouse.x > this.x && mouse.x < this.x + this.width && mouse.y > this.y && mouse.y < this.y + this.height;
+        return mouse.x > this.x && mouse.x < this.x + this.width && mouse.y > this.y && mouse.y < this.height;
     } 
 
     isTouchOver(touches){
         for (let i = 0; i < touches.length; i++) {
             const touch = touches[i];
-            if (touch.x > this.x && touch.x < this.x + this.width && touch.y > this.y && touch.y < this.y + this.height) {
+            if (touch.x > this.x && touch.x < this.x + this.width && touch.y > this.y && touch.y < this.height) {
                 return true;
             }
         }
@@ -222,9 +223,6 @@ export class Image {
 
     stopBlinkingCursor() {
         this.blinkingCursor = false;
-        this.cursorVisible = true; // Reseta a visibilidade do cursor quando parar de piscar
+        this.cursorVisible = true;
     }
 }
-
-// Para usar a funcionalidade de cursor piscando, basta chamar startBlinkingCursor() na instância de Image
-// e repassar o texto do teclado + texto do input no método update da cena onde os objetos são instanciados.

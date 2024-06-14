@@ -631,7 +631,7 @@ export class Scene1 {
     }
 
     changeScene() {
-        this.game.changeScene(Scene0);
+        this.game.changeScene(Scene2);
     }
 
 
