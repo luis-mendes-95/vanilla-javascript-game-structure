@@ -64,6 +64,7 @@ export class thisGameHUD extends Hud {
             this.width * 0.01, /**X */
             this.height * 0.99, /**Y */
             "PatrickHand", /**FONT */
+            12, /**MAX LENGTH */
         );
      
         this.namePanel = new Image(

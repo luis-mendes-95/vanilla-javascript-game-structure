@@ -40,7 +40,7 @@ export class Scene1 {
         this.showKeyboard = false;
 
         /** DEBUGGING */
-        // this.clickDebug = new ClickDebug(this.game.input, this.game.ctx);
+        //this.clickDebug = new ClickDebug(this.game.input, this.game.ctx);
 
         /** BACKGROUND */
         this.background = new Background(
@@ -373,7 +373,7 @@ export class Scene1 {
         this.hud.dialogueBox.draw(ctx, 0);
 
         /** DEBUGGING */
-        // this.clickDebug.draw();
+        //this.clickDebug.draw();
     }
 
     playSound() {

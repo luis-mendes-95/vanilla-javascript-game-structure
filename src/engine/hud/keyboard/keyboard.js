@@ -1,8 +1,9 @@
 export class Keyboard {
-    constructor(game, x, y, font) {
+    constructor(game, x, y, font, maxLength) {
         this.font = font;
         this.game = game;
         this.ctx = game.ctx;
+        this.maxLength = maxLength;
         this.keys = [
             ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
             ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
@@ -21,26 +22,7 @@ export class Keyboard {
         this.startY = y;
         this.opacity = 0.9;
         this.initEventListeners();
-
-        this.cursor = "|"; // Step 1: Add cursor property
-        this.cursorVisible = true; // To control the visibility of the cursor
-        this.initCursorBlinking(); // Step 5: Initialize cursor blinking
-
-        this.canType = false;
-        
-    }
-
-    initCursorBlinking() {
-        setInterval(() => {
-            this.cursorVisible = !this.cursorVisible; // Toggle cursor visibility
-            this.draw(); // Redraw to update the cursor state
-        }, 500); // Blink every 500ms
-    }
-
-    handleKeydown(e) {
-        // Existing keydown handling code...
-        // Make sure to update `this.currentInput` without the cursor for processing
-        this.draw();
+        this.canType = true;
     }
 
     initEventListeners() {
@@ -50,12 +32,10 @@ export class Keyboard {
     }
 
     handleKeydown(e) {
-        if(this.canType){
+        if (this.canType) {
             if (e.key === 'Backspace') {
                 this.currentInput = this.currentInput.slice(0, -1);
-            } else if (e.key === ' ') {
-                this.currentInput += ' ';
-            } else if (e.key.length === 1) {
+            } else if ((e.key === ' ' || e.key.length === 1) && this.currentInput.length < this.maxLength) {
                 this.currentInput += e.key.toUpperCase();
             }
             this.draw();
@@ -64,8 +44,8 @@ export class Keyboard {
 
     handleClick(e) {
         const rect = this.ctx.canvas.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+        const x = (e.clientX - rect.left) * (this.game.canvas.width / rect.width);
+        const y = (e.clientY - rect.top) * (this.game.canvas.height / rect.height);
         this.processInput(x, y);
     }
 
@@ -81,7 +61,7 @@ export class Keyboard {
 
     processInput(x, y) {
         let yOffset = 0;
-
+    
         this.keys.forEach((row, rowIndex) => {
             let xOffset = 0;
             row.forEach((key, keyIndex) => {
@@ -91,9 +71,7 @@ export class Keyboard {
                 if (x > keyX && x < keyX + width && y > keyY && y < keyY + this.keyHeight) {
                     if (key === '←') {
                         this.currentInput = this.currentInput.slice(0, -1);
-                    } else if (key === ' ') {
-                        this.currentInput += ' ';
-                    } else {
+                    } else if ((key === ' ' || key.length === 1) && this.currentInput.length < this.maxLength) {
                         this.currentInput += key;
                     }
                     this.draw();
@@ -107,28 +85,20 @@ export class Keyboard {
     update() {
         this.mouseHovering();
         this.isMouseClicking();
-    }
+
+
+        }
 
     draw() {
         const canvasWidth = this.ctx.canvas.width;
-        const canvasHeight = this.ctx.canvas.height;
-
-        const totalHeight = this.keys.length * (this.keyHeight + this.margin) - this.margin;
-        const totalWidth = Math.max(...this.keys.map(row => row.reduce((acc, key) => acc + (key === ' ' ? this.spaceBarWidth : this.keyWidth) + this.margin, -this.margin)));
 
         this.ctx.save();
-
         this.ctx.font = `${this.keyHeight * 0.5}px ${this.font}`;
         this.ctx.textAlign = 'center';
         this.ctx.textBaseline = 'middle';
 
         let x = this.startX;
         let y = this.startY;
-
-        // Draw current input above the keyboard
-        //const inputHeight = this.keyHeight * 0.5;
-        //this.ctx.fillStyle = 'black';
-        //this.ctx.fillText(this.currentInput, canvasWidth / 2, this.startY - inputHeight - this.margin);
 
         for (let row of this.keys) {
             for (let key of row) {
@@ -148,8 +118,6 @@ export class Keyboard {
         }
 
         this.ctx.restore();
-
-        const displayInput = this.currentInput + (this.cursorVisible ? this.cursor : "");
     }
 
     moveTo(x, y, speed) {

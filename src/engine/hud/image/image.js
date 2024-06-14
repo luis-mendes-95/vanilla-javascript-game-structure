@@ -94,11 +94,11 @@ export class Image {
             ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
         }
 
-        if (this.uniqueText) {
-            ctx.fillText(this.uniqueText, this.uniqueTextX, this.uniqueTextY);
+        if (this.uniqueText || this.blinkingCursor) {
+            ctx.fillText(this.uniqueText || '', this.uniqueTextX, this.uniqueTextY);
 
             // Calcula a posição do cursor com base na largura do uniqueText
-            const textMetrics = ctx.measureText(this.uniqueText);
+            const textMetrics = ctx.measureText(this.uniqueText || '');
             const cursorX = this.uniqueTextX + textMetrics.width;
             const cursorY = this.uniqueTextY;
 
