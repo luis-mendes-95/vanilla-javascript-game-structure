@@ -240,8 +240,8 @@ export class Scene2 {
 
         /**HOVER ELEMENTS WITH CHANGING IMAGES */
         (() => {
-            if(this.hud.buttonTree.isMouseOver(this.game.input.mouse)){
-                this.hud.buttonTreeHover.fadeIn(0.05);
+            if(this.hud.buttonTree.isMouseOver(this.game.input.mouse) || this.hud.buttonTree.isTouchOver(this.game.input.touches)){
+                this.hud.buttonTreeHover.fadeIn(0.10);
                 this.game.hoveredImages.add(this.id)
             } else {
                 this.hud.buttonTreeHover.fadeOut(0.05);

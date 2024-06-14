@@ -163,9 +163,15 @@ export class Image {
         }
     }
 
-    isMouseOver(mouse){
-        return mouse.x > this.x && mouse.x < this.x + this.width && mouse.y > this.y && mouse.y < this.y + this.height;
-    } 
+    isMouseOver(mouse) {
+        const isTouchEvent = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        
+        if (isTouchEvent) {
+            return false;
+        } else {
+            return mouse.x > this.x && mouse.x < this.x + this.width && mouse.y > this.y && mouse.y < this.y + this.height;
+        }
+    }
 
     isTouchOver(touches){
         for (let i = 0; i < touches.length; i++) {
