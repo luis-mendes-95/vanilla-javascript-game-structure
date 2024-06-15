@@ -166,7 +166,8 @@ export class Image {
         }
     }
 
-    isMouseOver(mouse) {
+    isMouseOver() {
+        const mouse = this.game.input.mouse;
         const isTouchEvent = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
         
         if (isTouchEvent) {
@@ -176,9 +177,9 @@ export class Image {
         }
     }
 
-    isTouchOver(touches){
-        for (let i = 0; i < touches.length; i++) {
-            const touch = touches[i];
+    isTouchOver(){
+        for (let i = 0; i < this.game.input.touches.length; i++) {
+            const touch = this.game.input.touches[i];
             if (touch.x > this.x && touch.x < this.x + this.width && touch.y > this.y && touch.y < this.y + this.height) {
                 return true;
             }

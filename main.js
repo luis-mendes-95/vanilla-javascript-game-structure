@@ -34,7 +34,7 @@ window.addEventListener('load', function() {
             this.hoveredImages = new Set();
 
             /** PLAYER STATS */
-            this.playerName = "";
+            this.playerName = "MADAGASCAR";
             this.currentStage = 0;
             this.stagesDone = [];
             this.playerPoints = 0;
@@ -58,7 +58,7 @@ window.addEventListener('load', function() {
             .catch(error => console.log(error));
 
             /** SCENES MANAGEMENT */
-            this.currentScene = new Scene0(this);
+            this.currentScene = new Scene3(this);
         }
 
         changeScene(newScene) {

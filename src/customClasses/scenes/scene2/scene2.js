@@ -6,6 +6,7 @@ import { Sound } from "../../../engine/sound/sound.js";
 import { thisGameHUD } from "./thisGameHUD.js";
 import { Image } from "../../../engine/hud/image/image.js";
 import { Scene1 } from "../scene1/scene1.js";
+import { Scene3 } from "../scene3/scene3.js";
 
 export class Scene2 {
     constructor(game) {
@@ -258,6 +259,10 @@ export class Scene2 {
                     this.calledNextScene = true;
                 })
 
+                window.addEventListener('click', () => {
+                    this.calledNextScene = true;
+                });
+
             }
 
             /**GARDEN BUTTON CLICK OR TOUCH */
@@ -266,7 +271,11 @@ export class Scene2 {
                 
                 window.addEventListener('touchend', () => {
                     this.calledNextScene = true;
-                })
+                });
+
+                window.addEventListener('click', () => {
+                    this.calledNextScene = true;
+                });
             }
 
             /**FLOWERS BUTTON CLICK OR TOUCH */
@@ -275,7 +284,11 @@ export class Scene2 {
                 
                 window.addEventListener('touchend', () => {
                     this.calledNextScene = true;
-                })
+                });
+
+                window.addEventListener('click', () => {
+                    this.calledNextScene = true;
+                });
             }
 
         })();
@@ -330,6 +343,12 @@ export class Scene2 {
             }
 
         })();
+
+        /**CHANGING SCENE */
+        if (this.calledNextScene && this.background.x <= -this.game.width) {
+            this.game.hoveredImages.clear();
+            this.changeScene();
+        }
        
     }
 
@@ -379,6 +398,6 @@ export class Scene2 {
     }
 
     changeScene() {
-        this.game.changeScene(Scene1);
+        this.game.changeScene(Scene3);
     }
 }

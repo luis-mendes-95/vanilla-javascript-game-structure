@@ -1,302 +1,586 @@
 import { Background } from "../../../engine/background/background.js";
-import { AkemiHUD } from "./akemiHUD.js";
+import { ClickDebug } from "../../../engine/debug/clickDebug.js";
+import { DebugMovement } from "../../../engine/debug/movementDebug.js";
+import { Sprite } from "../../../engine/sprite/sprite.js";
+import { Sound } from "../../../engine/sound/sound.js";
+import { Image } from "../../../engine/hud/image/image.js";
 
 export class Scene3 {
+
     constructor(game) {
 
-        /**GAME*/
-        this.game = game;
+        /**THIS SCENE SETUP */
+        (()=>{
 
-        /**WIDTH AND HEIGHT*/
-        this.width = this.game.width;
-        this.height = this.game.height;
+            /**RANDOM FRUIT (6 FRUITS) */
+            this.randomFruit = Math.floor(Math.random() * 6);
 
-        /**GAME ASSETS*/
-        this.backgroundScene4 = document.getElementById('backgroundScene4');
-        this.gameBackground = document.getElementById('gameBackground');
-        this.cloud1 = document.getElementById('cloud1');
-        this.farmSign = document.getElementById('farmSign');
-        this.buttonTree = document.getElementById('treeButton');
-        this.buttonTreeHover = document.getElementById('treeButtonHover');
-        this.buttonGarden = document.getElementById('gardenButton');
-        this.buttonGardenHover = document.getElementById('gardenButtonHover');
-        this.buttonFlowers = document.getElementById('flowersButton');
-        this.buttonFlowersHover = document.getElementById('flowersButtonHover');
+            console.log(this.randomFruit)
 
+            this.game = game;
+            this.startGame = false;
+            this.width = this.game.width;
+            this.height = this.game.height;
+            this.musicPlaying = false;
+            this.savedGame = localStorage.getItem('AkemiFazendaSavedGame') || null;
+            this.calledNextScene = false;
+            this.enterNextScene = false;
 
-        /**BACKGROUND*/
-        this.background = new Background(
-            this, /**GAME*/
-            0,  /**X */
-            0, /**Y */
-            this.game.width, /**WIDTH */
-            this.game.height * 1.15, /**HEIGHT */
-            'blue', /**COLOR */
-            10, /**SPEED */
-            [this.backgroundScene4] /**IMAGES */
+            /**FULLSCREEN FUNCTIONS */
+            this.handleFullScreenClick = this.handleFullScreenClick.bind(this);
+            this.handleFullScreenTouchEnd = this.handleFullScreenTouchEnd.bind(this);
+        })();
+
+        /** GAME ASSETS */
+        (()=>{
+            /**BACKGROUND IMAGE*/
+            this.backgroundScene1 = document.getElementById('gameFrame');
+            /**CLOUD IMAGE*/
+            this.cloudImage = document.getElementById('cloud1');
+            /**GAME BACKGROUND*/
+            this.gameBackground = document.getElementById('gameBackground');
+            /**DIALOGUE IMAGE */
+            this.dialogueBox = document.getElementById('dialogueBox');
+            /**BUTTON CONTINUE */
+            this.buttonContinue = document.getElementById('buttonStart');
+            /**AKEMI GIRL */
+            this.akemiImages = document.getElementsByClassName('akemi');
+            /**BACKGROUND BUTTON PANEL */
+            this.farmSign = document.getElementById('farmSign');
+            /**BASKET */
+            this.basket = document.getElementById('basket');
+            /**TREE */
+            this.mainTree0 = document.getElementById('mainTree');
+        })();
+
+        /** BACKGROUNDS */
+        (()=>{
+            this.background = new Background(
+                this,
+                0,
+                0,
+                this.game.width,
+                this.game.height,
+                'blue',
+                10,
+                0,
+                0,
+                [this.gameBackground],
+                true
+            );
+
+            this.backgroundGameFrame = new Background(
+                this,
+                0,
+                0,
+                this.game.width,
+                this.game.height * 0.7,
+                'blue',
+                10,
+                0,
+                0,
+                [this.backgroundScene1],
+                true
+            );
+        })();
+
+        /** CLOUDS */
+        (()=>{
+
+        this.cloud1 = new Image(
+            this.game,
+            this.width * 0.1,
+            this.height * 0.05,
+            this.width * 0.15,
+            this.game.height * 0.15,
+            0,
+            this.cloudImage,
+            0.9,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            false
         );
 
-        /**BACKGROUND*/
-        this.background2 = new Background(
-            this, /**GAME*/
-            (this.width * 1),  /**X */
-            0, /**Y */
-            this.game.width, /**WIDTH */
-            this.game.height, /**HEIGHT */
-            'blue', /**COLOR */
-            10, /**SPEED */
-            [this.gameBackground] /**IMAGES */
+        this.cloud2 = new Image(
+            this.game,
+            this.width * 0.7,
+            this.height * 0.05,
+            this.width * 0.12,
+            this.game.height * 0.12,
+            0,
+            this.cloudImage,
+            0.7,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            false
         );
 
-        /**BACKGROUND NEXT SCENE*/
-        this.background = new Background(
-            this, /**GAME*/
-            0,  /**X */
-            0, /**Y */
-            this.game.width, /**WIDTH */
-            this.game.height * 1.15, /**HEIGHT */
-            'blue', /**COLOR */
-            10, /**SPEED */
-            [this.backgroundScene4] /**IMAGES */
+        this.cloud3 = new Image(
+            this.game,
+            this.width * 0.6,
+            this.height * 0.05,
+            this.width * 0.1,
+            this.game.height * 0.1,
+            0,
+            this.cloudImage,
+            0.5,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            false
         );
-           
-        /**HUD*/
-        this.hud = new AkemiHUD(
-            this.game, /**GAME */
-            0, /**X */
-            0, /*Y*/
-            this.width, /*WIDTH*/
-            this.height, /*HEIGHT*/
-            [  
-                this.cloud1, /**IMAGES[0] */
-                this.farmSign, /**IMAGES[1] */
-                this.buttonTree, /**IMAGES[2] */
-                this.buttonTreeHover, /**IMAGES[3] */
-                this.buttonGarden, /**IMAGES[4] */
-                this.buttonGardenHover, /**IMAGES[5] */
-                this.buttonFlowers, /**IMAGES[6] */
-                this.buttonFlowersHover /**IMAGES[7] */
-            ]
-        );
-    
 
-        this.calledNextScene = false;
-        this.enterNextScene = false;
+        this.cloud4 = new Image(
+            this.game,
+            this.width * 0.9,
+            this.height * 0.05,
+            this.width * 0.08,
+            this.game.height * 0.08,
+            0,
+            this.cloudImage,
+            0.3,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            false
+        );
+
+        this.cloud5 = new Image(
+            this.game,
+            this.width * 0.5,
+            this.height * 0.05,
+            this.width * 0.06,
+            this.game.height * 0.06,
+            0,
+            this.cloudImage,
+            0.4,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            false
+        );
+        })();
+
+        /**SCENE ELEMENTS */
+        (()=>{
+
+            /**AKEMI GIRL */
+            (()=>{
+                this.imageAkemi = new Image(
+                    this.game, /**GAME */
+                    (this.game.width * 0.09), /**X */
+                    (this.height * 0.25), /**Y */
+                    (this.game.width * 0.30), /**WIDTH */
+                    (this.game.height * 0.75), /**HEIGHT */
+                    0, /**ROTATION */
+                    this.akemiImages[5],  /**IMAGE */
+                    0, /**OPACITY */
+                    null, /**TEXT */
+                    (this.height * 0.1), /**TEXT SPACING */
+                    "font1942", /**TEXT FONT */
+                    "bold", /**FONT WEIGHT */
+                    (this.game.height * 0.5), /**FONT SIZE */
+                    (this.game.width * 0.365), /**TEXT X */
+                    (this.height * 1.50), /**TEXT Y */
+                    "black", /**TEXT COLOR */
+                    true, /**MOUSE HOVER */
+                    null, /**TEXTS ALIGN -> ROW OR COLUMN */
+                );
+            })();
+
+            /**BASKET */
+            (()=>{
+                this.basket = new Image(
+                    this.game, /**GAME */
+                    (this.game.width * 0.71), /**X */
+                    (this.height * 0.04), /**Y */
+                    (this.game.width * 0.28), /**WIDTH */
+                    (this.game.height * 0.66), /**HEIGHT */
+                    0, /**ROTATION */
+                    this.basket,  /**IMAGE */
+                    1, /**OPACITY */
+                    null, /**TEXT */
+                    (this.height * 0.1), /**TEXT SPACING */
+                    "font1942", /**TEXT FONT */
+                    "bold", /**FONT WEIGHT */
+                    (this.game.height * 0.5), /**FONT SIZE */
+                    (this.game.width * 0.365), /**TEXT X */
+                    (this.height * 1.50), /**TEXT Y */
+                    "black", /**TEXT COLOR */
+                    true, /**MOUSE HOVER */
+                    null, /**TEXTS ALIGN -> ROW OR COLUMN */
+                );
+            })();
+
+            /**DIALOGUE BOXES*/
+            (()=>{
+                /**DIALOGUE BOX 1 */
+                this.dialogueBox1 = new Image(
+                    this.game, /**GAME */
+                    (this.game.width * 0.3), /**X */
+                    (this.height * 0.28), /**Y */
+                    (this.game.width * 0.30), /**WIDTH */
+                    (this.game.height * 0.35), /**HEIGHT */
+                    0, /**ROTATION */
+                    this.dialogueBox,  /**IMAGE */
+                    0, /**OPACITY */
+                    [
+                        ``,
+                        `${this.game.playerName}, ME AJUDE COLETANDO`, /**TEXT 1 */
+                        `               AS FRUTAS NA QUANTIDADE MOSTRADA ABAIXO!  `, /**TEXT 2 */
+                        `                    CLIQUE EM UMA DELAS E ARRASTE PARA A CESTA!  `
+                    ], /**TEXT */
+                    (this.height * 0.1), /**TEXT SPACING */
+                    "patrickHand", /**TEXT FONT */
+                    "bold", /**FONT WEIGHT */
+                    (this.game.height * 0.04), /**FONT SIZE */
+                    (this.game.width * 0.365), /**TEXT X */
+                    (this.height * 1.50), /**TEXT Y */
+                    "black", /**TEXT COLOR */
+                    false, /**MOUSE HOVER */
+                    "column", /**TEXTS ALIGN -> ROW OR COLUMN */
+                    null, /**UNIQUE TEXT */
+                    null, /**UNIQUE TEXT X */
+                    null, /**UNIQUE TEXT Y */
+                    false, /**TEXT CURSOR VISIBLE */
+                    0, /**TEXT OFFSET X */
+                    0, /**TEXT OFFSET Y */
+                );
+
+                /**DIALOGUE BOX 2 */
+                this.dialogueBox2 = new Image(
+                    this.game, /**GAME */
+                    (this.game.width * 0.3), /**X */
+                    (this.height * 0.28), /**Y */
+                    (this.game.width * 0.30), /**WIDTH */
+                    (this.game.height * 0.35), /**HEIGHT */
+                    0, /**ROTATION */
+                    this.dialogueBox,  /**IMAGE */
+                    0, /**OPACITY */
+                    [
+                        ``,
+                        `                MAS TOME CUIDADO COM AS AVES!`,
+                        `                  ELAS PODEM ROUBAR AS FRUTAS DO POMAR!  `,
+                    ], /**TEXT */
+                    (this.height * 0.1), /**TEXT SPACING */
+                    "patrickHand", /**TEXT FONT */
+                    "bold", /**FONT WEIGHT */
+                    (this.game.height * 0.04), /**FONT SIZE */
+                    (this.game.width * 0.365), /**TEXT X */
+                    (this.height * 1.50), /**TEXT Y */
+                    "black", /**TEXT COLOR */
+                    false, /**MOUSE HOVER */
+                    "column", /**TEXTS ALIGN -> ROW OR COLUMN */
+                    null, /**UNIQUE TEXT */
+                    null, /**UNIQUE TEXT X */
+                    null, /**UNIQUE TEXT Y */
+                    false, /**TEXT CURSOR VISIBLE */
+                    0, /**TEXT OFFSET X */
+                    -15, /**TEXT OFFSET Y */
+                );
+            })();
+
+            /**CONTINUE BUTTON */
+            (()=>{
+                /**CONTINUE BUTTON 1 */
+                this.continueButton1 = new Image(
+                    this.game, /**GAME */
+                    (this.game.width * 1), /**X */
+                    (this.height * 1.155), /**Y */
+                    (this.game.width * 0.2), /**WIDTH */
+                    (this.game.height * 0.3), /**HEIGHT */
+                    -20, /**ROTATION */
+                    this.buttonContinue,  /**IMAGE */
+                    1, /**OPACITY */
+                    null, /**TEXT */
+                    (this.height * 0.1), /**TEXT SPACING */
+                    "PatrickHand", /**TEXT FONT */
+                    "bold", /**FONT WEIGHT */
+                    (this.height * 0.06), /**FONT SIZE */
+                    (this.game.width * 0.365), /**TEXT X */
+                    (this.height * 1.50), /**TEXT Y */
+                    "black", /**TEXT COLOR */
+                    true, /**MOUSE HOVER */
+                    null, /**TEXTS ALIGN -> ROW OR COLUMN */
+                    "CONTINUAR", /**UNIQUE TEXT */
+                    (this.game.width * 1.025), // UNIQUE TEXT X
+                    (this.game.height * 1.265), // UNIQUE TEXT Y
+                    false, // CURSOR VISIBLE (added to match constructor parameters)
+                    0, // TEXT OFFSET X (added to match constructor parameters)
+                    0, // TEXT OFFSET Y (added to match constructor parameters)
+                    true // HOVER SCALE (added to match constructor parameters)
+                );
+
+                /**CONTINUE BUTTON 2 */
+                this.continueButton2 = new Image(
+                    this.game, // GAME
+                    (this.game.width * 1), // X
+                    (this.height * 1.155), // Y
+                    (this.game.width * 0.2), // WIDTH
+                    (this.game.height * 0.3), // HEIGHT
+                    -20, // ROTATION
+                    this.buttonContinue, // IMAGE
+                    1, // OPACITY
+                    "", // TEXT (null changed to empty string to match constructor parameter types)
+                    (this.height * 0.1), // TEXT SPACING
+                    "PatrickHand", // TEXT FONT
+                    "bold", // FONT WEIGHT
+                    (this.height * 0.06), // FONT SIZE
+                    (this.game.width * 0.365), // TEXT X
+                    (this.height * 1.50), // TEXT Y
+                    "black", // TEXT COLOR
+                    true, // MOUSE HOVER
+                    "", // TEXTS ALIGN -> ROW OR COLUMN (null changed to empty string to match constructor parameter types)
+                    "CONTINUAR", // UNIQUE TEXT
+                    (this.game.width * 1.025), // UNIQUE TEXT X
+                    (this.game.height * 1.265), // UNIQUE TEXT Y
+                    false, // CURSOR VISIBLE (added to match constructor parameters)
+                    0, // TEXT OFFSET X (added to match constructor parameters)
+                    0, // TEXT OFFSET Y (added to match constructor parameters)
+                    false // HOVER SCALE (added to match constructor parameters)
+                );
+            })();
+
+            /**TREES | FRUITS*/
+            (()=>{
+                /**MAIN TREE*/
+                this.mainTree = new Image(
+                    this.game, /**GAME */
+                    (this.game.width * 0.19), /**X */
+                    (this.height * 0.05), /**Y */
+                    (this.game.width * 0.30), /**WIDTH */
+                    (this.game.height * 0.75), /**HEIGHT */
+                    0, /**ROTATION */
+                    this.mainTree0,  /**IMAGE */
+                    1, /**OPACITY */
+                    null, /**TEXT */
+                    (this.height * 0.1), /**TEXT SPACING */
+                    "font1942", /**TEXT FONT */
+                    "bold", /**FONT WEIGHT */
+                    (this.game.height * 0.5), /**FONT SIZE */
+                    (this.game.width * 0.365), /**TEXT X */
+                    (this.height * 1.50), /**TEXT Y */
+                    "black", /**TEXT COLOR */
+                    true, /**MOUSE HOVER */
+                    null, /**TEXTS ALIGN -> ROW OR COLUMN */
+                );
+            })();
+
+        })();
+
+    }
+
+
+
+    handleFullScreenClick() {
+        this.game.toggleFullScreen();
+        window.removeEventListener('click', this.handleFullScreenClick);
+        this.game.input.mouse.clicked = false;
+    }
+
+    handleFullScreenTouchEnd() {
+        this.game.toggleFullScreen();
+        window.removeEventListener('touchend', this.handleFullScreenTouchEnd);
+        this.game.input.mouse.clicked = false;
     }
 
     update(deltaTime) {
 
-        /**ELEMENTS UPDATING */
-        this.background.update(deltaTime);
-        this.hud.buttonTree.update(deltaTime);
-        this.hud.buttonGarden.update(deltaTime);
-        this.hud.buttonFlowers.update(deltaTime);
+        /** ELEMENTS APPEARING | ELEMENTS DISAPPEARING */
+        (() => {
+            if (!this.calledNextScene) {
 
+                this.imageAkemi.fadeIn(0.01);
+                this.dialogueBox1.fadeIn(0.01);
 
-        /**MANAGE CLOUDS MOVEMENT*/
-        if(this.hud.cloud1.x > this.game.canvas.width){
-            this.hud.cloud1.x = 0 - this.hud.cloud1.width;
-        } else {
-            this.hud.cloud1.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, 0.9);
-        }
-        if(this.hud.cloud2.x > this.game.canvas.width){
-            this.hud.cloud2.x = 0 - this.hud.cloud2.width;
-        } else {
-            this.hud.cloud2.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, 0.7);
-        }
-        if(this.hud.cloud3.x > this.game.canvas.width){
-            this.hud.cloud3.x = 0 - this.hud.cloud3.width;
-        } else {
-            this.hud.cloud3.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, 1);
-        }
-        if(this.hud.cloud4.x > this.game.canvas.width){
-            this.hud.cloud4.x = 0 - this.hud.cloud4.width;
-        } else {
-            this.hud.cloud4.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, 0.5);
-        }
-        if(this.hud.cloud5.x > this.game.canvas.width){
-            this.hud.cloud5.x = 0 - this.hud.cloud5.width;
-        } else {
-            this.hud.cloud5.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, 0.2);
-        }
-
-
-
-        /**HOVERING LAYERS CONTROL -> BUTTON TREE*/
-        if(this.hud.buttonTree.isMouseOver(this.game.input.mouse)){
-
-            this.hud.buttonTree.mouseHovering();
-
-            this.hud.buttonFlowers.mouseOver = false;
-            this.hud.buttonFlowers.scale = 1;
-            this.hud.buttonFlowers.image = this.hud.buttonFlowers.originalImage;
-
-            this.hud.buttonGarden.mouseOver = false;
-            this.hud.buttonGarden.scale = 1;
-            this.hud.buttonGarden.image = this.hud.buttonGarden.originalImage;
-
-            if(this.hud.buttonFlowers.isMouseOver(this.game.input.mouse)){
-                this.hud.buttonTree.mouseHovering();
-
-                this.hud.buttonFlowers.mouseOver = false;
-                this.hud.buttonFlowers.scale = 1;
-                this.hud.buttonFlowers.image = this.hud.buttonFlowers.originalImage;
-            }
-            
-        } else {
-            this.hud.buttonTree.mouseOver = false;
-            this.hud.buttonTree.image = this.hud.buttonTree.originalImage;
-        }
-
-        /**HOVERING LAYERS CONTROL -> BUTTON FLOWERS*/
-        if(this.hud.buttonFlowers.isMouseOver(this.game.input.mouse)){
-
-            if(this.hud.buttonGarden.isMouseOver(this.game.input.mouse)){
-
-                this.hud.buttonFlowers.mouseHovering();
-
-                this.hud.buttonTree.mouseOver = false;
-                this.hud.buttonTree.scale = 1;
-                this.hud.buttonTree.image = this.hud.buttonTree.originalImage;
-    
-                this.hud.buttonGarden.mouseOver = false;
-                this.hud.buttonGarden.scale = 1;
-                this.hud.buttonGarden.image = this.hud.buttonGarden.originalImage;
-            } else {
-                this.hud.buttonFlowers.mouseHovering();
-            }
-
-            if(this.hud.buttonTree.isMouseOver(this.game.input.mouse)){
-                this.hud.buttonTree.mouseHovering();
-
-                this.hud.buttonFlowers.mouseOver = false;
-                this.hud.buttonFlowers.scale = 1;
-                this.hud.buttonFlowers.image = this.hud.buttonFlowers.originalImage;
-            }
-
-
-
-
-        } else {
-            this.hud.buttonFlowers.mouseOver = false;
-            this.hud.buttonFlowers.image = this.hud.buttonFlowers.originalImage;
-        }
-
-        /**HOVERING LAYERS CONTROL -> BUTTON GARDEN*/
-        if(this.hud.buttonGarden.isMouseOver(this.game.input.mouse)){
-
-
-            if(this.hud.buttonTree.isMouseOver(this.game.input.mouse)){
+                this.continueButton1.moveTo(this.game.width * 0.8, this.game.height * 0.8, (this.game.speed * 0.15));
 
             } else {
-                this.hud.buttonGarden.mouseHovering();
 
-                this.hud.buttonTree.mouseOver = false;
-                this.hud.buttonTree.image = this.hud.buttonTree.originalImage;
+                if(!this.startGame){
+                    this.dialogueBox1.fadeOut(0.01);
+                    this.dialogueBox2.fadeIn(0.01);
     
-                this.hud.buttonFlowers.mouseOver = false;
-                this.hud.buttonFlowers.image = this.hud.buttonFlowers.originalImage;
+                    this.continueButton1.moveTo(this.game.width * 1, this.game.height * 1.155, (this.game.speed * 0.15));
+                    this.continueButton2.moveTo(this.game.width * 0.8, this.game.height * 0.8, (this.game.speed * 0.15));
+                } else {
+                    this.dialogueBox1.fadeOut(0.01);
+                    this.dialogueBox2.fadeOut(0.01);
+                    this.imageAkemi.fadeOut(0.01);  
+                    this.continueButton1.moveTo(this.game.width * 1, this.game.height * 1.155, (this.game.speed * 0.15));
+                    this.continueButton2.moveTo(this.game.width * 1, this.game.height * 1.155, (this.game.speed * 0.15));
+                    this.imageAkemi.moveTo(this.game.width * 0.09, this.game.height * 1.155, (this.game.speed * 0.15));
+
+                }
+
+
+
+
             }
-            
+        })();
 
-
-
-        } else {
-            this.hud.buttonGarden.mouseOver = false;
-            this.hud.buttonGarden.image = this.hud.buttonGarden.originalImage;
-        }
-
-        /**IF NONE BUTTON IS HOVERED, RESET CURSOR TO DEFAULT*/
-        if(!this.hud.buttonTree.isMouseOver(this.game.input.mouse) &&
-           !this.hud.buttonFlowers.isMouseOver(this.game.input.mouse) &&
-           !this.hud.buttonGarden.isMouseOver(this.game.input.mouse)){
-            this.game.canvas.style.cursor = 'default';
-        }
-
-        /**IF BUTTON CONTINUE IS CLICKED*/
-        if(this.game.scenes[2].calledNextScene && !this.game.scenes[2].enterNextScene){
-            this.hud.dialogueBox.moveTo((this.width * 0.62), (this.height * -1.01), 5);
-            this.background.moveTo((this.width * -1), 0, 60);
-            this.background2.moveTo(0, (this.height * 0.5), 20);
-
-            this.hud.cloud1.moveTo((this.width * -1), (this.height * 0.05), 20);
-            this.hud.cloud2.moveTo((this.width * -1), (this.height * 0.05), 20);
-            this.hud.cloud3.moveTo((this.width * -1), (this.height * 0.05), 20);
-            this.hud.cloud4.moveTo((this.width * -1), (this.height * 0.05), 20);
-            this.hud.cloud5.moveTo((this.width * -1), (this.height * 0.05), 20);
-
-            if(this.background2.x < 0) {
-                this.background2.x = 0;
-                this.game.currentScene = 3;
+        /** MANAGE CLOUDS MOVEMENT */
+        (() => {
+            if (this.cloud1.x > this.game.canvas.width) {
+                this.cloud1.x = 0 - this.cloud1.width;
+            } else {
+                this.cloud1.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, (this.game.speed * 0.045));
             }
+            if (this.cloud2.x > this.game.canvas.width) {
+                this.cloud2.x = 0 - this.cloud2.width;
+            } else {
+                this.cloud2.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, (this.game.speed * 0.035));
+            }
+            if (this.cloud3.x > this.game.canvas.width) {
+                this.cloud3.x = 0 - this.cloud3.width;
+            } else {
+                this.cloud3.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, (this.game.speed * 0.05));
+            }
+            if (this.cloud4.x > this.game.canvas.width) {
+                this.cloud4.x = 0 - this.cloud4.width;
+            } else {
+                this.cloud4.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, (this.game.speed * 0.025));
+            }
+            if (this.cloud5.x > this.game.canvas.width) {
+                this.cloud5.x = 0 - this.cloud5.width;
+            } else {
+                this.cloud5.moveTo(this.game.canvas.width * 1.1, this.game.canvas.height * 0.05, (this.game.speed * 0.015));
+            }
+        })();
 
-            setTimeout(() => {
-                this.hud.buttonTree.moveTo((this.width * -1), (this.height * - 0.08), 60);
-            }, 125);
+        /** HANDLE CLICKS */
+        (() => {
 
-            setTimeout(() => {
-                this.hud.buttonGarden.moveTo((this.width * -1), (this.height * 0.55), 60);
-            }, 250);
+            /**CONTINUE BUTTON 1 */
+            (()=>{
+                if(this.continueButton1.isMouseOver() || this.continueButton1.isTouchOver()){
 
-            setTimeout(() => {
-                this.hud.buttonFlowers.moveTo((this.width * -1), (this.height * 0.2), 60);
-            }, 375);
+                    window.addEventListener('click', ()=>{
+                        this.calledNextScene = true;
+                    });
 
-            
+                    window.addEventListener('touchend', ()=>{
+                        this.calledNextScene = true;
+                    });
 
+                }
+            })();
 
+            /**CONTINUE BUTTON 2 */
+            (()=>{
+                if(this.continueButton2.isMouseOver() || this.continueButton1.isTouchOver()){
 
-        } else { /**IF NONE BUTTON IS CLICKED YET */
-            this.hud.dialogueBox.moveTo((this.width * 0.62), (this.height * -0.01), 5);
+                    window.addEventListener('click', ()=>{
+                        this.startGame = true;
+                    });
 
+                    window.addEventListener('touchend', ()=>{
+                        this.startGame = true;
+                    });
+
+                }
+            })();
+
+        })();
+
+        /** UPDATING ELEMENTS */
+        (() => {
+            this.imageAkemi.update(deltaTime);
+            this.dialogueBox1.update(deltaTime);
+            this.dialogueBox2.update(deltaTime);
+            this.continueButton1.update(deltaTime);
+            this.continueButton2.update(deltaTime);
+        })();
+
+        /**CHANGING SCENE */
+        if (this.calledNextScene && this.background.x <= -this.game.width) {
+            this.changeScene();
         }
-
-        if(this.hud.buttonTree.isMouseClicking()){
-            this.game.currentLevel = 0;
-            this.calledNextScene = true;
-        }
-
-        if(this.hud.buttonGarden.isMouseClicking()){
-            this.game.currentLevel = 1;
-            this.calledNextScene = true;
-        }
-
-        if(this.hud.buttonFlowers.isMouseClicking()){
-            this.game.currentLevel = 2;
-            this.calledNextScene = true;
-        }
-
-
-
-
+       
     }
 
     draw(ctx, scene) {
 
-         /**PAINT CANVAS BLUE */
-         // Create gradient
-         let grd = ctx.createLinearGradient(0, 0, 0, this.game.height);
-         grd.addColorStop(0, '#87CEEB');   // Blue at the top
-         grd.addColorStop(1, 'white');  // White at the bottom
- 
-         // Fill with gradient
-         ctx.fillStyle = grd;
-         ctx.fillRect(0, 0, this.game.width, this.game.height);
+        /** PAINT CANVAS BLUE WITH GRADIENT TO WHITE */
+        (()=>{
+            let grd = ctx.createLinearGradient(0, 0, 0, this.game.height);
+            grd.addColorStop(0, '#87CEEB');
+            grd.addColorStop(1, 'lightgray');
+            ctx.fillStyle = grd;
+            ctx.fillRect(0, 0, this.game.width, this.game.height);
+        })();
 
-        /**ELEMENTS DRAWING */
-        this.background.draw(this.game.ctx, 0);
+        /** BACKGROUNDS DRAWING | CLOUDS DRAWING | TREE DRAWING*/
+        (()=>{
+            this.backgroundGameFrame.draw(this.game.ctx, 0);
 
-        this.hud.cloud1.draw(ctx, 0);
-        this.hud.cloud2.draw(ctx, 0);
-        this.hud.cloud3.draw(ctx, 0);
-        this.hud.cloud4.draw(ctx, 0);
-        this.hud.cloud5.draw(ctx, 0);
-        this.hud.dialogueBox.draw(ctx, 0);
-        this.hud.buttonTree.draw(ctx, 0);
-        this.hud.buttonFlowers.draw(ctx, 0);
-        this.hud.buttonGarden.draw(ctx, 0);
+            /** CLOUDS DRAWING */
+            (()=>{
+                this.cloud1.draw(ctx, 0);
+                this.cloud2.draw(ctx, 0);
+                this.cloud3.draw(ctx, 0);
+                this.cloud4.draw(ctx, 0);
+                this.cloud5.draw(ctx, 0);
+            })();
 
-        this.background2.draw(this.game.ctx, 0);
+            /**MAIN TREE DRAWING */
+            this.mainTree.draw(ctx, 0);
 
+            this.background.draw(this.game.ctx, 0);
+        })();
+
+        /**AKEMI GIRL DRAWING */
+        this.imageAkemi.draw(ctx, 0);
+
+        /**BASKET DRAWING*/
+        this.basket.draw(ctx, 0);
+
+        /**DIALOGUE BOXES DRAWING*/
+        (()=>{
+            this.dialogueBox1.draw(ctx, 0);
+            this.dialogueBox2.draw(ctx, 0);
+        })();
+
+        /**CONTINUE BUTTON DRAWING */
+        (()=>{
+            this.continueButton1.draw(ctx, 0);
+            this.continueButton2.draw(ctx, 0);
+        })();
+
+    }
+
+    playSound() {
+        this.musicMenu.play();
+    }
+
+    changeScene() {
+        this.game.changeScene(Scene3);
     }
 }
