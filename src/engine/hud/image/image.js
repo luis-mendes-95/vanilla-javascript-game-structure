@@ -143,8 +143,8 @@ export class Image {
             this.uniqueTextY = this.y + this.textOffsetY;
         } 
 
-        if(this.game.input.touches.length > 0 && this.draggable){
-            this.isGrabbed = true;
+        if(this.game.input.touches.length > 0 && this.draggable && this.isGrabbed){
+            
             this.x = this.game.input.touches[0].x - this.width / 2;
             this.y = this.game.input.touches[0].y - this.height / 2;
             this.textX = this.x + this.textOffsetX;
@@ -288,7 +288,7 @@ export class Image {
             const touch = this.game.input.touches[i];
 
             if (touch.x > this.x && touch.x < this.x + this.width && touch.y > this.y && touch.y < this.y + this.height) {
-
+                this.isGrabbed = true;
                 return true;
             }
         }
