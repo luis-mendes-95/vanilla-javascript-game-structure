@@ -12,11 +12,6 @@ export class Scene3 {
         /**THIS SCENE SETUP */
         (()=>{
 
-            /**RANDOM FRUIT (6 FRUITS) */
-            this.randomFruit = Math.floor(Math.random() * 6);
-
-            console.log(this.randomFruit)
-
             this.game = game;
             this.startGame = false;
             this.width = this.game.width;
@@ -26,6 +21,23 @@ export class Scene3 {
             this.calledNextScene = false;
             this.enterNextScene = false;
 
+            /**RANDOM FRUIT (6 FRUITS) */
+            this.randomFruit = Math.floor(Math.random() * 6);
+
+            /**FRUITS TO DRAG */
+            (()=>{
+                this.fruitsToDrag = 0;
+                this.choosedFruit = 0;
+                if(this.game.difficulty === "easy"){
+                    /**RANDOM NUMBER BETWEEN 5 AND 9 */
+                    this.fruitsToDrag = Math.floor(Math.random() * 5) + 5;
+
+                    /**RANDOM NUMBER BETWEEN 0 AND 5 */
+                    this.choosedFruit = Math.floor(Math.random() * 6);
+                }
+            })();
+
+
             /**FULLSCREEN FUNCTIONS */
             this.handleFullScreenClick = this.handleFullScreenClick.bind(this);
             this.handleFullScreenTouchEnd = this.handleFullScreenTouchEnd.bind(this);
@@ -33,6 +45,7 @@ export class Scene3 {
 
         /** GAME ASSETS */
         (()=>{
+
             /**BACKGROUND IMAGE*/
             this.backgroundScene1 = document.getElementById('gameFrame');
             /**CLOUD IMAGE*/
@@ -51,37 +64,71 @@ export class Scene3 {
             this.basket = document.getElementById('basket');
             /**TREE */
             this.mainTree0 = document.getElementById('mainTree');
+            /**PRODUCTS QTY */
+            this.productsQty = document.getElementById('productsQty');
+            /**FIGURES AREA */
+            this.figuresArea = document.getElementById('figuresArea');
+
+            /**SCORES */
+            (()=>{
+                /**SCORE 1 */
+                this.score1 = document.getElementById('score1');
+                /**SCORE 2 */
+                this.score2 = document.getElementById('score2');
+                /**SCORE 3 */
+                this.score3 = document.getElementById('score3');
+            })();
+
+            /**FRUITS*/
+            (()=>{
+                this.appleImage = document.getElementById('apple');
+                this.pera = document.getElementById('pera');
+                this.manga = document.getElementById('manga');
+                this.laranja = document.getElementById('laranja');
+                this.limao = document.getElementById('limao');
+                this.caju = document.getElementById('caju');
+            })();
+
+            
+
         })();
 
         /** BACKGROUNDS */
         (()=>{
-            this.background = new Background(
-                this,
-                0,
-                0,
-                this.game.width,
-                this.game.height,
-                'blue',
-                10,
-                0,
-                0,
-                [this.gameBackground],
-                true
-            );
 
-            this.backgroundGameFrame = new Background(
-                this,
-                0,
-                0,
-                this.game.width,
-                this.game.height * 0.7,
-                'blue',
-                10,
-                0,
-                0,
-                [this.backgroundScene1],
-                true
-            );
+            /**GAME BACKGROUND -> BEIGE PART AND BASKET */
+            (()=>{
+                this.background = new Background(
+                    this,
+                    0,
+                    0,
+                    this.game.width,
+                    this.game.height,
+                    'blue',
+                    10,
+                    0,
+                    0,
+                    [this.gameBackground],
+                    true
+                );
+            })();
+
+            /**NATURE PART AND SKY */
+            (()=>{
+                this.backgroundGameFrame = new Background(
+                    this,
+                    0,
+                    0,
+                    this.game.width,
+                    this.game.height * 0.7,
+                    'blue',
+                    10,
+                    0,
+                    0,
+                    [this.backgroundScene1],
+                    true
+                );
+            })();
         })();
 
         /** CLOUDS */
@@ -210,7 +257,7 @@ export class Scene3 {
                     (this.game.width * 0.365), /**TEXT X */
                     (this.height * 1.50), /**TEXT Y */
                     "black", /**TEXT COLOR */
-                    true, /**MOUSE HOVER */
+                    false, /**MOUSE HOVER */
                     null, /**TEXTS ALIGN -> ROW OR COLUMN */
                 );
             })();
@@ -236,6 +283,37 @@ export class Scene3 {
                     "black", /**TEXT COLOR */
                     true, /**MOUSE HOVER */
                     null, /**TEXTS ALIGN -> ROW OR COLUMN */
+                );
+            })();
+
+            /**FRUIT INDICATOR */
+            (()=>{
+                this.fruitIndicator = new Image(
+                    this.game, /**GAME */
+                    (this.game.width * 0.25), /**X */
+                    (this.height * 0.73), /**Y */
+                    (this.game.width * 0.22), /**WIDTH */
+                    (this.game.height * 0.22), /**HEIGHT */
+                    0, /**ROTATION */
+                    this.score1,  /**IMAGE */
+                    1, /**OPACITY */
+                    null, /**TEXT */
+                    (this.height * 0.1), /**TEXT SPACING */
+                    "PatrickHand", /**TEXT FONT */
+                    "bold", /**FONT WEIGHT */
+                    (this.height * 0.06), /**FONT SIZE */
+                    (this.game.width * 0.365), /**TEXT X */
+                    (this.height * 1.50), /**TEXT Y */
+                    "black", /**TEXT COLOR */
+                    true, /**MOUSE HOVER */
+                    null, /**TEXTS ALIGN -> ROW OR COLUMN */
+                    `${this.fruitsToDrag}`, /**UNIQUE TEXT */
+                    (this.game.width * 0.285), // UNIQUE TEXT X
+                    (this.game.height * 0.82), // UNIQUE TEXT Y
+                    false, // CURSOR VISIBLE (added to match constructor parameters)
+                    0, // TEXT OFFSET X (added to match constructor parameters)
+                    0, // TEXT OFFSET Y (added to match constructor parameters)
+                    true // HOVER SCALE (added to match constructor parameters)
                 );
             })();
 
@@ -370,27 +448,67 @@ export class Scene3 {
 
             /**TREES | FRUITS*/
             (()=>{
+
                 /**MAIN TREE*/
-                this.mainTree = new Image(
-                    this.game, /**GAME */
-                    (this.game.width * 0.19), /**X */
-                    (this.height * 0.05), /**Y */
-                    (this.game.width * 0.30), /**WIDTH */
-                    (this.game.height * 0.75), /**HEIGHT */
-                    0, /**ROTATION */
-                    this.mainTree0,  /**IMAGE */
-                    1, /**OPACITY */
-                    null, /**TEXT */
-                    (this.height * 0.1), /**TEXT SPACING */
-                    "font1942", /**TEXT FONT */
-                    "bold", /**FONT WEIGHT */
-                    (this.game.height * 0.5), /**FONT SIZE */
-                    (this.game.width * 0.365), /**TEXT X */
-                    (this.height * 1.50), /**TEXT Y */
-                    "black", /**TEXT COLOR */
-                    true, /**MOUSE HOVER */
-                    null, /**TEXTS ALIGN -> ROW OR COLUMN */
+                (()=>{
+                    this.mainTree = new Image(
+                        this.game, /**GAME */
+                        (this.game.width * 0.19), /**X */
+                        (this.height * 0.05), /**Y */
+                        (this.game.width * 0.30), /**WIDTH */
+                        (this.game.height * 0.75), /**HEIGHT */
+                        0, /**ROTATION */
+                        this.mainTree0,  /**IMAGE */
+                        1, /**OPACITY */
+                        null, /**TEXT */
+                        (this.height * 0.1), /**TEXT SPACING */
+                        "font1942", /**TEXT FONT */
+                        "bold", /**FONT WEIGHT */
+                        (this.game.height * 0.5), /**FONT SIZE */
+                        (this.game.width * 0.365), /**TEXT X */
+                        (this.height * 1.50), /**TEXT Y */
+                        "black", /**TEXT COLOR */
+                        true, /**MOUSE HOVER */
+                        null, /**TEXTS ALIGN -> ROW OR COLUMN */
+                    );
+                })();
+
+                /**FRUITS */
+
+                //APPLE
+                this.appleFruit = new Image(
+                    this.game, // GAME
+                    (this.game.width * 0.34), // X
+                    (this.height * 0.78), // Y
+                    (this.game.width * 0.05), // WIDTH
+                    (this.game.height * 0.1), // HEIGHT
+                    0, // ROTATION
+                    this.appleImage,  // IMAGE
+                    1, // OPACITY
+                    null, // TEXT
+                    (this.height * 0.1), // TEXT SPACING
+                    "PatrickHand", // TEXT FONT
+                    "bold", // FONT WEIGHT
+                    (this.height * 0.06), // FONT SIZE
+                    (this.game.width * 0.365), // TEXT X
+                    (this.height * 1.50), // TEXT Y
+                    "black", // TEXT COLOR
+                    true, // MOUSE HOVER
+                    null, // TEXTS ALIGN -> ROW OR COLUMN
+                    ``, // UNIQUE TEXT
+                    (this.game.width * 0.285), // UNIQUE TEXT X
+                    (this.game.height * 0.82), // UNIQUE TEXT Y
+                    false, // CURSOR VISIBLE (added to match constructor parameters)
+                    0, // TEXT OFFSET X (added to match constructor parameters)
+                    0, // TEXT OFFSET Y (added to match constructor parameters)
+                    true, // HOVER SCALE (added to match constructor parameters)
+                    2, // SCALE TO HOVER
+                    0.15, // SCALE SPEED
+                    true, // DRAGGABLE
+                    25, /**GRAB RELEASE SPEED */
                 );
+
+                
             })();
 
         })();
@@ -495,7 +613,7 @@ export class Scene3 {
 
             /**CONTINUE BUTTON 2 */
             (()=>{
-                if(this.continueButton2.isMouseOver() || this.continueButton1.isTouchOver()){
+                if(this.continueButton2.isMouseOver() || this.continueButton2.isTouchOver()){
 
                     window.addEventListener('click', ()=>{
                         this.startGame = true;
@@ -517,6 +635,7 @@ export class Scene3 {
             this.dialogueBox2.update(deltaTime);
             this.continueButton1.update(deltaTime);
             this.continueButton2.update(deltaTime);
+            this.appleFruit.update(deltaTime);
         })();
 
         /**CHANGING SCENE */
@@ -556,11 +675,16 @@ export class Scene3 {
             this.background.draw(this.game.ctx, 0);
         })();
 
+        /**FRUIT INDICATOR */
+        this.fruitIndicator.draw(ctx, 0);
+
         /**AKEMI GIRL DRAWING */
         this.imageAkemi.draw(ctx, 0);
 
         /**BASKET DRAWING*/
         this.basket.draw(ctx, 0);
+
+
 
         /**DIALOGUE BOXES DRAWING*/
         (()=>{
@@ -574,6 +698,11 @@ export class Scene3 {
             this.continueButton2.draw(ctx, 0);
         })();
 
+        /**FRUITS*/
+        (()=>{
+            this.appleFruit.draw(ctx, 0);
+        })();
+
     }
 
     playSound() {
@@ -581,6 +710,6 @@ export class Scene3 {
     }
 
     changeScene() {
-        this.game.changeScene(Scene3);
+        
     }
 }

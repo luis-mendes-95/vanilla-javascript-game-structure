@@ -38,7 +38,7 @@ window.addEventListener('load', function() {
             this.currentStage = 0;
             this.stagesDone = [];
             this.playerPoints = 0;
-            this.difficulty = "";
+            this.difficulty = "easy";
 
             /** SOUNDS */
 
@@ -58,7 +58,7 @@ window.addEventListener('load', function() {
             .catch(error => console.log(error));
 
             /** SCENES MANAGEMENT */
-            this.currentScene = new Scene3(this);
+            this.currentScene = new Scene0(this);
         }
 
         changeScene(newScene) {

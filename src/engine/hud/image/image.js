@@ -1,16 +1,60 @@
 export class Image {
-    constructor(game, x, y, width, height, rotation, image, opacity, text, textSpacing, font, fontWeight, fontSize, textX, textY, textColor, mouseHover, textLayout, uniqueText = null, uniqueTextX = null, uniqueTextY = null, cursorVisible = false, textOffsetX = 0, textOffsetY = 0, hoverScale = false) {
+    constructor(
+        game,
+        x,
+        y,
+        width,
+        height,
+        rotation,
+        image,
+        opacity,
+        text,
+        textSpacing,
+        font,
+        fontWeight,
+        fontSize,
+        textX,
+        textY,
+        textColor,
+        mouseHover,
+        textLayout,
+        uniqueText = null,
+        uniqueTextX = null,
+        uniqueTextY = null,
+        cursorVisible = false,
+        textOffsetX = 0,
+        textOffsetY = 0,
+        hoverScale = false,
+        scaleToHover = 1.05,
+        scaleSpeed = 0.01,
+        draggable = false,
+        releaseSpeed = 5
+    ) {
+        
+        
+        
+        
+        
+        
+        /**GAME*/
         this.game = game;
+
+        /**X AND Y */
         this.x = x;
         this.y = y;
-        this.scale = 1;
-        this.rotation = rotation;
-        this.mouseHover = mouseHover;
-        this.mouseOver = false;
+        this.originalX = this.x;
+        this.originalY = this.y;
+
+        /**WIDTH AND HEIGHT */
         this.width = width;
         this.height = height;
+
+        /**IMAGE SETUP */
+        this.rotation = rotation;
         this.image = image;
         this.opacity = opacity;
+
+        /**TEXT ARRAY */
         this.text = text;
         this.font = font;
         this.fontWeight = fontWeight;
@@ -20,6 +64,8 @@ export class Image {
         this.textColor = textColor;
         this.textSpacing = textSpacing;
         this.textLayout = textLayout;
+
+        /**UNIQUE TEXT */
         this.uniqueText = uniqueText;
         this.uniqueTextX = uniqueTextX;
         this.uniqueTextY = uniqueTextY;
@@ -34,7 +80,21 @@ export class Image {
         this.canBlinkCursor = cursorVisible;
 
         /**HOVER CONTROLS */
+        this.mouseHover = mouseHover;
+        this.mouseOver = false;
+        this.scale = 1;
         this.hoverScale = hoverScale;
+        this.scaleToHover = scaleToHover;
+        this.scaleSpeed = scaleSpeed;
+
+        /**DRAGGIN AND DROPPING CONTROLS */
+        this.draggable = draggable;
+        this.isGrabbed = false;
+        this.justGrabbed = false;
+        this.dropped = false;
+        this.releaseSpeed = releaseSpeed;
+
+;
     }
 
     update() {
@@ -50,17 +110,58 @@ export class Image {
         if(this.canBlinkCursor) {
             this.startBlinkingCursor();
         }
+
+     
+        if(!this.isGrabbed){
+            if(this.justGrabbed){
+                this.dropped = true;
+            }
+            this.returnToOriginalPosition();
+        }
+
+        /**IF IS GRABBED TURNS TO TRUE */
+        if(this.isGrabbed){
+            this.justGrabbed = true;
+        }
+
+        if(this.draggable){
+            console.log(this.dropped)
+        }
+
+
     }
 
     draw(ctx) {
-        // Define a fonte para medir o texto corretamente
+
+        /**IF THIS OBJECT IS DRAGGED BY THE MOUSE OR TOUCH, FOLLOW ITS COORDINATES, IF IS RELEASED, MOVE SMOOTHLY TO ITS ORIGINAL X AND Y */
+        if(this.draggable && this.isGrabbed && !this.isTouchOver()){
+            this.x = this.game.input.mouse.x - this.width / 2;
+            this.y = this.game.input.mouse.y - this.height / 2;
+            this.textX = this.x + this.textOffsetX;
+            this.textY = this.y + this.textOffsetY;
+            this.uniqueTextX = this.x + this.textOffsetX;
+            this.uniqueTextY = this.y + this.textOffsetY;
+        } 
+
+        if(this.game.input.touches.length > 0 && this.draggable){
+            this.isGrabbed = true;
+            this.x = this.game.input.touches[0].x - this.width / 2;
+            this.y = this.game.input.touches[0].y - this.height / 2;
+            this.textX = this.x + this.textOffsetX;
+            this.textY = this.y + this.textOffsetY;
+            this.uniqueTextX = this.x + this.textOffsetX;
+            this.uniqueTextY = this.y + this.textOffsetY;
+        }
+
+
+        
+        /**TEXT SETUP */
         ctx.font = `${this.fontWeight} ${this.fontSize}px ${this.font}`;
-    
-        // Configurações comuns
         ctx.globalAlpha = this.opacity;
         ctx.fillStyle = this.textColor;
         ctx.save();
 
+        /**TEXT ARRAY RENDERING -> IF THERE'S ANY */
         if (this.text) {
             const padding = this.height * 0.05;
             let buttonWidth, buttonHeight;
@@ -94,11 +195,13 @@ export class Image {
 
             this.width = buttonWidth;
             this.height = buttonHeight;
+
         } else {
             this.prepareCanvas(ctx, this.width, this.height);
             ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
         }
 
+        /**UNIQUE TEXT RENDERING -> IF THERE'S ANY */
         if (this.uniqueText || this.blinkingCursor) {
             ctx.fillText(this.uniqueText || '', this.uniqueTextX + this.textOffsetX, this.uniqueTextY + this.textOffsetY);
 
@@ -112,6 +215,7 @@ export class Image {
                 ctx.fillText('|', cursorX, cursorY);
             }
         }
+
 
         ctx.restore();
         ctx.globalAlpha = 1.0;
@@ -178,9 +282,13 @@ export class Image {
     }
 
     isTouchOver(){
+
         for (let i = 0; i < this.game.input.touches.length; i++) {
+
             const touch = this.game.input.touches[i];
+
             if (touch.x > this.x && touch.x < this.x + this.width && touch.y > this.y && touch.y < this.y + this.height) {
+
                 return true;
             }
         }
@@ -188,39 +296,48 @@ export class Image {
     }
     
     mouseHovering() {
+
         if(this.mouseHover) {
+            
             if(this.isMouseOver(this.game.input.mouse) || this.isTouchOver(this.game.input.touches)) {
+
+                if(this.hoverScale){
+                    if(this.scale < this.scaleToHover){
+                        this.scale += this.scaleSpeed;
+                    } 
+                }
+
                 if(!this.mouseOver) {
                     this.mouseOver = true;
                     this.game.hoveredImages.add(this.id);
-                    console.log("adicionou")
 
-                    if(this.hoverScale){
-                        if(this.scale < 1.1){
-                            this.scale += 0.01;
-                        } else {
-                            this.scale = 1.1;
-                        }
-                    }
+
                 }
             } else {
                 if(this.mouseOver) {
                     this.mouseOver = false;
                     this.game.hoveredImages.delete(this.id);
 
-                    if(this.hoverScale){
-                        if(this.scale > 1){
-                            this.scale -= 0.01;
-                        } else {
-                            this.scale = 1;
-                        }
-                    }
                 }
+
+                if(this.scale  > 1){
+                    this.scale -= this.scaleSpeed;
+                } 
             }
         }
     }
 
     isMouseClicking(){
+
+        if(this.draggable && this.isMouseOver(this.game.input.mouse) && this.game.input.mouse.clicked){
+            this.isGrabbed = true;
+        } else if(!this.game.input.mouse.clicked && this.game.input.touches.length === 0 && this.draggable){
+            if(this.isGrabbed){
+                this.dropped = true;
+            }
+            this.isGrabbed = false;
+        }
+
         return this.isMouseOver(this.game.input.mouse) || this.isTouchOver(this.game.input.touches) ? this.game.input.mouse.clicked : false;
     }
 
@@ -241,6 +358,11 @@ export class Image {
         this.blinkingCursor = false;
         this.cursorVisible = true; // Reseta a visibilidade do cursor quando parar de piscar
     }
+
+    returnToOriginalPosition(){
+        this.moveTo(this.originalX, this.originalY, this.releaseSpeed);
+    }
+
 }
 
 // Para usar a funcionalidade de cursor piscando, basta chamar startBlinkingCursor() na instância de Image
