@@ -112,7 +112,7 @@ export class Image {
         }
 
      
-        if(!this.isGrabbed){
+        if(!this.isGrabbed && this.draggable){
             if(this.justGrabbed){
                 this.dropped = true;
             }
