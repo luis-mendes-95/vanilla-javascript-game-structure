@@ -302,33 +302,86 @@ export class Scene3 {
 
             /**FRUIT INDICATOR */
             (()=>{
-                this.fruitIndicator = new Image(
-                    this.game, /**GAME */
-                    (this.game.width * 0.25), /**X */
-                    (this.height * 0.73), /**Y */
-                    (this.game.width * 0.22), /**WIDTH */
-                    (this.game.height * 0.22), /**HEIGHT */
-                    0, /**ROTATION */
-                    this.score1,  /**IMAGE */
-                    1, /**OPACITY */
-                    null, /**TEXT */
-                    (this.height * 0.1), /**TEXT SPACING */
-                    "PatrickHand", /**TEXT FONT */
-                    "bold", /**FONT WEIGHT */
-                    (this.height * 0.06), /**FONT SIZE */
-                    (this.game.width * 0.365), /**TEXT X */
-                    (this.height * 1.50), /**TEXT Y */
-                    "black", /**TEXT COLOR */
-                    true, /**MOUSE HOVER */
-                    null, /**TEXTS ALIGN -> ROW OR COLUMN */
-                    `${this.fruitsToDrag}`, /**UNIQUE TEXT */
-                    (this.game.width * 0.285), // UNIQUE TEXT X
-                    (this.game.height * 0.82), // UNIQUE TEXT Y
-                    false, // CURSOR VISIBLE (added to match constructor parameters)
-                    0, // TEXT OFFSET X (added to match constructor parameters)
-                    0, // TEXT OFFSET Y (added to match constructor parameters)
-                    true // HOVER SCALE (added to match constructor parameters)
-                );
+
+                /**PANEL*/
+                (()=>{
+
+                    this.fruitIndicator = new Image(
+                        this.game, /**GAME */
+                        (this.game.width * 0.25), /**X */
+                        (this.height * 0.73), /**Y */
+                        (this.game.width * 0.22), /**WIDTH */
+                        (this.game.height * 0.22), /**HEIGHT */
+                        0, /**ROTATION */
+                        this.score1,  /**IMAGE */
+                        1, /**OPACITY */
+                        null, /**TEXT */
+                        (this.height * 0.1), /**TEXT SPACING */
+                        "PatrickHand", /**TEXT FONT */
+                        "bold", /**FONT WEIGHT */
+                        (this.height * 0.06), /**FONT SIZE */
+                        (this.game.width * 0.365), /**TEXT X */
+                        (this.height * 1.50), /**TEXT Y */
+                        "black", /**TEXT COLOR */
+                        true, /**MOUSE HOVER */
+                        null, /**TEXTS ALIGN -> ROW OR COLUMN */
+                        `${this.fruitsToDrag}`, /**UNIQUE TEXT */
+                        (this.game.width * 0.285), // UNIQUE TEXT X
+                        (this.game.height * 0.82), // UNIQUE TEXT Y
+                        false, // CURSOR VISIBLE (added to match constructor parameters)
+                        0, // TEXT OFFSET X (added to match constructor parameters)
+                        0, // TEXT OFFSET Y (added to match constructor parameters)
+                        true // HOVER SCALE (added to match constructor parameters)
+                    );
+
+                    let currentFruitImage = null;
+                    if(this.choosedFruit === 0){
+                        currentFruitImage = this.appleImage;
+                    } else if (this.choosedFruit === 1){
+                        currentFruitImage = this.pera;
+                    } else if (this.choosedFruit === 2){
+                        currentFruitImage = this.manga;
+                    } else if (this.choosedFruit === 3){
+                        currentFruitImage = this.laranja;
+                    } else if (this.choosedFruit === 4){
+                        currentFruitImage = this.limao;
+                    } else if (this.choosedFruit === 5){
+                        currentFruitImage = this.caju;
+                    }
+
+                    this.fruitToCatch = new Image(
+                        this.game, /**GAME */
+                        (this.game.width * 0.345), /**X */
+                        (this.height * 0.79), /**Y */
+                        (this.game.width * 0.05), // WIDTH
+                        (this.game.height * 0.1), // HEIGHT
+                        0, /**ROTATION */
+                        currentFruitImage,  /**IMAGE */
+                        1, /**OPACITY */
+                        null, /**TEXT */
+                        (this.height * 0.1), /**TEXT SPACING */
+                        "PatrickHand", /**TEXT FONT */
+                        "bold", /**FONT WEIGHT */
+                        (this.height * 0.06), /**FONT SIZE */
+                        (this.game.width * 0.365), /**TEXT X */
+                        (this.height * 1.50), /**TEXT Y */
+                        "black", /**TEXT COLOR */
+                        true, /**MOUSE HOVER */
+                        null, /**TEXTS ALIGN -> ROW OR COLUMN */
+                        `${this.fruitsToDrag}`, /**UNIQUE TEXT */
+                        (this.game.width * 0.285), // UNIQUE TEXT X
+                        (this.game.height * 0.82), // UNIQUE TEXT Y
+                        false, // CURSOR VISIBLE (added to match constructor parameters)
+                        0, // TEXT OFFSET X (added to match constructor parameters)
+                        0, // TEXT OFFSET Y (added to match constructor parameters)
+                        true // HOVER SCALE (added to match constructor parameters)
+                    );
+
+
+                })();
+
+
+
             })();
 
             /**DIALOGUE BOXES*/
@@ -733,9 +786,16 @@ export class Scene3 {
 
         /**FRUITS*/
         (()=>{
+
+            /**TREE FRUITS */
             for(let i = 0; i < this.fruits.length; i++){
                 this.fruits[i].draw(ctx, 0);
             }
+
+            /**FRUITS TO CATCH INDICATOR */
+            this.fruitToCatch.draw(ctx, 0);
+
+
         })();
 
     }
