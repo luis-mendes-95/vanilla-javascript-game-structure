@@ -22,6 +22,7 @@ window.addEventListener('load', function() {
     /** CLASS GAME WILL CENTRALIZE EVERY GAME ELEMENTS INSIDE OF IT */
     class Game {
         constructor(width, height) {
+
             /** CANVAS */
             this.canvas = canvas;
             this.ctx = ctx;
@@ -32,6 +33,9 @@ window.addEventListener('load', function() {
             /** MOUSE EFFECTS CONTROL */
             this.mouseOverCount = 0;
             this.hoveredImages = new Set();
+
+            /**DRAGGING CONTROLS */
+            this.isDraggingImage = false; 
 
             /** PLAYER STATS */
             this.playerName = "MADAGASCAR";
@@ -59,6 +63,7 @@ window.addEventListener('load', function() {
 
             /** SCENES MANAGEMENT */
             this.currentScene = new Scene3(this);
+            
         }
 
         changeScene(newScene) {

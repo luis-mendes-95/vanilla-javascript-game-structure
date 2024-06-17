@@ -124,10 +124,6 @@ export class Image {
             this.justGrabbed = true;
         }
 
-        if(this.draggable){
-            console.log(this.dropped)
-        }
-
 
     }
 
@@ -281,15 +277,24 @@ export class Image {
         }
     }
 
-    isTouchOver(){
-
-        for (let i = 0; i < this.game.input.touches.length; i++) {
-
-            const touch = this.game.input.touches[i];
-
-            if (touch.x > this.x && touch.x < this.x + this.width && touch.y > this.y && touch.y < this.y + this.height) {
-                this.isGrabbed = true;
-                return true;
+    isTouchOver() {
+        if (this.draggable) {
+            for (let i = 0; i < this.game.input.touches.length; i++) {
+                const touch = this.game.input.touches[i];
+                if (touch.x > this.x && touch.x < this.x + this.width && touch.y > this.y && touch.y < this.y + this.height) {
+                    if (!this.game.isDraggingImage) { // Check if no image is currently being dragged
+                        this.isGrabbed = true;
+                        this.game.isDraggingImage = true; // Update the game state to indicate an image is being dragged
+                        return true;
+                    }
+                }
+            }
+            if (this.game.input.touches.length === 0 && this.draggable) {
+                if (this.isGrabbed) {
+                    this.dropped = true;
+                    this.game.isDraggingImage = false; // Update the game state when the image is no longer being dragged
+                }
+                this.isGrabbed = false;
             }
         }
         return false;
@@ -327,17 +332,20 @@ export class Image {
         }
     }
 
-    isMouseClicking(){
-
-        if(this.draggable && this.isMouseOver(this.game.input.mouse) && this.game.input.mouse.clicked){
-            this.isGrabbed = true;
-        } else if(!this.game.input.mouse.clicked && this.game.input.touches.length === 0 && this.draggable){
-            if(this.isGrabbed){
-                this.dropped = true;
+    isMouseClicking() {
+        if (this.draggable && this.isMouseOver(this.game.input.mouse) && this.game.input.mouse.clicked) {
+            if (!this.game.isDraggingImage) { // Check if no image is currently being dragged
+                this.isGrabbed = true;
+                this.game.isDraggingImage = true; // Update the game state to indicate an image is being dragged
             }
-            this.isGrabbed = false;
+        } else if (!this.game.input.mouse.clicked && this.game.input.touches.length === 0 && this.draggable) {
+            if (this.isGrabbed) {
+                this.dropped = true;
+                this.game.isDraggingImage = false; // Update the game state when the image is no longer being dragged
+            }
+            //this.isGrabbed = false;
         }
-
+    
         return this.isMouseOver(this.game.input.mouse) || this.isTouchOver(this.game.input.touches) ? this.game.input.mouse.clicked : false;
     }
 

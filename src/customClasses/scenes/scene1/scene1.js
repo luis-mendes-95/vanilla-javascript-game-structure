@@ -4,7 +4,7 @@ import { DebugMovement } from "../../../engine/debug/movementDebug.js";
 import { Sprite } from "../../../engine/sprite/sprite.js";
 import { Sound } from "../../../engine/sound/sound.js";
 import { thisGameHUD } from "./thisGameHUD.js";
-import { Image } from "../../../engine/hud/image/image.js";
+import { Image } from "../../../engine/image/image.js";
 import { Scene2 } from "../scene2/scene2.js";
 import { Scene0 } from "../scene0/scene0.js";
 

@@ -3,7 +3,7 @@ import { ClickDebug } from "../../../engine/debug/clickDebug.js";
 import { DebugMovement } from "../../../engine/debug/movementDebug.js";
 import { Sprite } from "../../../engine/sprite/sprite.js";
 import { Sound } from "../../../engine/sound/sound.js";
-import { Image } from "../../../engine/hud/image/image.js";
+import { Image } from "../../../engine/image/image.js";
 
 export class Scene3 {
 
@@ -26,14 +26,28 @@ export class Scene3 {
 
             /**FRUITS TO DRAG */
             (()=>{
+                this.fruits = [];
+                this.fruitsLocations = [
+                    {x: this.game.width * 0.27, y: this.game.height * 0.09},
+                    {x: this.game.width * 0.32, y: this.game.height * 0.16},
+                    {x: this.game.width * 0.25, y: this.game.height * 0.2},
+                    {x: this.game.width * 0.26, y: this.game.height * 0.45},
+                    {x: this.game.width * 0.31, y: this.game.height * 0.31},
+                    {x: this.game.width * 0.38, y: this.game.height * 0.35},
+                    {x: this.game.width * 0.39, y: this.game.height * 0.24},
+                    {x: this.game.width * 0.39, y: this.game.height * 0.12},
+                    {x: this.game.width * 0.24, y: this.game.height * 0.32},
+                ];
                 this.fruitsToDrag = 0;
                 this.choosedFruit = 0;
                 if(this.game.difficulty === "easy"){
                     /**RANDOM NUMBER BETWEEN 5 AND 9 */
                     this.fruitsToDrag = Math.floor(Math.random() * 5) + 5;
+                    
 
                     /**RANDOM NUMBER BETWEEN 0 AND 5 */
                     this.choosedFruit = Math.floor(Math.random() * 6);
+                    //this.choosedFruit = 5;
                 }
             })();
 
@@ -474,39 +488,53 @@ export class Scene3 {
                 })();
 
                 /**FRUITS */
+                (()=>{
 
-                //APPLE
-                this.appleFruit = new Image(
-                    this.game, // GAME
-                    (this.game.width * 0.34), // X
-                    (this.height * 0.78), // Y
-                    (this.game.width * 0.05), // WIDTH
-                    (this.game.height * 0.1), // HEIGHT
-                    0, // ROTATION
-                    this.appleImage,  // IMAGE
-                    1, // OPACITY
-                    null, // TEXT
-                    (this.height * 0.1), // TEXT SPACING
-                    "PatrickHand", // TEXT FONT
-                    "bold", // FONT WEIGHT
-                    (this.height * 0.06), // FONT SIZE
-                    (this.game.width * 0.365), // TEXT X
-                    (this.height * 1.50), // TEXT Y
-                    "black", // TEXT COLOR
-                    true, // MOUSE HOVER
-                    null, // TEXTS ALIGN -> ROW OR COLUMN
-                    ``, // UNIQUE TEXT
-                    (this.game.width * 0.285), // UNIQUE TEXT X
-                    (this.game.height * 0.82), // UNIQUE TEXT Y
-                    false, // CURSOR VISIBLE (added to match constructor parameters)
-                    0, // TEXT OFFSET X (added to match constructor parameters)
-                    0, // TEXT OFFSET Y (added to match constructor parameters)
-                    true, // HOVER SCALE (added to match constructor parameters)
-                    2, // SCALE TO HOVER
-                    0.15, // SCALE SPEED
-                    true, // DRAGGABLE
-                    25, /**GRAB RELEASE SPEED */
-                );
+                    //DYNAMIC FRUITS CREATION
+                    (()=>{
+
+                        if(this.choosedFruit === 0){
+                            for(let i = 0; i < 9; i++){
+                                this.createFruit(this.appleImage, this.fruitsLocations[i].x, this.fruitsLocations[i].y);
+                            }
+                        }
+
+                        if(this.choosedFruit === 1){
+                            for(let i = 0; i < 9; i++){
+                                this.createFruit(this.pera, this.fruitsLocations[i].x, this.fruitsLocations[i].y);
+                            }
+                        }
+
+                        if(this.choosedFruit === 2){
+                            for(let i = 0; i < 9; i++){
+                                this.createFruit(this.manga, this.fruitsLocations[i].x, this.fruitsLocations[i].y);
+                            }
+                        }
+
+                        if(this.choosedFruit === 3){
+                            for(let i = 0; i < 9; i++){
+                                this.createFruit(this.laranja, this.fruitsLocations[i].x, this.fruitsLocations[i].y);
+                            }
+                        }
+
+                        if(this.choosedFruit === 4){
+                            for(let i = 0; i < 9; i++){
+                                this.createFruit(this.limao, this.fruitsLocations[i].x, this.fruitsLocations[i].y);
+                            }
+                        }
+
+                        if(this.choosedFruit === 5){
+                            for(let i = 0; i < 9; i++){
+                                this.createFruit(this.caju, this.fruitsLocations[i].x, this.fruitsLocations[i].y);
+                            }
+                        }
+
+
+
+                    })();
+
+                })();
+
 
                 
             })();
@@ -514,8 +542,6 @@ export class Scene3 {
         })();
 
     }
-
-
 
     handleFullScreenClick() {
         this.game.toggleFullScreen();
@@ -635,7 +661,14 @@ export class Scene3 {
             this.dialogueBox2.update(deltaTime);
             this.continueButton1.update(deltaTime);
             this.continueButton2.update(deltaTime);
-            this.appleFruit.update(deltaTime);
+
+            /**FRUITS*/
+            (()=>{
+                for(let i = 0; i < 9; i++){
+                    this.fruits[i].update(deltaTime);
+                }
+            })();
+
         })();
 
         /**CHANGING SCENE */
@@ -679,7 +712,7 @@ export class Scene3 {
         this.fruitIndicator.draw(ctx, 0);
 
         /**AKEMI GIRL DRAWING */
-        this.imageAkemi.draw(ctx, 0);
+        //this.imageAkemi.draw(ctx, 0);
 
         /**BASKET DRAWING*/
         this.basket.draw(ctx, 0);
@@ -688,7 +721,7 @@ export class Scene3 {
 
         /**DIALOGUE BOXES DRAWING*/
         (()=>{
-            this.dialogueBox1.draw(ctx, 0);
+            //this.dialogueBox1.draw(ctx, 0);
             this.dialogueBox2.draw(ctx, 0);
         })();
 
@@ -700,7 +733,9 @@ export class Scene3 {
 
         /**FRUITS*/
         (()=>{
-            this.appleFruit.draw(ctx, 0);
+            for(let i = 0; i < this.fruits.length; i++){
+                this.fruits[i].draw(ctx, 0);
+            }
         })();
 
     }
@@ -711,5 +746,44 @@ export class Scene3 {
 
     changeScene() {
         
+    }
+
+    createFruit(fruit, x, y){
+
+        const currentFruit = new Image(
+            this.game, // GAME
+            x, // X
+            y, // Y
+            (this.game.width * 0.05), // WIDTH
+            (this.game.height * 0.1), // HEIGHT
+            0, // ROTATION
+            fruit,  // IMAGE
+            1, // OPACITY
+            null, // TEXT
+            (this.height * 0.1), // TEXT SPACING
+            "PatrickHand", // TEXT FONT
+            "bold", // FONT WEIGHT
+            (this.height * 0.06), // FONT SIZE
+            (this.game.width * 0.365), // TEXT X
+            (this.height * 1.50), // TEXT Y
+            "black", // TEXT COLOR
+            true, // MOUSE HOVER
+            null, // TEXTS ALIGN -> ROW OR COLUMN
+            ``, // UNIQUE TEXT
+            (this.game.width * 0.285), // UNIQUE TEXT X
+            (this.game.height * 0.82), // UNIQUE TEXT Y
+            false, // CURSOR VISIBLE (added to match constructor parameters)
+            0, // TEXT OFFSET X (added to match constructor parameters)
+            0, // TEXT OFFSET Y (added to match constructor parameters)
+            true, // HOVER SCALE (added to match constructor parameters)
+            1.5, // SCALE TO HOVER
+            0.15, // SCALE SPEED
+            true, // DRAGGABLE
+            25, /**GRAB RELEASE SPEED */
+        );
+
+        this.fruits.push(currentFruit);
+
+        return currentFruit;
     }
 }
