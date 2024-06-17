@@ -289,7 +289,7 @@ export class Image {
                     }
                 }
             }
-            if (this.game.input.touches.length === 0 && this.draggable) {
+            if (this.game.input.touches.length === 0 && this.draggable && !this.game.input.mouse.clicked) {
                 if (this.isGrabbed) {
                     this.dropped = true;
                     this.game.isDraggingImage = false; // Update the game state when the image is no longer being dragged
