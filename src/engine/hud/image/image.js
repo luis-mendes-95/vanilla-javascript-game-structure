@@ -364,6 +364,3 @@ export class Image {
     }
 
 }
-
-// Para usar a funcionalidade de cursor piscando, basta chamar startBlinkingCursor() na instância de Image
-// e repassar o texto do teclado + texto do input no método update da cena onde os objetos são instanciados.
