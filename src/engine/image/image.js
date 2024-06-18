@@ -93,6 +93,7 @@ export class Image {
         this.justGrabbed = false;
         this.dropped = false;
         this.releaseSpeed = releaseSpeed;
+        this.draggedRight = false;
 
 ;
     }
@@ -116,7 +117,9 @@ export class Image {
             if(this.justGrabbed){
                 this.dropped = true;
             }
-            this.returnToOriginalPosition();
+            if(!this.draggedRight){
+                this.returnToOriginalPosition();
+            }
         }
 
         /**IF IS GRABBED TURNS TO TRUE */
@@ -297,7 +300,7 @@ export class Image {
                 this.isGrabbed = false;
             }
         }
-        return false;
+        return this.game.input.touches.length > 0 && this.game.input.touches.some(touch => touch.x > this.x && touch.x < this.x + this.width && touch.y > this.y && touch.y < this.y + this.height);
     }
     
     mouseHovering() {
@@ -369,6 +372,13 @@ export class Image {
 
     returnToOriginalPosition(){
         this.moveTo(this.originalX, this.originalY, this.releaseSpeed);
+    }
+
+    collidesWith(element){
+        return this.x < element.x + element.width &&
+        this.x + this.width > element.x &&
+        this.y < element.y + element.height &&
+        this.y + this.height > element.y;
     }
 
 }

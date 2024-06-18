@@ -41,6 +41,7 @@ export class Scene3 {
                 ];
                 this.fruitsToDrag = 0;
                 this.choosedFruit = 0;
+                this.fruitsInBasket = [];
 
                 /**RANDOM NUMBER BETWEEN 5 AND 9 */
                 this.fruitsToDrag = Math.floor(Math.random() * 5) + 5;
@@ -802,6 +803,60 @@ export class Scene3 {
         if (this.calledNextScene && this.background.x <= -this.game.width) {
             this.changeScene();
         }
+        
+        /**HANDLE PUSHING FRUITS TO THE BASKET */
+        (() => {
+
+            /**CHECK IF THERE'S ANY FRUITS BEING DROPPED IN THE BASKET */
+            if (this.startGame) {
+                for (let i = 0; i < this.fruits.length; i++) {
+                    if (this.fruits[i].collidesWith(this.basket) && this.fruits[i].dropped) {
+                        // Verifica se a fruta já está no array fruitsInBasket
+                        const isFruitAlreadyInBasket = this.fruitsInBasket.some(fruitInBasket => fruitInBasket === this.fruits[i]);
+                        if (!isFruitAlreadyInBasket) {
+                            console.log("put inside basket");
+                            this.fruits[i].draggedRight = true;
+                            this.fruitsInBasket.push(this.fruits[i]);
+                        }
+                        // Marca a fruta como não soltável novamente para evitar duplicatas
+                        this.fruits[i].dropped = false;
+                        
+                    }
+                }
+            }
+
+            /**MOVE THE FRUITS TO EACH BASKET POSITION */
+            (()=>{
+                for(let i = 0; i < this.fruitsInBasket.length; i++){
+
+                    if(i === 0){
+                        this.fruitsInBasket[i].moveTo(this.game.width * 0.76, this.game.height * 0.14, (this.game.speed * 0.4));
+                    }
+
+                    if(i === 1){
+                        this.fruitsInBasket[i].moveTo(this.game.width * 0.82, this.game.height * 0.14, (this.game.speed * 0.4));
+                    }
+
+                    if(i === 2){
+                        this.fruitsInBasket[i].moveTo(this.game.width * 0.89, this.game.height * 0.14, (this.game.speed * 0.4));
+                    }
+
+                    if(i === 3){
+                        this.fruitsInBasket[i].moveTo(this.game.width * 0.76, this.game.height * 0.3, (this.game.speed * 0.4));
+                    }
+
+                    if(i === 4){
+                        this.fruitsInBasket[i].moveTo(this.game.width * 0.82, this.game.height * 0.3, (this.game.speed * 0.4));
+                    }
+
+                    if(i === 5){
+                        this.fruitsInBasket[i].moveTo(this.game.width * 0.89, this.game.height * 0.3, (this.game.speed * 0.4));
+                    }
+
+                }
+            })();
+            console.log(this.fruitsInBasket);
+        })();
        
     }
 
