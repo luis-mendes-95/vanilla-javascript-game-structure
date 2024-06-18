@@ -4,6 +4,8 @@ import { DebugMovement } from "../../../engine/debug/movementDebug.js";
 import { Sprite } from "../../../engine/sprite/sprite.js";
 import { Sound } from "../../../engine/sound/sound.js";
 import { Image } from "../../../engine/image/image.js";
+import { Keyboard } from "../../../engine/hud/keyboard/keyboard.js";
+import { NumericKeyboard } from "../../../engine/hud/numKeyboard/numKeyboard.js";
 
 /**EASY MODE -> FRUIT COLLECTING */
 export class Scene3 {
@@ -21,6 +23,9 @@ export class Scene3 {
             this.savedGame = localStorage.getItem('AkemiFazendaSavedGame') || null;
             this.calledNextScene = false;
             this.enterNextScene = false;
+
+            /**KEYBOARD CONTROL */
+            this.showKeyboard = false;
 
             /**RANDOM FRUIT (6 FRUITS) */
             this.randomFruit = Math.floor(Math.random() * 6);
@@ -455,6 +460,33 @@ export class Scene3 {
                 );
             })();
 
+            /**FULL SCREEN BUTTON */
+            (()=>{
+                this.buttonFullScreen = new Image(
+                    this.game, /**GAME */
+                    (this.game.width * 0.01), /**X */
+                    (this.height * 0.9), /**Y */
+                    (this.game.width * 0.15), /**WIDTH */
+                    (this.game.height * 0.1), /**HEIGHT */
+                    0, /**ROTATION */
+                    this.farmSign,  /**IMAGE */
+                    1, /**OPACITY */
+                    null, /**TEXT */
+                    (this.height * 0.05), /**TEXT SPACING */
+                    "PatrickHand", /**TEXT FONT */
+                    "bold", /**FONT WEIGHT */
+                    (this.game.height * 0.03), /**FONT SIZE */
+                    (this.game.width * 0.365), /**TEXT X */
+                    (this.height * 1.45), /**TEXT Y */
+                    "black", /**TEXT COLOR */
+                    true, /**MOUSE HOVER */
+                    null, /**TEXTS ALIGN -> ROW OR COLUMN */
+                    "🖥 TELA CHEIA", /**UNIQUE TEXT */
+                    (this.game.width * 0.032), /**UNIQUE TEXT X */
+                    (this.height * 0.96), /**UNIQUE TEXT Y */
+                );
+            })();
+
             /**CONTINUE BUTTON */
             (()=>{
                 /**CONTINUE BUTTON 1 */
@@ -544,6 +576,71 @@ export class Scene3 {
                     0, // TEXT OFFSET X (added to match constructor parameters)
                     0, // TEXT OFFSET Y (added to match constructor parameters)
                     true // HOVER SCALE (added to match constructor parameters)
+                );
+            })();
+
+            /**SHOW KEYBOARD BUTTON */
+            (()=>{
+                this.buttonShowKeyboard = new Image(
+                    this.game, /**GAME */
+                    (this.game.width * 0.55), /**X */
+                    (this.height * 1.1), /**Y */
+                    (this.game.width * 0.15), /**WIDTH */
+                    (this.game.height * 0.1), /**HEIGHT */
+                    0, /**ROTATION */
+                    this.farmSign,  /**IMAGE */
+                    1, /**OPACITY */
+                    null, /**TEXT */
+                    (this.height * 0.1), /**TEXT SPACING */
+                    "PatrickHand", /**TEXT FONT */
+                    "bold", /**FONT WEIGHT */
+                    (this.game.height * 0.03), /**FONT SIZE */
+                    (this.game.width * 0.365), /**TEXT X */
+                    (this.height * 1.50), /**TEXT Y */
+                    "black", /**TEXT COLOR */
+                    true, /**MOUSE HOVER */
+                    null, /**TEXTS ALIGN -> ROW OR COLUMN */
+                    "⌨ TECLADO", /**UNIQUE TEXT */
+                    (this.game.width * 0.58), /**UNIQUE TEXT X */
+                    (this.height * 1.16), /**UNIQUE TEXT Y */
+                );
+            })();
+
+            /**HIDE KEYBOARD BUTTON */
+            (()=>{
+                this.buttonHideKeyboard = new Image(
+                    this.game, /**GAME */
+                    (this.game.width * 0.55), /**X */
+                    (this.height * 1.1), /**Y */
+                    (this.game.width * 0.15), /**WIDTH */
+                    (this.game.height * 0.1), /**HEIGHT */
+                    0, /**ROTATION */
+                    this.farmSign,  /**IMAGE */
+                    1, /**OPACITY */
+                    null, /**TEXT */
+                    (this.height * 0.1), /**TEXT SPACING */
+                    "PatrickHand", /**TEXT FONT */
+                    "bold", /**FONT WEIGHT */
+                    (this.game.height * 0.03), /**FONT SIZE */
+                    (this.game.width * 0.365), /**TEXT X */
+                    (this.height * 1.50), /**TEXT Y */
+                    "black", /**TEXT COLOR */
+                    true, /**MOUSE HOVER */
+                    null, /**TEXTS ALIGN -> ROW OR COLUMN */
+                    "⌨ ESCONDER", /**UNIQUE TEXT */
+                    (this.game.width * 0.58), /**UNIQUE TEXT X */
+                    (this.height * 1.16), /**UNIQUE TEXT Y */
+                );
+            })();
+
+            /**KEYBOARD*/
+            (()=>{
+                this.keyboard = new NumericKeyboard(
+                    this.game,  /**GAME */
+                    this.game.width * 0.25, /**X */
+                    this.game.height * 1.1, /**Y */
+                    "PatrickHand", /**FONT */
+                    5, /**MAX LENGTH */
                 );
             })();
 
@@ -686,6 +783,9 @@ export class Scene3 {
 
                 this.continueButton1.moveTo(this.game.width * 0.8, this.game.height * 0.8, (this.game.speed * 0.15));
 
+
+
+
             } else {
 
                 if(!this.startGame){
@@ -701,6 +801,16 @@ export class Scene3 {
                     this.continueButton1.moveTo(this.game.width * 1, this.game.height * 1.155, (this.game.speed * 0.15));
                     this.continueButton2.moveTo(this.game.width * 1, this.game.height * 1.155, (this.game.speed * 0.15));
                     this.imageAkemi.moveTo(this.game.width * 0.09, this.game.height * 1.155, (this.game.speed * 0.15));
+
+                    if(!this.showKeyboard){
+                        this.buttonShowKeyboard.moveTo(this.game.width * 0.55, this.game.height * 0.9, (this.game.speed * 0.15));
+                        this.buttonHideKeyboard.moveTo(this.game.width * 0.55, this.game.height * 1.1, (this.game.speed * 0.15));
+                        this.keyboard.moveTo(this.game.width * 0.30, this.game.height * 1.1, (this.game.speed * 0.8));
+                    } else {
+                        this.buttonShowKeyboard.moveTo(this.game.width * 0.55, this.game.height * 1.1, (this.game.speed * 0.15));
+                        this.buttonHideKeyboard.moveTo(this.game.width * 0.55, this.game.height * 0.9, (this.game.speed * 0.15));
+                        this.keyboard.moveTo(this.game.width * 0.30, this.game.height * 0.2, (this.game.speed * 0.8));
+                    }
 
                 }
 
@@ -744,7 +854,7 @@ export class Scene3 {
 
             /**CONTINUE BUTTON 1 */
             (()=>{
-                if(this.continueButton1.isMouseOver() || this.continueButton1.isTouchOver()){
+                if(this.continueButton1.isMouseClicking() || this.continueButton1.isTouchOver()){
 
                     window.addEventListener('click', ()=>{
                         this.calledNextScene = true;
@@ -759,7 +869,7 @@ export class Scene3 {
 
             /**CONTINUE BUTTON 2 */
             (()=>{
-                if(this.continueButton2.isMouseOver() || this.continueButton2.isTouchOver()){
+                if(this.continueButton2.isMouseClicking() || this.continueButton2.isTouchOver()){
 
                     window.addEventListener('click', ()=>{
                         this.startGame = true;
@@ -772,25 +882,59 @@ export class Scene3 {
                 }
             })();
 
+            /**FULL SCREEN BUTTON */
+            (()=>{
+                if (this.buttonFullScreen.isTouchOver() || this.buttonFullScreen.isMouseClicking()) {
+                    window.addEventListener('click', this.handleFullScreenClick);
+                    window.addEventListener('touchend', this.handleFullScreenTouchEnd);
+                }
+            })();
+
+            /**SHOW AND HIDE KEYBOARD BUTTONS SCREEN BUTTON */
+            (()=>{
+
+                if (this.buttonShowKeyboard.isTouchOver() || this.buttonShowKeyboard.isMouseClicking()) {
+                        this.showKeyboard = true;
+                }
+
+                if (this.buttonHideKeyboard.isTouchOver() || this.buttonHideKeyboard.isMouseClicking()) {
+                        this.showKeyboard = false;
+                }
+
+            })();
+
+
+
+
         })();
 
         /** UPDATING ELEMENTS */
         (() => {
+
             this.imageAkemi.update(deltaTime);
             this.dialogueBox1.update(deltaTime);
             this.dialogueBox2.update(deltaTime);
             this.continueButton1.update(deltaTime);
             this.continueButton2.update(deltaTime);
+            this.buttonFullScreen.update(deltaTime);
+            this.keyboard.canType = false;
+
 
             if(this.startGame){
+                this.keyboard.canType = true;
+                this.productsQtyIndicator.uniqueText = this.keyboard.currentInput;
                 this.confirmButton.update(deltaTime);
                 this.productsQtyIndicator.update(deltaTime);
                 this.productsQtyIndicator.startBlinkingCursor();
+                this.buttonShowKeyboard.update(deltaTime);
+                this.buttonHideKeyboard.update(deltaTime);
+                this.keyboard.update(deltaTime);
+
             }
 
             /**FRUITS*/
             (()=>{
-                if(this.startGame){
+                if(this.startGame && !this.showKeyboard){
                     for(let i = 0; i < this.fruits.length; i++){
                         this.fruits[i].update(deltaTime);
                     }
@@ -807,9 +951,11 @@ export class Scene3 {
         /**HANDLE PUSHING FRUITS TO THE BASKET */
         (() => {
 
-            /**CHECK IF THERE'S ANY FRUITS BEING DROPPED IN THE BASKET */
+            /**CHECK IF THERE'S ANY FRUITS BEING DROPPED IN THE BASKET OR OUTSIDE*/
             if (this.startGame) {
+
                 for (let i = 0; i < this.fruits.length; i++) {
+
                     if (this.fruits[i].collidesWith(this.basket) && this.fruits[i].dropped) {
                         // Verifica se a fruta já está no array fruitsInBasket
                         const isFruitAlreadyInBasket = this.fruitsInBasket.some(fruitInBasket => fruitInBasket === this.fruits[i]);
@@ -821,41 +967,75 @@ export class Scene3 {
                         // Marca a fruta como não soltável novamente para evitar duplicatas
                         this.fruits[i].dropped = false;
                         
-                    }
+                    } 
+
                 }
+
+                for (let i = 0; i < this.fruitsInBasket.length; i++) {
+
+                    if(!this.fruitsInBasket[i].collidesWith(this.basket)){
+                        if(this.fruitsInBasket[i].dropped){
+                           
+                            /**TAKE IT OUT FROM FRUITS IN BASKET ARRAY AND RETURN TO ITS ORIGINAL POSITION */
+                            this.fruitsInBasket[i].dropped = false;
+                            this.fruitsInBasket[i].draggedRight = false;
+                            this.fruitsInBasket.splice(i, 1);
+                        }
+                    }
+                        
+                    
+
+                }
+
+
             }
+
 
             /**MOVE THE FRUITS TO EACH BASKET POSITION */
             (()=>{
                 for(let i = 0; i < this.fruitsInBasket.length; i++){
 
                     if(i === 0){
-                        this.fruitsInBasket[i].moveTo(this.game.width * 0.76, this.game.height * 0.14, (this.game.speed * 0.4));
+                        this.fruitsInBasket[i].moveTo(this.game.width * 0.76, this.game.height * 0.15, (this.game.speed * 0.4));
                     }
 
                     if(i === 1){
-                        this.fruitsInBasket[i].moveTo(this.game.width * 0.82, this.game.height * 0.14, (this.game.speed * 0.4));
+                        this.fruitsInBasket[i].moveTo(this.game.width * 0.825, this.game.height * 0.15, (this.game.speed * 0.4));
                     }
 
                     if(i === 2){
-                        this.fruitsInBasket[i].moveTo(this.game.width * 0.89, this.game.height * 0.14, (this.game.speed * 0.4));
+                        this.fruitsInBasket[i].moveTo(this.game.width * 0.89, this.game.height * 0.15, (this.game.speed * 0.4));
                     }
 
                     if(i === 3){
-                        this.fruitsInBasket[i].moveTo(this.game.width * 0.76, this.game.height * 0.3, (this.game.speed * 0.4));
+                        this.fruitsInBasket[i].moveTo(this.game.width * 0.76, this.game.height * 0.31, (this.game.speed * 0.4));
                     }
 
                     if(i === 4){
-                        this.fruitsInBasket[i].moveTo(this.game.width * 0.82, this.game.height * 0.3, (this.game.speed * 0.4));
+                        this.fruitsInBasket[i].moveTo(this.game.width * 0.825, this.game.height * 0.31, (this.game.speed * 0.4));
                     }
 
                     if(i === 5){
-                        this.fruitsInBasket[i].moveTo(this.game.width * 0.89, this.game.height * 0.3, (this.game.speed * 0.4));
+                        this.fruitsInBasket[i].moveTo(this.game.width * 0.89, this.game.height * 0.31, (this.game.speed * 0.4));
+                    }
+
+                    if(i === 6){
+                        this.fruitsInBasket[i].moveTo(this.game.width * 0.76, this.game.height * 0.47, (this.game.speed * 0.4));
+                    }
+
+                    if(i === 7){
+                        this.fruitsInBasket[i].moveTo(this.game.width * 0.825, this.game.height * 0.47, (this.game.speed * 0.4));
+                    }
+
+                    if(i === 8){
+                        this.fruitsInBasket[i].moveTo(this.game.width * 0.89, this.game.height * 0.47, (this.game.speed * 0.4));
                     }
 
                 }
             })();
-            console.log(this.fruitsInBasket);
+        
+
+
         })();
        
     }
@@ -908,6 +1088,17 @@ export class Scene3 {
             this.confirmButton.draw(ctx, 0);
         })();
 
+        /**FULL SCREEN BUTTON DRAWING */
+        (()=>{
+            this.buttonFullScreen.draw(ctx, 0);
+        })();
+
+        /**BUTTONS KEYBOARD */
+        (()=>{
+            this.buttonShowKeyboard.draw(ctx, 0);
+            this.buttonHideKeyboard.draw(ctx, 0);
+        })();
+
         /**PRODUCT QTY INDICATOR DRAWING */
         (()=>{
             this.productsQtyIndicator.draw(ctx, 0);
@@ -945,6 +1136,13 @@ export class Scene3 {
 
         /**AKEMI GIRL DRAWING */
         this.imageAkemi.draw(ctx, 0);
+
+        /**KEYBOARD DRAWING */
+        (()=>{
+
+                this.keyboard.draw(ctx, 0);
+
+        })();
 
 
     }
