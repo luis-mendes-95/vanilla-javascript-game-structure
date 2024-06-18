@@ -24,6 +24,10 @@ export class Scene3 {
             this.calledNextScene = false;
             this.enterNextScene = false;
 
+            /**ANSWERS*/
+            this.correctAnswer = false;
+            this.wrongAnswer = false;
+
             /**KEYBOARD CONTROL */
             this.showKeyboard = false;
 
@@ -262,6 +266,7 @@ export class Scene3 {
 
             /**AKEMI GIRL */
             (()=>{
+                /**AKEMI POINTING */
                 this.imageAkemi = new Image(
                     this.game, /**GAME */
                     (this.game.width * 0.09), /**X */
@@ -282,6 +287,51 @@ export class Scene3 {
                     false, /**MOUSE HOVER */
                     null, /**TEXTS ALIGN -> ROW OR COLUMN */
                 );
+
+                /**AKEMI CORRECT ANSWER */
+                this.imageAkemiCorrect = new Image(
+                    this.game, /**GAME */
+                    (this.game.width * 0.09), /**X */
+                    (this.height * 0.25), /**Y */
+                    (this.game.width * 0.30), /**WIDTH */
+                    (this.game.height * 0.75), /**HEIGHT */
+                    0, /**ROTATION */
+                    this.akemiImages[5],  /**IMAGE */
+                    0, /**OPACITY */
+                    null, /**TEXT */
+                    (this.height * 0.1), /**TEXT SPACING */
+                    "font1942", /**TEXT FONT */
+                    "bold", /**FONT WEIGHT */
+                    (this.game.height * 0.5), /**FONT SIZE */
+                    (this.game.width * 0.365), /**TEXT X */
+                    (this.height * 1.50), /**TEXT Y */
+                    "black", /**TEXT COLOR */
+                    false, /**MOUSE HOVER */
+                    null, /**TEXTS ALIGN -> ROW OR COLUMN */
+                );
+
+                /**AKEMI WRONG ANSWER */
+                this.imageAkemiWrong = new Image(
+                    this.game, /**GAME */
+                    (this.game.width * 0.09), /**X */
+                    (this.height * 0.25), /**Y */
+                    (this.game.width * 0.30), /**WIDTH */
+                    (this.game.height * 0.75), /**HEIGHT */
+                    0, /**ROTATION */
+                    this.akemiImages[1],  /**IMAGE */
+                    0, /**OPACITY */
+                    null, /**TEXT */
+                    (this.height * 0.1), /**TEXT SPACING */
+                    "font1942", /**TEXT FONT */
+                    "bold", /**FONT WEIGHT */
+                    (this.game.height * 0.5), /**FONT SIZE */
+                    (this.game.width * 0.365), /**TEXT X */
+                    (this.height * 1.50), /**TEXT Y */
+                    "black", /**TEXT COLOR */
+                    false, /**MOUSE HOVER */
+                    null, /**TEXTS ALIGN -> ROW OR COLUMN */
+                );
+
             })();
 
             /**BASKET */
@@ -458,6 +508,71 @@ export class Scene3 {
                     0, /**TEXT OFFSET X */
                     -15, /**TEXT OFFSET Y */
                 );
+
+                /**DIALOGUE BOX 3 */
+                this.dialogueBox3 = new Image(
+                    this.game, /**GAME */
+                    (this.game.width * 0.3), /**X */
+                    (this.height * 0.28), /**Y */
+                    (this.game.width * 0.30), /**WIDTH */
+                    (this.game.height * 0.35), /**HEIGHT */
+                    0, /**ROTATION */
+                    this.dialogueBox,  /**IMAGE */
+                    0, /**OPACITY */
+                    [
+                        ``,
+                        `                OH NÃO, ${this.game.playerName}!`,
+                        `                  VOCÊ NÃO PEGOU EXATAMENTE O QUE EU PEDI!   `,
+                    ], /**TEXT */
+                    (this.height * 0.1), /**TEXT SPACING */
+                    "patrickHand", /**TEXT FONT */
+                    "bold", /**FONT WEIGHT */
+                    (this.game.height * 0.04), /**FONT SIZE */
+                    (this.game.width * 0.365), /**TEXT X */
+                    (this.height * 1.50), /**TEXT Y */
+                    "black", /**TEXT COLOR */
+                    false, /**MOUSE HOVER */
+                    "column", /**TEXTS ALIGN -> ROW OR COLUMN */
+                    null, /**UNIQUE TEXT */
+                    null, /**UNIQUE TEXT X */
+                    null, /**UNIQUE TEXT Y */
+                    false, /**TEXT CURSOR VISIBLE */
+                    0, /**TEXT OFFSET X */
+                    -15, /**TEXT OFFSET Y */
+                );
+
+                /**DIALOGUE BOX 4 */
+                this.dialogueBox4 = new Image(
+                    this.game, /**GAME */
+                    (this.game.width * 0.3), /**X */
+                    (this.height * 0.28), /**Y */
+                    (this.game.width * 0.30), /**WIDTH */
+                    (this.game.height * 0.35), /**HEIGHT */
+                    0, /**ROTATION */
+                    this.dialogueBox,  /**IMAGE */
+                    0, /**OPACITY */
+                    [
+                        ``,
+                        `                PARABÉNS, ${this.game.playerName}!`,
+                        `                      VOCÊ PEGOU TODAS AS FRUTAS NA QUANTIDADE CERTA!    `,
+                    ], /**TEXT */
+                    (this.height * 0.1), /**TEXT SPACING */
+                    "patrickHand", /**TEXT FONT */
+                    "bold", /**FONT WEIGHT */
+                    (this.game.height * 0.04), /**FONT SIZE */
+                    (this.game.width * 0.365), /**TEXT X */
+                    (this.height * 1.50), /**TEXT Y */
+                    "black", /**TEXT COLOR */
+                    false, /**MOUSE HOVER */
+                    "column", /**TEXTS ALIGN -> ROW OR COLUMN */
+                    null, /**UNIQUE TEXT */
+                    null, /**UNIQUE TEXT X */
+                    null, /**UNIQUE TEXT Y */
+                    false, /**TEXT CURSOR VISIBLE */
+                    0, /**TEXT OFFSET X */
+                    -15, /**TEXT OFFSET Y */
+                );
+                
             })();
 
             /**FULL SCREEN BUTTON */
@@ -540,6 +655,37 @@ export class Scene3 {
                     "", // TEXTS ALIGN -> ROW OR COLUMN (null changed to empty string to match constructor parameter types)
                     "CONTINUAR", // UNIQUE TEXT
                     (this.game.width * 1.025), // UNIQUE TEXT X
+                    (this.game.height * 1.265), // UNIQUE TEXT Y
+                    false, // CURSOR VISIBLE (added to match constructor parameters)
+                    0, // TEXT OFFSET X (added to match constructor parameters)
+                    0, // TEXT OFFSET Y (added to match constructor parameters)
+                    true // HOVER SCALE (added to match constructor parameters)
+                );
+            })();
+
+            /**RESTART BUTTON */
+            (()=>{
+                this.restartButton = new Image(
+                    this.game, // GAME
+                    (this.game.width * 1), // X
+                    (this.height * 1.155), // Y
+                    (this.game.width * 0.2), // WIDTH
+                    (this.game.height * 0.3), // HEIGHT
+                    -20, // ROTATION
+                    this.buttonContinue, // IMAGE
+                    1, // OPACITY
+                    "", // TEXT (null changed to empty string to match constructor parameter types)
+                    (this.height * 0.1), // TEXT SPACING
+                    "PatrickHand", // TEXT FONT
+                    "bold", // FONT WEIGHT
+                    (this.height * 0.06), // FONT SIZE
+                    (this.game.width * 0.365), // TEXT X
+                    (this.height * 1.50), // TEXT Y
+                    "black", // TEXT COLOR
+                    true, // MOUSE HOVER
+                    "", // TEXTS ALIGN -> ROW OR COLUMN (null changed to empty string to match constructor parameter types)
+                    "REINICIAR", // UNIQUE TEXT
+                    (this.game.width * 1.036), // UNIQUE TEXT X
                     (this.game.height * 1.265), // UNIQUE TEXT Y
                     false, // CURSOR VISIBLE (added to match constructor parameters)
                     0, // TEXT OFFSET X (added to match constructor parameters)
@@ -797,9 +943,10 @@ export class Scene3 {
                 } else {
                     this.dialogueBox1.fadeOut(0.01);
                     this.dialogueBox2.fadeOut(0.01);
-                    this.imageAkemi.fadeOut(0.01);  
+                    
                     this.continueButton1.moveTo(this.game.width * 1, this.game.height * 1.155, (this.game.speed * 0.15));
                     this.continueButton2.moveTo(this.game.width * 1, this.game.height * 1.155, (this.game.speed * 0.15));
+                    this.imageAkemi.fadeOut(0.01);  
                     this.imageAkemi.moveTo(this.game.width * 0.09, this.game.height * 1.155, (this.game.speed * 0.15));
 
                     if(!this.showKeyboard){
@@ -810,6 +957,23 @@ export class Scene3 {
                         this.buttonShowKeyboard.moveTo(this.game.width * 0.55, this.game.height * 1.1, (this.game.speed * 0.15));
                         this.buttonHideKeyboard.moveTo(this.game.width * 0.55, this.game.height * 0.9, (this.game.speed * 0.15));
                         this.keyboard.moveTo(this.game.width * 0.30, this.game.height * 0.2, (this.game.speed * 0.8));
+                    }
+
+                    if(this.correctAnswer){
+                        this.imageAkemiCorrect.fadeIn(0.01);
+                        this.dialogueBox4.fadeIn(0.01);
+                    } else if (this.wrongAnswer){
+                        this.imageAkemiWrong.fadeIn(0.01);
+                        this.dialogueBox3.fadeIn(0.01);
+                        this.restartButton.moveTo(this.game.width * 0.8, this.game.height * 0.8, (this.game.speed * 0.15));
+                        this.confirmButton.moveTo(this.game.width * 0.79, this.game.height * 1.155, (this.game.speed * 0.15));
+                    } else {
+                        this.imageAkemiCorrect.fadeOut(0.01);
+                        this.imageAkemiWrong.fadeOut(0.01);
+                        this.dialogueBox3.fadeOut(0.01);
+                        this.dialogueBox4.fadeOut(0.01);
+                        this.restartButton.moveTo(this.game.width * 1, this.game.height * 1.155, (this.game.speed * 0.15));
+                        this.confirmButton.moveTo(this.game.width * 0.79, this.game.height * 0.88, (this.game.speed * 0.15));
                     }
 
                 }
@@ -903,6 +1067,34 @@ export class Scene3 {
 
             })();
 
+            /**CONFIRM BUTTON*/
+            (()=>{
+                if(this.confirmButton.isTouchOver() || this.confirmButton.isMouseClicking()){
+                    if(this.startGame && this.keyboard.currentInput.length > 0){
+
+                        this.game.input.mouse.clicked = false;
+                        this.game.input.touches = [];
+
+                        if(this.fruitsInBasket.length === parseInt(this.keyboard.currentInput) &&
+                            this.fruitsInBasket.length === this.fruitsToDrag){
+                            this.correctAnswer = true;
+                        } else {
+                            this.wrongAnswer = true;
+                        }
+                        
+                    }
+                }
+            })();
+
+            /**RESTART BUTTON */
+            (()=>{
+                if(this.restartButton.isTouchOver() || this.restartButton.isMouseClicking()){
+                    this.game.input.mouse.clicked = false;
+                    this.game.input.touches = [];
+                    this.restart();
+                }
+            })();
+
 
 
 
@@ -932,6 +1124,10 @@ export class Scene3 {
 
             }
 
+            if(this.wrongAnswer){
+                this.restartButton.update();
+            }
+
             /**FRUITS*/
             (()=>{
                 if(this.startGame && !this.showKeyboard){
@@ -956,11 +1152,10 @@ export class Scene3 {
 
                 for (let i = 0; i < this.fruits.length; i++) {
 
-                    if (this.fruits[i].collidesWith(this.basket) && this.fruits[i].dropped) {
+                    if (this.fruits[i].collidesWith(this.basket) && this.fruits[i].dropped && !this.wrongAnswer) {
                         // Verifica se a fruta já está no array fruitsInBasket
                         const isFruitAlreadyInBasket = this.fruitsInBasket.some(fruitInBasket => fruitInBasket === this.fruits[i]);
                         if (!isFruitAlreadyInBasket) {
-                            console.log("put inside basket");
                             this.fruits[i].draggedRight = true;
                             this.fruitsInBasket.push(this.fruits[i]);
                         }
@@ -993,44 +1188,47 @@ export class Scene3 {
 
             /**MOVE THE FRUITS TO EACH BASKET POSITION */
             (()=>{
-                for(let i = 0; i < this.fruitsInBasket.length; i++){
+                if(!this.correctAnswer && !this.wrongAnswer){
 
-                    if(i === 0){
-                        this.fruitsInBasket[i].moveTo(this.game.width * 0.76, this.game.height * 0.15, (this.game.speed * 0.4));
+                    for(let i = 0; i < this.fruitsInBasket.length; i++){
+
+                        if(i === 0){
+                            this.fruitsInBasket[i].moveTo(this.game.width * 0.76, this.game.height * 0.15, (this.game.speed * 0.4));
+                        }
+    
+                        if(i === 1){
+                            this.fruitsInBasket[i].moveTo(this.game.width * 0.825, this.game.height * 0.15, (this.game.speed * 0.4));
+                        }
+    
+                        if(i === 2){
+                            this.fruitsInBasket[i].moveTo(this.game.width * 0.89, this.game.height * 0.15, (this.game.speed * 0.4));
+                        }
+    
+                        if(i === 3){
+                            this.fruitsInBasket[i].moveTo(this.game.width * 0.76, this.game.height * 0.31, (this.game.speed * 0.4));
+                        }
+    
+                        if(i === 4){
+                            this.fruitsInBasket[i].moveTo(this.game.width * 0.825, this.game.height * 0.31, (this.game.speed * 0.4));
+                        }
+    
+                        if(i === 5){
+                            this.fruitsInBasket[i].moveTo(this.game.width * 0.89, this.game.height * 0.31, (this.game.speed * 0.4));
+                        }
+    
+                        if(i === 6){
+                            this.fruitsInBasket[i].moveTo(this.game.width * 0.76, this.game.height * 0.47, (this.game.speed * 0.4));
+                        }
+    
+                        if(i === 7){
+                            this.fruitsInBasket[i].moveTo(this.game.width * 0.825, this.game.height * 0.47, (this.game.speed * 0.4));
+                        }
+    
+                        if(i === 8){
+                            this.fruitsInBasket[i].moveTo(this.game.width * 0.89, this.game.height * 0.47, (this.game.speed * 0.4));
+                        }
+    
                     }
-
-                    if(i === 1){
-                        this.fruitsInBasket[i].moveTo(this.game.width * 0.825, this.game.height * 0.15, (this.game.speed * 0.4));
-                    }
-
-                    if(i === 2){
-                        this.fruitsInBasket[i].moveTo(this.game.width * 0.89, this.game.height * 0.15, (this.game.speed * 0.4));
-                    }
-
-                    if(i === 3){
-                        this.fruitsInBasket[i].moveTo(this.game.width * 0.76, this.game.height * 0.31, (this.game.speed * 0.4));
-                    }
-
-                    if(i === 4){
-                        this.fruitsInBasket[i].moveTo(this.game.width * 0.825, this.game.height * 0.31, (this.game.speed * 0.4));
-                    }
-
-                    if(i === 5){
-                        this.fruitsInBasket[i].moveTo(this.game.width * 0.89, this.game.height * 0.31, (this.game.speed * 0.4));
-                    }
-
-                    if(i === 6){
-                        this.fruitsInBasket[i].moveTo(this.game.width * 0.76, this.game.height * 0.47, (this.game.speed * 0.4));
-                    }
-
-                    if(i === 7){
-                        this.fruitsInBasket[i].moveTo(this.game.width * 0.825, this.game.height * 0.47, (this.game.speed * 0.4));
-                    }
-
-                    if(i === 8){
-                        this.fruitsInBasket[i].moveTo(this.game.width * 0.89, this.game.height * 0.47, (this.game.speed * 0.4));
-                    }
-
                 }
             })();
         
@@ -1073,16 +1271,6 @@ export class Scene3 {
         /**FRUIT INDICATOR */
         this.fruitIndicator.draw(ctx, 0);
 
-
-
-
-
-
-
-
-
-
-
         /**CONFIRM BUTTON DRAWING */
         (()=>{
             this.confirmButton.draw(ctx, 0);
@@ -1110,6 +1298,11 @@ export class Scene3 {
             this.continueButton2.draw(ctx, 0);
         })();
 
+        /**RESTART BUTTON DRAWING */
+        (()=>{
+            this.restartButton.draw(ctx, 0);
+        })();
+
 
         /**BASKET DRAWING*/
         this.basket.draw(ctx, 0);
@@ -1128,14 +1321,22 @@ export class Scene3 {
 
         })();
 
+
+
+        /**AKEMI GIRL DRAWING */
+        (()=>{
+            this.imageAkemi.draw(ctx, 0);
+            this.imageAkemiCorrect.draw(ctx, 0);
+            this.imageAkemiWrong.draw(ctx, 0);
+        })();
+
         /**DIALOGUE BOXES DRAWING*/
         (()=>{
             this.dialogueBox1.draw(ctx, 0);
             this.dialogueBox2.draw(ctx, 0);
+            this.dialogueBox3.draw(ctx, 0);
+            this.dialogueBox4.draw(ctx, 0);
         })();
-
-        /**AKEMI GIRL DRAWING */
-        this.imageAkemi.draw(ctx, 0);
 
         /**KEYBOARD DRAWING */
         (()=>{
@@ -1152,7 +1353,23 @@ export class Scene3 {
     }
 
     changeScene() {
-        
+        this.game.changeScene(Scene3);
+    }
+
+    restart(){
+        this.fruitsInBasket = [];
+        this.keyboard.currentInput = "";
+
+        setTimeout(() => {
+            this.correctAnswer = false;
+            this.wrongAnswer = false;
+        }, 500);
+
+        /**RETURN BASKET FRUITS TO THE TREE */
+        for(let i = 0; i < this.fruits.length; i++){
+            this.fruits[i].dropped = false;
+            this.fruits[i].draggedRight = false;
+        }
     }
 
     createFruit(fruit, x, y){
@@ -1193,4 +1410,6 @@ export class Scene3 {
 
         return currentFruit;
     }
+
+
 }
