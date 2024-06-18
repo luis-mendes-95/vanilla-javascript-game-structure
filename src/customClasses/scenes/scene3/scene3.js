@@ -5,6 +5,7 @@ import { Sprite } from "../../../engine/sprite/sprite.js";
 import { Sound } from "../../../engine/sound/sound.js";
 import { Image } from "../../../engine/image/image.js";
 
+/**EASY MODE -> FRUIT COLLECTING */
 export class Scene3 {
 
     constructor(game) {
@@ -40,15 +41,14 @@ export class Scene3 {
                 ];
                 this.fruitsToDrag = 0;
                 this.choosedFruit = 0;
-                if(this.game.difficulty === "easy"){
-                    /**RANDOM NUMBER BETWEEN 5 AND 9 */
-                    this.fruitsToDrag = Math.floor(Math.random() * 5) + 5;
-                    
 
-                    /**RANDOM NUMBER BETWEEN 0 AND 5 */
-                    this.choosedFruit = Math.floor(Math.random() * 6);
-                    //this.choosedFruit = 5;
-                }
+                /**RANDOM NUMBER BETWEEN 5 AND 9 */
+                this.fruitsToDrag = Math.floor(Math.random() * 5) + 5;
+
+                /**RANDOM NUMBER BETWEEN 0 AND 5 */
+                this.choosedFruit = Math.floor(Math.random() * 6);
+                //this.choosedFruit = 5;
+
             })();
 
 
@@ -70,6 +70,8 @@ export class Scene3 {
             this.dialogueBox = document.getElementById('dialogueBox');
             /**BUTTON CONTINUE */
             this.buttonContinue = document.getElementById('buttonStart');
+            /**BUTTON CONFIRM */
+            this.buttonConfirm = document.getElementById('buttonConfirm');
             /**AKEMI GIRL */
             this.akemiImages = document.getElementsByClassName('akemi');
             /**BACKGROUND BUTTON PANEL */
@@ -79,7 +81,7 @@ export class Scene3 {
             /**TREE */
             this.mainTree0 = document.getElementById('mainTree');
             /**PRODUCTS QTY */
-            this.productsQty = document.getElementById('productsQty');
+            this.productsQty = document.getElementById('productQty');
             /**FIGURES AREA */
             this.figuresArea = document.getElementById('figuresArea');
 
@@ -509,8 +511,72 @@ export class Scene3 {
                     false, // CURSOR VISIBLE (added to match constructor parameters)
                     0, // TEXT OFFSET X (added to match constructor parameters)
                     0, // TEXT OFFSET Y (added to match constructor parameters)
+                    true // HOVER SCALE (added to match constructor parameters)
+                );
+            })();
+
+            /**CONFIRM BUTTON*/
+            (()=>{
+                this.confirmButton = new Image(
+                    this.game, /**GAME */
+                    (this.game.width * 0.79), /**X */
+                    (this.height * 0.88), /**Y */
+                    (this.game.width * 0.13), /**WIDTH */
+                    (this.game.height * 0.1), /**HEIGHT */
+                    0, /**ROTATION */
+                    this.buttonConfirm,  /**IMAGE */
+                    1, /**OPACITY */
+                    null, /**TEXT */
+                    (this.height * 0.1), /**TEXT SPACING */
+                    "PatrickHand", /**TEXT FONT */
+                    "bold", /**FONT WEIGHT */
+                    (this.height * 0.06), /**FONT SIZE */
+                    (this.game.width * 0.365), /**TEXT X */
+                    (this.height * 1.50), /**TEXT Y */
+                    "black", /**TEXT COLOR */
+                    true, /**MOUSE HOVER */
+                    null, /**TEXTS ALIGN -> ROW OR COLUMN */
+                    "CONTINUAR", /**UNIQUE TEXT */
+                    (this.game.width * 1.025), // UNIQUE TEXT X
+                    (this.game.height * 1.265), // UNIQUE TEXT Y
+                    false, // CURSOR VISIBLE (added to match constructor parameters)
+                    0, // TEXT OFFSET X (added to match constructor parameters)
+                    0, // TEXT OFFSET Y (added to match constructor parameters)
+                    true // HOVER SCALE (added to match constructor parameters)
+                );
+            })();
+
+            /**PRODUCTS QTY */
+            (()=>{
+                this.productsQtyIndicator = new Image(
+                    this.game, /**GAME */
+                    (this.game.width * 0.73), /**X */
+                    (this.height * 0.73), /**Y */
+                    (this.game.width * 0.23), /**WIDTH */
+                    (this.game.height * 0.15), /**HEIGHT */
+                    0, /**ROTATION */
+                    this.productsQty,  /**IMAGE */
+                    1, /**OPACITY */
+                    null, /**TEXT */
+                    (this.height * 0.1), /**TEXT SPACING */
+                    "PatrickHand", /**TEXT FONT */
+                    "bold", /**FONT WEIGHT */
+                    (this.height * 0.06), /**FONT SIZE */
+                    (this.game.width * 0.365), /**TEXT X */
+                    (this.height * 1.50), /**TEXT Y */
+                    "black", /**TEXT COLOR */
+                    true, /**MOUSE HOVER */
+                    null, /**TEXTS ALIGN -> ROW OR COLUMN */
+                    "", /**UNIQUE TEXT */
+                    (this.game.width * 0.805), // UNIQUE TEXT X
+                    (this.game.height * 0.84), // UNIQUE TEXT Y
+                    true, // CURSOR VISIBLE (added to match constructor parameters)
+                    0, // TEXT OFFSET X (added to match constructor parameters)
+                    0, // TEXT OFFSET Y (added to match constructor parameters)
                     false // HOVER SCALE (added to match constructor parameters)
                 );
+                
+
             })();
 
             /**TREES | FRUITS*/
@@ -715,10 +781,18 @@ export class Scene3 {
             this.continueButton1.update(deltaTime);
             this.continueButton2.update(deltaTime);
 
+            if(this.startGame){
+                this.confirmButton.update(deltaTime);
+                this.productsQtyIndicator.update(deltaTime);
+                this.productsQtyIndicator.startBlinkingCursor();
+            }
+
             /**FRUITS*/
             (()=>{
-                for(let i = 0; i < 9; i++){
-                    this.fruits[i].update(deltaTime);
+                if(this.startGame){
+                    for(let i = 0; i < this.fruits.length; i++){
+                        this.fruits[i].update(deltaTime);
+                    }
                 }
             })();
 
@@ -764,18 +838,24 @@ export class Scene3 {
         /**FRUIT INDICATOR */
         this.fruitIndicator.draw(ctx, 0);
 
-        /**AKEMI GIRL DRAWING */
-        //this.imageAkemi.draw(ctx, 0);
-
-        /**BASKET DRAWING*/
-        this.basket.draw(ctx, 0);
 
 
 
-        /**DIALOGUE BOXES DRAWING*/
+
+
+
+
+
+
+
+        /**CONFIRM BUTTON DRAWING */
         (()=>{
-            //this.dialogueBox1.draw(ctx, 0);
-            this.dialogueBox2.draw(ctx, 0);
+            this.confirmButton.draw(ctx, 0);
+        })();
+
+        /**PRODUCT QTY INDICATOR DRAWING */
+        (()=>{
+            this.productsQtyIndicator.draw(ctx, 0);
         })();
 
         /**CONTINUE BUTTON DRAWING */
@@ -783,6 +863,10 @@ export class Scene3 {
             this.continueButton1.draw(ctx, 0);
             this.continueButton2.draw(ctx, 0);
         })();
+
+
+        /**BASKET DRAWING*/
+        this.basket.draw(ctx, 0);
 
         /**FRUITS*/
         (()=>{
@@ -797,6 +881,16 @@ export class Scene3 {
 
 
         })();
+
+        /**DIALOGUE BOXES DRAWING*/
+        (()=>{
+            this.dialogueBox1.draw(ctx, 0);
+            this.dialogueBox2.draw(ctx, 0);
+        })();
+
+        /**AKEMI GIRL DRAWING */
+        this.imageAkemi.draw(ctx, 0);
+
 
     }
 
