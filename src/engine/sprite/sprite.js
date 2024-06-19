@@ -184,4 +184,11 @@ export class Sprite {
     return this.dh >= this.game.height * 0.84 - this.spriteHeight * this.sizeY;
   }
 
+  collidesWith(element){
+    return this.x < element.x + element.width &&
+    this.x + this.width > element.x &&
+    this.y < element.y + element.height &&
+    this.y + this.height > element.y;
+}
+
 }

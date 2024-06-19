@@ -94,6 +94,8 @@ export class Scene3 {
             this.productsQty = document.getElementById('productQty');
             /**FIGURES AREA */
             this.figuresArea = document.getElementById('figuresArea');
+            /**ENEMY -> BIRD */
+            this.birdImage = document.getElementById('bird');
 
             /**SCORES */
             (()=>{
@@ -950,6 +952,45 @@ export class Scene3 {
 
         })();
 
+        /** ENEMY DATA */
+        (()=>{
+
+            /**BIRD SPRITE*/
+            (()=>{
+                this.bird = new Sprite(
+                    [
+                        this.birdImage, /** FLYING */
+                    ], /** IMAGE */
+                    this.game, /** GAME */
+                    100, /** SPRITE WIDTH */
+                    135, /** SPRITE HEIGHT */
+                    this.game.height * 0.0015, /** SIZE X */
+                    this.game.height * 0.0015, /** SIZE Y */
+                    (this.game.canvas.width * 1.95), /** DESTINY X */
+                    (this.game.canvas.height * 0.5), /** DESTINY Y */
+                    5, /** MAX FRAME X */
+                    0, /** MAX FRAME Y */
+                    75, /** FRAME SPEED */
+                    0, /** ROTATION */
+                    false /** PLAYER CONTROL */
+                );
+            })();
+
+            /**BIRD TARGET FUNCTIONS*/
+            (()=>{
+                this.birdCatched = false;
+                
+                /**DYNAMIC TARGET SETTING AND CHANGING */
+                (()=>{
+
+                    this.birdCurrentTarget = Math.floor(Math.random() * 9);
+
+                })();
+
+            })();
+
+        })();
+
     }
 
     handleFullScreenClick() {
@@ -965,6 +1006,19 @@ export class Scene3 {
     }
 
     update(deltaTime) {
+
+        /**ENEMY MOVEMENT AND CATCHING */
+        (()=>{
+
+            /**DYNAMIC CHANGING TARGET WHEN MOVED TO BASKET */
+            if(this.fruitsInBasket.length < 9){
+                if(this.fruits[this.birdCurrentTarget].collidesWith(this.basket)){
+                    this.birdCurrentTarget = Math.floor(Math.random() * 9);
+                }
+            } 
+
+        })();
+
 
         /** ELEMENTS APPEARING | ELEMENTS DISAPPEARING */
         (() => {
@@ -1019,7 +1073,7 @@ export class Scene3 {
                             this.buttonFullScreen.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
                             this.buttonShowKeyboard.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
                             this.buttonHideKeyboard.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
-                            this.keyboard.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
+                            this.keyboard.moveTo(this.game.width * -1, this.game.height * 1.2, (this.game.speed * 1));
                             this.confirmButton.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
                             for(let i = 0; i < this.fruitsInBasket.length; i++){
                                 this.fruitsInBasket[i].fadeOut(0.05);
@@ -1201,6 +1255,7 @@ export class Scene3 {
             this.continueButton3.update(deltaTime);
             this.buttonFullScreen.update(deltaTime);
             this.keyboard.canType = false;
+            this.bird.update(deltaTime);
 
 
             if(this.startGame){
@@ -1340,7 +1395,7 @@ export class Scene3 {
             ctx.fillRect(0, 0, this.game.width, this.game.height);
         })();
 
-        /** BACKGROUNDS DRAWING | CLOUDS DRAWING | TREE DRAWING*/
+        /** BACKGROUNDS DRAWING | CLOUDS DRAWING | TREE DRAWING | ENEMIES*/
         (()=>{
             this.backgroundGameFrame.draw(this.game.ctx, 0);
 
@@ -1355,6 +1410,14 @@ export class Scene3 {
 
             /**MAIN TREE DRAWING */
             this.mainTree.draw(ctx, 0);
+
+            /**ENEMIES */
+            (()=>{
+                if(this.startGame && this.bird.x > (this.game.width * 0.5)){
+                    this.bird.draw(ctx, 0);
+                }
+
+            })();
 
             this.background.draw(this.game.ctx, 0);
             this.nextBackground.draw(this.game.ctx, 0);
@@ -1438,6 +1501,14 @@ export class Scene3 {
                 this.keyboard.draw(ctx, 0);
 
         })();
+
+        /**ENEMIES */
+        (()=>{
+            if(this.startGame && this.bird.x < (this.game.width * 0.5)){
+                this.bird.draw(ctx, 0);
+            }
+        })();
+
 
 
     }
