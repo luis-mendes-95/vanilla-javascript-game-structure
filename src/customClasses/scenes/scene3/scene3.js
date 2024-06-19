@@ -955,37 +955,48 @@ export class Scene3 {
         /** ENEMY DATA */
         (()=>{
 
+            this.birds = [];
+            this.birdsStartLocations = [
+                {x: this.game.width * 1.5, y: this.game.height * 0.5},
+                {x: this.game.width * 3, y: this.game.height * 0.5},
+                {x: this.game.width * 4.5, y: this.game.height * 0.5},
+                {x: this.game.width * 6, y: this.game.height * 0.5},
+                {x: this.game.width * 7.5, y: this.game.height * 0.5},
+                {x: this.game.width * 9, y: this.game.height * 0.5},
+                {x: this.game.width * 10.5, y: this.game.height * 0.5},
+                {x: this.game.width * 12, y: this.game.height * 0.5},
+                {x: this.game.width * 13.5, y: this.game.height * 0.5},
+            ];
+
             /**BIRD SPRITE*/
             (()=>{
-                this.bird = new Sprite(
-                    [
-                        this.birdImage, /** FLYING */
-                    ], /** IMAGE */
-                    this.game, /** GAME */
-                    100, /** SPRITE WIDTH */
-                    135, /** SPRITE HEIGHT */
-                    this.game.height * 0.0015, /** SIZE X */
-                    this.game.height * 0.0015, /** SIZE Y */
-                    (this.game.canvas.width * 1.95), /** DESTINY X */
-                    (this.game.canvas.height * 0.5), /** DESTINY Y */
-                    5, /** MAX FRAME X */
-                    0, /** MAX FRAME Y */
-                    75, /** FRAME SPEED */
-                    0, /** ROTATION */
-                    false /** PLAYER CONTROL */
-                );
+                
+                for(let i = 0; i < this.fruits.length; i++){
+                    let currentBird = new Sprite(
+                        [
+                            this.birdImage, /** FLYING */
+                        ], /** IMAGE */
+                        this.game, /** GAME */
+                        100, /** SPRITE WIDTH */
+                        135, /** SPRITE HEIGHT */
+                        this.game.height * 0.0015, /** SIZE X */
+                        this.game.height * 0.0015, /** SIZE Y */
+                        this.birdsStartLocations[i].x, /** DESTINY X */
+                        (this.game.canvas.height * 0.5), /** DESTINY Y */
+                        5, /** MAX FRAME X */
+                        0, /** MAX FRAME Y */
+                        75, /** FRAME SPEED */
+                        0, /** ROTATION */
+                        false /** PLAYER CONTROL */
+                    );
+                    this.birds.push(currentBird);
+                }
+                
             })();
 
             /**BIRD TARGET FUNCTIONS*/
             (()=>{
                 this.birdCatched = false;
-                
-                /**DYNAMIC TARGET SETTING AND CHANGING */
-                (()=>{
-
-                    this.birdCurrentTarget = Math.floor(Math.random() * 9);
-
-                })();
 
             })();
 
@@ -1010,12 +1021,26 @@ export class Scene3 {
         /**ENEMY MOVEMENT AND CATCHING */
         (()=>{
 
-            /**DYNAMIC CHANGING TARGET WHEN MOVED TO BASKET */
-            if(this.fruitsInBasket.length < 9){
-                if(this.fruits[this.birdCurrentTarget].collidesWith(this.basket)){
-                    this.birdCurrentTarget = Math.floor(Math.random() * 9);
+
+            /**BIRD MOVEMENT */
+            (()=>{
+
+                if(this.startGame){
+                    for(let i = 0; i < this.fruits.length; i++){
+
+                        /**IF FRUIT IS NOT INSIDE BASKET, BIRD WILL REACH THE FRUIT */
+                        if(!this.fruits[i].collidesWith(this.basket)){
+                            this.birds[i].moveTo(this.fruitsLocations[i].x, (this.fruitsLocations[i].y - 125), 15);
+                        
+                        /**IF FRUIT IS INSIDE THE BASKET, BIRD WILL GO AWAY */
+                        } else {
+                            this.birds[i].moveTo(this.game.width * -1.5, this.birds[i].y, 15);
+                        }
+                    }
                 }
-            } 
+
+
+            })();
 
         })();
 
@@ -1255,7 +1280,9 @@ export class Scene3 {
             this.continueButton3.update(deltaTime);
             this.buttonFullScreen.update(deltaTime);
             this.keyboard.canType = false;
-            this.bird.update(deltaTime);
+            for(let i = 0; i < this.fruits.length; i++){
+                this.birds[i].update(deltaTime);
+            }
 
 
             if(this.startGame){
@@ -1413,8 +1440,12 @@ export class Scene3 {
 
             /**ENEMIES */
             (()=>{
-                if(this.startGame && this.bird.x > (this.game.width * 0.5)){
-                    this.bird.draw(ctx, 0);
+                for(let i = 0; i < this.fruits.length; i++){
+                    if(this.startGame &&
+                        this.birds[i].x > (this.game.width * 0.5) ||
+                        this.birds[i].x < (this.game.width * 0.1)){
+                         this.birds[i].draw(ctx, 0);
+                     }
                 }
 
             })();
@@ -1504,9 +1535,13 @@ export class Scene3 {
 
         /**ENEMIES */
         (()=>{
-            if(this.startGame && this.bird.x < (this.game.width * 0.5)){
-                this.bird.draw(ctx, 0);
-            }
+            for(let i = 0; i < this.fruits.length; i++){
+                if(this.startGame &&
+                    this.birds[i].x < (this.game.width * 0.5) &&
+                    this.birds[i].x > (this.game.width * 0.1)){
+                     this.birds[i].draw(ctx, 0);
+                 }
+            };
         })();
 
 
