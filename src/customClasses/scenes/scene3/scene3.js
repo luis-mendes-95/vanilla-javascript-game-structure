@@ -956,22 +956,11 @@ export class Scene3 {
         (()=>{
 
             this.birds = [];
-            this.birdsStartLocations = [
-                {x: this.game.width * 1.5, y: this.game.height * 0.5},
-                {x: this.game.width * 3, y: this.game.height * 0.5},
-                {x: this.game.width * 4.5, y: this.game.height * 0.5},
-                {x: this.game.width * 6, y: this.game.height * 0.5},
-                {x: this.game.width * 7.5, y: this.game.height * 0.5},
-                {x: this.game.width * 9, y: this.game.height * 0.5},
-                {x: this.game.width * 10.5, y: this.game.height * 0.5},
-                {x: this.game.width * 12, y: this.game.height * 0.5},
-                {x: this.game.width * 13.5, y: this.game.height * 0.5},
-            ];
 
             /**BIRD SPRITE*/
             (()=>{
                 
-                for(let i = 0; i < this.fruits.length; i++){
+                setInterval(() => {
                     let currentBird = new Sprite(
                         [
                             this.birdImage, /** FLYING */
@@ -981,7 +970,7 @@ export class Scene3 {
                         135, /** SPRITE HEIGHT */
                         this.game.height * 0.0015, /** SIZE X */
                         this.game.height * 0.0015, /** SIZE Y */
-                        this.birdsStartLocations[i].x, /** DESTINY X */
+                        (this.game.width * 1.5), /** DESTINY X */
                         (this.game.canvas.height * 0.5), /** DESTINY Y */
                         5, /** MAX FRAME X */
                         0, /** MAX FRAME Y */
@@ -990,14 +979,16 @@ export class Scene3 {
                         false /** PLAYER CONTROL */
                     );
                     this.birds.push(currentBird);
-                }
+                    console.log(this.birds);
+                }, 5000);
+                
                 
             })();
 
             /**BIRD TARGET FUNCTIONS*/
             (()=>{
                 this.birdCatched = false;
-
+                this.currentTarget = Math.floor(Math.random() * 9);
             })();
 
         })();
@@ -1025,19 +1016,55 @@ export class Scene3 {
             /**BIRD MOVEMENT */
             (()=>{
 
-                if(this.startGame){
-                    for(let i = 0; i < this.fruits.length; i++){
 
-                        /**IF FRUIT IS NOT INSIDE BASKET, BIRD WILL REACH THE FRUIT */
-                        if(!this.fruits[i].collidesWith(this.basket)){
-                            this.birds[i].moveTo(this.fruitsLocations[i].x, (this.fruitsLocations[i].y - 125), 15);
-                        
-                        /**IF FRUIT IS INSIDE THE BASKET, BIRD WILL GO AWAY */
+
+                if(this.currentTarget){
+                    this.isTargetValid = !this.fruits[this.currentTarget].collidesWith(this.basket);
+                }
+
+                this.trials = 0;
+
+                
+
+                if(!this.isTargetValid){
+
+                    this.trials += 1;
+
+                    if(this.fruits.every(fruit => fruit.collidesWith(this.basket))){
+                        this.currentTarget = null;
+                    } else {
+                        this.currentTarget = Math.floor(Math.random() * 9);
+                    }
+
+                    console.log(this.isTargetValid);
+                    
+                    console.log(this.trials)
+                    
+
+                }
+
+
+                if(this.trials > 30){
+                    this.currentTarget = null;
+                }
+
+
+                for(let i = 0; i < this.birds.length; i++){
+                    if(this.isTargetValid){
+                        this.birds[i].moveTo(this.fruits[this.currentTarget].x, this.fruits[this.currentTarget].y, 15);
+                    } else {
+                        if(this.currentTarget){
+                            this.birds[i].moveTo(this.fruits[this.currentTarget].x, this.fruits[this.currentTarget].y, 15);
                         } else {
-                            this.birds[i].moveTo(this.game.width * -1.5, this.birds[i].y, 15);
+                            this.birds[i].moveTo(this.game.width * -0.5, this.game.height * 0.5, 15);
+                        
                         }
                     }
+                    if(this.birds[i].x < this.game.width * -0.1){
+                        this.birds.splice(i, 1);
+                    }
                 }
+
 
 
             })();
@@ -1280,7 +1307,8 @@ export class Scene3 {
             this.continueButton3.update(deltaTime);
             this.buttonFullScreen.update(deltaTime);
             this.keyboard.canType = false;
-            for(let i = 0; i < this.fruits.length; i++){
+
+            for(let i = 0; i < this.birds.length; i++){
                 this.birds[i].update(deltaTime);
             }
 
@@ -1440,7 +1468,7 @@ export class Scene3 {
 
             /**ENEMIES */
             (()=>{
-                for(let i = 0; i < this.fruits.length; i++){
+                for(let i = 0; i < this.birds.length; i++){
                     if(this.startGame &&
                         this.birds[i].x > (this.game.width * 0.5) ||
                         this.birds[i].x < (this.game.width * 0.1)){
@@ -1535,7 +1563,7 @@ export class Scene3 {
 
         /**ENEMIES */
         (()=>{
-            for(let i = 0; i < this.fruits.length; i++){
+            for(let i = 0; i < this.birds.length; i++){
                 if(this.startGame &&
                     this.birds[i].x < (this.game.width * 0.5) &&
                     this.birds[i].x > (this.game.width * 0.1)){
