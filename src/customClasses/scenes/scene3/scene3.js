@@ -985,7 +985,7 @@ export class Scene3 {
                         );
                         this.birds.push(currentBird);
                     }
-                }, 5000);
+                }, 2000);
                 
                 
             })();
@@ -1109,6 +1109,7 @@ export class Scene3 {
                     if(this.correctAnswer){
 
                         if(this.enterNextScene){
+                            this.birds.splice(0, this.birds.length);
                             this.imageAkemiCorrect.fadeOut(0.01);
                             this.dialogueBox4.fadeOut(0.01);
                             this.continueButton3.moveTo(this.game.width * 1, this.game.height * 1.155, (this.game.speed * 0.15));
@@ -1300,10 +1301,19 @@ export class Scene3 {
                         if(this.fruitsInBasket.length === parseInt(this.keyboard.currentInput) &&
                             this.fruitsInBasket.length === this.fruitsToDrag){
                             this.correctAnswer = true;
+
+
                         } else {
                             this.wrongAnswer = true;
                             this.showKeyboard = false;
+
+                            
                         }
+
+                        this.startGame = false;
+                        this.birds.splice(0, this.birds.length);
+
+
                         
                     }
                 }
@@ -1365,9 +1375,14 @@ export class Scene3 {
 
             /**FRUITS*/
             (()=>{
-                if(this.startGame && !this.showKeyboard){
+                if(this.startGame){
                     for(let i = 0; i < this.fruits.length; i++){
                         this.fruits[i].update(deltaTime);
+                        this.fruits[i].draggable = true;
+                    }
+                } else {
+                    for(let i = 0; i < this.fruits.length; i++){
+                        this.fruits[i].draggable = false;
                     }
                 }
             })();
@@ -1621,6 +1636,7 @@ export class Scene3 {
     restart(){
         this.fruitsInBasket = [];
         this.keyboard.currentInput = "";
+        this.birds.splice(0, this.birds.length);
 
         setTimeout(() => {
             this.correctAnswer = false;
