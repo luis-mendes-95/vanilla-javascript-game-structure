@@ -1013,6 +1013,10 @@ export class Scene3 {
             /**BIRD MOVEMENT */
             (()=>{
 
+                if(this.fruits[this.currentTarget].isGrabbed){
+                    this.currentTarget = Math.floor(Math.random() * 9);
+                }
+
                 if(!this.protectFruit){
                     this.protectFruit = false;
                 }
@@ -1020,10 +1024,33 @@ export class Scene3 {
 
                for(let i = 0; i < this.birds.length; i++){
 
+                /**IF CURRENT TARGET FRUIT NOT COLLIDING WITH BASKET */
                 if(!this.fruits[this.currentTarget].collidesWith(this.basket) &&
                    this.birds[i].x > this.game.width * 0.2 &&
                    !this.protectFruit){
-                    this.birds[i].moveTo(this.fruits[this.currentTarget].x, (this.fruits[this.currentTarget].y - 125), 10);
+
+
+
+
+                    if(this.birds[i].collidesWith(this.fruits[this.currentTarget] && !this.protectFruit)){
+                        
+                        this.fruits[this.currentTarget].draggedRight = true;
+                        this.fruits[this.currentTarget].moveTo(this.birds[i].x, this.birds[i].y + 125, 15);
+
+                    } else {
+
+                        if(!this.currentTarget.draggedRight){
+                            this.birds[i].moveTo(this.fruits[this.currentTarget].x, (this.fruits[this.currentTarget].y - 125), 10);
+                            
+                        } else {
+                            this.birds[i].moveTo(this.game.width * -0.5, this.game.canvas.height * 0.2, 15);
+                            console.log("to aqui ?");
+                        }
+
+
+                    }
+
+
                 } else {
                     this.currentTarget = Math.floor(Math.random() * 9);
                     this.birds[i].moveTo(this.game.width * -0.5, this.game.canvas.height * 0.2, 15);
@@ -1031,7 +1058,7 @@ export class Scene3 {
                 
 
 
-                    
+                    /**IF BIRD GO AWAY FROM CANVAS, IT WILL BE DELETED */
                     if(this.birds[i].x < this.game.width * -0.1){
                         this.birds.splice(i, 1);
                     }
