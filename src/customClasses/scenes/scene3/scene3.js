@@ -992,7 +992,7 @@ export class Scene3 {
 
             /**BIRD TARGET FUNCTIONS*/
             (()=>{
-                this.birdCatched = false;
+                this.birdPunched= false;
 
                 /**NUMBER BETWEEN 0 AND 8 */
                 this.currentTarget = Math.floor(Math.random() * 9);
@@ -1013,7 +1013,9 @@ export class Scene3 {
             /**BIRD MOVEMENT */
             (()=>{
 
-                if(this.fruits[this.currentTarget].isGrabbed){
+                if(this.fruits[this.currentTarget].isGrabbed ||
+                   this.fruits[this.currentTarget].collidesWith(this.basket) ||
+                   this.fruits[this.currentTarget].x < 0 - this.fruits[this.currentTarget].width ){
                     this.currentTarget = Math.floor(Math.random() * 9);
                 }
 
@@ -1025,48 +1027,42 @@ export class Scene3 {
                for(let i = 0; i < this.birds.length; i++){
 
                 /**IF CURRENT TARGET FRUIT NOT COLLIDING WITH BASKET */
-                if(!this.fruits[this.currentTarget].collidesWith(this.basket) &&
-                   this.birds[i].x > this.game.width * 0.2 &&
-                   !this.protectFruit){
+                if(!this.fruits[this.currentTarget].collidesWith(this.basket) && !this.birdPunched){
 
+                    this.birds[i].moveTo(this.game.width * -0.5, this.fruitsLocations[this.currentTarget].y - 125, 10);
 
-
-
-                    if(this.birds[i].collidesWith(this.fruits[this.currentTarget] && !this.protectFruit)){
-                        
+                    if(this.birds[i].collidesWith(this.fruits[this.currentTarget])){
                         this.fruits[this.currentTarget].draggedRight = true;
-                        this.fruits[this.currentTarget].moveTo(this.birds[i].x, this.birds[i].y + 125, 15);
-
-                    } else {
-
-                        if(!this.currentTarget.draggedRight){
-                            this.birds[i].moveTo(this.fruits[this.currentTarget].x, (this.fruits[this.currentTarget].y - 125), 10);
-                            
-                        } else {
-                            this.birds[i].moveTo(this.game.width * -0.5, this.game.canvas.height * 0.2, 15);
-                            console.log("to aqui ?");
-                        }
-
-
+                        this.fruits[this.currentTarget].moveTo(this.birds[i].x, this.birds[i].y + 125, 10);
                     }
-
-
-                } else {
-                    this.currentTarget = Math.floor(Math.random() * 9);
-                    this.birds[i].moveTo(this.game.width * -0.5, this.game.canvas.height * 0.2, 15);
-                }
-                
-
 
                     /**IF BIRD GO AWAY FROM CANVAS, IT WILL BE DELETED */
                     if(this.birds[i].x < this.game.width * -0.1){
                         this.birds.splice(i, 1);
+                        this.currentTarget = Math.floor(Math.random() * 9);
                     }
+                } else {
+                    this.birds[i].moveTo(this.game.width * -0.5, this.game.height * 0.2 - 125, 10);
                 }
+            
+               };
 
 
 
             })();
+
+        })();
+
+        /**FRUITS RETURNING TO ITS PLACES */
+        (()=>{
+
+            for(let i = 0; i < this.fruits.length; i++){
+                if(this.birds[0]){
+                    if(this.fruits[i].draggedRight && !this.birds[0].collidesWith(this.fruits[i]) && !this.fruits[i].collidesWith(this.basket) && this.fruits[i].x > 0 + this.fruits[i].width){
+                        this.fruits[i].draggedRight = false;
+                    }
+                }
+            }
 
         })();
 
@@ -1203,11 +1199,32 @@ export class Scene3 {
             (()=>{
                 for(let i = 0; i < this.birds.length; i++){
                     if(this.birds[i].isMouseClicking() && !this.game.isDraggingImage || this.birds[i].isTouchOver() && !this.game.isDraggingImage){
-                        this.protectFruit = true;
-                        console.log("dae truta")
+
+                        this.birdPunched = true;
                         setTimeout(() => {
-                            this.protectFruit = false;
-                        }, 1500);
+                            this.birdPunched = false;
+                        }, 2000);
+
+                        for(let j = 0; j < this.fruits.length; j++){
+                            if(this.fruits[j].collidesWith(this.birds[i])){
+                                this.fruits[this.currentTarget].draggedRight = false;
+                                this.protectFruit = true;
+                                
+                                setTimeout(() => {
+                                    this.protectFruit = false;
+                                }, 1500);
+                            }
+                        }
+
+                    }
+                }
+            })();
+
+            /**FRUITS CLICKING */
+            (()=>{
+                for(let i = 0; i < this.fruits.length; i++){
+                    if(this.fruits[i].isMouseClicking() && !this.game.isDraggingImage || this.fruits[i].isTouchOver() && !this.game.isDraggingImage){
+                        this.fruits[i].draggedRight = false;
                     }
                 }
             })();
