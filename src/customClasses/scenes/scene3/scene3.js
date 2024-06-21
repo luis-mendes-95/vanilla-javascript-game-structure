@@ -1416,7 +1416,7 @@ export class Scene3 {
             (()=>{
                 if(this.restartButton.isTouchOver() || this.restartButton.isMouseClicking()){
                     //this.game.input.mouse.clicked = false;
-                    //this.game.input.touches = [];
+                    this.game.input.touches = [];
                     this.restart();
                 }
             })();
