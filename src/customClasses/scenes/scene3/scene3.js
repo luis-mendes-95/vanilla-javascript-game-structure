@@ -1138,6 +1138,7 @@ export class Scene3 {
                     if(!this.stolenFruits.includes(this.fruits[i])){
                         this.stolenFruits.push(this.fruits[i]);
                         
+                        
                         if(this.stoleLimit === 0) {
                             console.log("aparece Joaninha do caralho")
                             this.fruitsStolen = true;
@@ -1232,6 +1233,7 @@ export class Scene3 {
                         this.restartButton.moveTo(this.game.width * 0.8, this.game.height * 0.8, (this.game.speed * 0.15));
                         this.confirmButton.moveTo(this.game.width * 0.79, this.game.height * 1.155, (this.game.speed * 0.15));
                     } else if (this.fruitsStolen){
+                        this.showKeyboard = false;
                         this.birds.splice(0, this.birds.length);
                         this.imageLadybugStolen.fadeIn(0.01); /**JOANINHA */
                         this.dialogueBoxStolen.fadeIn(0.01); /**DIALOGO JOANINHA */
@@ -1414,8 +1416,8 @@ export class Scene3 {
             /**RESTART BUTTON */
             (()=>{
                 if(this.restartButton.isTouchOver() || this.restartButton.isMouseClicking()){
-                    this.game.input.mouse.clicked = false;
-                    this.game.input.touches = [];
+                    //this.game.input.mouse.clicked = false;
+                    //this.game.input.touches = [];
                     this.restart();
                 }
             })();
@@ -1461,7 +1463,7 @@ export class Scene3 {
 
             }
 
-            if(this.wrongAnswer){
+            if(this.wrongAnswer || this.fruitsStolen){
                 this.restartButton.update();
             }
 
@@ -1728,22 +1730,34 @@ export class Scene3 {
     }
 
     restart(){
+        
         this.fruitsInBasket = [];
         this.keyboard.currentInput = "";
+        this.showKeyboard = false;
         this.birds.splice(0, this.birds.length);
 
+
+
+
+
         setTimeout(() => {
+
+            this.stolenFruits = [];
+
+            /**RETURN BASKET FRUITS TO THE TREE */
+            for(let i = 0; i < this.fruits.length; i++){
+                this.fruits[i].dropped = false;
+                this.fruits[i].draggedRight = false;
+            }
+
             this.correctAnswer = false;
             this.wrongAnswer = false;
             this.fruitsStolen = false;
-            this.stolenFruits = [];
+
+
         }, 500);
 
-        /**RETURN BASKET FRUITS TO THE TREE */
-        for(let i = 0; i < this.fruits.length; i++){
-            this.fruits[i].dropped = false;
-            this.fruits[i].draggedRight = false;
-        }
+
     }
 
     createFruit(fruit, x, y){
