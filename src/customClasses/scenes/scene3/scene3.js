@@ -97,6 +97,8 @@ export class Scene3 {
             this.figuresArea = document.getElementById('figuresArea');
             /**ENEMY -> BIRD */
             this.birdImage = document.getElementById('bird');
+            /**LADYBIRD */
+            this.ladybird = document.getElementById('ladybird');
 
             /**SCORES */
             (()=>{
@@ -352,6 +354,29 @@ export class Scene3 {
                     null, /**TEXTS ALIGN -> ROW OR COLUMN */
                 );
 
+                
+                /**AKEMI WRONG ANSWER */
+                this.imageLadybugStolen = new Image(
+                    this.game, /**GAME */
+                    (this.game.width * 0.0), /**X */
+                    (this.height * 0.165), /**Y */
+                    (this.game.width * 0.34), /**WIDTH */
+                    (this.game.height * 0.84), /**HEIGHT */
+                    0, /**ROTATION */
+                    this.ladybird,  /**IMAGE */
+                    0, /**OPACITY */
+                    null, /**TEXT */
+                    (this.height * 0.1), /**TEXT SPACING */
+                    "font1942", /**TEXT FONT */
+                    "bold", /**FONT WEIGHT */
+                    (this.game.height * 0.5), /**FONT SIZE */
+                    (this.game.width * 0.365), /**TEXT X */
+                    (this.height * 1.50), /**TEXT Y */
+                    "black", /**TEXT COLOR */
+                    false, /**MOUSE HOVER */
+                    null, /**TEXTS ALIGN -> ROW OR COLUMN */
+                );
+
             })();
 
             /**BASKET */
@@ -575,6 +600,38 @@ export class Scene3 {
                         ``,
                         `                PARABÉNS, ${this.game.playerName}!`,
                         `                      VOCÊ PEGOU TODAS AS FRUTAS NA QUANTIDADE CERTA!    `,
+                    ], /**TEXT */
+                    (this.height * 0.1), /**TEXT SPACING */
+                    "patrickHand", /**TEXT FONT */
+                    "bold", /**FONT WEIGHT */
+                    (this.game.height * 0.04), /**FONT SIZE */
+                    (this.game.width * 0.365), /**TEXT X */
+                    (this.height * 1.50), /**TEXT Y */
+                    "black", /**TEXT COLOR */
+                    false, /**MOUSE HOVER */
+                    "column", /**TEXTS ALIGN -> ROW OR COLUMN */
+                    null, /**UNIQUE TEXT */
+                    null, /**UNIQUE TEXT X */
+                    null, /**UNIQUE TEXT Y */
+                    false, /**TEXT CURSOR VISIBLE */
+                    0, /**TEXT OFFSET X */
+                    -15, /**TEXT OFFSET Y */
+                );
+
+                /**DIALOGUE BOX 3 */
+                this.dialogueBoxStolen = new Image(
+                    this.game, /**GAME */
+                    (this.game.width * 0.3), /**X */
+                    (this.height * 0.28), /**Y */
+                    (this.game.width * 0.30), /**WIDTH */
+                    (this.game.height * 0.35), /**HEIGHT */
+                    0, /**ROTATION */
+                    this.dialogueBox,  /**IMAGE */
+                    0, /**OPACITY */
+                    [
+                        ``,
+                        `                   OS PÁSSAROS ROUBARAM AS FRUTAS!`,
+                        `                   PARA AFUGENTÁ-LOS, CLIQUE SOBRE ELES!  `,
                     ], /**TEXT */
                     (this.height * 0.1), /**TEXT SPACING */
                     "patrickHand", /**TEXT FONT */
@@ -1114,6 +1171,11 @@ export class Scene3 {
                 } else {
                     this.dialogueBox1.fadeOut(0.01);
                     this.dialogueBox2.fadeOut(0.01);
+
+                    if(!this.fruitsStolen){
+                        this.dialogueBoxStolen.fadeOut(0.01);
+                        this.imageLadybugStolen.fadeOut(0.01);
+                    }
                     
                     this.continueButton1.moveTo(this.game.width * 1, this.game.height * 1.155, (this.game.speed * 0.15));
                     this.continueButton2.moveTo(this.game.width * 1, this.game.height * 1.155, (this.game.speed * 0.15));
@@ -1171,8 +1233,8 @@ export class Scene3 {
                         this.confirmButton.moveTo(this.game.width * 0.79, this.game.height * 1.155, (this.game.speed * 0.15));
                     } else if (this.fruitsStolen){
                         this.birds.splice(0, this.birds.length);
-                        this.imageAkemiWrong.fadeIn(0.01); /**JOANINHA */
-                        this.dialogueBox3.fadeIn(0.01); /**DIALOGO JOANINHA */
+                        this.imageLadybugStolen.fadeIn(0.01); /**JOANINHA */
+                        this.dialogueBoxStolen.fadeIn(0.01); /**DIALOGO JOANINHA */
                         this.restartButton.moveTo(this.game.width * 0.8, this.game.height * 0.8, (this.game.speed * 0.15));
                         this.confirmButton.moveTo(this.game.width * 0.79, this.game.height * 1.155, (this.game.speed * 0.15));
                     } else {
@@ -1623,6 +1685,7 @@ export class Scene3 {
             this.imageAkemi.draw(ctx, 0);
             this.imageAkemiCorrect.draw(ctx, 0);
             this.imageAkemiWrong.draw(ctx, 0);
+            this.imageLadybugStolen.draw(ctx, 0);
         })();
 
         /**DIALOGUE BOXES DRAWING*/
@@ -1631,6 +1694,7 @@ export class Scene3 {
             this.dialogueBox2.draw(ctx, 0);
             this.dialogueBox3.draw(ctx, 0);
             this.dialogueBox4.draw(ctx, 0);
+            this.dialogueBoxStolen.draw(ctx, 0);
         })();
 
         /**KEYBOARD DRAWING */
