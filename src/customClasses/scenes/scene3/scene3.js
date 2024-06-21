@@ -961,25 +961,30 @@ export class Scene3 {
             (()=>{
                 
                 setInterval(() => {
-                    let currentBird = new Sprite(
-                        [
-                            this.birdImage, /** FLYING */
-                        ], /** IMAGE */
-                        this.game, /** GAME */
-                        100, /** SPRITE WIDTH */
-                        135, /** SPRITE HEIGHT */
-                        this.game.height * 0.0015, /** SIZE X */
-                        this.game.height * 0.0015, /** SIZE Y */
-                        (this.game.width * 1.5), /** DESTINY X */
-                        (this.game.canvas.height * 0.5), /** DESTINY Y */
-                        5, /** MAX FRAME X */
-                        0, /** MAX FRAME Y */
-                        75, /** FRAME SPEED */
-                        0, /** ROTATION */
-                        false /** PLAYER CONTROL */
-                    );
-                    this.birds.push(currentBird);
-                    console.log(this.birds);
+                    if(this.birds.length === 0 && this.startGame){
+                        let currentBird = new Sprite(
+                            [
+                                this.birdImage, /** FLYING */
+                            ], /** IMAGE */
+                            this.game, /** GAME */
+                            100, /** SPRITE WIDTH */
+                            135, /** SPRITE HEIGHT */
+                            this.game.height * 0.0015, /** SIZE X */
+                            this.game.height * 0.0015, /** SIZE Y */
+                            (this.game.width * 1.5), /** DESTINY X */
+                            (this.game.canvas.height * 0.5), /** DESTINY Y */
+                            5, /** MAX FRAME X */
+                            0, /** MAX FRAME Y */
+                            75, /** FRAME SPEED */
+                            0, /** ROTATION */
+                            false, /** PLAYER CONTROL */
+                            true, /** MOUSE HOVER */
+                            0, /**HOVER SCALE */
+                            0, /**SCALE TO HOVER */
+                            0, /**SCALE SPEED */
+                        );
+                        this.birds.push(currentBird);
+                    }
                 }, 5000);
                 
                 
@@ -988,6 +993,8 @@ export class Scene3 {
             /**BIRD TARGET FUNCTIONS*/
             (()=>{
                 this.birdCatched = false;
+
+                /**NUMBER BETWEEN 0 AND 8 */
                 this.currentTarget = Math.floor(Math.random() * 9);
             })();
 
@@ -995,17 +1002,7 @@ export class Scene3 {
 
     }
 
-    handleFullScreenClick() {
-        this.game.toggleFullScreen();
-        window.removeEventListener('click', this.handleFullScreenClick);
-        this.game.input.mouse.clicked = false;
-    }
 
-    handleFullScreenTouchEnd() {
-        this.game.toggleFullScreen();
-        window.removeEventListener('touchend', this.handleFullScreenTouchEnd);
-        this.game.input.mouse.clicked = false;
-    }
 
     update(deltaTime) {
 
@@ -1016,50 +1013,25 @@ export class Scene3 {
             /**BIRD MOVEMENT */
             (()=>{
 
-
-
-                if(this.currentTarget){
-                    this.isTargetValid = !this.fruits[this.currentTarget].collidesWith(this.basket);
+                if(!this.protectFruit){
+                    this.protectFruit = false;
                 }
 
-                this.trials = 0;
 
+               for(let i = 0; i < this.birds.length; i++){
+
+                if(!this.fruits[this.currentTarget].collidesWith(this.basket) &&
+                   this.birds[i].x > this.game.width * 0.2 &&
+                   !this.protectFruit){
+                    this.birds[i].moveTo(this.fruits[this.currentTarget].x, (this.fruits[this.currentTarget].y - 125), 10);
+                } else {
+                    this.currentTarget = Math.floor(Math.random() * 9);
+                    this.birds[i].moveTo(this.game.width * -0.5, this.game.canvas.height * 0.2, 15);
+                }
                 
 
-                if(!this.isTargetValid){
 
-                    this.trials += 1;
-
-                    if(this.fruits.every(fruit => fruit.collidesWith(this.basket))){
-                        this.currentTarget = null;
-                    } else {
-                        this.currentTarget = Math.floor(Math.random() * 9);
-                    }
-
-                    console.log(this.isTargetValid);
                     
-                    console.log(this.trials)
-                    
-
-                }
-
-
-                if(this.trials > 30){
-                    this.currentTarget = null;
-                }
-
-
-                for(let i = 0; i < this.birds.length; i++){
-                    if(this.isTargetValid){
-                        this.birds[i].moveTo(this.fruits[this.currentTarget].x, this.fruits[this.currentTarget].y, 15);
-                    } else {
-                        if(this.currentTarget){
-                            this.birds[i].moveTo(this.fruits[this.currentTarget].x, this.fruits[this.currentTarget].y, 15);
-                        } else {
-                            this.birds[i].moveTo(this.game.width * -0.5, this.game.height * 0.5, 15);
-                        
-                        }
-                    }
                     if(this.birds[i].x < this.game.width * -0.1){
                         this.birds.splice(i, 1);
                     }
@@ -1200,6 +1172,19 @@ export class Scene3 {
         /** HANDLE CLICKS */
         (() => {
 
+            /**ENEMY CLICK */
+            (()=>{
+                for(let i = 0; i < this.birds.length; i++){
+                    if(this.birds[i].isMouseClicking() && !this.game.isDraggingImage || this.birds[i].isTouchOver() && !this.game.isDraggingImage){
+                        this.protectFruit = true;
+                        console.log("dae truta")
+                        setTimeout(() => {
+                            this.protectFruit = false;
+                        }, 1500);
+                    }
+                }
+            })();
+
             /**CONTINUE BUTTON 1 */
             (()=>{
                 if(this.continueButton1.isMouseClicking() || this.continueButton1.isTouchOver()){
@@ -1307,10 +1292,15 @@ export class Scene3 {
             this.continueButton3.update(deltaTime);
             this.buttonFullScreen.update(deltaTime);
             this.keyboard.canType = false;
+            
+            /**BIRDS */
+            (()=>{
+                for(let i = 0; i < this.birds.length; i++){
+                    this.birds[i].update(deltaTime);
+                };
+            })();
 
-            for(let i = 0; i < this.birds.length; i++){
-                this.birds[i].update(deltaTime);
-            }
+
 
 
             if(this.startGame){
@@ -1637,6 +1627,18 @@ export class Scene3 {
         this.fruits.push(currentFruit);
 
         return currentFruit;
+    }
+
+    handleFullScreenClick() {
+        this.game.toggleFullScreen();
+        window.removeEventListener('click', this.handleFullScreenClick);
+        this.game.input.mouse.clicked = false;
+    }
+
+    handleFullScreenTouchEnd() {
+        this.game.toggleFullScreen();
+        window.removeEventListener('touchend', this.handleFullScreenTouchEnd);
+        this.game.input.mouse.clicked = false;
     }
 
 
