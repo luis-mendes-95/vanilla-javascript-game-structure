@@ -1439,6 +1439,7 @@ export class Scene3 {
             this.continueButton2.update(deltaTime);
             this.continueButton3.update(deltaTime);
             this.buttonFullScreen.update(deltaTime);
+            this.restartButton.update();
             this.keyboard.canType = false;
             
             /**BIRDS */
@@ -1461,10 +1462,6 @@ export class Scene3 {
                 this.buttonHideKeyboard.update(deltaTime);
                 this.keyboard.update(deltaTime);
 
-            }
-
-            if(this.wrongAnswer || this.fruitsStolen){
-                this.restartButton.update();
             }
 
             /**FRUITS*/
@@ -1749,6 +1746,10 @@ export class Scene3 {
 
 
 
+
+
+
+
         setTimeout(() => {
 
             this.stolenFruits = [];
@@ -1762,7 +1763,6 @@ export class Scene3 {
             this.correctAnswer = false;
             this.wrongAnswer = false;
             this.fruitsStolen = false;
-
 
         }, 500);
 
