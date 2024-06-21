@@ -27,6 +27,7 @@ export class Scene3 {
             /**ANSWERS*/
             this.correctAnswer = false;
             this.wrongAnswer = false;
+            this.stolenFruits = false;
 
             /**KEYBOARD CONTROL */
             this.showKeyboard = false;
@@ -1066,6 +1067,29 @@ export class Scene3 {
 
         })();
 
+        /**IN THE CASE BIRD STOLE ENOUGH FRUITS TO LOSE */
+        (()=>{
+            if(!this.stolenFruits){
+                this.stolenFruits = [];
+            }
+            this.stoleLimit = (this.fruits.length - this.fruitsToDrag) - this.stolenFruits.length;
+            
+
+            for(let i = 0; i < this.fruits.length; i++){
+                if(this.fruits[i].x < -50) {
+                    
+                    if(!this.stolenFruits.includes(this.fruits[i])){
+                        this.stolenFruits.push(this.fruits[i]);
+                        
+                        if(this.stoleLimit === 0) {
+                            console.log("aparece Joaninha do caralho")
+                            this.fruitsStolen = true;
+                        }
+                    }
+                }
+            }
+        })();
+
 
         /** ELEMENTS APPEARING | ELEMENTS DISAPPEARING */
         (() => {
@@ -1143,6 +1167,12 @@ export class Scene3 {
                     } else if (this.wrongAnswer){
                         this.imageAkemiWrong.fadeIn(0.01);
                         this.dialogueBox3.fadeIn(0.01);
+                        this.restartButton.moveTo(this.game.width * 0.8, this.game.height * 0.8, (this.game.speed * 0.15));
+                        this.confirmButton.moveTo(this.game.width * 0.79, this.game.height * 1.155, (this.game.speed * 0.15));
+                    } else if (this.fruitsStolen){
+                        this.birds.splice(0, this.birds.length);
+                        this.imageAkemiWrong.fadeIn(0.01); /**JOANINHA */
+                        this.dialogueBox3.fadeIn(0.01); /**DIALOGO JOANINHA */
                         this.restartButton.moveTo(this.game.width * 0.8, this.game.height * 0.8, (this.game.speed * 0.15));
                         this.confirmButton.moveTo(this.game.width * 0.79, this.game.height * 1.155, (this.game.speed * 0.15));
                     } else {
@@ -1641,6 +1671,8 @@ export class Scene3 {
         setTimeout(() => {
             this.correctAnswer = false;
             this.wrongAnswer = false;
+            this.fruitsStolen = false;
+            this.stolenFruits = [];
         }, 500);
 
         /**RETURN BASKET FRUITS TO THE TREE */
