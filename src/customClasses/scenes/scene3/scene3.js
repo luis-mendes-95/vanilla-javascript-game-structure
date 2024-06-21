@@ -1140,7 +1140,6 @@ export class Scene3 {
                         
                         
                         if(this.stoleLimit === 0) {
-                            console.log("aparece Joaninha do caralho")
                             this.fruitsStolen = true;
                         }
                     }
@@ -1469,7 +1468,7 @@ export class Scene3 {
 
             /**FRUITS*/
             (()=>{
-                if(this.startGame){
+                if(this.startGame && !this.fruitsStolen && !this.correctAnswer && !this.wrongAnswer){
                     for(let i = 0; i < this.fruits.length; i++){
                         this.fruits[i].update(deltaTime);
                         this.fruits[i].draggable = true;
@@ -1621,6 +1620,13 @@ export class Scene3 {
 
             })();
 
+            /**TREE FRUITS */
+            for(let i = 0; i < this.fruits.length; i++){
+                if(this.fruits[i].x < (this.game.width * 0.2)){
+                    this.fruits[i].draw(ctx, 0);
+                }
+            }
+
             this.background.draw(this.game.ctx, 0);
             this.nextBackground.draw(this.game.ctx, 0);
 
@@ -1671,7 +1677,9 @@ export class Scene3 {
 
             /**TREE FRUITS */
             for(let i = 0; i < this.fruits.length; i++){
-                this.fruits[i].draw(ctx, 0);
+                if(this.fruits[i].x > (this.game.width * 0.2)){
+                    this.fruits[i].draw(ctx, 0);
+                }
             }
 
             /**FRUITS TO CATCH INDICATOR */
