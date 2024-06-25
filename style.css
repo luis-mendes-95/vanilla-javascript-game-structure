@@ -28,6 +28,25 @@ body{
     user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
 }
 
-.character, .background, .dialogue, .audio, .button, .logo, .akemi, .title, .buttons, .butterflies, .clouds, .dialogueBox, .namepanel, .difficultyPanel, .box, .ridden {
+.character,
+.ladybird,
+.background,
+.fruits,
+.nature,
+.dialogue,
+.audio,
+.button,
+.logo,
+.akemi,
+.title,
+.buttons,
+.butterflies,
+.clouds,
+.dialogueBox,
+.namepanel,
+.difficultyPanel,
+.box,
+.ridden,
+.enemies {
     display: none;
 }

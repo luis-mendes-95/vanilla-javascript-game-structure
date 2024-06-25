@@ -1,5 +1,5 @@
 import { Hud } from "../../../engine/hud/hud.js";
-import { Image } from "../../../engine/hud/image/image.js";
+import { Image } from "../../../engine/image/image.js";
 import { Text } from "../../../engine/hud/text/text.js";
 
 export class thisGameHUD extends Hud {

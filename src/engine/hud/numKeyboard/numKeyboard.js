@@ -1,28 +1,28 @@
-export class Keyboard {
+// /src/NumericKeyboard.js
+
+export class NumericKeyboard {
     constructor(game, x, y, font, maxLength) {
-        this.font = font;
         this.game = game;
         this.ctx = game.ctx;
+        this.font = font;
         this.maxLength = maxLength;
         this.keys = [
-            ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
-            ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
-            ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Ç'],
-            ['Z', 'X', 'C', 'V', 'B', 'N', 'M', '←'],
-            [' ']
+            ['7', '8', '9'],
+            ['4', '5', '6'],
+            ['1', '2', '3'],
+            ['0', '←']
         ];
         this.currentInput = "";
         const screenWidth = game.canvas.width;
-        this.keyWidth = screenWidth * 0.075;
+        this.keyWidth = screenWidth * 0.1;
         this.keyHeight = this.keyWidth;
-        this.spaceBarWidth = this.keyWidth * 5;
-        this.backspaceWidth = this.keyWidth;
-        this.margin = screenWidth * 0.005;
+        this.margin = screenWidth * 0.01;
         this.startX = x;
         this.startY = y;
         this.opacity = 0.9;
         this.initEventListeners();
         this.canType = true;
+        this.backspaceWidth = this.keyWidth;
     }
 
     initEventListeners() {
@@ -35,8 +35,8 @@ export class Keyboard {
         if (this.canType) {
             if (e.key === 'Backspace') {
                 this.currentInput = this.currentInput.slice(0, -1);
-            } else if ((e.key === ' ' || e.key.length === 1) && this.currentInput.length < this.maxLength) {
-                this.currentInput += e.key.toUpperCase();
+            } else if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].includes(e.key) && this.currentInput.length < this.maxLength) {
+                this.currentInput += e.key;
             }
             this.draw();
         }
@@ -61,17 +61,17 @@ export class Keyboard {
 
     processInput(x, y) {
         let yOffset = 0;
-    
-        this.keys.forEach((row, rowIndex) => {
+
+        this.keys.forEach((row) => {
             let xOffset = 0;
-            row.forEach((key, keyIndex) => {
-                const width = key === ' ' ? this.spaceBarWidth : key === '←' ? this.backspaceWidth : this.keyWidth;
+            row.forEach((key) => {
+                const width = this.keyWidth;
                 const keyX = this.startX + xOffset;
                 const keyY = this.startY + yOffset;
                 if (x > keyX && x < keyX + width && y > keyY && y < keyY + this.keyHeight) {
                     if (key === '←') {
                         this.currentInput = this.currentInput.slice(0, -1);
-                    } else if ((key === ' ' || key.length === 1) && this.currentInput.length < this.maxLength) {
+                    } else if (key.length === 1 && this.currentInput.length < this.maxLength) {
                         this.currentInput += key;
                     }
                     this.draw();
@@ -89,6 +89,7 @@ export class Keyboard {
 
     }
 
+
     draw() {
         const canvasWidth = this.ctx.canvas.width;
 
@@ -102,7 +103,7 @@ export class Keyboard {
 
         for (let row of this.keys) {
             for (let key of row) {
-                let keyWidth = key === ' ' ? this.spaceBarWidth : this.keyWidth;
+                let keyWidth = this.keyWidth;
                 if (this.isMouseOver(this.game.input.mouse, row, key) || this.isTouchOver(this.game.input.touches, row, key)) {
                     this.ctx.fillStyle = `rgba(200, 200, 0, 1)`;
                 } else {
@@ -119,6 +120,7 @@ export class Keyboard {
 
         this.ctx.restore();
     }
+
 
     moveTo(x, y, speed) {
         if (this.startX < x) {
@@ -159,7 +161,7 @@ export class Keyboard {
         for (let i = 0; i < this.keys.length; i++) {
             let xOffset = 0;
             for (let j = 0; j < this.keys[i].length; j++) {
-                const width = this.keys[i][j] === ' ' ? this.spaceBarWidth : this.keys[i][j] === '←' ? this.backspaceWidth : this.keyWidth;
+                const width = this.keys[i][j] === ' ' ? this.backspaceWidth : this.keys[i][j] === '←' ? this.backspaceWidth : this.keyWidth;
                 const keyX = this.startX + xOffset;
                 const keyY = this.startY + yOffset;
                 if (mouse.x >= keyX && mouse.x <= keyX + width && mouse.y >= keyY && mouse.y <= keyY + this.keyHeight) {

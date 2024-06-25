@@ -5,7 +5,7 @@
  */
 
 export class Sprite {
-  constructor(images, game, spriteWidth, SpriteHeight, sizeX, sizeY, dx, dy, maxFrameX, maxFrameY, frameSpeed, rotation, playerControl) {
+  constructor(images, game, spriteWidth, SpriteHeight, sizeX, sizeY, dx, dy, maxFrameX, maxFrameY, frameSpeed, rotation, playerControl, mouseHover, hoverScale, scaleToHover, scaleSpeed) {
 
     this.game = game;
     this.images = images;
@@ -30,6 +30,14 @@ export class Sprite {
     this.maxFrameX = maxFrameX;
     this.maxFrameY = maxFrameY;
 
+    this.x = this.dw;
+    this.y = this.dh;
+
+    this.mouseHover = mouseHover;
+    this.hoverScale = hoverScale || false;
+    this.scaleToHover = scaleToHover || 1.1;
+    this.scaleSpeed = scaleSpeed || 0.01;
+
 
 
     this.sizeX = sizeX;
@@ -50,8 +58,13 @@ export class Sprite {
 
   update(deltaTime){
 
+    this.mouseHovering();
+    this.isMouseClicking();
+
     this.x = this.dw;
     this.y = this.dh;
+
+
     
     this.width =  this.spriteWidth * this.sizeX;
     this.height = this.spriteHeight * this.sizeY;
@@ -179,6 +192,97 @@ export class Sprite {
   isOnGround() {
     // Ajuste proporcional para a verificação de estar no chão
     return this.dh >= this.game.height * 0.84 - this.spriteHeight * this.sizeY;
+  }
+
+  collidesWith(element){
+    return this.x < element.x + element.width &&
+    this.x + this.width > element.x &&
+    this.y < element.y + element.height &&
+    this.y + this.height > element.y;
+  }
+
+  isMouseOver() {
+    const mouse = this.game.input.mouse;
+    const isTouchEvent = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    
+    if (isTouchEvent) {
+        return false;
+    } else {
+        return mouse.x > this.x && mouse.x < this.x + this.width && mouse.y > this.y && mouse.y < this.y + this.height;
+    }
+  }
+
+  isTouchOver() {
+      if (this.draggable) {
+          for (let i = 0; i < this.game.input.touches.length; i++) {
+              const touch = this.game.input.touches[i];
+              if (touch.x > this.x && touch.x < this.x + this.width && touch.y > this.y && touch.y < this.y + this.height) {
+                  if (!this.game.isDraggingImage) { // Check if no image is currently being dragged
+                      this.isGrabbed = true;
+                      this.game.isDraggingImage = true; // Update the game state to indicate an image is being dragged
+                      return true;
+                  }
+              }
+          }
+          if (this.game.input.touches.length === 0 && this.draggable && !this.game.input.mouse.clicked) {
+              if (this.isGrabbed) {
+                  this.dropped = true;
+                  this.game.isDraggingImage = false; // Update the game state when the image is no longer being dragged
+              }
+              this.isGrabbed = false;
+          }
+      }
+      return this.game.input.touches.length > 0 && this.game.input.touches.some(touch => touch.x > this.x && touch.x < this.x + this.width && touch.y > this.y && touch.y < this.y + this.height);
+  }
+
+  mouseHovering() {
+
+      if(this.mouseHover) {
+          
+          if(this.isMouseOver(this.game.input.mouse) || this.isTouchOver(this.game.input.touches)) {
+
+              if(this.hoverScale){
+                  if(this.scale < this.scaleToHover){
+                      this.scale += this.scaleSpeed;
+                  } 
+              }
+
+              if(!this.mouseOver) {
+                  this.mouseOver = true;
+                  this.game.hoveredImages.add(this.id);
+
+
+              }
+          } else {
+              if(this.mouseOver) {
+                  this.mouseOver = false;
+                  this.game.hoveredImages.delete(this.id);
+
+              }
+
+              if(this.scale  > 1){
+                  this.scale -= this.scaleSpeed;
+              } 
+          }
+      }
+  }
+
+  isMouseClicking() {
+      if (this.draggable && this.isMouseOver(this.game.input.mouse) && this.game.input.mouse.clicked) {
+          if (!this.game.isDraggingImage) { // Check if no image is currently being dragged
+              this.isGrabbed = true;
+              this.game.isDraggingImage = true; // Update the game state to indicate an image is being dragged
+          }
+      } else if (!this.game.input.mouse.clicked && this.game.input.touches.length === 0 && this.draggable) {
+          if (this.isGrabbed) {
+              this.dropped = true;
+              this.game.isDraggingImage = false; // Update the game state when the image is no longer being dragged
+          }
+          //this.isGrabbed = false;
+      }
+      
+      
+      return this.isMouseOver(this.game.input.mouse) || this.isTouchOver(this.game.input.touches) ? this.game.input.mouse.clicked : false;
   }
 
 }
