@@ -6,6 +6,7 @@ import { Sound } from "../../../engine/sound/sound.js";
 import { Image } from "../../../engine/image/image.js";
 import { Keyboard } from "../../../engine/hud/keyboard/keyboard.js";
 import { NumericKeyboard } from "../../../engine/hud/numKeyboard/numKeyboard.js";
+import { Scene2 } from "../scene2/scene2.js";
 
 /**EASY MODE -> FRUIT COLLECTING */
 export class Scene3 {
@@ -1058,11 +1059,14 @@ export class Scene3 {
 
         })();
 
+
     }
 
 
 
     update(deltaTime) {
+
+
 
         /**ENEMY MOVEMENT AND CATCHING */
         (()=>{
@@ -1152,10 +1156,15 @@ export class Scene3 {
         (() => {
             if (!this.calledNextScene) {
 
-                this.imageAkemi.fadeIn(0.01);
-                this.dialogueBox1.fadeIn(0.01);
+                if(this.game.currentStage === 0){
+                    this.imageAkemi.fadeIn(0.01);
+                    this.dialogueBox1.fadeIn(0.01);
+                    this.continueButton1.moveTo(this.game.width * 0.8, this.game.height * 0.8, (this.game.speed * 0.15));
+                } else {
+                    this.calledNextScene = true;
+                }
 
-                this.continueButton1.moveTo(this.game.width * 0.8, this.game.height * 0.8, (this.game.speed * 0.15));
+                
 
 
 
@@ -1163,11 +1172,15 @@ export class Scene3 {
             } else {
 
                 if(!this.startGame){
-                    this.dialogueBox1.fadeOut(0.01);
-                    this.dialogueBox2.fadeIn(0.01);
-    
-                    this.continueButton1.moveTo(this.game.width * 1, this.game.height * 1.155, (this.game.speed * 0.15));
-                    this.continueButton2.moveTo(this.game.width * 0.8, this.game.height * 0.8, (this.game.speed * 0.15));
+                    if(this.game.currentStage === 0){
+                        this.dialogueBox1.fadeOut(0.01);
+                        this.dialogueBox2.fadeIn(0.01);
+        
+                        this.continueButton1.moveTo(this.game.width * 1, this.game.height * 1.155, (this.game.speed * 0.15));
+                        this.continueButton2.moveTo(this.game.width * 0.8, this.game.height * 0.8, (this.game.speed * 0.15));
+                    } else {
+                        this.startGame = true;
+                    }
                 } else {
                     this.dialogueBox1.fadeOut(0.01);
                     this.dialogueBox2.fadeOut(0.01);
@@ -1757,7 +1770,13 @@ export class Scene3 {
     }
 
     changeScene() {
-        this.game.changeScene(Scene3);
+        this.game.stagesDone.push(this.game.currentStage);
+        this.game.currentStage += 1;
+        if(this.game.currentStage === 3){
+            this.game.changeScene(Scene2);
+        } else {
+            this.game.changeScene(Scene3);
+        }
     }
 
     createFruit(fruit, x, y){

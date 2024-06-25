@@ -38,7 +38,7 @@ window.addEventListener('load', function() {
             this.isDraggingImage = false; 
 
             /** PLAYER STATS */
-            this.playerName = "MADAGASCAR";
+            this.playerName = "";
             this.currentStage = 0;
             this.stagesDone = [];
             this.playerPoints = 0;
