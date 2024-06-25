@@ -916,7 +916,7 @@ export class Scene3 {
                     (this.game.width * 0.365), /**TEXT X */
                     (this.height * 1.50), /**TEXT Y */
                     "black", /**TEXT COLOR */
-                    true, /**MOUSE HOVER */
+                    false, /**MOUSE HOVER */
                     null, /**TEXTS ALIGN -> ROW OR COLUMN */
                     "", /**UNIQUE TEXT */
                     (this.game.width * 0.805), // UNIQUE TEXT X
