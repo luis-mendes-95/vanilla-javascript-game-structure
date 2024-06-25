@@ -1416,28 +1416,34 @@ export class Scene3 {
             (() => {
                 if (this.restartButton.isTouchOver() || this.restartButton.isMouseClicking()) {
 
+                    this.restart = true;
+
                     this.fruitsInBasket = [];
+                    
+                    this.keyboard.currentInput = "";
+                    this.showKeyboard = false;
+                    this.birds.splice(0, this.birds.length);
 
-                        this.stolenFruits = [];
+                    this.stolenFruits = [];
 
-                        /**RETURN BASKET FRUITS TO THE TREE */
-                        for (let i = 0; i < this.fruits.length; i++) {
-                            this.fruits[i].dropped = false;
-                            this.fruits[i].draggedRight = false;
-                        }
+                    /**RETURN BASKET FRUITS TO THE TREE */
+                    for (let i = 0; i < this.fruits.length; i++) {
+                        this.fruits[i].dropped = false;
+                        this.fruits[i].draggedRight = false;
+                    }
 
-                        this.correctAnswer = false;
-                        this.wrongAnswer = false;
-                        this.fruitsStolen = false;
-                       
-                        if (!this.fruits.every(fruit => fruit.collidesWith(this.basket))) {
-                            
-                            this.keyboard.currentInput = "";
-                            this.showKeyboard = false;
-                            this.birds.splice(0, this.birds.length);
-                        }
+                    this.correctAnswer = false;
+                    this.wrongAnswer = false;
+                    this.fruitsStolen = false;
+                   
 
-                        this.game.input.mouse.clicked = false;
+                    this.game.input.mouse.clicked = false;
+
+                    setTimeout(() => {
+                        this.restart = false;
+                    }, 500);
+                    
+
 
                 }
             })();
@@ -1513,7 +1519,7 @@ export class Scene3 {
 
                 for (let i = 0; i < this.fruits.length; i++) {
 
-                    if (this.fruits[i].collidesWith(this.basket) && this.fruits[i].dropped && !this.wrongAnswer) {
+                    if (this.fruits[i].collidesWith(this.basket) && this.fruits[i].dropped && !this.wrongAnswer && !this.restart) {
                         // Verifica se a fruta já está no array fruitsInBasket
                         const isFruitAlreadyInBasket = this.fruitsInBasket.some(fruitInBasket => fruitInBasket === this.fruits[i]);
                         if (!isFruitAlreadyInBasket) {
@@ -1549,7 +1555,7 @@ export class Scene3 {
 
             /**MOVE THE FRUITS TO EACH BASKET POSITION */
             (()=>{
-                if(!this.correctAnswer && !this.wrongAnswer){
+                if(!this.correctAnswer && !this.wrongAnswer && !this.restart){
 
                     for(let i = 0; i < this.fruitsInBasket.length; i++){
 
@@ -1753,26 +1759,6 @@ export class Scene3 {
 
     changeScene() {
         this.game.changeScene(Scene3);
-    }
-
-    restart(){
-        
-        
-
-
-
-
-
-
-
-
-
-
-
-
-        console.log("to entrando aqui djow")
-
-
     }
 
     createFruit(fruit, x, y){
