@@ -513,6 +513,14 @@ export class Scene1 {
                 this.enterNextScene = true;
             }
 
+            /**NAME PANEL */
+            (()=>{
+                if(this.hud.namePanel.isTouchOver() && !this.showKeyboard){
+                    this.showKeyboard = true;
+                    this.game.input.touches = [];
+                };
+            })();
+
 
 
         })();
