@@ -1415,12 +1415,9 @@ export class Scene3 {
             /**RESTART BUTTON */
             (() => {
                 if (this.restartButton.isTouchOver() || this.restartButton.isMouseClicking()) {
-                    this.shouldRestart = true;
 
                     this.fruitsInBasket = [];
 
-
-                    setTimeout(() => {
                         this.stolenFruits = [];
 
                         /**RETURN BASKET FRUITS TO THE TREE */
@@ -1441,10 +1438,7 @@ export class Scene3 {
                         }
 
                         this.game.input.mouse.clicked = false;
-                        // this.game.input.touches = [];
 
-                        this.shouldRestart = false;
-                    }, 500);
                 }
             })();
 
