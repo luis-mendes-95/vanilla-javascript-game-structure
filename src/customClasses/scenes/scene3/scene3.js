@@ -1413,29 +1413,38 @@ export class Scene3 {
             })();
 
             /**RESTART BUTTON */
-            (()=>{
-                if(this.restartButton.isTouchOver() || this.restartButton.isMouseClicking()){
+            (() => {
+                if (this.restartButton.isTouchOver() || this.restartButton.isMouseClicking()) {
+                    this.shouldRestart = true;
+
+                    this.fruitsInBasket = [];
+
 
                     setTimeout(() => {
-
                         this.stolenFruits = [];
-            
+
                         /**RETURN BASKET FRUITS TO THE TREE */
-                        for(let i = 0; i < this.fruits.length; i++){
+                        for (let i = 0; i < this.fruits.length; i++) {
                             this.fruits[i].dropped = false;
                             this.fruits[i].draggedRight = false;
                         }
-            
+
                         this.correctAnswer = false;
                         this.wrongAnswer = false;
                         this.fruitsStolen = false;
-            
-                    }, 500);
-                    this.game.input.mouse.clicked = false;
-                    //this.game.input.touches = [];
-                    this.restart();
+                       
+                        if (!this.fruits.every(fruit => fruit.collidesWith(this.basket))) {
+                            
+                            this.keyboard.currentInput = "";
+                            this.showKeyboard = false;
+                            this.birds.splice(0, this.birds.length);
+                        }
 
-                    
+                        this.game.input.mouse.clicked = false;
+                        // this.game.input.touches = [];
+
+                        this.shouldRestart = false;
+                    }, 1500);
                 }
             })();
 
@@ -1755,10 +1764,7 @@ export class Scene3 {
     restart(){
         
         
-        this.fruitsInBasket = [];
-        this.keyboard.currentInput = "";
-        this.showKeyboard = false;
-        this.birds.splice(0, this.birds.length);
+
 
 
 
