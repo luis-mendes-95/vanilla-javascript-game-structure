@@ -62,7 +62,7 @@ window.addEventListener('load', function() {
             .catch(error => console.log(error));
 
             /** SCENES MANAGEMENT */
-            this.currentScene = new Scene3(this);
+            this.currentScene = new Scene0(this);
             
         }
 
