@@ -1059,6 +1059,36 @@ export class Scene3 {
 
         })();
 
+        setInterval(() => {
+           /**DEBUGGING FRUITS AND NUMBERS */
+           console.log("**************************")
+           console.log("**************************")
+           console.log("**************************")
+           console.log("**************************")
+           console.log("**************************")
+           console.log("**************************")
+           console.log("**************************")
+           console.log("**************************")
+           console.log("**************************")
+           console.log("**************************")
+           console.log("**************************")
+           console.log("**************************")
+           console.log("TOTAL FRUITS TO CATCH: " + this.fruitsToDrag);
+           console.log("FRUITS STOLEN: " + this.stolenFruits.length);
+           console.log("STOLE LIMIT: " + this.stoleLimit);
+           console.log("STOLEN FRUITS: " + this.stolenFruits);
+           console.log("STOLEN FRUITS LENGTH: " + this.stolenFruits.length);
+           console.log("**************************")
+           console.log("**************************")
+           console.log("**************************")
+           console.log("**************************")
+           console.log("**************************")
+           console.log("**************************")
+           console.log("**************************")
+           console.log("**************************")
+                
+        }, 2000);
+
 
     }
 
@@ -1770,9 +1800,20 @@ export class Scene3 {
     }
 
     changeScene() {
-        this.game.stagesDone.push(this.game.currentStage);
-        this.game.currentStage += 1;
-        if(this.game.currentStage === 3){
+
+        
+        if(this.game.currentStage === 2){
+            this.game.stagesDone.push("TREES");
+            
+        } else {
+            this.game.currentStage += 1;
+        }
+
+        
+
+
+        if(this.game.stagesDone.includes("TREES")){
+            this.game.currentStage = 0;
             this.game.changeScene(Scene2);
         } else {
             this.game.changeScene(Scene3);

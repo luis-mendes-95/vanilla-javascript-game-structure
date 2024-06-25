@@ -252,7 +252,7 @@ export class Scene2 {
         (() => {
 
             /**TREE BUTTON CLICK OR TOUCH */
-            if (this.hud.buttonTree.isMouseClicking() || this.hud.buttonTree.isTouchOver(this.game.input.touches)) {
+            if (this.hud.buttonTree.isMouseClicking() && !this.game.stagesDone.includes("TREES") || this.hud.buttonTree.isTouchOver(this.game.input.touches) && !this.game.stagesDone.includes("TREES")) {
                 this.game.currentStage = 0;
                 
                 window.addEventListener('touchend', () => {
@@ -294,7 +294,9 @@ export class Scene2 {
         })();
 
         /** UPDATING ELEMENTS */
-        this.hud.buttonTree.update(deltaTime);
+        if(this.game.stagesDone.includes("TREES")){
+            this.hud.buttonTree.update(deltaTime);
+        };
         this.hud.buttonTreeHover.update(deltaTime);
         this.hud.buttonGarden.update(deltaTime);
         this.hud.buttonGardenHover.update(deltaTime);
@@ -313,7 +315,7 @@ export class Scene2 {
     
                 // TREE BUTTON HOVERING LOGIC
                 // Adjusted logic to not prioritize Tree when both Tree and Flowers are hovered
-                if (treeHoveredOrTouched && !flowersHoveredOrTouched && !gardenHoveredOrTouched) {
+                if (treeHoveredOrTouched && !flowersHoveredOrTouched && !gardenHoveredOrTouched && !this.game.stagesDone.includes("TREES")) {
                     this.hud.buttonTreeHover.fadeIn(this.game.speed * 0.01);
                     this.game.hoveredImages.add(1);
                 } else {

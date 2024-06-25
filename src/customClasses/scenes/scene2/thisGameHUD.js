@@ -8,7 +8,20 @@ export class thisGameHUD extends Hud {
 
         let minDimension = Math.min(this.game.width, this.game.height);
         let fontSize = minDimension * 0.090;
-     
+
+        this.currentGameText = " "
+
+        if(!this.game.stagesDone.includes("TREES")){
+            this.currentGameText += " POMAR "
+        }
+
+        if(!this.game.stagesDone.includes("FLOWERS")){
+            this.currentGameText += " HORTA "
+        }
+
+        if(!this.game.stagesDone.includes("GARDEN")){
+            this.currentGameText += " JARDIM "
+        }     
 
         /**FARM SIGN */
         this.farmSign = new Image(
@@ -23,7 +36,7 @@ export class thisGameHUD extends Hud {
             [
                 "",
                 "  CLIQUE EM UMA DAS ÁREAS:  ",
-                "  POMAR | HORTA | JARDIM  ",
+                this.currentGameText,
             ], /**TEXT */
             (this.height * 0.1), /**TEXT SPACING */
             "PatrickHand", /**FONT */
