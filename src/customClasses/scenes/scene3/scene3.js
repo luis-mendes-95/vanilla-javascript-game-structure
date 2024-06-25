@@ -1437,14 +1437,13 @@ export class Scene3 {
                     this.fruitsStolen = false;
                    
 
-                    this.game.input.mouse.clicked = false;
+                    
 
                     setTimeout(() => {
                         this.restart = false;
                     }, 500);
                     
-
-
+                    //this.game.input.mouse.clicked = false;
                 }
             })();
 
