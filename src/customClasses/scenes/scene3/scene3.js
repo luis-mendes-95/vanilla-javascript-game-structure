@@ -1444,7 +1444,7 @@ export class Scene3 {
                         // this.game.input.touches = [];
 
                         this.shouldRestart = false;
-                    }, 1500);
+                    }, 500);
                 }
             })();
 
