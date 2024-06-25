@@ -1415,9 +1415,26 @@ export class Scene3 {
             /**RESTART BUTTON */
             (()=>{
                 if(this.restartButton.isTouchOver() || this.restartButton.isMouseClicking()){
-                    this.restart();
-                    //this.game.input.mouse.clicked = false;
+
+                    setTimeout(() => {
+
+                        this.stolenFruits = [];
+            
+                        /**RETURN BASKET FRUITS TO THE TREE */
+                        for(let i = 0; i < this.fruits.length; i++){
+                            this.fruits[i].dropped = false;
+                            this.fruits[i].draggedRight = false;
+                        }
+            
+                        this.correctAnswer = false;
+                        this.wrongAnswer = false;
+                        this.fruitsStolen = false;
+            
+                    }, 500);
+                    this.game.input.mouse.clicked = false;
                     //this.game.input.touches = [];
+                    this.restart();
+
                     
                 }
             })();
@@ -1737,6 +1754,7 @@ export class Scene3 {
 
     restart(){
         
+        
         this.fruitsInBasket = [];
         this.keyboard.currentInput = "";
         this.showKeyboard = false;
@@ -1750,21 +1768,9 @@ export class Scene3 {
 
 
 
-        setTimeout(() => {
 
-            this.stolenFruits = [];
 
-            /**RETURN BASKET FRUITS TO THE TREE */
-            for(let i = 0; i < this.fruits.length; i++){
-                this.fruits[i].dropped = false;
-                this.fruits[i].draggedRight = false;
-            }
-
-            this.correctAnswer = false;
-            this.wrongAnswer = false;
-            this.fruitsStolen = false;
-
-        }, 500);
+        console.log("to entrando aqui djow")
 
 
     }
