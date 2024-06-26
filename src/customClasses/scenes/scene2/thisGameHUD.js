@@ -19,7 +19,7 @@ export class thisGameHUD extends Hud {
             this.currentGameText += " HORTA "
         }
 
-        if(!this.game.stagesDone.includes("GARDEN")){
+        if(!this.game.stagesDone.includes("VEGETABLES")){
             this.currentGameText += " JARDIM "
         }     
 

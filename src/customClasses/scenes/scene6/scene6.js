@@ -40,26 +40,22 @@ export class Scene6 {
             (()=>{
                 this.fruits = [];
                 this.fruitsLocations = [
-                    {x: this.game.width * 0.27, y: this.game.height * 0.09},
-                    {x: this.game.width * 0.32, y: this.game.height * 0.16},
-                    {x: this.game.width * 0.25, y: this.game.height * 0.2},
-                    {x: this.game.width * 0.26, y: this.game.height * 0.45},
-                    {x: this.game.width * 0.31, y: this.game.height * 0.31},
-                    {x: this.game.width * 0.38, y: this.game.height * 0.35},
-                    {x: this.game.width * 0.39, y: this.game.height * 0.24},
-                    {x: this.game.width * 0.39, y: this.game.height * 0.12},
-                    {x: this.game.width * 0.24, y: this.game.height * 0.32},
+                    {x: this.game.width * 0.07, y: this.game.height * 0.52},
+                    {x: this.game.width * 0.32, y: this.game.height * 0.5},
+                    {x: this.game.width * 0.18, y: this.game.height * 0.5},
+                    {x: this.game.width * 0.45, y: this.game.height * 0.51},
+                    {x: this.game.width * 0.58, y: this.game.height * 0.51}
                 ];
                 this.fruitsToDrag = 0;
-                this.choosedFruit = 0;
+                this.choosedVegetable = 0;
                 this.fruitsInBasket = [];
 
                 /**RANDOM NUMBER BETWEEN 1 AND 9 */
-                this.fruitsToDrag = Math.floor(Math.random() * 9) + 1;
+                this.fruitsToDrag = Math.floor(Math.random() * 5) + 1;
 
                 /**RANDOM NUMBER BETWEEN 0 AND 5 */
-                this.choosedFruit = Math.floor(Math.random() * 6);
-                //this.choosedFruit = 5;
+                this.choosedVegetable = Math.floor(Math.random() * 6);
+                //this.choosedVegetable = 5;
 
             })();
 
@@ -90,8 +86,6 @@ export class Scene6 {
             this.farmSign = document.getElementById('farmSign');
             /**BASKET */
             this.basket = document.getElementById('basket');
-            /**TREE */
-            this.fence0 = document.getElementById('fence');
             /**FENCE */
             this.fence0 = document.getElementById('fence');
             /**GROUNDS */
@@ -106,6 +100,8 @@ export class Scene6 {
             this.figuresArea = document.getElementById('figuresArea');
             /**ENEMY -> BIRD */
             this.birdImage = document.getElementById('bird');
+            /**ENEMY -> TOUPEIRA */
+            this.toupeiraImage = document.getElementById('toupeira');
             /**LADYBIRD */
             this.ladybird = document.getElementById('ladybird');
 
@@ -130,6 +126,12 @@ export class Scene6 {
                 this.caju = document.getElementById('caju');
 
                 /**VEGETABLES */
+                this.abobora = document.getElementById('abobora');
+                this.alface = document.getElementById('alface');
+                this.beterraba = document.getElementById('beterraba');
+                this.cenoura = document.getElementById('cenoura');
+                this.tomate = document.getElementById('tomate');
+
 
             })();
 
@@ -450,29 +452,75 @@ export class Scene6 {
                         true // HOVER SCALE (added to match constructor parameters)
                     );
 
-                    let currentFruitImage = null;
-                    if(this.choosedFruit === 0){
-                        currentFruitImage = this.appleImage;
-                    } else if (this.choosedFruit === 1){
-                        currentFruitImage = this.pera;
-                    } else if (this.choosedFruit === 2){
-                        currentFruitImage = this.manga;
-                    } else if (this.choosedFruit === 3){
-                        currentFruitImage = this.laranja;
-                    } else if (this.choosedFruit === 4){
-                        currentFruitImage = this.limao;
-                    } else if (this.choosedFruit === 5){
-                        currentFruitImage = this.caju;
+                    let currentVegetableImage = null;
+                    let currentWidth = null;
+                    let currentHeight = null;
+                    let currentY = null;
+                    let currentX = null;
+
+                    if(this.choosedVegetable === 0){
+
+                        /**ABÓBORA */
+                        currentVegetableImage = this.abobora;
+                        currentHeight = this.game.height * 0.12;
+                        currentWidth = this.game.width * 0.08;
+                        currentY = this.game.height * 0.78;
+                        currentX = this.game.width * 0.33;
+
+                    } else if (this.choosedVegetable === 1){
+
+                        /**ALFACE */
+                        currentVegetableImage = this.alface;
+                        currentHeight = this.game.height * 0.12;
+                        currentWidth = this.game.width * 0.08;
+                        currentY = this.game.height * 0.78;
+                        currentX = this.game.width * 0.33;
+
+                    } else if (this.choosedVegetable === 2){
+
+                        /**BETERRABA*/
+                        currentVegetableImage = this.beterraba;
+                        currentHeight = this.game.height * 0.15;
+                        currentWidth = this.game.width * 0.035;
+                        currentY = this.game.height * 0.765;
+                        currentX = this.game.width * 0.35;
+
+                    } else if (this.choosedVegetable === 3){
+
+                        /**CENOURA */
+                        currentVegetableImage = this.cenoura;
+                        currentHeight = this.game.height * 0.15;
+                        currentWidth = this.game.width * 0.05;
+                        currentY = this.game.height * 0.765;
+                        currentX = this.game.width * 0.34;
+
+                    } else if (this.choosedVegetable === 4){
+
+                        currentVegetableImage = this.alface;
+                        currentHeight = this.game.height * 0.12;
+                        currentWidth = this.game.width * 0.08;
+                        currentY = this.game.height * 0.78;
+                        currentX = this.game.width * 0.33;
+
+                    } else if (this.choosedVegetable === 5){
+
+                        /**ABÓBORA */
+                        currentVegetableImage = this.abobora;
+                        currentHeight = this.game.height * 0.12;
+                        currentWidth = this.game.width * 0.08;
+                        currentY = this.game.height * 0.78;
+                        currentX = this.game.width * 0.33;
+
                     }
 
                     this.fruitToCatch = new Image(
                         this.game, /**GAME */
-                        (this.game.width * 0.345), /**X */
-                        (this.height * 0.79), /**Y */
-                        (this.game.width * 0.05), // WIDTH
-                        (this.game.height * 0.1), // HEIGHT
+                        currentX, /**X */
+                        currentY, /**Y */
+                        currentWidth, // WIDTH
+                        currentHeight, // HEIGHT
                         0, /**ROTATION */
-                        currentFruitImage,  /**IMAGE */
+                        currentVegetableImage,  /**IMAGE */
                         1, /**OPACITY */
                         null, /**TEXT */
                         (this.height * 0.1), /**TEXT SPACING */
@@ -612,7 +660,7 @@ export class Scene6 {
                     [
                         ``,
                         `                PARABÉNS, ${this.game.playerName}!`,
-                        `                      VOCÊ PEGOU TODAS AS FRUTAS NA QUANTIDADE CERTA!    `,
+                        `                      VOCÊ PEGOU TODOS OS VEGETAIS NA QUANTIDADE CERTA!    `,
                     ], /**TEXT */
                     (this.height * 0.1), /**TEXT SPACING */
                     "patrickHand", /**TEXT FONT */
@@ -643,8 +691,8 @@ export class Scene6 {
                     0, /**OPACITY */
                     [
                         ``,
-                        `                   OS PÁSSAROS ROUBARAM AS FRUTAS!`,
-                        `                   PARA AFUGENTÁ-LOS, CLIQUE SOBRE ELES!  `,
+                        `                   AS TOUPEIRAS ROUBARAM OS VEGETAIS!`,
+                        `                   PARA AFUGENTÁ-LAS, CLIQUE SOBRE ELES!  `,
                     ], /**TEXT */
                     (this.height * 0.1), /**TEXT SPACING */
                     "patrickHand", /**TEXT FONT */
@@ -1076,42 +1124,41 @@ export class Scene6 {
                     //DYNAMIC FRUITS CREATION
                     (()=>{
 
-                        if(this.choosedFruit === 0){
-                            for(let i = 0; i < 9; i++){
-                                this.createFruit(this.appleImage, this.fruitsLocations[i].x, this.fruitsLocations[i].y);
+                        if(this.choosedVegetable === 0){
+                            for(let i = 0; i < 5; i++){
+                                this.createVegetable(this.abobora, this.fruitsLocations[i].x, this.fruitsLocations[i].y);
                             }
                         }
 
-                        if(this.choosedFruit === 1){
-                            for(let i = 0; i < 9; i++){
-                                this.createFruit(this.pera, this.fruitsLocations[i].x, this.fruitsLocations[i].y);
+                        if(this.choosedVegetable === 1){
+                            for(let i = 0; i < 5; i++){
+                                this.createVegetable(this.alface, this.fruitsLocations[i].x, this.fruitsLocations[i].y);
                             }
                         }
 
-                        if(this.choosedFruit === 2){
-                            for(let i = 0; i < 9; i++){
-                                this.createFruit(this.manga, this.fruitsLocations[i].x, this.fruitsLocations[i].y);
+                        if(this.choosedVegetable === 2){
+                            for(let i = 0; i < 5; i++){
+                                this.createVegetable(this.beterraba, this.fruitsLocations[i].x, this.fruitsLocations[i].y);
                             }
                         }
 
-                        if(this.choosedFruit === 3){
-                            for(let i = 0; i < 9; i++){
-                                this.createFruit(this.laranja, this.fruitsLocations[i].x, this.fruitsLocations[i].y);
+                        if(this.choosedVegetable === 3){
+                            for(let i = 0; i < 5; i++){
+                                this.createVegetable(this.cenoura, this.fruitsLocations[i].x, this.fruitsLocations[i].y);
                             }
                         }
 
-                        if(this.choosedFruit === 4){
-                            for(let i = 0; i < 9; i++){
-                                this.createFruit(this.limao, this.fruitsLocations[i].x, this.fruitsLocations[i].y);
+                        if(this.choosedVegetable === 4){
+                            for(let i = 0; i < 5; i++){
+                                this.createVegetable(this.alface, this.fruitsLocations[i].x, this.fruitsLocations[i].y);
                             }
                         }
 
-                        if(this.choosedFruit === 5){
-                            for(let i = 0; i < 9; i++){
-                                this.createFruit(this.caju, this.fruitsLocations[i].x, this.fruitsLocations[i].y);
+                        if(this.choosedVegetable === 5){
+                            for(let i = 0; i < 5; i++){
+                                this.createVegetable(this.abobora, this.fruitsLocations[i].x, this.fruitsLocations[i].y);
                             }
                         }
-
 
 
                     })();
@@ -1127,25 +1174,25 @@ export class Scene6 {
         /** ENEMY DATA */
         (()=>{
 
-            this.birds = [];
+            this.toupeiras = [];
 
             /**BIRD SPRITE*/
             (()=>{
                 
                 setInterval(() => {
-                    if(this.birds.length === 0 && this.startGame){
+                    if(this.toupeiras.length === 0 && this.startGame){
                         let currentBird = new Sprite(
                             [
-                                this.birdImage, /** FLYING */
+                                this.toupeiraImage, /** FLYING */
                             ], /** IMAGE */
                             this.game, /** GAME */
-                            100, /** SPRITE WIDTH */
-                            135, /** SPRITE HEIGHT */
+                            212, /** SPRITE WIDTH */
+                            280, /** SPRITE HEIGHT */
                             this.game.height * 0.0015, /** SIZE X */
                             this.game.height * 0.0015, /** SIZE Y */
                             (this.game.width * 1.5), /** DESTINY X */
                             (this.game.canvas.height * 0.5), /** DESTINY Y */
-                            5, /** MAX FRAME X */
+                            2, /** MAX FRAME X */
                             0, /** MAX FRAME Y */
                             75, /** FRAME SPEED */
                             0, /** ROTATION */
@@ -1155,7 +1202,7 @@ export class Scene6 {
                             0, /**SCALE TO HOVER */
                             0, /**SCALE SPEED */
                         );
-                        this.birds.push(currentBird);
+                        this.toupeiras.push(currentBird);
                     }
                 }, 2000);
                 
@@ -1167,7 +1214,7 @@ export class Scene6 {
                 this.birdPunched= false;
 
                 /**NUMBER BETWEEN 0 AND 8 */
-                this.currentTarget = Math.floor(Math.random() * 9);
+                this.currentTarget = Math.floor(Math.random() * 5);
             })();
 
         })();
@@ -1193,10 +1240,12 @@ export class Scene6 {
             /**BIRD MOVEMENT */
             (()=>{
 
-                if(this.fruits[this.currentTarget].isGrabbed ||
-                   this.fruits[this.currentTarget].collidesWith(this.basket) ||
-                   this.fruits[this.currentTarget].x < 0 - this.fruits[this.currentTarget].width ){
-                    this.currentTarget = Math.floor(Math.random() * 9);
+                if(this.fruits[this.currentTarget]){
+                    if(this.fruits[this.currentTarget].isGrabbed ||
+                        this.fruits[this.currentTarget].collidesWith(this.basket) ||
+                        this.fruits[this.currentTarget].x < 0 - this.fruits[this.currentTarget].width ){
+                         this.currentTarget = Math.floor(Math.random() * 5);
+                     }
                 }
 
                 if(!this.protectFruit){
@@ -1204,25 +1253,27 @@ export class Scene6 {
                 }
 
 
-               for(let i = 0; i < this.birds.length; i++){
+               for(let i = 0; i < this.toupeiras.length; i++){
 
                 /**IF CURRENT TARGET FRUIT NOT COLLIDING WITH BASKET */
-                if(!this.fruits[this.currentTarget].collidesWith(this.basket) && !this.birdPunched){
+                if(this.fruits[this.currentTarget]){
+                    if(!this.fruits[this.currentTarget].collidesWith(this.basket) && !this.birdPunched){
 
-                    this.birds[i].moveTo(this.game.width * -0.5, this.fruitsLocations[this.currentTarget].y - 125, 10);
-
-                    if(this.birds[i].collidesWith(this.fruits[this.currentTarget])){
-                        this.fruits[this.currentTarget].draggedRight = true;
-                        this.fruits[this.currentTarget].moveTo(this.birds[i].x, this.birds[i].y + 125, 10);
+                        this.toupeiras[i].moveTo(this.game.width * -0.5, this.fruitsLocations[this.currentTarget].y - 125, 10);
+    
+                        if(this.toupeiras[i].collidesWith(this.fruits[this.currentTarget])){
+                            this.fruits[this.currentTarget].draggedRight = true;
+                            this.fruits[this.currentTarget].moveTo(this.toupeiras[i].x, this.toupeiras[i].y + 125, 10);
+                        }
+    
+                        /**IF BIRD GO AWAY FROM CANVAS, IT WILL BE DELETED */
+                        if(this.toupeiras[i].x < this.game.width * -0.1){
+                            this.toupeiras.splice(i, 1);
+                            this.currentTarget = Math.floor(Math.random() * 5);
+                        }
+                    } else {
+                        this.toupeiras[i].moveTo(this.game.width * -0.5, this.game.height * 0.2 - 125, 10);
                     }
-
-                    /**IF BIRD GO AWAY FROM CANVAS, IT WILL BE DELETED */
-                    if(this.birds[i].x < this.game.width * -0.1){
-                        this.birds.splice(i, 1);
-                        this.currentTarget = Math.floor(Math.random() * 9);
-                    }
-                } else {
-                    this.birds[i].moveTo(this.game.width * -0.5, this.game.height * 0.2 - 125, 10);
                 }
             
                };
@@ -1237,8 +1288,8 @@ export class Scene6 {
         (()=>{
 
             for(let i = 0; i < this.fruits.length; i++){
-                if(this.birds[0]){
-                    if(this.fruits[i].draggedRight && !this.birds[0].collidesWith(this.fruits[i]) && !this.fruits[i].collidesWith(this.basket) && this.fruits[i].x > 0 + this.fruits[i].width){
+                if(this.toupeiras[0]){
+                    if(this.fruits[i].draggedRight && !this.toupeiras[0].collidesWith(this.fruits[i]) && !this.fruits[i].collidesWith(this.basket) && this.fruits[i].x > 0 + this.fruits[i].width){
                         this.fruits[i].draggedRight = false;
                     }
                 }
@@ -1326,7 +1377,7 @@ export class Scene6 {
                     if(this.correctAnswer){
 
                         if(this.enterNextScene){
-                            this.birds.splice(0, this.birds.length);
+                            this.toupeiras.splice(0, this.toupeiras.length);
                             this.imageAkemiCorrect.fadeOut(0.01);
                             this.dialogueBox4.fadeOut(0.01);
                             this.continueButton3.moveTo(this.game.width * 1, this.game.height * 1.155, (this.game.speed * 0.15));
@@ -1339,6 +1390,11 @@ export class Scene6 {
                             this.buttonShowKeyboard.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
                             this.buttonHideKeyboard.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
                             this.keyboard.moveTo(this.game.width * -1, this.game.height * 1.2, (this.game.speed * 1));
+                            this.ground1.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
+                            this.ground2.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
+                            this.ground3.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
+                            this.ground4.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
+                            this.fence.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
                             this.confirmButton.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
                             for(let i = 0; i < this.fruitsInBasket.length; i++){
                                 this.fruitsInBasket[i].fadeOut(0.05);
@@ -1364,7 +1420,7 @@ export class Scene6 {
                         this.confirmButton.moveTo(this.game.width * 0.79, this.game.height * 1.155, (this.game.speed * 0.15));
                     } else if (this.fruitsStolen){
                         this.showKeyboard = false;
-                        this.birds.splice(0, this.birds.length);
+                        this.toupeiras.splice(0, this.toupeiras.length);
                         this.imageLadybugStolen.fadeIn(0.01); /**JOANINHA */
                         this.dialogueBoxStolen.fadeIn(0.01); /**DIALOGO JOANINHA */
                         this.restartButton.moveTo(this.game.width * 0.8, this.game.height * 0.8, (this.game.speed * 0.15));
@@ -1422,8 +1478,8 @@ export class Scene6 {
 
             /**ENEMY CLICK */
             (()=>{
-                for(let i = 0; i < this.birds.length; i++){
-                    if(this.birds[i].isMouseClicking() && !this.game.isDraggingImage || this.birds[i].isTouchOver() && !this.game.isDraggingImage){
+                for(let i = 0; i < this.toupeiras.length; i++){
+                    if(this.toupeiras[i].isMouseClicking() && !this.game.isDraggingImage || this.toupeiras[i].isTouchOver() && !this.game.isDraggingImage){
 
                         this.birdPunched = true;
                         setTimeout(() => {
@@ -1431,13 +1487,17 @@ export class Scene6 {
                         }, 2000);
 
                         for(let j = 0; j < this.fruits.length; j++){
-                            if(this.fruits[j].collidesWith(this.birds[i])){
-                                this.fruits[this.currentTarget].draggedRight = false;
-                                this.protectFruit = true;
-                                
-                                setTimeout(() => {
-                                    this.protectFruit = false;
-                                }, 1500);
+                            if(this.fruits[j]){
+                                if(this.fruits[j].collidesWith(this.toupeiras[i])){
+                                    if(this.fruits[this.currentTarget]){
+                                        this.fruits[this.currentTarget].draggedRight = false;
+                                    }
+                                    this.protectFruit = true;
+                                    
+                                    setTimeout(() => {
+                                        this.protectFruit = false;
+                                    }, 1500);
+                                }
                             }
                         }
 
@@ -1535,7 +1595,7 @@ export class Scene6 {
                         }
 
                         this.startGame = false;
-                        this.birds.splice(0, this.birds.length);
+                        this.toupeiras.splice(0, this.toupeiras.length);
 
 
                         
@@ -1553,7 +1613,7 @@ export class Scene6 {
                     
                     this.keyboard.currentInput = "";
                     this.showKeyboard = false;
-                    this.birds.splice(0, this.birds.length);
+                    this.toupeiras.splice(0, this.toupeiras.length);
 
                     this.stolenFruits = [];
 
@@ -1605,10 +1665,10 @@ export class Scene6 {
             this.restartButton.update();
             this.keyboard.canType = false;
             
-            /**BIRDS */
+            /**toupeiras */
             (()=>{
-                for(let i = 0; i < this.birds.length; i++){
-                    this.birds[i].update(deltaTime);
+                for(let i = 0; i < this.toupeiras.length; i++){
+                    this.toupeiras[i].update(deltaTime);
                 };
             })();
 
@@ -1771,15 +1831,15 @@ export class Scene6 {
             this.ground1.draw(ctx, 0);
             this.ground2.draw(ctx, 0);
             this.ground3.draw(ctx, 0);
-            this.ground4.draw(ctx, 0);
+            
 
             /**ENEMIES */
             (()=>{
-                for(let i = 0; i < this.birds.length; i++){
+                for(let i = 0; i < this.toupeiras.length; i++){
                     if(this.startGame &&
-                        this.birds[i].x > (this.game.width * 0.5) ||
-                        this.birds[i].x < (this.game.width * 0.1)){
-                         this.birds[i].draw(ctx, 0);
+                        this.toupeiras[i].x > (this.game.width * 0.5) ||
+                        this.toupeiras[i].x < (this.game.width * 0.1)){
+                         this.toupeiras[i].draw(ctx, 0);
                      }
                 }
 
@@ -1787,12 +1847,14 @@ export class Scene6 {
 
             /**TREE FRUITS */
             for(let i = 0; i < this.fruits.length; i++){
-                if(this.fruits[i].x < (this.game.width * 0.2)){
+                if(this.fruits[i].x < (this.game.width * 0.8)){
                     this.fruits[i].draw(ctx, 0);
                 }
             }
 
+            this.ground4.draw(ctx, 0);
             this.background.draw(this.game.ctx, 0);
+            
             this.nextBackground.draw(this.game.ctx, 0);
 
         })();
@@ -1842,13 +1904,16 @@ export class Scene6 {
 
             /**TREE FRUITS */
             for(let i = 0; i < this.fruits.length; i++){
-                if(this.fruits[i].x > (this.game.width * 0.2)){
+                if(this.fruits[i].x > (this.game.width * 0.60)){
                     this.fruits[i].draw(ctx, 0);
                 }
             }
 
+
+
             /**FRUITS TO CATCH INDICATOR */
             this.fruitToCatch.draw(ctx, 0);
+            
 
 
         })();
@@ -1881,14 +1946,16 @@ export class Scene6 {
 
         /**ENEMIES */
         (()=>{
-            for(let i = 0; i < this.birds.length; i++){
+            for(let i = 0; i < this.toupeiras.length; i++){
                 if(this.startGame &&
-                    this.birds[i].x < (this.game.width * 0.5) &&
-                    this.birds[i].x > (this.game.width * 0.1)){
-                     this.birds[i].draw(ctx, 0);
+                    this.toupeiras[i].x < (this.game.width * 0.5) &&
+                    this.toupeiras[i].x > (this.game.width * 0.1)){
+                     this.toupeiras[i].draw(ctx, 0);
                  }
             };
         })();
+
+        
 
 
 
@@ -1902,7 +1969,7 @@ export class Scene6 {
 
         
         if(this.game.currentStage === 2){
-            this.game.stagesDone.push("TREES");
+            this.game.stagesDone.push("VEGETABLES");
             
         } else {
             this.game.currentStage += 1;
@@ -1911,7 +1978,7 @@ export class Scene6 {
         
 
 
-        if(this.game.stagesDone.includes("TREES")){
+        if(this.game.stagesDone.includes("VEGETABLES")){
             this.game.currentStage = 0;
             this.game.changeScene(Scene2);
         } else {
@@ -1919,14 +1986,46 @@ export class Scene6 {
         }
     }
 
-    createFruit(fruit, x, y){
+    createVegetable(fruit, x, y){
+
+        let currentHeight = null;
+        let currentWidth = null;
+
+        if(fruit === this.abobora){
+            currentHeight = this.game.height * 0.15;
+            currentWidth = this.game.width * 0.1;
+        }
+
+        if(fruit === this.alface){
+            currentHeight = this.game.height * 0.13;
+            currentWidth = this.game.width * 0.09;
+        }
+
+        if(fruit === this.beterraba){
+            currentHeight = this.game.height * 0.22;
+            currentWidth = this.game.width * 0.05;
+        }
+
+        if(fruit === this.cenoura){
+            currentHeight = this.game.height * 0.2;
+            currentWidth = this.game.width * 0.06;
+        }
+
+        if(fruit === this.tomate){
+            currentHeight = this.game.height * 0.1;
+            currentWidth = this.game.width * 0.07;
+        }
+
+
+
+
 
         const currentFruit = new Image(
             this.game, // GAME
             x, // X
             y, // Y
-            (this.game.width * 0.05), // WIDTH
-            (this.game.height * 0.1), // HEIGHT
+            currentWidth, // WIDTH
+            currentHeight, // HEIGHT
             0, // ROTATION
             fruit,  // IMAGE
             1, // OPACITY

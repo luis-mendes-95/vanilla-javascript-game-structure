@@ -269,7 +269,7 @@ export class Scene2 {
             }
 
             /**GARDEN BUTTON CLICK OR TOUCH */
-            if (this.hud.buttonGarden.isMouseClicking() || this.hud.buttonGarden.isTouchOver(this.game.input.touches)) {
+            if (this.hud.buttonGarden.isMouseClicking() && !this.game.stagesDone.includes("VEGETABLES") || this.hud.buttonGarden.isTouchOver(this.game.input.touches)) {
                 this.game.currentStage = 1;
                 
                 window.addEventListener('touchend', () => {
@@ -328,7 +328,7 @@ export class Scene2 {
     
                 // GARDEN BUTTON HOVERING LOGIC
                 // Ensure Garden is not prioritized when Garden and Flowers are hovered together
-                if (gardenHoveredOrTouched && !gardenAndFlowersHoveredOrTouched && !treeAndFlowersHoveredOrTouched) {
+                if (gardenHoveredOrTouched && !gardenAndFlowersHoveredOrTouched && !treeAndFlowersHoveredOrTouched && !this.game.stagesDone.includes("VEGETABLES")) {
                     this.hud.buttonGardenHover.fadeIn(this.game.speed * 0.01);
                     this.game.hoveredImages.add(2);
                 } else {
