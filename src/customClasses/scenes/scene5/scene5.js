@@ -1363,7 +1363,7 @@ export class Scene5 {
                     if(this.fruits[this.currentTarget]?.isGrabbed ||
                         this.fruits[this.currentTarget]?.collidesWith(this.basket) ||
                         this.fruits[this.currentTarget]?.x < 0 - this.fruits[this.currentTarget]?.width ){
-                         this.currentTarget = Math.floor(Math.random() * 18);
+                         this.currentTarget = Math.floor(Math.random() * 15);
                      }
                 }
 
@@ -1389,7 +1389,7 @@ export class Scene5 {
                     /**IF BIRD GO AWAY FROM CANVAS, IT WILL BE DELETED */
                     if(this.birds[i].x < this.game.width * -0.1){
                         this.birds.splice(i, 1);
-                        this.currentTarget = Math.floor(Math.random() * 18);
+                        this.currentTarget = Math.floor(Math.random() * 15);
                     }
                 } else {
                     this.birds[i].moveTo(this.game.width * -0.5, this.game.height * 0.2 - 125, 10);

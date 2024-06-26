@@ -9,7 +9,7 @@ import { NumericKeyboard } from "../../../engine/hud/numKeyboard/numKeyboard.js"
 import { Scene2 } from "../scene2/scene2.js";
 
 /**EASY MODE -> FRUIT COLLECTING */
-export class Scene3 {
+export class Scene6 {
 
     constructor(game) {
 
@@ -91,7 +91,15 @@ export class Scene3 {
             /**BASKET */
             this.basket = document.getElementById('basket');
             /**TREE */
-            this.mainTree0 = document.getElementById('mainTree');
+            this.fence0 = document.getElementById('fence');
+            /**FENCE */
+            this.fence0 = document.getElementById('fence');
+            /**GROUNDS */
+            this.ground10 = document.getElementById('ground1');
+            this.ground20 = document.getElementById('ground2');
+            this.ground30 = document.getElementById('ground3');
+            this.ground40 = document.getElementById('ground4');
+            this.ground50 = document.getElementById('ground5');
             /**PRODUCTS QTY */
             this.productsQty = document.getElementById('productQty');
             /**FIGURES AREA */
@@ -113,12 +121,16 @@ export class Scene3 {
 
             /**FRUITS*/
             (()=>{
+                /**TREES */
                 this.appleImage = document.getElementById('apple');
                 this.pera = document.getElementById('pera');
                 this.manga = document.getElementById('manga');
                 this.laranja = document.getElementById('laranja');
                 this.limao = document.getElementById('limao');
                 this.caju = document.getElementById('caju');
+
+                /**VEGETABLES */
+
             })();
 
             
@@ -503,8 +515,8 @@ export class Scene3 {
                     [
                         ``,
                         `${this.game.playerName}, ME AJUDE COLETANDO`, /**TEXT 1 */
-                        `               AS FRUTAS NA QUANTIDADE MOSTRADA ABAIXO!  `, /**TEXT 2 */
-                        `                    CLIQUE EM UMA DELAS E ARRASTE PARA A CESTA!  `
+                        `                     OS VEGETAIS NA QUANTIDADE MOSTRADA ABAIXO!  `, /**TEXT 2 */
+                        `                    CLIQUE EM UM DELES E ARRASTE PARA A CESTA!  `
                     ], /**TEXT */
                     (this.height * 0.1), /**TEXT SPACING */
                     "patrickHand", /**TEXT FONT */
@@ -535,8 +547,8 @@ export class Scene3 {
                     0, /**OPACITY */
                     [
                         ``,
-                        `                MAS TOME CUIDADO COM AS AVES!`,
-                        `                  ELAS PODEM ROUBAR AS FRUTAS DO POMAR!  `,
+                        `                MAS TOME CUIDADO COM AS TOUPEIRAS!`,
+                        `                  ELAS PODEM ROUBAR OS VEGETAIS DA HORTA!  `,
                     ], /**TEXT */
                     (this.height * 0.1), /**TEXT SPACING */
                     "patrickHand", /**TEXT FONT */
@@ -930,19 +942,19 @@ export class Scene3 {
 
             })();
 
-            /**TREES | FRUITS*/
+            /**FENCE | VEGETABLES*/
             (()=>{
 
-                /**MAIN TREE*/
+                /**FENCE*/
                 (()=>{
-                    this.mainTree = new Image(
+                    this.fence = new Image(
                         this.game, /**GAME */
-                        (this.game.width * 0.19), /**X */
-                        (this.height * 0.05), /**Y */
-                        (this.game.width * 0.30), /**WIDTH */
-                        (this.game.height * 0.75), /**HEIGHT */
+                        (this.game.width * 0.01), /**X */
+                        (this.height * 0.20), /**Y */
+                        (this.game.width * 0.70), /**WIDTH */
+                        (this.game.height * 0.25), /**HEIGHT */
                         0, /**ROTATION */
-                        this.mainTree0,  /**IMAGE */
+                        this.fence0,  /**IMAGE */
                         1, /**OPACITY */
                         null, /**TEXT */
                         (this.height * 0.1), /**TEXT SPACING */
@@ -955,6 +967,107 @@ export class Scene3 {
                         true, /**MOUSE HOVER */
                         null, /**TEXTS ALIGN -> ROW OR COLUMN */
                     );
+                })();
+
+                /**GROUNDS*/
+                (()=>{
+
+
+                    /**GROUND 1 */
+                    (()=>{
+                        this.ground1 = new Image(
+                            this.game, /**GAME */
+                            (this.game.width * 0.01), /**X */
+                            (this.height * 0.39), /**Y */
+                            (this.game.width * 0.75), /**WIDTH */
+                            (this.game.height * 0.15), /**HEIGHT */
+                            0, /**ROTATION */
+                            this.ground40,  /**IMAGE */
+                            1, /**OPACITY */
+                            null, /**TEXT */
+                            (this.height * 0.1), /**TEXT SPACING */
+                            "font1942", /**TEXT FONT */
+                            "bold", /**FONT WEIGHT */
+                            (this.game.height * 0.5), /**FONT SIZE */
+                            (this.game.width * 0.365), /**TEXT X */
+                            (this.height * 1.50), /**TEXT Y */
+                            "black", /**TEXT COLOR */
+                            true, /**MOUSE HOVER */
+                            null, /**TEXTS ALIGN -> ROW OR COLUMN */
+                        );
+                    })();
+
+                    /**GROUND 2 */
+                    (()=>{
+                        this.ground2 = new Image(
+                            this.game, /**GAME */
+                            (this.game.width * 0.01), /**X */
+                            (this.height * 0.45), /**Y */
+                            (this.game.width * 0.75), /**WIDTH */
+                            (this.game.height * 0.15), /**HEIGHT */
+                            0, /**ROTATION */
+                            this.ground30,  /**IMAGE */
+                            1, /**OPACITY */
+                            null, /**TEXT */
+                            (this.height * 0.1), /**TEXT SPACING */
+                            "font1942", /**TEXT FONT */
+                            "bold", /**FONT WEIGHT */
+                            (this.game.height * 0.5), /**FONT SIZE */
+                            (this.game.width * 0.365), /**TEXT X */
+                            (this.height * 1.50), /**TEXT Y */
+                            "black", /**TEXT COLOR */
+                            true, /**MOUSE HOVER */
+                            null, /**TEXTS ALIGN -> ROW OR COLUMN */
+                        );
+                    })();
+
+                    /**GROUND 3 */
+                    (()=>{
+                        this.ground3 = new Image(
+                            this.game, /**GAME */
+                            (this.game.width * 0.01), /**X */
+                            (this.height * 0.52), /**Y */
+                            (this.game.width * 0.75), /**WIDTH */
+                            (this.game.height * 0.15), /**HEIGHT */
+                            0, /**ROTATION */
+                            this.ground20,  /**IMAGE */
+                            1, /**OPACITY */
+                            null, /**TEXT */
+                            (this.height * 0.1), /**TEXT SPACING */
+                            "font1942", /**TEXT FONT */
+                            "bold", /**FONT WEIGHT */
+                            (this.game.height * 0.5), /**FONT SIZE */
+                            (this.game.width * 0.365), /**TEXT X */
+                            (this.height * 1.50), /**TEXT Y */
+                            "black", /**TEXT COLOR */
+                            true, /**MOUSE HOVER */
+                            null, /**TEXTS ALIGN -> ROW OR COLUMN */
+                        );
+                    })();
+
+                    /**GROUND 4 */
+                    (()=>{
+                        this.ground4 = new Image(
+                            this.game, /**GAME */
+                            (this.game.width * 0.01), /**X */
+                            (this.height * 0.59), /**Y */
+                            (this.game.width * 0.75), /**WIDTH */
+                            (this.game.height * 0.15), /**HEIGHT */
+                            0, /**ROTATION */
+                            this.ground10,  /**IMAGE */
+                            1, /**OPACITY */
+                            null, /**TEXT */
+                            (this.height * 0.1), /**TEXT SPACING */
+                            "font1942", /**TEXT FONT */
+                            "bold", /**FONT WEIGHT */
+                            (this.game.height * 0.5), /**FONT SIZE */
+                            (this.game.width * 0.365), /**TEXT X */
+                            (this.height * 1.50), /**TEXT Y */
+                            "black", /**TEXT COLOR */
+                            true, /**MOUSE HOVER */
+                            null, /**TEXTS ALIGN -> ROW OR COLUMN */
+                        );
+                    })();
                 })();
 
                 /**FRUITS */
@@ -1161,7 +1274,7 @@ export class Scene3 {
         (() => {
             if (!this.calledNextScene) {
 
-                if(this.game.currentStage === 0){
+                if(this.game.currentStage === 1){
                     this.imageAkemi.fadeIn(0.01);
                     this.dialogueBox1.fadeIn(0.01);
                     this.continueButton1.moveTo(this.game.width * 0.8, this.game.height * 0.8, (this.game.speed * 0.15));
@@ -1177,7 +1290,7 @@ export class Scene3 {
             } else {
 
                 if(!this.startGame){
-                    if(this.game.currentStage === 0){
+                    if(this.game.currentStage === 1){
                         this.dialogueBox1.fadeOut(0.01);
                         this.dialogueBox2.fadeIn(0.01);
         
@@ -1218,7 +1331,7 @@ export class Scene3 {
                             this.dialogueBox4.fadeOut(0.01);
                             this.continueButton3.moveTo(this.game.width * 1, this.game.height * 1.155, (this.game.speed * 0.15));
                             this.background.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
-                            this.mainTree.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
+                            this.fence.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
                             this.fruitIndicator.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
                             this.fruitToCatch.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
                             this.productsQtyIndicator.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
@@ -1653,8 +1766,12 @@ export class Scene3 {
                 this.cloud5.draw(ctx, 0);
             })();
 
-            /**MAIN TREE DRAWING */
-            this.mainTree.draw(ctx, 0);
+            /**FENCE / VEGETABLES DRAWING */
+            this.fence.draw(ctx, 0);
+            this.ground1.draw(ctx, 0);
+            this.ground2.draw(ctx, 0);
+            this.ground3.draw(ctx, 0);
+            this.ground4.draw(ctx, 0);
 
             /**ENEMIES */
             (()=>{
@@ -1798,7 +1915,7 @@ export class Scene3 {
             this.game.currentStage = 0;
             this.game.changeScene(Scene2);
         } else {
-            this.game.changeScene(Scene3);
+            this.game.changeScene(Scene6);
         }
     }
 
