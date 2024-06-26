@@ -28,7 +28,8 @@ export class Image {
         scaleToHover = 1.05,
         scaleSpeed = 0.01,
         draggable = false,
-        releaseSpeed = 5
+        releaseSpeed = 5,
+        tags = []
     ) {
         
         
@@ -48,6 +49,9 @@ export class Image {
         /**WIDTH AND HEIGHT */
         this.width = width;
         this.height = height;
+
+        /**TAGS */
+        this.tags = tags;
 
         /**IMAGE SETUP */
         this.rotation = rotation;

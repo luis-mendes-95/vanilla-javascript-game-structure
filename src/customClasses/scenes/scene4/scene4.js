@@ -13,8 +13,6 @@ export class Scene4 {
 
     constructor(game) {
 
-        console.log("AQUI È MEDIUM RAPÀ");
-
         /**THIS SCENE SETUP */
         (()=>{
 
@@ -1077,37 +1075,37 @@ export class Scene4 {
                         (()=>{
                             if(this.choosedFruit === 0){
                                 for(let i = 0; i < 9; i++){
-                                    this.createFruit(this.appleImage, this.fruitsLocations[i].x, this.fruitsLocations[i].y);
+                                    this.createFruit(this.appleImage, this.fruitsLocations[i].x, this.fruitsLocations[i].y, ["FRUIT_1"]);
                                 }
                             }
     
                             if(this.choosedFruit === 1){
                                 for(let i = 0; i < 9; i++){
-                                    this.createFruit(this.pera, this.fruitsLocations[i].x, this.fruitsLocations[i].y);
+                                    this.createFruit(this.pera, this.fruitsLocations[i].x, this.fruitsLocations[i].y, ["FRUIT_1"]);
                                 }
                             }
     
                             if(this.choosedFruit === 2){
                                 for(let i = 0; i < 9; i++){
-                                    this.createFruit(this.manga, this.fruitsLocations[i].x, this.fruitsLocations[i].y);
+                                    this.createFruit(this.manga, this.fruitsLocations[i].x, this.fruitsLocations[i].y, ["FRUIT_1"]);
                                 }
                             }
     
                             if(this.choosedFruit === 3){
                                 for(let i = 0; i < 9; i++){
-                                    this.createFruit(this.laranja, this.fruitsLocations[i].x, this.fruitsLocations[i].y);
+                                    this.createFruit(this.laranja, this.fruitsLocations[i].x, this.fruitsLocations[i].y, ["FRUIT_1"]);
                                 }
                             }
     
                             if(this.choosedFruit === 4){
                                 for(let i = 0; i < 9; i++){
-                                    this.createFruit(this.limao, this.fruitsLocations[i].x, this.fruitsLocations[i].y);
+                                    this.createFruit(this.limao, this.fruitsLocations[i].x, this.fruitsLocations[i].y, ["FRUIT_1"]);
                                 }
                             }
     
                             if(this.choosedFruit === 5){
                                 for(let i = 0; i < 9; i++){
-                                    this.createFruit(this.caju, this.fruitsLocations[i].x, this.fruitsLocations[i].y);
+                                    this.createFruit(this.caju, this.fruitsLocations[i].x, this.fruitsLocations[i].y, ["FRUIT_1"]);
                                 }
                             }
                         })();
@@ -1116,37 +1114,37 @@ export class Scene4 {
                         (()=>{
                             if(this.choosedFruit2 === 0){
                                 for(let i = 0; i < 9; i++){
-                                    this.createFruit(this.appleImage, this.fruitsLocations2[i].x, this.fruitsLocations2[i].y);
+                                    this.createFruit(this.appleImage, this.fruitsLocations2[i].x, this.fruitsLocations2[i].y, ["FRUIT_2"]);
                                 }
                             }
     
                             if(this.choosedFruit2 === 1){
                                 for(let i = 0; i < 9; i++){
-                                    this.createFruit(this.pera, this.fruitsLocations2[i].x, this.fruitsLocations2[i].y);
+                                    this.createFruit(this.pera, this.fruitsLocations2[i].x, this.fruitsLocations2[i].y, ["FRUIT_2"]);
                                 }
                             }
     
                             if(this.choosedFruit2 === 2){
                                 for(let i = 0; i < 9; i++){
-                                    this.createFruit(this.manga, this.fruitsLocations2[i].x, this.fruitsLocations2[i].y);
+                                    this.createFruit(this.manga, this.fruitsLocations2[i].x, this.fruitsLocations2[i].y, ["FRUIT_2"]);
                                 }
                             }
     
                             if(this.choosedFruit2 === 3){
                                 for(let i = 0; i < 9; i++){
-                                    this.createFruit(this.laranja, this.fruitsLocations2[i].x, this.fruitsLocations2[i].y);
+                                    this.createFruit(this.laranja, this.fruitsLocations2[i].x, this.fruitsLocations2[i].y, ["FRUIT_2"]);
                                 }
                             }
     
                             if(this.choosedFruit2 === 4){
                                 for(let i = 0; i < 9; i++){
-                                    this.createFruit(this.limao, this.fruitsLocations2[i].x, this.fruitsLocations2[i].y);
+                                    this.createFruit(this.limao, this.fruitsLocations2[i].x, this.fruitsLocations2[i].y, ["FRUIT_2"]);
                                 }
                             }
     
                             if(this.choosedFruit2 === 5){
                                 for(let i = 0; i < 9; i++){
-                                    this.createFruit(this.caju, this.fruitsLocations2[i].x, this.fruitsLocations2[i].y);
+                                    this.createFruit(this.caju, this.fruitsLocations2[i].x, this.fruitsLocations2[i].y, ["FRUIT_2"]);
                                 }
                             }
                         })();
@@ -1212,32 +1210,8 @@ export class Scene4 {
         })();
 
         setInterval(() => {
-           /**DEBUGGING FRUITS AND NUMBERS */
-           console.log("**************************")
-           console.log("**************************")
-           console.log("**************************")
-           console.log("**************************")
-           console.log("**************************")
-           console.log("**************************")
-           console.log("**************************")
-           console.log("**************************")
-           console.log("**************************")
-           console.log("**************************")
-           console.log("**************************")
-           console.log("**************************")
-           console.log("TOTAL FRUITS TO CATCH: " + this.fruitsToDrag);
-           console.log("FRUITS STOLEN: " + this.stolenFruits.length);
-           console.log("STOLE LIMIT: " + this.stoleLimit);
-           console.log("STOLEN FRUITS: " + this.stolenFruits);
-           console.log("STOLEN FRUITS LENGTH: " + this.stolenFruits.length);
-           console.log("**************************")
-           console.log("**************************")
-           console.log("**************************")
-           console.log("**************************")
-           console.log("**************************")
-           console.log("**************************")
-           console.log("**************************")
-           console.log("**************************")
+            console.log("STOLE LIMIT 1 = " + this.stoleLimit);
+            console.log("STOLE LIMIT 2 = " + this.stoleLimit2);
                 
         }, 2000);
 
@@ -1274,10 +1248,6 @@ export class Scene4 {
 
                 /**IF CURRENT TARGET FRUIT NOT COLLIDING WITH BASKET */
                 if(!this.fruits[this.currentTarget]?.collidesWith(this.basket) && !this.birdPunched){
-
-                    /**RANDOM VALUE BETWEEN 0 AND 1 */
-                    let currentRandomArray = Math.floor(Math.random() * 2);
-                    console.log(currentRandomArray);
 
                     this.birds[i].moveTo(this.game.width * -0.5, this.fruitsLocations[this.currentTarget]?.y - 125, 10);
 
@@ -1323,20 +1293,32 @@ export class Scene4 {
             if(!this.stolenFruits){
                 this.stolenFruits = [];
             }
-            this.stoleLimit = (this.fruits.length - this.fruitsToDrag) - this.stolenFruits.length;
+
+
+
+
             
 
             for(let i = 0; i < this.fruits.length; i++){
+
+                this.fruits1Stolen = this.stolenFruits.filter(fruit => fruit.tags.includes("FRUIT_1"));
+                this.fruits2Stolen = this.stolenFruits.filter(fruit => fruit.tags.includes("FRUIT_2"));
+    
+                this.stoleLimit = ((this.fruits.length / 2) - this.fruitsToDrag) - this.fruits1Stolen.length;
+                this.stoleLimit2 = ((this.fruits.length / 2) - this.fruitsToDrag2) - this.fruits2Stolen.length;
+
                 if(this.fruits[i].x < -50) {
                     
                     if(!this.stolenFruits.includes(this.fruits[i])){
                         this.stolenFruits.push(this.fruits[i]);
                         
                         
-                        if(this.stoleLimit === 0) {
-                            this.fruitsStolen = true;
-                        }
+
                     }
+                }
+
+                if(this.stoleLimit === -1 || this.stoleLimit2 === -1) {
+                    this.fruitsStolen = true;
                 }
             }
         })();
@@ -1404,8 +1386,10 @@ export class Scene4 {
                             this.continueButton3.moveTo(this.game.width * 1, this.game.height * 1.155, (this.game.speed * 0.15));
                             this.background.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
                             this.mainTree.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
+                            this.mediumTree.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
                             this.fruitIndicator.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
                             this.fruitToCatch.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
+                            this.fruitToCatch2.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
                             this.productsQtyIndicator.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
                             this.buttonFullScreen.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
                             this.buttonShowKeyboard.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
@@ -1596,10 +1580,20 @@ export class Scene4 {
                         this.game.input.mouse.clicked = false;
                         this.game.input.touches = [];
 
-                        if(this.fruitsInBasket.length === parseInt(this.keyboard.currentInput) &&
-                            this.fruitsInBasket.length === this.fruitsToDrag){
-                            this.correctAnswer = true;
+                        if(this.fruitsInBasket.length === parseInt(this.keyboard.currentInput) && this.fruitsInBasket.length === (this.fruitsToDrag + this.fruitsToDrag2)){
 
+                            let fruits1InBasket = this.fruitsInBasket.filter(fruit => fruit.tags.includes("FRUIT_1")).length;
+                            let fruits2InBasket = this.fruitsInBasket.filter(fruit => fruit.tags.includes("FRUIT_2")).length;
+
+                            if(fruits1InBasket === this.fruitsToDrag && fruits2InBasket === this.fruitsToDrag2){
+                                this.correctAnswer = true;
+                            } else {
+                                this.wrongAnswer = true;
+                                this.startGame = false;
+                                this.showKeyboard = false;
+                            }
+
+                            
 
                         } else {
                             this.wrongAnswer = true;
@@ -1990,7 +1984,7 @@ export class Scene4 {
         }
     }
 
-    createFruit(fruit, x, y){
+    createFruit(fruit, x, y, tags){
 
         const currentFruit = new Image(
             this.game, // GAME
@@ -2022,6 +2016,7 @@ export class Scene4 {
             0.15, // SCALE SPEED
             true, // DRAGGABLE
             25, /**GRAB RELEASE SPEED */
+            tags, /**TAGS*/
         );
 
         this.fruits.push(currentFruit);
