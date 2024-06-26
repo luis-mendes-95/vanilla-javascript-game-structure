@@ -1210,8 +1210,7 @@ export class Scene4 {
         })();
 
         setInterval(() => {
-            console.log("STOLE LIMIT 1 = " + this.stoleLimit);
-            console.log("STOLE LIMIT 2 = " + this.stoleLimit2);
+
                 
         }, 2000);
 
@@ -1948,7 +1947,7 @@ export class Scene4 {
         (()=>{
             for(let i = 0; i < this.birds.length; i++){
                 if(this.startGame &&
-                    this.birds[i].x < (this.game.width * 0.5) &&
+                    this.birds[i].x < (this.game.width * 0.6) &&
                     this.birds[i].x > (this.game.width * 0.1)){
                      this.birds[i].draw(ctx, 0);
                  }
