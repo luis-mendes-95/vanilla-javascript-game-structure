@@ -1517,9 +1517,11 @@ export class Scene5 {
                             this.background.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
                             this.mainTree.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
                             this.mediumTree.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
+                            this.hardTree.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
                             this.fruitIndicator.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
                             this.fruitToCatch.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
                             this.fruitToCatch2.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
+                            this.fruitToCatch3.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
                             this.productsQtyIndicator.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
                             this.buttonFullScreen.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
                             this.buttonShowKeyboard.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
