@@ -1492,7 +1492,7 @@ export class Scene3 {
 
             /**PRODUCT QTY INDICATOR */
             (()=>{
-                if(this.productsQtyIndicator.isTouchOver()){
+                if(this.productsQtyIndicator.isTouchOver() && this.startGame){
                     this.showKeyboard = !this.showKeyboard;
                     this.game.input.touches = [];
                 }

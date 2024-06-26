@@ -5,8 +5,8 @@ import { InputHandler } from './src/engine/input/input.js';
 import { Scene1 } from './src/customClasses/scenes/scene1/scene1.js';
 import { Scene2 } from './src/customClasses/scenes/scene2/scene2.js';
 import { Scene3 } from './src/customClasses/scenes/scene3/scene3.js';
-import { Scene4 } from './src/customClasses/scenes/scene4/scene4.js';
 import { Scene0 } from './src/customClasses/scenes/scene0/scene0.js';
+import { Scene4 } from './src/customClasses/scenes/scene4/scene4.js';
 
 /** AFTER EVERYTHING LOADS, IT WILL RUN */
 window.addEventListener('load', function() {
@@ -42,7 +42,7 @@ window.addEventListener('load', function() {
             this.currentStage = 0;
             this.stagesDone = [];
             this.playerPoints = 0;
-            this.difficulty = "easy";
+            this.difficulty = "medium";
 
             /** SOUNDS */
 
@@ -62,7 +62,7 @@ window.addEventListener('load', function() {
             .catch(error => console.log(error));
 
             /** SCENES MANAGEMENT */
-            this.currentScene = new Scene0(this);
+            this.currentScene = new Scene4(this);
             
         }
 

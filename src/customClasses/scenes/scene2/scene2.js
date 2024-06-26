@@ -7,6 +7,7 @@ import { thisGameHUD } from "./thisGameHUD.js";
 import { Image } from "../../../engine/image/image.js";
 import { Scene1 } from "../scene1/scene1.js";
 import { Scene3 } from "../scene3/scene3.js";
+import { Scene4 } from "../scene4/scene4.js";
 
 export class Scene2 {
     constructor(game) {
@@ -400,6 +401,17 @@ export class Scene2 {
     }
 
     changeScene() {
-        this.game.changeScene(Scene3);
+
+        /**EASY MODE -> TREES */
+        if(this.game.difficulty === "easy" && this.game.currentStage === 0){
+            this.game.changeScene(Scene3);
+        }
+
+        /**MEDIUM MODE -> TREES */
+        if(this.game.difficulty === "medium" && this.game.currentStage === 0){
+            this.game.changeScene(Scene4);
+        }
+
+        
     }
 }
