@@ -1228,8 +1228,6 @@ export class Scene6 {
 
     }
 
-
-
     update(deltaTime) {
 
 
@@ -1772,26 +1770,82 @@ export class Scene6 {
             (()=>{
                 if(!this.correctAnswer && !this.wrongAnswer && !this.restart){
 
+                    console.log("dae porra" + this.choosedVegetable);
                     for(let i = 0; i < this.fruitsInBasket.length; i++){
 
                         if(i === 0){
-                            this.fruitsInBasket[i].moveTo(this.game.width * 0.76, this.game.height * 0.15, (this.game.speed * 0.4));
+                            let currentX = this.game.width * 0.74;
+                            let currentY = this.game.height * 0.15;
+
+                            if(this.choosedVegetable == 3){
+                                currentX *= 1.02;
+                            }
+
+                            if(this.choosedVegetable == 2){
+                                currentX *= 1.02;
+                            }
+
+                            this.fruitsInBasket[i].moveTo(currentX, currentY, (this.game.speed * 0.4));
                         }
     
                         if(i === 1){
-                            this.fruitsInBasket[i].moveTo(this.game.width * 0.825, this.game.height * 0.15, (this.game.speed * 0.4));
+                            let currentX = this.game.width * 0.805;
+                            let currentY = this.game.height * 0.15;
+
+                            if(this.choosedVegetable == 3){
+                                currentX *= 1.02;
+                            }
+
+                            if(this.choosedVegetable == 2){
+                                currentX *= 1.02;
+                            }
+
+                            this.fruitsInBasket[i].moveTo(currentX, currentY, (this.game.speed * 0.4));
                         }
     
                         if(i === 2){
-                            this.fruitsInBasket[i].moveTo(this.game.width * 0.89, this.game.height * 0.15, (this.game.speed * 0.4));
+                            let currentX = this.game.width * 0.87;
+                            let currentY = this.game.height * 0.15;
+
+                            if(this.choosedVegetable == 3){
+                                currentX *= 1.02;
+                            }
+
+                            if(this.choosedVegetable == 2){
+                                currentX *= 1.02;
+                            }
+
+                            this.fruitsInBasket[i].moveTo(currentX, currentY, (this.game.speed * 0.4));
                         }
     
                         if(i === 3){
-                            this.fruitsInBasket[i].moveTo(this.game.width * 0.76, this.game.height * 0.31, (this.game.speed * 0.4));
+                            let currentX = this.game.width * 0.74;
+                            let currentY = this.game.height * 0.31;
+
+                            if(this.choosedVegetable == 3){
+                                currentX *= 1.02;
+                            }
+
+                            if(this.choosedVegetable == 2){
+                                currentX *= 1.02;
+                            }
+
+                            this.fruitsInBasket[i].moveTo(currentX, currentY, (this.game.speed * 0.4));
                         }
     
                         if(i === 4){
-                            this.fruitsInBasket[i].moveTo(this.game.width * 0.825, this.game.height * 0.31, (this.game.speed * 0.4));
+                            let currentX = this.game.width * 0.805;
+                            let currentY = this.game.height * 0.31;
+
+                            if(this.choosedVegetable == 3){
+                                currentX *= 1.02;
+                            }
+
+                            if(this.choosedVegetable == 2){
+                                currentX *= 1.02;
+                            }
+
+                            this.fruitsInBasket[i].moveTo(currentX, currentY, (this.game.speed * 0.4));
                         }
     
                         if(i === 5){
