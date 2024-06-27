@@ -1256,11 +1256,15 @@ export class Scene6 {
 
                for(let i = 0; i < this.toupeiras.length; i++){
 
+                if(this.fruits[this.currentTarget].y > this.game.height * 1){
+                    this.currentTarget = Math.floor(Math.random() * 5);
+                };
+
                 /**IF CURRENT TARGET FRUIT NOT COLLIDING WITH BASKET */
                 if(this.fruits[this.currentTarget]){
                     if(!this.fruits[this.currentTarget].collidesWith(this.basket) && !this.toupeiraPunched){
 
-                        if(!this.justGrabbed){
+                        if(!this.justGrabbed && this.fruits[this.currentTarget].y < this.game.height * 0.9){
                             this.toupeiras[i].moveTo(this.fruitsLocations[this.currentTarget].x, this.fruitsLocations[this.currentTarget].y - 175, 5);
                         } else {
                             this.toupeiras[i].moveTo(this.fruitsLocations[this.currentTarget].x, this.game.height * 1.16, 3);
