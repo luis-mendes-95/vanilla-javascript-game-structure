@@ -1684,7 +1684,9 @@ export class Scene6 {
             /**toupeiras */
             (()=>{
                 for(let i = 0; i < this.toupeiras.length; i++){
-                    this.toupeiras[i].update(deltaTime);
+                    if(this.startGame){
+                        this.toupeiras[i].update(deltaTime);
+                    }
                 };
             })();
 
