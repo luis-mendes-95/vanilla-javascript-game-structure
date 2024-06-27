@@ -1176,12 +1176,12 @@ export class Scene6 {
 
             this.toupeiras = [];
 
-            /**BIRD SPRITE*/
+            /**TOUPEIRA SPRITE*/
             (()=>{
                 
                 setInterval(() => {
                     if(this.toupeiras.length === 0 && this.startGame){
-                        let currentBird = new Sprite(
+                        let currentToupeira = new Sprite(
                             [
                                 this.toupeiraImage, /** FLYING */
                             ], /** IMAGE */
@@ -1190,8 +1190,8 @@ export class Scene6 {
                             280, /** SPRITE HEIGHT */
                             this.game.height * 0.0015, /** SIZE X */
                             this.game.height * 0.0015, /** SIZE Y */
-                            (this.game.width * 1.5), /** DESTINY X */
-                            (this.game.canvas.height * 0.5), /** DESTINY Y */
+                            (this.game.width * 0.5), /** DESTINY X */
+                            (this.game.canvas.height * 1.01), /** DESTINY Y */
                             2, /** MAX FRAME X */
                             0, /** MAX FRAME Y */
                             75, /** FRAME SPEED */
@@ -1202,7 +1202,7 @@ export class Scene6 {
                             0, /**SCALE TO HOVER */
                             0, /**SCALE SPEED */
                         );
-                        this.toupeiras.push(currentBird);
+                        this.toupeiras.push(currentToupeira);
                     }
                 }, 2000);
                 
@@ -1211,7 +1211,8 @@ export class Scene6 {
 
             /**BIRD TARGET FUNCTIONS*/
             (()=>{
-                this.birdPunched= false;
+                this.toupeiraPunched= false;
+                this.justGrabbed = false;
 
                 /**NUMBER BETWEEN 0 AND 8 */
                 this.currentTarget = Math.floor(Math.random() * 5);
@@ -1237,7 +1238,7 @@ export class Scene6 {
         (()=>{
 
 
-            /**BIRD MOVEMENT */
+            /**TOUPEIRA MOVEMENT */
             (()=>{
 
                 if(this.fruits[this.currentTarget]){
@@ -1257,22 +1258,34 @@ export class Scene6 {
 
                 /**IF CURRENT TARGET FRUIT NOT COLLIDING WITH BASKET */
                 if(this.fruits[this.currentTarget]){
-                    if(!this.fruits[this.currentTarget].collidesWith(this.basket) && !this.birdPunched){
+                    if(!this.fruits[this.currentTarget].collidesWith(this.basket) && !this.toupeiraPunched){
 
-                        this.toupeiras[i].moveTo(this.game.width * -0.5, this.fruitsLocations[this.currentTarget].y - 125, 10);
+                        if(!this.justGrabbed){
+                            this.toupeiras[i].moveTo(this.fruitsLocations[this.currentTarget].x, this.fruitsLocations[this.currentTarget].y - 175, 5);
+                        } else {
+                            this.toupeiras[i].moveTo(this.fruitsLocations[this.currentTarget].x, this.game.height * 1.16, 3);
+                        }
     
                         if(this.toupeiras[i].collidesWith(this.fruits[this.currentTarget])){
                             this.fruits[this.currentTarget].draggedRight = true;
-                            this.fruits[this.currentTarget].moveTo(this.toupeiras[i].x, this.toupeiras[i].y + 125, 10);
+                            this.fruits[this.currentTarget].moveTo(this.toupeiras[i].x + 50, this.toupeiras[i].y + 145, 3.5);
+                            setTimeout(() => {
+                                this.justGrabbed = true;
+                            }, 2500);
                         }
     
                         /**IF BIRD GO AWAY FROM CANVAS, IT WILL BE DELETED */
-                        if(this.toupeiras[i].x < this.game.width * -0.1){
+                        if(this.toupeiras[i].y > this.game.height * 1.06){
                             this.toupeiras.splice(i, 1);
                             this.currentTarget = Math.floor(Math.random() * 5);
+                            while(this.fruits[this.currentTarget].y > this.game.height * 0.9)
+                                {
+                                    this.currentTarget = Math.floor(Math.random() * 5);
+                                };
+                            this.justGrabbed = false;
                         }
                     } else {
-                        this.toupeiras[i].moveTo(this.game.width * -0.5, this.game.height * 0.2 - 125, 10);
+                        this.toupeiras[i].moveTo(this.game.width * -0.5, this.game.height * 1.2 - 125, 10);
                     }
                 }
             
@@ -1289,7 +1302,7 @@ export class Scene6 {
 
             for(let i = 0; i < this.fruits.length; i++){
                 if(this.toupeiras[0]){
-                    if(this.fruits[i].draggedRight && !this.toupeiras[0].collidesWith(this.fruits[i]) && !this.fruits[i].collidesWith(this.basket) && this.fruits[i].x > 0 + this.fruits[i].width){
+                    if(this.fruits[i].draggedRight && !this.toupeiras[0].collidesWith(this.fruits[i]) && !this.fruits[i].collidesWith(this.basket) && this.fruits[i].y < this.game.height){
                         this.fruits[i].draggedRight = false;
                     }
                 }
@@ -1304,15 +1317,15 @@ export class Scene6 {
             }
             this.stoleLimit = (this.fruits.length - this.fruitsToDrag) - this.stolenFruits.length;
             
-
+            console.log(this.stolenFruits);
             for(let i = 0; i < this.fruits.length; i++){
-                if(this.fruits[i].x < -50) {
+                if(this.fruits[i].y > this.game.height * 0.95) {
                     
                     if(!this.stolenFruits.includes(this.fruits[i])){
                         this.stolenFruits.push(this.fruits[i]);
                         
                         
-                        if(this.stoleLimit === 0) {
+                        if(this.stoleLimit <= 0) {
                             this.fruitsStolen = true;
                         }
                     }
@@ -1481,9 +1494,9 @@ export class Scene6 {
                 for(let i = 0; i < this.toupeiras.length; i++){
                     if(this.toupeiras[i].isMouseClicking() && !this.game.isDraggingImage || this.toupeiras[i].isTouchOver() && !this.game.isDraggingImage){
 
-                        this.birdPunched = true;
+                        this.toupeiraPunched = true;
                         setTimeout(() => {
-                            this.birdPunched = false;
+                            this.toupeiraPunched = false;
                         }, 2000);
 
                         for(let j = 0; j < this.fruits.length; j++){
@@ -1626,6 +1639,7 @@ export class Scene6 {
                     this.correctAnswer = false;
                     this.wrongAnswer = false;
                     this.fruitsStolen = false;
+                    this.stoleLimit = (this.fruits.length - this.fruitsToDrag) - this.stolenFruits.length;
                    
 
                     
@@ -1836,9 +1850,11 @@ export class Scene6 {
             /**ENEMIES */
             (()=>{
                 for(let i = 0; i < this.toupeiras.length; i++){
-                    if(this.startGame &&
-                        this.toupeiras[i].x > (this.game.width * 0.5) ||
-                        this.toupeiras[i].x < (this.game.width * 0.1)){
+                    if(this.startGame
+                        //this.toupeiras[i].x > (this.game.width * 0.5) ||
+                        //this.toupeiras[i].x < (this.game.width * 0.1)
+                        )
+                        {
                          this.toupeiras[i].draw(ctx, 0);
                      }
                 }
@@ -1904,7 +1920,7 @@ export class Scene6 {
 
             /**TREE FRUITS */
             for(let i = 0; i < this.fruits.length; i++){
-                if(this.fruits[i].x > (this.game.width * 0.60)){
+                if(this.fruits[i].x > (this.game.width * 0.65)){
                     this.fruits[i].draw(ctx, 0);
                 }
             }
@@ -1950,7 +1966,7 @@ export class Scene6 {
                 if(this.startGame &&
                     this.toupeiras[i].x < (this.game.width * 0.5) &&
                     this.toupeiras[i].x > (this.game.width * 0.1)){
-                     this.toupeiras[i].draw(ctx, 0);
+                     //this.toupeiras[i].draw(ctx, 0);
                  }
             };
         })();
