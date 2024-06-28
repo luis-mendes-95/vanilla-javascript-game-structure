@@ -131,6 +131,7 @@ export class Scene6 {
                 this.beterraba = document.getElementById('beterraba');
                 this.cenoura = document.getElementById('cenoura');
                 this.tomate = document.getElementById('tomate');
+                this.tomateiro = document.getElementById('tomateiro');
 
 
             })();
@@ -1150,13 +1151,13 @@ export class Scene6 {
 
                         if(this.choosedVegetable === 4){
                             for(let i = 0; i < 5; i++){
-                                this.createVegetable(this.alface, this.fruitsLocations[i].x, this.fruitsLocations[i].y);
+                                this.createVegetable(this.tomateiro, this.fruitsLocations[i].x, this.fruitsLocations[i].y);
                             }
                         }
 
                         if(this.choosedVegetable === 5){
                             for(let i = 0; i < 5; i++){
-                                this.createVegetable(this.abobora, this.fruitsLocations[i].x, this.fruitsLocations[i].y);
+                                this.createVegetable(this.tomateiro, this.fruitsLocations[i].x, this.fruitsLocations[i].y);
                             }
                         }
 
@@ -1319,7 +1320,6 @@ export class Scene6 {
             }
             this.stoleLimit = (this.fruits.length - this.fruitsToDrag) - this.stolenFruits.length;
             
-            console.log(this.stolenFruits);
             for(let i = 0; i < this.fruits.length; i++){
                 if(this.fruits[i].y > this.game.height * 0.95) {
                     
@@ -1710,7 +1710,9 @@ export class Scene6 {
                 if(this.startGame && !this.fruitsStolen && !this.correctAnswer && !this.wrongAnswer){
                     for(let i = 0; i < this.fruits.length; i++){
                         this.fruits[i].update(deltaTime);
-                        this.fruits[i].draggable = true;
+                        if(!this.fruits[i].tags.includes('TOMATEIRO')){
+                            this.fruits[i].draggable = true;
+                        } 
                     }
                 } else {
                     for(let i = 0; i < this.fruits.length; i++){
@@ -1772,7 +1774,6 @@ export class Scene6 {
             (()=>{
                 if(!this.correctAnswer && !this.wrongAnswer && !this.restart){
 
-                    console.log("dae porra" + this.choosedVegetable);
                     for(let i = 0; i < this.fruitsInBasket.length; i++){
 
                         if(i === 0){
@@ -2066,6 +2067,8 @@ export class Scene6 {
 
         let currentHeight = null;
         let currentWidth = null;
+        let isDraggable = true;
+        let canHover = true;
 
         if(fruit === this.abobora){
             currentHeight = this.game.height * 0.15;
@@ -2087,9 +2090,11 @@ export class Scene6 {
             currentWidth = this.game.width * 0.06;
         }
 
-        if(fruit === this.tomate){
-            currentHeight = this.game.height * 0.1;
-            currentWidth = this.game.width * 0.07;
+        if(fruit === this.tomateiro){
+            currentHeight = this.game.height * 0.2;
+            currentWidth = this.game.width * 0.10;
+            y *= 0.9;
+            canHover = false;
         }
 
 
@@ -2113,7 +2118,7 @@ export class Scene6 {
             (this.game.width * 0.365), // TEXT X
             (this.height * 1.50), // TEXT Y
             "black", // TEXT COLOR
-            true, // MOUSE HOVER
+            canHover, // MOUSE HOVER
             null, // TEXTS ALIGN -> ROW OR COLUMN
             ``, // UNIQUE TEXT
             (this.game.width * 0.285), // UNIQUE TEXT X
@@ -2124,8 +2129,9 @@ export class Scene6 {
             true, // HOVER SCALE (added to match constructor parameters)
             1.5, // SCALE TO HOVER
             0.15, // SCALE SPEED
-            true, // DRAGGABLE
+            isDraggable, // DRAGGABLE
             25, /**GRAB RELEASE SPEED */
+            ["TOMATEIRO"], /**TAGS*/
         );
 
         this.fruits.push(currentFruit);
