@@ -322,6 +322,7 @@ export class Image {
                 if(!this.mouseOver) {
                     this.mouseOver = true;
                     this.game.hoveredImages.add(this.id);
+                    return true;
 
 
                 }
@@ -335,6 +336,7 @@ export class Image {
                 if(this.scale  > 1){
                     this.scale -= this.scaleSpeed;
                 } 
+                return false;
             }
         }
     }
