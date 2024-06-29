@@ -64,7 +64,7 @@ export class Scene6 {
                 /**RANDOM NUMBER BETWEEN 0 AND 5 */
                 //this.choosedVegetable = Math.floor(Math.random() * 6);
                 this.choosedVegetable = 4;
-                //this.choosedVegetable = 5;
+                
 
             })();
             
@@ -1181,8 +1181,11 @@ export class Scene6 {
 
                                 if(i !== -1){
                                     const currentTomato = this.createVegetable(this.tomate, tomateiros[i].x + 30, tomateiros[i].y + 100);
+                                    currentTomato.tags.push(`TOMATEIRO${i}`);
                                     const currentTomato2 = this.createVegetable(this.tomate, tomateiros[i].x + 120, tomateiros[i].y + 100);
+                                    currentTomato2.tags.push(`TOMATEIRO${i}`);
                                     const currentTomato3 = this.createVegetable(this.tomate, tomateiros[i].x + 160, tomateiros[i].y + 20);
+                                    currentTomato3.tags.push(`TOMATEIRO${i}`);
                                     this.tomatoes.push(currentTomato);
                                     this.tomatoes.push(currentTomato2);
                                     this.tomatoes.push(currentTomato3);
@@ -1956,11 +1959,41 @@ export class Scene6 {
 
         /**HANDLE TOMATOES FOLLOWING THE TOMATEIRO */
         (()=>{
-            for(let i = 0; i < this.fruits.length; i++){
+            /**LOOP THE TOMATOES */
+            for(let i = 0; i < this.tomatoes.length; i++){
+                /**LOOP THE TAGS */
+                for(let j = 0; j < this.tomatoes[i].tags.length; j++){
+                    /**WHICH TOMATEIRO THIS TOMATO BELONGS */
+                    let tomatoIndex = parseInt(this.tomatoes[i].tags[j].replace("TOMATEIRO", ""));
+                    
+                    /**IF THIS CURRENT TOMATO BELONGS TO A SPECIFIC TOMATEIRO */
+                    if (tomatoIndex >= 0 && tomatoIndex < this.fruits.length) {
+                        let tomatoPosition = i % 3; // Determines the position of the tomato (0, 1, or 2)
+                        let offsetX, offsetY;
 
-            };
+                        switch(tomatoPosition) {
+                            case 0:
+                                offsetX = 30;
+                                offsetY = 100;
+                                break;
+                            case 1:
+                                offsetX = 120;
+                                offsetY = 100;
+                                break;
+                            case 2:
+                                offsetX = 160;
+                                offsetY = 20;
+                                break;
+                        }
 
+                        this.tomatoes[i].x = this.fruits[tomatoIndex].x + offsetX;
+                        this.tomatoes[i].y = this.fruits[tomatoIndex].y + offsetY;
+                    }
+                }
+            }
         })();
+
+
        
     }
 
