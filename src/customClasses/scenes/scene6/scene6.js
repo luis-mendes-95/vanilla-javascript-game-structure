@@ -1944,15 +1944,30 @@ export class Scene6 {
 
         // Handle not dragging "TOMATEIRO"
         (()=>{
+            this.tomateiroReturnToItsPlace = true;
             for(let i = 0; i < this.fruits.length; i++){
                 if(this.fruits[i].tags.includes("TOMATEIRO")){
 
                     let isAnyTomatoHovering = this.tomatoes.some(tomato => tomato.isMouseClicking() || tomato.isTouchOver() || tomato.isGrabbed);   
 
-                    if(this.fruits[i].isMouseOver() || this.fruits[i].isTouchOver()){
+                    if(this.fruits[i].isMouseOver() && this.tomateiroReturnToItsPlace || this.fruits[i].isTouchOver()){
                         this.fruits[i].draggable = false;
 
+                        if(this.fruits[i].isMouseClicking() || this.fruits[i].isTouchOver()){
+                            if(this.tomateiroReturnToItsPlace){
+                                this.tomateiroReturnToItsPlace = false;
+                            }
+                            if(!this.tomateiroReturnToItsPlace){
+                                this.game.input.mouse.x = 0;
+                                this.game.input.mouse.y = 0;
+                            }
+                            setTimeout(() => {
+                                this.tomateiroReturnToItsPlace = true;
+                            }, 500);
+                        }
+
                         if(!isAnyTomatoHovering){
+
                             this.game.input.mouse.clicked = false;
                             this.game.input.touches = [];
                         }
