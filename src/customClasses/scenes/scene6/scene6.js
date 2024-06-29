@@ -1815,6 +1815,8 @@ export class Scene6 {
 
                 }
 
+
+
                 for (let i = 0; i < this.fruitsInBasket.length; i++) {
 
                     if(!this.fruitsInBasket[i].collidesWith(this.basket)){
@@ -1940,19 +1942,33 @@ export class Scene6 {
 
         })();
 
-        /**HANDLE NOT DRAGGING TOMATEIRO */
+        // Handle not dragging "TOMATEIRO"
         (()=>{
             for(let i = 0; i < this.fruits.length; i++){
                 if(this.fruits[i].tags.includes("TOMATEIRO")){
 
+                    let isAnyTomatoHovering = this.tomatoes.some(tomato => tomato.isMouseClicking() || tomato.isTouchOver() || tomato.isGrabbed);   
 
-                    if(this.fruits[i].isMouseClicking() || this.fruits[i].isTouchOver()){
+                    if(this.fruits[i].isMouseOver() || this.fruits[i].isTouchOver()){
                         this.fruits[i].draggable = false;
-                        this.game.input.mouse.clicked = false;
-                        this.game.input.touches = [];
+
+                        if(!isAnyTomatoHovering){
+                            this.game.input.mouse.clicked = false;
+                            this.game.input.touches = [];
+                        }
+
                     } else {
                         this.fruits[i].draggable = true;
                     }
+                }
+            }
+        })();
+
+        // Handle dragging tomatoes
+        (()=>{
+            for(let i = 0; i < this.tomatoes.length; i++){
+                if(this.tomatoes[i].isMouseClicking() || this.tomatoes[i].isTouchOver()){
+                    this.tomatoes[i].draggable = true;
                 }
             }
         })();
@@ -2055,6 +2071,15 @@ export class Scene6 {
                     
                 }
             }
+
+            /**TOMATOES - IF IS THE CHOSED ONE */
+            (()=>{
+                for(let i = 0; i < this.tomatoes.length; i++){
+                    if(i !== -1){
+                        this.tomatoes[i].draw(ctx, 0);
+                    }
+                };
+            })();
 
 
 
@@ -2169,14 +2194,7 @@ export class Scene6 {
         })();
 
         
-            /**TOMATOES - IF IS THE CHOSED ONE */
-            (()=>{
-                for(let i = 0; i < this.tomatoes.length; i++){
-                    if(i !== -1){
-                        this.tomatoes[i].draw(ctx, 0);
-                    }
-                };
-            })();
+
 
 
             
