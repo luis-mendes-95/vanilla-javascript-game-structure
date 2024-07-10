@@ -28,7 +28,6 @@ export class Scene7 {
             /**ANSWERS*/
             this.correctAnswer = false;
             this.wrongAnswer = false;
-            this.stolenFruits = false;
 
             /**KEYBOARD CONTROL */
             this.showKeyboard = false;
@@ -1400,10 +1399,9 @@ export class Scene7 {
         setInterval(() => {
 
 
-            console.log("TOUPEIRA X Y = " + this.toupeiras[0].x, this.toupeiras[0].y);
-            console.log("CURRENT TARGET = " + this.currentTarget);
-            console.log("FRUITS = " + this.fruits.length);
-        }, 2000);
+            console.log("STOLE LIMIT 1 :" + this.stoleLimit);
+            console.log("STOLE LIMIT 2 :" + this.stoleLimit2);
+        }, 1000);
 
 
     }
@@ -1458,7 +1456,7 @@ export class Scene7 {
                 /**IF CURRENT TARGET FRUIT NOT COLLIDING WITH BASKET */
                 if(this.fruits[this.currentTarget]){
 
-                    console.log("CURRENT TARGET FRUIT 1: ", this.currentTarget);
+
 
                     if(!this.fruits[this.currentTarget].collidesWith(this.basket) && !this.toupeiraPunched){                        
 
@@ -1584,8 +1582,13 @@ export class Scene7 {
             if(!this.stolenFruits){
                 this.stolenFruits = [];
             }
+            if(!this.stolenFruits2){
+                this.stolenFruits2 = [];
+            }
             this.stoleLimit = (this.fruits.length - this.fruitsToDrag) - this.stolenFruits.length;
+            this.stoleLimit2 = (this.fruits2.length - this.fruitsToDrag2) - this.stolenFruits2.length;
             
+            /**FRUIT 1 HANDLER */
             for(let i = 0; i < this.fruits.length; i++){
                 if(this.fruits[i].y > this.game.height * 0.95) {
                     
@@ -1593,12 +1596,28 @@ export class Scene7 {
                         this.stolenFruits.push(this.fruits[i]);
                         
                         
-                        if(this.stoleLimit <= 0) {
+                        if(this.stoleLimit <= 0 || this.stoleLimit2 <= 0) {
                             this.fruitsStolen = true;
                         }
                     }
                 }
             }
+
+            /**FRUIT 2 HANDLER */
+            for(let i = 0; i < this.fruits2.length; i++){
+                if(this.fruits2[i].y > this.game.height * 0.95) {
+                    
+                    if(!this.stolenFruits2.includes(this.fruits2[i])){
+                        this.stolenFruits2.push(this.fruits2[i]);
+                        
+                        
+                        if(this.stoleLimit <= 0 || this.stoleLimit2 <= 0) {
+                            this.fruitsStolen = true;
+                        }
+                    }
+                }
+            }
+
         })();
 
 
@@ -1914,6 +1933,7 @@ export class Scene7 {
                     this.toupeiras.splice(0, this.toupeiras.length);
 
                     this.stolenFruits = [];
+                    this.stolenFruits2 = [];
 
                     /**RETURN BASKET FRUITS TO THE TREE */
                     for (let i = 0; i < this.fruits.length; i++) {
@@ -1929,6 +1949,7 @@ export class Scene7 {
                     this.wrongAnswer = false;
                     this.fruitsStolen = false;
                     this.stoleLimit = (this.fruits.length - this.fruitsToDrag) - this.stolenFruits.length;
+                    this.stoleLimit2 = (this.fruits2.length - this.fruitsToDrag2) - this.stolenFruits2.length;
                    
 
                     
@@ -2322,7 +2343,7 @@ export class Scene7 {
 
             /**ENEMIES */
             if(this.currentTarget !== 0 || this.currentTarget !== 1 || this.currentTarget !== 2 || this.currentTarget !== 3 || this.currentTarget !== 4){
-                console.log(this.currentTarget);
+
                 (()=>{
                     for(let i = 0; i < this.toupeiras.length; i++){
                         if(this.startGame
@@ -2357,7 +2378,7 @@ export class Scene7 {
 
             /**ENEMIES */
             if(this.currentTarget === 0 || this.currentTarget === 1 || this.currentTarget === 2 || this.currentTarget === 3 || this.currentTarget === 4){
-                console.log(this.currentTarget);
+
                 (()=>{
                     for(let i = 0; i < this.toupeiras.length; i++){
                         if(this.startGame
