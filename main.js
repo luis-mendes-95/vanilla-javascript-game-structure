@@ -45,7 +45,7 @@ window.addEventListener('load', function() {
             this.currentStage = 0;
             this.stagesDone = [];
             this.playerPoints = 0;
-            this.difficulty = "easy";
+            this.difficulty = "medium";
 
             /** SOUNDS */
 

@@ -10,6 +10,7 @@ import { Scene3 } from "../scene3/scene3.js";
 import { Scene4 } from "../scene4/scene4.js";
 import { Scene5 } from "../scene5/scene5.js";
 import { Scene6 } from "../scene6/scene6.js";
+import { Scene7 } from "../scene7/scene7.js";
 
 export class Scene2 {
     constructor(game) {
@@ -423,6 +424,11 @@ export class Scene2 {
         /**EASY MODE -> VEGETABLES */
         if(this.game.difficulty === "easy" && this.game.currentStage === 1){
             this.game.changeScene(Scene6);
+        }
+
+        /**MEDIUM MODE -> VEGETABLES */
+        if(this.game.difficulty === "medium" && this.game.currentStage === 1){
+            this.game.changeScene(Scene7);
         }
 
         

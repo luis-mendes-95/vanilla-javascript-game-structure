@@ -76,6 +76,11 @@ export class Scene7 {
                 this.fruitsToDrag = Math.floor(Math.random() * 5) + 1;
                 this.fruitsToDrag2 = Math.floor(Math.random() * 5) + 1;
 
+                while(this.fruitsToDrag === 5 && this.fruitsToDrag2 === 5){
+                    this.fruitsToDrag = Math.floor(Math.random() * 5) + 1;
+                    this.fruitsToDrag2 = Math.floor(Math.random() * 5) + 1;
+                }
+
                 /**RANDOM NUMBER BETWEEN 0 AND 5 */
                 this.choosedVegetable = Math.floor(Math.random() * 6);
                 this.choosedVegetable2 = Math.floor(Math.random() * 6);
@@ -1254,25 +1259,25 @@ export class Scene7 {
                         /**VEGETABLE 1 */
                         if(this.choosedVegetable === 0){
                             for(let i = 0; i < 5; i++){
-                                this.createVegetable(this.abobora, this.fruitsLocations[i].x, this.fruitsLocations[i].y);
+                                this.createVegetable(this.abobora, this.fruitsLocations[i].x, this.fruitsLocations[i].y, ["FRUIT_1"]);
                             }
                         }
 
                         if(this.choosedVegetable === 1){
                             for(let i = 0; i < 5; i++){
-                                this.createVegetable(this.alface, this.fruitsLocations[i].x, this.fruitsLocations[i].y);
+                                this.createVegetable(this.alface, this.fruitsLocations[i].x, this.fruitsLocations[i].y, ["FRUIT_1"]);
                             }
                         }
 
                         if(this.choosedVegetable === 2){
                             for(let i = 0; i < 5; i++){
-                                this.createVegetable(this.beterraba, this.fruitsLocations[i].x, this.fruitsLocations[i].y);
+                                this.createVegetable(this.beterraba, this.fruitsLocations[i].x, this.fruitsLocations[i].y, ["FRUIT_1"]);
                             }
                         }
 
                         if(this.choosedVegetable === 3){
                             for(let i = 0; i < 5; i++){
-                                this.createVegetable(this.cenoura, this.fruitsLocations[i].x, this.fruitsLocations[i].y);
+                                this.createVegetable(this.cenoura, this.fruitsLocations[i].x, this.fruitsLocations[i].y, ["FRUIT_1"]);
                             }
                         }
 
@@ -1312,25 +1317,25 @@ export class Scene7 {
                         /**VEGETABLE 2 */
                         if(this.choosedVegetable2 === 0){
                             for(let i = 5; i < 10; i++){
-                                this.createVegetable2(this.abobora, this.fruitsLocations[i].x, this.fruitsLocations[i].y);
+                                this.createVegetable2(this.abobora, this.fruitsLocations[i].x, this.fruitsLocations[i].y, ["FRUIT_2"]);
                             }
                         }
 
                         if(this.choosedVegetable2 === 1){
                             for(let i = 5; i < 10; i++){
-                                this.createVegetable2(this.alface, this.fruitsLocations[i].x, this.fruitsLocations[i].y);
+                                this.createVegetable2(this.alface, this.fruitsLocations[i].x, this.fruitsLocations[i].y, ["FRUIT_2"]);
                             }
                         }
 
                         if(this.choosedVegetable2 === 2){
                             for(let i = 5; i < 10; i++){
-                                this.createVegetable2(this.beterraba, this.fruitsLocations[i].x, this.fruitsLocations[i].y);
+                                this.createVegetable2(this.beterraba, this.fruitsLocations[i].x, this.fruitsLocations[i].y, ["FRUIT_2"]);
                             }
                         }
 
                         if(this.choosedVegetable2 === 3){
                             for(let i = 5; i < 10; i++){
-                                this.createVegetable2(this.cenoura, this.fruitsLocations[i].x, this.fruitsLocations[i].y);
+                                this.createVegetable2(this.cenoura, this.fruitsLocations[i].x, this.fruitsLocations[i].y, ["FRUIT_2"]);
                             }
                         }
 
@@ -1399,8 +1404,7 @@ export class Scene7 {
         setInterval(() => {
 
 
-            console.log("STOLE LIMIT 1 :" + this.stoleLimit);
-            console.log("STOLE LIMIT 2 :" + this.stoleLimit2);
+
         }, 1000);
 
 
@@ -1685,6 +1689,7 @@ export class Scene7 {
                             this.fence.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
                             this.fruitIndicator.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
                             this.fruitToCatch.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
+                            this.fruitToCatch2.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
                             this.productsQtyIndicator.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
                             this.buttonFullScreen.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
                             this.buttonShowKeyboard.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
@@ -1701,6 +1706,9 @@ export class Scene7 {
                             }
                             for(let i = 0; i < this.fruits.length; i++){
                                 this.fruits[i].fadeOut(0.05);
+                            }
+                            for(let i = 0; i < this.fruits2.length; i++){
+                                this.fruits2[i].fadeOut(0.05);
                             }
                             this.basket.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
                             this.nextBackground.moveTo(this.game.width * 0, this.game.height * 0, (this.game.speed * 1));
@@ -1899,10 +1907,27 @@ export class Scene7 {
                         this.game.input.mouse.clicked = false;
                         this.game.input.touches = [];
 
-                        if(this.fruitsInBasket.length === parseInt(this.keyboard.currentInput) &&
-                            this.fruitsInBasket.length === this.fruitsToDrag){
-                            this.correctAnswer = true;
+                        console.log("chego aqui")
+                        console.log(this.fruitsInBasket.length);
+                        console.log(this.fruitsToDrag + this.fruitsToDrag2);
 
+                        if(this.fruitsInBasket.length === parseInt(this.keyboard.currentInput) && this.fruitsInBasket.length === (this.fruitsToDrag + this.fruitsToDrag2)){
+
+                            let fruits1InBasket = this.fruitsInBasket.filter(fruit => fruit.tags.includes("FRUIT_1")).length;
+                            let fruits2InBasket = this.fruitsInBasket.filter(fruit => fruit.tags.includes("FRUIT_2")).length;
+
+                            console.log(this.fruitsInBasket);
+                            //console.log(fruits2InBasket);
+
+                            if(fruits1InBasket === this.fruitsToDrag && fruits2InBasket === this.fruitsToDrag2){
+                                this.correctAnswer = true;
+                            } else {
+                                this.wrongAnswer = true;
+                                this.startGame = false;
+                                this.showKeyboard = false;
+                            }
+
+                            
 
                         } else {
                             this.wrongAnswer = true;
@@ -2549,17 +2574,12 @@ export class Scene7 {
     }
 
     changeScene() {
-
         
         if(this.game.currentStage === 2){
             this.game.stagesDone.push("VEGETABLES");
-            
         } else {
             this.game.currentStage += 1;
-        }666
-
-        
-
+        }
 
         if(this.game.stagesDone.includes("VEGETABLES")){
             this.game.currentStage = 0;
@@ -2569,7 +2589,7 @@ export class Scene7 {
         }
     }
 
-    createVegetable(fruit, x, y){
+    createVegetable(fruit, x, y, tagss){
 
         let currentHeight = null;
         let currentWidth = null;
@@ -2611,6 +2631,8 @@ export class Scene7 {
             canHover = true;
         }
 
+        let currentTags = tags.join(tagss);
+
         
         const currentFruit = new Image(
             this.game, // GAME
@@ -2642,7 +2664,7 @@ export class Scene7 {
             0.15, // SCALE SPEED
             isDraggable, // DRAGGABLE
             25, /**GRAB RELEASE SPEED */
-            tags, /**TAGS*/
+            tagss, /**TAGS*/
         );
 
         if(fruit !== this.tomate){
@@ -2655,7 +2677,7 @@ export class Scene7 {
         return currentFruit;
     }
 
-    createVegetable2(fruit, x, y){
+    createVegetable2(fruit, x, y, tagss){
 
         let currentHeight = null;
         let currentWidth = null;
@@ -2728,7 +2750,7 @@ export class Scene7 {
             0.15, // SCALE SPEED
             isDraggable, // DRAGGABLE
             25, /**GRAB RELEASE SPEED */
-            tags, /**TAGS*/
+            tagss, /**TAGS*/
         );
 
         if(fruit !== this.tomate){
