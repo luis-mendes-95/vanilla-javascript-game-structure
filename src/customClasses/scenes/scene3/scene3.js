@@ -1020,7 +1020,7 @@ export class Scene3 {
             (()=>{
                 
                 setInterval(() => {
-                    if(this.birds.length === 0 && this.startGame){
+                    if(this.birds.length === 0 && this.startGame && !this.correctAnswer && !this.wrongAnswer && !this.fruitsStolen){
                         let currentBird = new Sprite(
                             [
                                 this.birdImage, /** FLYING */
@@ -1094,8 +1094,10 @@ export class Scene3 {
                for(let i = 0; i < this.birds.length; i++){
 
                 /**IF CURRENT TARGET FRUIT NOT COLLIDING WITH BASKET */
-                if(!this.fruits[this.currentTarget].collidesWith(this.basket) && !this.birdPunched){
+                if(!this.fruits[this.currentTarget].collidesWith(this.basket) && !this.birdPunched && this.startGame){
 
+                    console.log("to chegando aqui")
+                    console.log(this.startGame)
                     this.birds[i].moveTo(this.game.width * -0.5, this.fruitsLocations[this.currentTarget].y - 125, 10);
 
                     if(this.birds[i].collidesWith(this.fruits[this.currentTarget])){
@@ -1109,7 +1111,10 @@ export class Scene3 {
                         this.currentTarget = Math.floor(Math.random() * 9);
                     }
                 } else {
-                    this.birds[i].moveTo(this.game.width * -0.5, this.game.height * 0.2 - 125, 10);
+                    if(this.startGame){
+                        
+                        this.birds[i].moveTo(this.game.width * -0.5, this.game.height * 0.2 - 125, 10);
+                    }
                 }
             
                };
@@ -1406,6 +1411,8 @@ export class Scene3 {
                 if(this.confirmButton.isTouchOver() || this.confirmButton.isMouseClicking()){
                     if(this.startGame && this.keyboard.currentInput.length > 0){
 
+                        this.startGame = false;
+
                         this.game.input.mouse.clicked = false;
                         this.game.input.touches = [];
 
@@ -1421,7 +1428,7 @@ export class Scene3 {
                             
                         }
 
-                        this.startGame = false;
+                        
                         this.birds.splice(0, this.birds.length);
 
 

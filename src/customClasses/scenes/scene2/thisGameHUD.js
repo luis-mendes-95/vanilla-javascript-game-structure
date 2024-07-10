@@ -16,11 +16,11 @@ export class thisGameHUD extends Hud {
         }
 
         if(!this.game.stagesDone.includes("FLOWERS")){
-            this.currentGameText += " HORTA "
+            this.currentGameText += " JARDIM "
         }
 
         if(!this.game.stagesDone.includes("VEGETABLES")){
-            this.currentGameText += " JARDIM "
+            this.currentGameText += " HORTA "
         }     
 
         /**FARM SIGN */

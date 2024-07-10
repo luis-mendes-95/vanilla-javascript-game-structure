@@ -1170,7 +1170,7 @@ export class Scene4 {
             (()=>{
                 
                 setInterval(() => {
-                    if(this.birds.length === 0 && this.startGame){
+                    if(this.birds.length === 0 && this.startGame && !this.correctAnswer && !this.wrongAnswer && !this.fruitsStolen){
                         let currentBird = new Sprite(
                             [
                                 this.birdImage, /** FLYING */
