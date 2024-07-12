@@ -202,6 +202,7 @@ export class Scene2 {
     }
 
     update(deltaTime) {
+        console.log(this.game.stagesDone);
         /** ELEMENTS APPEARING | ELEMENTS DISAPPEARING */
         (() => {
             if (!this.calledNextScene) {
@@ -270,7 +271,7 @@ export class Scene2 {
             }
 
             /**GARDEN BUTTON CLICK OR TOUCH */
-            if (this.hud.buttonGarden.isMouseClicking() && !this.game.stagesDone.includes("VEGETABLES") || this.hud.buttonGarden.isTouchOver(this.game.input.touches)) {
+            if (this.hud.buttonGarden.isMouseClicking() && !this.game.stagesDone.includes("VEGETABLES") || this.hud.buttonGarden.isTouchOver(this.game.input.touches) && !this.game.stagesDone.includes("VEGETABLES") ) {
                 this.game.currentStage = 1;
                 
                 window.addEventListener('touchend', () => {
@@ -283,7 +284,7 @@ export class Scene2 {
             }
 
             /**FLOWERS BUTTON CLICK OR TOUCH */
-            if (this.hud.buttonFlowers.isMouseClicking() || this.hud.buttonFlowers.isTouchOver(this.game.input.touches)) {
+            if (this.hud.buttonFlowers.isMouseClicking() && !this.game.stagesDone.includes("FLOWERS") || this.hud.buttonFlowers.isTouchOver(this.game.input.touches) && !this.game.stagesDone.includes("FLOWERS")) {
                 this.game.currentStage = 2;
                 
                 window.addEventListener('touchend', () => {

@@ -1790,15 +1790,31 @@ export class Scene7 {
                     if(this.toupeiras[i].isMouseClicking() && !this.game.isDraggingImage || this.toupeiras[i].isTouchOver() && !this.game.isDraggingImage){
 
                         this.toupeiraPunched = true;
+                        console.log("chego aqui")
                         setTimeout(() => {
                             this.toupeiraPunched = false;
-                        }, 2000);
+                        }, 5000);
 
                         for(let j = 0; j < this.fruits.length; j++){
                             if(this.fruits[j]){
                                 if(this.fruits[j].collidesWith(this.toupeiras[i])){
                                     if(this.fruits[this.currentTarget]){
                                         this.fruits[this.currentTarget].draggedRight = false;
+                                    }
+                                    this.protectFruit = true;
+                                    
+                                    setTimeout(() => {
+                                        this.protectFruit = false;
+                                    }, 1500);
+                                }
+                            }
+                        }
+
+                        for(let k = 0; k < this.fruits2.length; k++){
+                            if(this.fruits2[k]){
+                                if(this.fruits[k].collidesWith(this.toupeiras[i])){
+                                    if(this.fruits2[this.currentTarget - 5]){
+                                        this.fruits2[this.currentTarget - 5].draggedRight = false;
                                     }
                                     this.protectFruit = true;
                                     
