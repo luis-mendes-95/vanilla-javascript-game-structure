@@ -60,7 +60,13 @@ export class Scene8 {
                     {x: this.game.width * 0.32, y: this.game.height * 0.34},
                     {x: this.game.width * 0.18, y: this.game.height * 0.34},
                     {x: this.game.width * 0.45, y: this.game.height * 0.34},
-                    {x: this.game.width * 0.52, y: this.game.height * 0.34}
+                    {x: this.game.width * 0.52, y: this.game.height * 0.34},
+
+                    {x: this.game.width * 0.07, y: this.game.height * 0.16},
+                    {x: this.game.width * 0.32, y: this.game.height * 0.16},
+                    {x: this.game.width * 0.18, y: this.game.height * 0.16},
+                    {x: this.game.width * 0.45, y: this.game.height * 0.16},
+                    {x: this.game.width * 0.52, y: this.game.height * 0.16}
                 ];
                 this.tomatoesLocations = [
                     {x: this.game.width * 0.07, y: this.game.height * 0.52},
@@ -101,10 +107,13 @@ export class Scene8 {
                      this.choosedVegetable2 === this.choosedVegetable3 ||
                      this.choosedVegetable3 === 4 || this.choosedVegetable3 === 5  ||
                      this.choosedVegetable3 === this.choosedVegetable){
-                    this.choosedVegetable = Math.floor(Math.random() * 4);
-                    this.choosedVegetable2 = Math.floor(Math.random() * 4);
-                    this.choosedVegetable3 = Math.floor(Math.random() * 4);
+                    this.choosedVegetable = Math.floor(Math.random() * 5);
+                    this.choosedVegetable2 = Math.floor(Math.random() * 5);
+                    this.choosedVegetable3 = Math.floor(Math.random() * 5);
                 }
+
+                
+                
                 
 
             })();
@@ -481,12 +490,12 @@ export class Scene8 {
 
                     this.fruitIndicator = new Image(
                         this.game, /**GAME */
-                        (this.game.width * 0.25), /**X */
-                        (this.height * 0.7), /**Y */
-                        (this.game.width * 0.42), /**WIDTH */
+                        (this.game.width * 0.1), /**X */
+                        (this.height * 0.69), /**Y */
+                        (this.game.width * 0.6), /**WIDTH */
                         (this.game.height * 0.22), /**HEIGHT */
                         0, /**ROTATION */
-                        this.score2,  /**IMAGE */
+                        this.score3,  /**IMAGE */
                         1, /**OPACITY */
                         null, /**TEXT */
                         (this.height * 0.1), /**TEXT SPACING */
@@ -499,8 +508,8 @@ export class Scene8 {
                         true, /**MOUSE HOVER */
                         null, /**TEXTS ALIGN -> ROW OR COLUMN */
                         `${this.fruitsToDrag}`, /**UNIQUE TEXT */
-                        (this.game.width * 0.285), // UNIQUE TEXT X
-                        (this.game.height * 0.8), // UNIQUE TEXT Y
+                        (this.game.width * 0.135), // UNIQUE TEXT X
+                        (this.game.height * 0.79), // UNIQUE TEXT Y
                         false, // CURSOR VISIBLE (added to match constructor parameters)
                         0, // TEXT OFFSET X (added to match constructor parameters)
                         0, // TEXT OFFSET Y (added to match constructor parameters)
@@ -509,14 +518,20 @@ export class Scene8 {
 
                     let currentVegetableImage = null;
                     let currentVegetableImage2 = null;
+                    let currentVegetableImage3 = null;
                     let currentWidth = null;
                     let currentWidth2 = null;
+                    let currentWidth3 = null;
                     let currentHeight = null;
                     let currentHeight2 = null;
+                    let currentHeight3 = null;
                     let currentY = null;
                     let currentY2 = null;
+                    let currentY3 = null;
                     let currentX = null;
                     let currentX2 = null;
+                    let currentX3 = null;
+                    
 
                     if(this.choosedVegetable === 0){
 
@@ -525,7 +540,7 @@ export class Scene8 {
                         currentHeight = this.game.height * 0.12;
                         currentWidth = this.game.width * 0.08;
                         currentY = this.game.height * 0.75;
-                        currentX = this.game.width * 0.33;
+                        currentX = this.game.width * 0.18;
 
                     } else if (this.choosedVegetable === 1){
 
@@ -534,7 +549,7 @@ export class Scene8 {
                         currentHeight = this.game.height * 0.12;
                         currentWidth = this.game.width * 0.08;
                         currentY = this.game.height * 0.75;
-                        currentX = this.game.width * 0.33;
+                        currentX = this.game.width * 0.18;
 
                     } else if (this.choosedVegetable === 2){
 
@@ -542,8 +557,8 @@ export class Scene8 {
                         currentVegetableImage = this.beterraba;
                         currentHeight = this.game.height * 0.15;
                         currentWidth = this.game.width * 0.035;
-                        currentY = this.game.height * 0.74;
-                        currentX = this.game.width * 0.35;
+                        currentY = this.game.height * 0.725;
+                        currentX = this.game.width * 0.2;
 
                     } else if (this.choosedVegetable === 3){
 
@@ -552,7 +567,7 @@ export class Scene8 {
                         currentHeight = this.game.height * 0.15;
                         currentWidth = this.game.width * 0.05;
                         currentY = this.game.height * 0.73;
-                        currentX = this.game.width * 0.34;
+                        currentX = this.game.width * 0.2;
 
                     } else if (this.choosedVegetable === 4){
 
@@ -560,7 +575,7 @@ export class Scene8 {
                         currentHeight = this.game.height * 0.12;
                         currentWidth = this.game.width * 0.08;
                         currentY = this.game.height * 0.78;
-                        currentX = this.game.width * 0.33;
+                        currentX = this.game.width * 0.18;
 
                     } else if (this.choosedVegetable === 5){
 
@@ -569,7 +584,7 @@ export class Scene8 {
                         currentHeight = this.game.height * 0.12;
                         currentWidth = this.game.width * 0.08;
                         currentY = this.game.height * 0.78;
-                        currentX = this.game.width * 0.33;
+                        currentX = this.game.width * 0.18;
 
                     }
 
@@ -580,7 +595,7 @@ export class Scene8 {
                         currentHeight2 = this.game.height * 0.12;
                         currentWidth2 = this.game.width * 0.08;
                         currentY2 = this.game.height * 0.75;
-                        currentX2 = this.game.width * 0.53;
+                        currentX2 = this.game.width * 0.38;
 
                     } else if (this.choosedVegetable2 === 1){
 
@@ -589,7 +604,7 @@ export class Scene8 {
                         currentHeight2 = this.game.height * 0.12;
                         currentWidth2 = this.game.width * 0.08;
                         currentY2 = this.game.height * 0.75;
-                        currentX2 = this.game.width * 0.53;
+                        currentX2 = this.game.width * 0.38;
 
                     } else if (this.choosedVegetable2 === 2){
 
@@ -597,8 +612,8 @@ export class Scene8 {
                         currentVegetableImage2 = this.beterraba;
                         currentHeight2 = this.game.height * 0.15;
                         currentWidth2 = this.game.width * 0.035;
-                        currentY2 = this.game.height * 0.74;
-                        currentX2 = this.game.width * 0.55;
+                        currentY2 = this.game.height * 0.72;
+                        currentX2 = this.game.width * 0.385;
 
                     } else if (this.choosedVegetable2 === 3){
 
@@ -607,7 +622,7 @@ export class Scene8 {
                         currentHeight2 = this.game.height * 0.15;
                         currentWidth2 = this.game.width * 0.05;
                         currentY2 = this.game.height * 0.73;
-                        currentX2 = this.game.width * 0.54;
+                        currentX2 = this.game.width * 0.38;
 
                     } else if (this.choosedVegetable2 === 4){
 
@@ -615,7 +630,7 @@ export class Scene8 {
                         currentHeight2 = this.game.height * 0.12;
                         currentWidth2 = this.game.width * 0.08;
                         currentY2 = this.game.height * 0.78;
-                        currentX2 = this.game.width * 0.53;
+                        currentX2 = this.game.width * 0.38;
 
                     } else if (this.choosedVegetable2 === 5){
 
@@ -624,9 +639,61 @@ export class Scene8 {
                         currentHeight2 = this.game.height * 0.12;
                         currentWidth2 = this.game.width * 0.08;
                         currentY2 = this.game.height * 0.78;
-                        currentX2 = this.game.width * 0.53;
+                        currentX2 = this.game.width * 0.37;
 
                     }
+
+                    if(this.choosedVegetable3 === 0){
+                        console.log("to aqui otário")
+
+                        /**ABÓBORA */
+                        currentVegetableImage3 = this.abobora;
+                        currentHeight3 = this.game.height * 0.12;
+                        currentWidth3 = this.game.width * 0.09;
+                        currentY3 = this.game.height * 0.75;
+                        currentX3 = this.game.width * 0.57;
+                    } else if (this.choosedVegetable3 === 1){
+
+                        /**ALFACE */
+                        currentVegetableImage3 = this.alface;
+                        currentHeight3 = this.game.height * 0.12;
+                        currentWidth3 = this.game.width * 0.08;
+                        currentY3 = this.game.height * 0.75;
+                        currentX3 = this.game.width * 0.57;
+
+                    } else if (this.choosedVegetable3 === 2){
+
+                        /**BETERRABA*/
+                        currentVegetableImage3 = this.beterraba;
+                        currentHeight3 = this.game.height * 0.15;
+                        currentWidth3 = this.game.width * 0.035;
+                        currentY3 = this.game.height * 0.72;
+                        currentX3 = this.game.width * 0.58;
+                    } else if (this.choosedVegetable3 === 3){
+
+                        /**CENOURA */
+                        currentVegetableImage3 = this.cenoura;
+                        currentHeight3 = this.game.height * 0.15;
+                        currentWidth3 = this.game.width * 0.05;
+                        currentY3 = this.game.height * 0.73;
+                        currentX3 = this.game.width * 0.58;
+                    } else if (this.choosedVegetable3 === 4){
+
+                        currentVegetableImage3 = this.tomate;
+                        currentHeight3 = this.game.height * 0.12;
+                        currentWidth3 = this.game.width * 0.08;
+                        currentY3 = this.game.height * 0.78;
+                        currentX3 = this.game.width * 0.58;
+                    } else if (this.choosedVegetable3 === 5){
+
+                        /**ABÓBORA */
+                        currentVegetableImage3 = this.tomate;
+                        currentHeight3 = this.game.height * 0.12;
+                        currentWidth3 = this.game.width * 0.08;
+                        currentY3 = this.game.height * 0.78;
+                        currentX3 = this.game.width * 0.58;
+                    }
+
 
                     this.fruitToCatch = new Image(
                         this.game, /**GAME */
@@ -648,8 +715,8 @@ export class Scene8 {
                         true, /**MOUSE HOVER */
                         null, /**TEXTS ALIGN -> ROW OR COLUMN */
                         `${this.fruitsToDrag}`, /**UNIQUE TEXT */
-                        (this.game.width * 0.285), // UNIQUE TEXT X
-                        (this.game.height * 0.8), // UNIQUE TEXT Y
+                        (this.game.width * 0.135), // UNIQUE TEXT X
+                        (this.game.height * 0.79), // UNIQUE TEXT Y
                         false, // CURSOR VISIBLE (added to match constructor parameters)
                         0, // TEXT OFFSET X (added to match constructor parameters)
                         0, // TEXT OFFSET Y (added to match constructor parameters)
@@ -676,8 +743,36 @@ export class Scene8 {
                         true, /**MOUSE HOVER */
                         null, /**TEXTS ALIGN -> ROW OR COLUMN */
                         `${this.fruitsToDrag2}`, /**UNIQUE TEXT */
-                        (this.game.width * 0.485), // UNIQUE TEXT X
-                        (this.game.height * 0.8), // UNIQUE TEXT Y
+                        (this.game.width * 0.325), // UNIQUE TEXT X
+                        (this.game.height * 0.785), // UNIQUE TEXT Y
+                        false, // CURSOR VISIBLE (added to match constructor parameters)
+                        0, // TEXT OFFSET X (added to match constructor parameters)
+                        0, // TEXT OFFSET Y (added to match constructor parameters)
+                        true // HOVER SCALE (added to match constructor parameters)
+                    );
+
+                    this.fruitToCatch3 = new Image(
+                        this.game, /**GAME */
+                        currentX3, /**X */
+                        currentY3, /**Y */
+                        currentWidth3, // WIDTH
+                        currentHeight3, // HEIGHT
+                        0, /**ROTATION */
+                        currentVegetableImage3,  /**IMAGE */
+                        1, /**OPACITY */
+                        null, /**TEXT */
+                        (this.height * 0.1), /**TEXT SPACING */
+                        "PatrickHand", /**TEXT FONT */
+                        "bold", /**FONT WEIGHT */
+                        (this.height * 0.06), /**FONT SIZE */
+                        (this.game.width * 0.365), /**TEXT X */
+                        (this.height * 1.50), /**TEXT Y */
+                        "black", /**TEXT COLOR */
+                        true, /**MOUSE HOVER */
+                        null, /**TEXTS ALIGN -> ROW OR COLUMN */
+                        `${this.fruitsToDrag3}`, /**UNIQUE TEXT */
+                        (this.game.width * 0.515), // UNIQUE TEXT X
+                        (this.game.height * 0.785), // UNIQUE TEXT Y
                         false, // CURSOR VISIBLE (added to match constructor parameters)
                         0, // TEXT OFFSET X (added to match constructor parameters)
                         0, // TEXT OFFSET Y (added to match constructor parameters)
@@ -1352,6 +1447,32 @@ export class Scene8 {
                         }
 
 
+                        /**VEGETABLE 3 */
+                        if(this.choosedVegetable3 === 0){
+                            for(let i = 10; i < 15; i++){
+                                this.createVegetable3(this.abobora, this.fruitsLocations[i].x, this.fruitsLocations[i].y, ["FRUIT_3"]);
+                            }
+                        }
+
+                        if(this.choosedVegetable3 === 1){
+                            for(let i = 10; i < 15; i++){
+                                this.createVegetable3(this.alface, this.fruitsLocations[i].x, this.fruitsLocations[i].y, ["FRUIT_3"]);
+                            }
+                        }
+
+                        if(this.choosedVegetable3 === 2){
+                            for(let i = 10; i < 15; i++){
+                                this.createVegetable3(this.beterraba, this.fruitsLocations[i].x, this.fruitsLocations[i].y, ["FRUIT_3"]);
+                            }
+                        }
+
+                        if(this.choosedVegetable3 === 3){
+                            for(let i = 10; i < 15; i++){
+                                this.createVegetable3(this.cenoura, this.fruitsLocations[i].x, this.fruitsLocations[i].y, ["FRUIT_3"]);
+                            }
+                        }
+
+
 
 
                     })();
@@ -1408,16 +1529,18 @@ export class Scene8 {
                 this.justGrabbed = false;
 
                 /**NUMBER BETWEEN 0 AND 8 */
-                this.currentTarget = Math.floor(Math.random() * (this.fruits.length + this.fruits2.length));
+                this.currentTarget = Math.floor(Math.random() * (this.fruits.length + this.fruits2.length + this.fruits3.length));
             })();
 
         })();
 
         setInterval(() => {
 
+            console.log("Toupeira Punched: " + this.toupeiraPunched);
 
 
-        }, 1000);
+
+        }, 100);
 
 
     }
@@ -1437,7 +1560,7 @@ export class Scene8 {
                         if(this.fruits[this.currentTarget].isGrabbed ||
                             this.fruits[this.currentTarget].collidesWith(this.basket) ||
                             this.fruits[this.currentTarget].y > (this.game.height * 0.9) + this.fruits[this.currentTarget].height ){
-                                this.currentTarget = Math.floor(Math.random() * (this.fruits.length + this.fruits2.length));
+                                this.currentTarget = Math.floor(Math.random() * (this.fruits.length + this.fruits2.length + this.fruits3.length));
                          }
                     }
                 }
@@ -1509,17 +1632,27 @@ export class Scene8 {
                             if(this.fruits[this.currentTarget].tags.includes("TOMATEIRO")){
                                 this.toupeiras[i].moveTo(this.tomatoesLocations[this.currentTarget].x, this.tomatoesLocations[this.currentTarget].y - 175, 5);
                             } else {
-                                this.toupeiras[i].moveTo(this.fruitsLocations[this.currentTarget].x, this.fruitsLocations[this.currentTarget].y - 175, 5);
+                                if(!this.toupeiraPunched){
+                                    this.toupeiras[i].moveTo(this.fruitsLocations[this.currentTarget].x, this.fruitsLocations[this.currentTarget].y - 175, 5);
+                                } else {
+                                    this.toupeiras[i].moveTo(this.fruitsLocations[this.currentTarget].x, this.height * 1.2, 5);
+                                }
                             }
 
                         } else {
                             
-                            this.toupeiras[i].moveTo(this.fruitsLocations[this.currentTarget].x, this.game.height * 1.16, 3);
+                            if(!this.toupeiraPunched){
+                                this.toupeiras[i].moveTo(this.fruitsLocations[this.currentTarget].x, this.game.height * 1.16, 3);
+                            } else {
+                                this.toupeiras[i].moveTo(this.fruitsLocations[this.currentTarget].x, this.height * 1.2, 5);
+                            }
                         }
     
                         if(this.toupeiras[i].collidesWith(this.fruits[this.currentTarget])){
                             this.fruits[this.currentTarget].draggedRight = true;
-                            this.fruits[this.currentTarget].moveTo(this.toupeiras[i].x + 50, this.toupeiras[i].y + 145, 3.5);
+                            if(!this.toupeiraPunched){
+                                this.fruits[this.currentTarget].moveTo(this.toupeiras[i].x + 50, this.toupeiras[i].y + 145, 3.5);
+                            }
                             setTimeout(() => {
                                 this.justGrabbed = true;
                             }, 2500);
@@ -1553,17 +1686,26 @@ export class Scene8 {
                             if(this.fruits2[this.currentTarget - 5].tags.includes("TOMATEIRO")){
                                 this.toupeiras[i].moveTo(this.tomatoesLocations[this.currentTarget].x, this.tomatoesLocations[this.currentTarget].y - 175, 5);
                             } else {
+                                if(!this.toupeiraPunched) {
                                 this.toupeiras[i].moveTo(this.fruitsLocations[this.currentTarget].x, this.fruitsLocations[this.currentTarget].y - 175, 5);
+                                } else {
+                                    this.toupeiras[i].moveTo(this.fruitsLocations[this.currentTarget].x, this.height * 1.2, 5);
+                                }
                             }
 
                         } else {
-                            
+                            if(!this.toupeiraPunched){
                             this.toupeiras[i].moveTo(this.fruitsLocations[this.currentTarget].x, this.game.height * 1.16, 3);
+                            } else {
+                                this.toupeiras[i].moveTo(this.fruitsLocations[this.currentTarget].x, this.height * 1.2, 5);
+                            }
                         }
     
                         if(this.toupeiras[i].collidesWith(this.fruits2[this.currentTarget - 5])){
                             this.fruits2[this.currentTarget - 5].draggedRight = true;
-                            this.fruits2[this.currentTarget - 5].moveTo(this.toupeiras[i].x + 50, this.toupeiras[i].y + 145, 3.5);
+                            if(!this.toupeiraPunched){
+                                this.fruits2[this.currentTarget - 5].moveTo(this.toupeiras[i].x + 50, this.toupeiras[i].y + 145, 3.5);
+                            }
                             setTimeout(() => {
                                 this.justGrabbed = true;
                             }, 2500);
@@ -1597,17 +1739,26 @@ export class Scene8 {
                             if(this.fruits3[this.currentTarget - 10].tags.includes("TOMATEIRO")){
                                 this.toupeiras[i].moveTo(this.tomatoesLocations[this.currentTarget].x, this.tomatoesLocations[this.currentTarget].y - 175, 5);
                             } else {
+                                if(!this.toupeiraPunched){
                                 this.toupeiras[i].moveTo(this.fruitsLocations[this.currentTarget].x, this.fruitsLocations[this.currentTarget].y - 175, 5);
+                                } else {
+                                    this.toupeiras[i].moveTo(this.fruitsLocations[this.currentTarget].x, this.height * 1.2, 5);
+                                }
                             }
 
                         } else {
-                            
+                            if(!this.toupeiraPunched){
                             this.toupeiras[i].moveTo(this.fruitsLocations[this.currentTarget].x, this.game.height * 1.16, 3);
+                            } else {
+                                this.toupeiras[i].moveTo(this.fruitsLocations[this.currentTarget].x, this.height * 1.2, 5);
+                            }
                         }
     
                         if(this.toupeiras[i].collidesWith(this.fruits3[this.currentTarget - 10])){
                             this.fruits3[this.currentTarget - 10].draggedRight = true;
-                            this.fruits3[this.currentTarget - 10].moveTo(this.toupeiras[i].x + 50, this.toupeiras[i].y + 145, 3.5);
+                            if(!this.toupeiraPunched){
+                                this.fruits3[this.currentTarget - 10].moveTo(this.toupeiras[i].x + 50, this.toupeiras[i].y + 145, 3.5);
+                            }
                             setTimeout(() => {
                                 this.justGrabbed = true;
                             }, 2500);
@@ -1749,11 +1900,6 @@ export class Scene8 {
                     this.calledNextScene = true;
                 }
 
-                
-
-
-
-
             } else {
 
                 if(!this.startGame){
@@ -1802,6 +1948,7 @@ export class Scene8 {
                             this.fruitIndicator.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
                             this.fruitToCatch.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
                             this.fruitToCatch2.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
+                            this.fruitToCatch3.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
                             this.productsQtyIndicator.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
                             this.buttonFullScreen.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
                             this.buttonShowKeyboard.moveTo(this.game.width * -1, this.game.height * 1, (this.game.speed * 1));
@@ -1905,7 +2052,6 @@ export class Scene8 {
                     if(this.toupeiras[i].isMouseClicking() && !this.game.isDraggingImage || this.toupeiras[i].isTouchOver() && !this.game.isDraggingImage){
 
                         this.toupeiraPunched = true;
-                        console.log("chego aqui")
                         setTimeout(() => {
                             this.toupeiraPunched = false;
                         }, 5000);
@@ -1972,7 +2118,24 @@ export class Scene8 {
                             }
                         }
 
+                        if(this.currentTarget > 9){ {
+                            for(let j = 0; j < this.fruits3.length; j++){
+                                if(this.fruits3[j]){
+                                    if(this.fruits3[j].collidesWith(this.toupeiras[i])){
+                                        if(this.fruits3[this.currentTarget - 10]){
+                                            this.fruits3[this.currentTarget - 10].draggedRight = false;
+                                        }
+                                        this.protectFruit = true;
+                                        
+                                        setTimeout(() => {
+                                            this.protectFruit = false;
+                                        }, 1500);
+                                    }
+                                }
+                            }
+                        }
 
+                    }
                 }}
             }
             })();
@@ -2079,7 +2242,7 @@ export class Scene8 {
                             console.log(this.fruitsInBasket);
                             //console.log(fruits2InBasket);
 
-                            if(fruits1InBasket === this.fruitsToDrag && fruits2InBasket === this.fruitsToDrag2){
+                            if(fruits1InBasket === this.fruitsToDrag && fruits2InBasket === this.fruitsToDrag2 && fruits3InBasket === this.fruitsToDrag3){
                                 this.correctAnswer = true;
                             } else {
                                 this.wrongAnswer = true;
@@ -2119,6 +2282,7 @@ export class Scene8 {
 
                     this.stolenFruits = [];
                     this.stolenFruits2 = [];
+                    this.stolenFruits3 = [];
 
                     /**RETURN BASKET FRUITS TO THE TREE */
                     for (let i = 0; i < this.fruits.length; i++) {
@@ -2129,12 +2293,16 @@ export class Scene8 {
                         this.fruits2[i].dropped = false;
                         this.fruits2[i].draggedRight = false;
                     }
-
+                    for (let i = 0; i < this.fruits3.length; i++) {
+                        this.fruits3[i].dropped = false;
+                        this.fruits3[i].draggedRight = false;
+                    }
                     this.correctAnswer = false;
                     this.wrongAnswer = false;
                     this.fruitsStolen = false;
                     this.stoleLimit = (this.fruits.length - this.fruitsToDrag) - this.stolenFruits.length;
                     this.stoleLimit2 = (this.fruits2.length - this.fruitsToDrag2) - this.stolenFruits2.length;
+                    this.stoleLimit3 = (this.fruits3.length - this.fruitsToDrag3) - this.stolenFruits3.length;
                    
 
                     
@@ -2226,6 +2394,20 @@ export class Scene8 {
                 }
             })();
 
+            /**FRUITS 3*/
+            (()=>{
+                if(this.startGame && !this.fruitsStolen && !this.correctAnswer && !this.wrongAnswer){
+                    for(let i = 0; i < this.fruits3.length; i++){
+                        this.fruits3[i].update(deltaTime);
+                        this.fruits3[i].draggable = true;
+                    }
+                } else {
+                    for(let i = 0; i < this.fruits3.length; i++){
+                        this.fruits3[i].draggable = false;
+                    }
+                }
+            })();
+
             /**TOMATOES */
             (()=>{
                 for(let i = 0; i < this.tomatoes.length; i++){
@@ -2278,6 +2460,21 @@ export class Scene8 {
 
                 }
 
+                for (let i = 0; i < this.fruits3.length; i++) {
+
+                    if (this.fruits3[i].collidesWith(this.basket) && this.fruits3[i].dropped && !this.wrongAnswer && !this.restart) {
+                        // Verifica se a fruta está no array fruitsInBasket
+                        const isFruitAlreadyInBasket = this.fruitsInBasket.some(fruitInBasket => fruitInBasket === this.fruits3[i]);
+                        if (!isFruitAlreadyInBasket) {
+                            this.fruits3[i].draggedRight = true;
+                            this.fruitsInBasket.push(this.fruits3[i]);
+                        }
+                        // Marca a fruta como não soltável novamente para evitar duplicatas
+                        this.fruits3[i].dropped = false;
+                        
+                    }
+
+                }
 
 
                 for (let i = 0; i < this.fruitsInBasket.length; i++) {
@@ -2558,6 +2755,13 @@ export class Scene8 {
                 }
             }
 
+            /** FRUITS 3 */
+            for(let i = 0; i < this.fruits3.length; i++){
+                if(this.fruits3[i].x < (this.game.width * 0.8)){
+                    this.fruits3[i].draw(ctx, 0);
+                }
+            }
+
             this.ground2.draw(ctx, 0);
             this.ground3.draw(ctx, 0);
 
@@ -2666,6 +2870,13 @@ export class Scene8 {
                 }
             }
 
+            /** FRUITS 3 */
+            for(let i = 0; i < this.fruits3.length; i++){
+                if(this.fruits3[i].x > (this.game.width * 0.6)){
+                    this.fruits3[i].draw(ctx, 0);
+                }
+            }
+
         /**FRUITS*/
         (()=>{
 
@@ -2688,7 +2899,7 @@ export class Scene8 {
             /**FRUITS TO CATCH INDICATOR */
             this.fruitToCatch.draw(ctx, 0);
             this.fruitToCatch2.draw(ctx, 0);
-            
+            this.fruitToCatch3.draw(ctx, 0);
 
 
         })();
@@ -2918,6 +3129,89 @@ export class Scene8 {
         }
 
 
+
+
+        return currentFruit;
+    }
+
+    createVegetable3(fruit, x, y, tagss){
+
+        let currentHeight = null;
+        let currentWidth = null;
+        let isDraggable = true;
+        let canHover = true;
+        let tags = [];
+
+        if(fruit === this.abobora){
+            currentHeight = this.game.height * 0.15;
+            currentWidth = this.game.width * 0.1;
+        }
+
+        if(fruit === this.alface){
+            currentHeight = this.game.height * 0.13;
+            currentWidth = this.game.width * 0.09;
+        }
+
+        if(fruit === this.beterraba){
+            currentHeight = this.game.height * 0.22;
+            currentWidth = this.game.width * 0.05;
+        }
+
+        if(fruit === this.cenoura){
+            currentHeight = this.game.height * 0.2;
+            currentWidth = this.game.width * 0.06;
+        }
+
+        if(fruit === this.tomateiro){
+            currentHeight = this.game.height * 0.25;
+            currentWidth = this.game.width * 0.10;
+            y *= 0.76;
+            canHover = false;
+            tags.push("TOMATEIRO");
+        }
+
+        if(fruit === this.tomate){
+            currentWidth = 64;
+            currentHeight = 64;
+            canHover = true;
+        }
+
+        const currentFruit = new Image(
+            this.game, // GAME
+            x, // X
+            y, // Y
+            currentWidth, // WIDTH
+            currentHeight, // HEIGHT
+            0, // ROTATION
+            fruit,  // IMAGE
+            1, // OPACITY
+            null, // TEXT
+            (this.height * 0.1), // TEXT SPACING
+            "PatrickHand", // TEXT FONT
+            "bold", // FONT WEIGHT
+            (this.height * 0.06), // FONT SIZE
+            (this.game.width * 0.365), // TEXT X
+            (this.height * 1.50), // TEXT Y
+            "black", // TEXT COLOR
+            canHover, // MOUSE HOVER
+            null, // TEXTS ALIGN -> ROW OR COLUMN
+            ``, // UNIQUE TEXT
+            (this.game.width * 0.285), // UNIQUE TEXT X
+            (this.game.height * 0.82), // UNIQUE TEXT Y
+            false, // CURSOR VISIBLE (added to match constructor parameters)
+            0, // TEXT OFFSET X (added to match constructor parameters)
+            0, // TEXT OFFSET Y (added to match constructor parameters)
+            true, // HOVER SCALE (added to match constructor parameters)
+            1.5, // SCALE TO HOVER
+            0.15, // SCALE SPEED
+            isDraggable, // DRAGGABLE
+            25, /**GRAB RELEASE SPEED */
+            tagss, /**TAGS*/
+        );
+
+        if(fruit !== this.tomate){
+            this.fruits3.push(currentFruit);
+        }
 
 
         return currentFruit;
