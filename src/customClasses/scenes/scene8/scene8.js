@@ -60,13 +60,13 @@ export class Scene8 {
                     {x: this.game.width * 0.32, y: this.game.height * 0.34},
                     {x: this.game.width * 0.18, y: this.game.height * 0.34},
                     {x: this.game.width * 0.45, y: this.game.height * 0.34},
-                    {x: this.game.width * 0.58, y: this.game.height * 0.34},
+                    {x: this.game.width * 0.56, y: this.game.height * 0.34},
 
-                    {x: this.game.width * 0.09, y: this.game.height * 0.40},
-                    {x: this.game.width * 0.24, y: this.game.height * 0.40},
-                    {x: this.game.width * 0.38, y: this.game.height * 0.40},
-                    {x: this.game.width * 0.50, y: this.game.height * 0.40},
-                    {x: this.game.width * 0.6, y: this.game.height * 0.42}
+                    {x: this.game.width * 0.06, y: this.game.height * 0.40},
+                    {x: this.game.width * 0.18, y: this.game.height * 0.40},
+                    {x: this.game.width * 0.3, y: this.game.height * 0.40},
+                    {x: this.game.width * 0.41, y: this.game.height * 0.40},
+                    {x: this.game.width * 0.52, y: this.game.height * 0.42}
                 ];
                 this.tomatoesLocations = [
                     {x: this.game.width * 0.07, y: this.game.height * 0.52},
@@ -2758,12 +2758,12 @@ export class Scene8 {
 
             this.ground2.draw(ctx, 0);
 
-                        /** FRUITS 3 */
-                        for(let i = 0; i < this.fruits3.length; i++){
-                            if(this.fruits3[i].x < (this.game.width * 0.8)){
-                                this.fruits3[i].draw(ctx, 0);
-                            }
-                        }
+            /** FRUITS 3 */
+            for(let i = 0; i < this.fruits3.length; i++){
+                if(this.fruits3[i].x < (this.game.width * 0.8)){
+                    this.fruits3[i].draw(ctx, 0);
+                }
+            }
             
             this.ground3.draw(ctx, 0);
 
