@@ -11,6 +11,7 @@ import { Scene5 } from './src/customClasses/scenes/scene5/scene5.js';
 import { Scene6 } from './src/customClasses/scenes/scene6/scene6.js';
 import { Scene7 } from './src/customClasses/scenes/scene7/scene7.js';
 import { Scene8 } from './src/customClasses/scenes/scene8/scene8.js';
+import { scene11 } from './src/customClasses/scenes/scene11/scene11.js';
 
 /** AFTER EVERYTHING LOADS, IT WILL RUN */
 window.addEventListener('load', function() {
@@ -66,7 +67,7 @@ window.addEventListener('load', function() {
             .catch(error => console.log(error));
 
             /** SCENES MANAGEMENT */
-            this.currentScene = new Scene8(this);
+            this.currentScene = new scene11(this);
             
         }
 

@@ -48,6 +48,7 @@ body{
 .box,
 .ridden,
 .enemies,
-.vegetables {
+.vegetables,
+.flowers {
     display: none;
 }
