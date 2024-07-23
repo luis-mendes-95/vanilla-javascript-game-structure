@@ -833,7 +833,7 @@ export class scene11 {
                     0, /**OPACITY */
                     [
                         ``,
-                        `                MAS TOME CUIDADO COM AS lagartaS!`,
+                        `                MAS TOME CUIDADO COM AS LAGARTAS!`,
                         `                  ELAS PODEM ROUBAR OS VEGETAIS DA HORTA!  `,
                     ], /**TEXT */
                     (this.height * 0.1), /**TEXT SPACING */
@@ -929,7 +929,7 @@ export class scene11 {
                     0, /**OPACITY */
                     [
                         ``,
-                        `                   AS lagartaS ROUBARAM OS VEGETAIS!`,
+                        `                   AS LAGARTAS COMERAM OS VEGETAIS!`,
                         `                   PARA AFUGENTÁ-LAS, CLIQUE SOBRE ELES!  `,
                     ], /**TEXT */
                     (this.height * 0.1), /**TEXT SPACING */
@@ -1365,31 +1365,31 @@ export class scene11 {
 
                         /**VEGETABLE 1 */
                         if(this.choosedVegetable === 0){
-                            for(let i = 0; i < 5; i++){
+                            for(let i = 0; i < 4; i++){
                                 this.createVegetable(this.flor1, this.fruitsLocations[i].x, this.fruitsLocations[i].y, ["FRUIT_1"]);
                             }
                         }
 
                         if(this.choosedVegetable === 1){
-                            for(let i = 0; i < 5; i++){
+                            for(let i = 0; i < 4; i++){
                                 this.createVegetable(this.flor2, this.fruitsLocations[i].x, this.fruitsLocations[i].y, ["FRUIT_1"]);
                             }
                         }
 
                         if(this.choosedVegetable === 2){
-                            for(let i = 0; i < 5; i++){
+                            for(let i = 0; i < 4; i++){
                                 this.createVegetable(this.flor3, this.fruitsLocations[i].x, this.fruitsLocations[i].y, ["FRUIT_1"]);
                             }
                         }
 
                         if(this.choosedVegetable === 3){
-                            for(let i = 0; i < 5; i++){
+                            for(let i = 0; i < 4; i++){
                                 this.createVegetable(this.flor4, this.fruitsLocations[i].x, this.fruitsLocations[i].y, ["FRUIT_1"]);
                             }
                         }
 
                         if(this.choosedVegetable === 4 || this.choosedVegetable === 5){
-                            for(let i = 0; i < 5; i++){
+                            for(let i = 0; i < 4; i++){
 
                                 if(i !== -1 && i !== 2 && i !== 3){
                                     this.createVegetable(this.tomateiro, this.fruitsLocations[i].x, this.fruitsLocations[i].y);                                    
@@ -1423,25 +1423,25 @@ export class scene11 {
 
                         /**VEGETABLE 2 */
                         if(this.choosedVegetable2 === 0){
-                            for(let i = 5; i < 10; i++){
+                            for(let i = 5; i < 9; i++){
                                 this.createVegetable2(this.flor1, this.fruitsLocations[i].x, this.fruitsLocations[i].y, ["FRUIT_2"]);
                             }
                         }
 
                         if(this.choosedVegetable2 === 1){
-                            for(let i = 5; i < 10; i++){
+                            for(let i = 5; i < 9; i++){
                                 this.createVegetable2(this.flor2, this.fruitsLocations[i].x, this.fruitsLocations[i].y, ["FRUIT_2"]);
                             }
                         }
 
                         if(this.choosedVegetable2 === 2){
-                            for(let i = 5; i < 10; i++){
+                            for(let i = 5; i < 9; i++){
                                 this.createVegetable2(this.flor3, this.fruitsLocations[i].x, this.fruitsLocations[i].y, ["FRUIT_2"]);
                             }
                         }
 
                         if(this.choosedVegetable2 === 3){
-                            for(let i = 5; i < 10; i++){
+                            for(let i = 5; i < 9; i++){
                                 this.createVegetable2(this.flor4, this.fruitsLocations[i].x, this.fruitsLocations[i].y, ["FRUIT_2"]);
                             }
                         }
@@ -1449,25 +1449,25 @@ export class scene11 {
 
                         /**VEGETABLE 3 */
                         if(this.choosedVegetable3 === 0){
-                            for(let i = 10; i < 15; i++){
+                            for(let i = 10; i < 14; i++){
                                 this.createVegetable3(this.flor1, this.fruitsLocations[i].x, this.fruitsLocations[i].y, ["FRUIT_3"]);
                             }
                         }
 
                         if(this.choosedVegetable3 === 1){
-                            for(let i = 10; i < 15; i++){
+                            for(let i = 10; i < 14; i++){
                                 this.createVegetable3(this.flor2, this.fruitsLocations[i].x, this.fruitsLocations[i].y, ["FRUIT_3"]);
                             }
                         }
 
                         if(this.choosedVegetable3 === 2){
-                            for(let i = 10; i < 15; i++){
+                            for(let i = 10; i < 14; i++){
                                 this.createVegetable3(this.flor3, this.fruitsLocations[i].x, this.fruitsLocations[i].y, ["FRUIT_3"]);
                             }
                         }
 
                         if(this.choosedVegetable3 === 3){
-                            for(let i = 10; i < 15; i++){
+                            for(let i = 10; i < 14; i++){
                                 this.createVegetable3(this.flor4, this.fruitsLocations[i].x, this.fruitsLocations[i].y, ["FRUIT_3"]);
                             }
                         }
@@ -1523,7 +1523,7 @@ export class scene11 {
                 
             })();
 
-            /**BIRD TARGET FUNCTIONS*/
+            /**lagarta TARGET FUNCTIONS*/
             (()=>{
                 this.lagartaPunched= false;
                 this.justGrabbed = false;
@@ -2998,11 +2998,7 @@ export class scene11 {
             tags.push("TOMATEIRO");
         }
 
-        if(fruit === this.flor4){
-            currentWidth = 64;
-            currentHeight = 64;
-            canHover = true;
-        }
+
 
         let currentTags = tags.join(tagss);
 
@@ -3011,8 +3007,8 @@ export class scene11 {
             this.game, // GAME
             x, // X
             y, // Y
-            currentWidth * 0.75, // WIDTH
-            currentHeight * 0.75, // HEIGHT
+            currentWidth, // WIDTH
+            currentHeight, // HEIGHT
             0, // ROTATION
             fruit,  // IMAGE
             1, // OPACITY
@@ -3040,10 +3036,8 @@ export class scene11 {
             tagss, /**TAGS*/
         );
 
-        if(fruit !== this.flor4){
-            this.fruits.push(currentFruit);
-        }
 
+        this.fruits.push(currentFruit);
 
 
 
@@ -3086,19 +3080,15 @@ export class scene11 {
             tags.push("TOMATEIRO");
         }
 
-        if(fruit === this.flor4){
-            currentWidth = 64;
-            currentHeight = 64;
-            canHover = true;
-        }
+
 
         
         const currentFruit = new Image(
             this.game, // GAME
             x, // X
             y, // Y
-            currentWidth * 0.75, // WIDTH
-            currentHeight * 0.75, // HEIGHT
+            currentWidth, // WIDTH
+            currentHeight, // HEIGHT
             0, // ROTATION
             fruit,  // IMAGE
             1, // OPACITY
@@ -3126,11 +3116,8 @@ export class scene11 {
             tagss, /**TAGS*/
         );
 
-        if(fruit !== this.flor4){
-            this.fruits2.push(currentFruit);
-        }
 
-
+        this.fruits2.push(currentFruit);
 
 
         return currentFruit;
@@ -3172,18 +3159,14 @@ export class scene11 {
             tags.push("TOMATEIRO");
         }
 
-        if(fruit === this.flor4){
-            currentWidth = 64;
-            currentHeight = 64;
-            canHover = true;
-        }
+
 
         const currentFruit = new Image(
             this.game, // GAME
             x, // X
             y, // Y
-            currentWidth * 0.75, // WIDTH
-            currentHeight * 0.75, // HEIGHT
+            currentWidth, // WIDTH
+            currentHeight, // HEIGHT
             0, // ROTATION
             fruit,  // IMAGE
             1, // OPACITY
@@ -3211,9 +3194,9 @@ export class scene11 {
             tagss, /**TAGS*/
         );
 
-        if(fruit !== this.flor4){
-            this.fruits3.push(currentFruit);
-        }
+
+        this.fruits3.push(currentFruit);
+
 
 
         return currentFruit;
